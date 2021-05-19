@@ -4,7 +4,6 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -25,7 +24,6 @@ import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:naifarm/app/ui/productdetail/widget/HeaderDetail.dart';
 import 'package:naifarm/app/ui/productdetail/widget/RatingProduct.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
@@ -131,7 +129,11 @@ class _ProductDetailViewState extends State<ProductDetailView>
         if (event != null) {
           if (event.status == 406) {
             FunctionHelper.alertDialogShop(context,
-                title: LocaleKeys.btn_error.tr(), message: event.message);
+                title: LocaleKeys.btn_error.tr(),
+                message: event.message, callCancle: () {
+              AppRoute.poppageCount(
+                  context: context, countpage: Platform.isAndroid ? 2 : 2);
+            });
           } else if (event.status == 0 || event.status >= 500) {
             Future.delayed(const Duration(milliseconds: 500), () {
               FunctionHelper.alertDialogRetry(context,
@@ -422,7 +424,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                               dataWishlist: item.dataWishlists,
                               scaffoldKey: _scaffoldKey,
                               isLogin: isLogin,
-                              callback_login: () {
+                              callbackLogin: () {
                                 iSLogin();
                                 Usermanager().getUser().then((value) {
                                   bloc.loadProductsPage(context,
@@ -479,7 +481,8 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                 titleInto: LocaleKeys.recommend_you_like.tr(),
                                 producViewModel:
                                     ProductViewModel().getBestSaller(),
-                                iconInto: 'assets/images/svg/like.svg',
+                                imageIcon: 'assets/images/png/like.png',
+                                iconSize: 5.0.w,
                                 onSelectMore: () {
                                   AppRoute.productMore(
                                       context: context,
@@ -580,13 +583,13 @@ class _ProductDetailViewState extends State<ProductDetailView>
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SvgPicture.asset(
-                                'assets/images/svg/message.svg',
+                              Image.asset(
+                                'assets/images/png/message.png',
                                 color: Colors.grey.shade300,
-                                width: SizeUtil.iconLargeSize().w,
-                                height: SizeUtil.iconLargeSize().w,
+                                width: (SizeUtil.iconLargeSize() + 3).w,
+                                height: (SizeUtil.iconLargeSize() + 1).w,
                               ),
-                              SizedBox(height: 1.0),
+                              // SizedBox(height: 1.0),
                               Text(
                                 LocaleKeys.btn_chat.tr(),
                                 style: FunctionHelper.fontTheme(
@@ -612,15 +615,15 @@ class _ProductDetailViewState extends State<ProductDetailView>
                           child: InkWell(
                             child: Stack(
                               children: [
-                                Transform.translate(
-                                  offset: animation.value,
-                                  child: Container(
-                                    child: Image.network(
-                                        "${Env.value.baseUrl}/storage/images/${widget.productItem.image.isNotEmpty ? widget.productItem.image[0].path : ''}"),
-                                    width: 10.0.w,
-                                    height: 10.0.w,
-                                  ),
-                                ),
+                                // Transform.translate(
+                                //   offset: animation.value,
+                                //   child: Container(
+                                //     child: Image.network(
+                                //         "${Env.value.baseUrl}/storage/images/${widget.productItem.image.isNotEmpty ? widget.productItem.image[0].path : ''}"),
+                                //     width: 10.0.w,
+                                //     height: 10.0.w,
+                                //   ),
+                                // ),
                                 Container(
                                   color: Colors.white,
                                   width: MediaQuery.of(context).size.width,

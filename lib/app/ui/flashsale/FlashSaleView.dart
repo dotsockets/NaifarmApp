@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/utility/widgets/ProductItemCard.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -35,19 +34,19 @@ class _FlashSaleState extends State<FlashSale> {
       children: [
         Container(
           width: MediaQuery.of(context).size.width,
-          margin: EdgeInsets.only(top: 5.0.h),
+          margin: EdgeInsets.only(top: 3.0.h),
           decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(SizeUtil.paddingBorderHome().w),
-                  topLeft: Radius.circular(SizeUtil.paddingBorderHome().w)),
+              // borderRadius: BorderRadius.only(
+              //     topRight: Radius.circular(SizeUtil.paddingBorderHome().w),
+              //     topLeft: Radius.circular(SizeUtil.paddingBorderHome().w)),
               border: Border.all(
                   width: 3, color: Colors.white, style: BorderStyle.solid)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: SizeUtil.sizedBoxHeight().h),
-             // Center(child: _textSale(context: context)),
+              // Center(child: textSale(context: context)),
               SizedBox(height: SizeUtil.paddingBox().h),
               onFlashSale ? _flashProduct(context) : SizedBox(),
               SizedBox(height: SizeUtil.paddingBox().h),
@@ -62,7 +61,7 @@ class _FlashSaleState extends State<FlashSale> {
     );
   }
 
-  Widget _textSale({BuildContext context}) {
+  Widget textSale({BuildContext context}) {
     return InkWell(
       child: Container(
         child: Row(
@@ -74,10 +73,10 @@ class _FlashSaleState extends State<FlashSale> {
                   fontWeight: FontWeight.w500,
                   fontSize: SizeUtil.titleFontSize().sp + 3.0),
             ),
-            SvgPicture.asset(
-              'assets/images/svg/next.svg',
-              height: 3.0.h,
-              width: 3.0.w,
+            Image.asset(
+              'assets/images/png/next.png',
+              height: 5.0.w,
+              width: 5.0.w,
             )
           ],
         ),

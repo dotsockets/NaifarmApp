@@ -3,7 +3,7 @@ import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -17,6 +17,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:regexed_validator/regexed_validator.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:sizer/sizer.dart';
 
 class LoginView extends StatefulWidget {
@@ -29,7 +30,8 @@ class LoginView extends StatefulWidget {
       {Key key,
       this.isCallBack = false,
       this.isHeader = true,
-      this.homeCallBack,this.isSetting=false})
+      this.homeCallBack,
+      this.isSetting = false})
       : super(key: key);
 
   @override
@@ -325,10 +327,10 @@ class _LoginViewState extends State<LoginView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    SvgPicture.asset(
-                      'assets/images/svg/facebook.svg',
-                      width: 2.0.w,
-                      height: 2.0.h,
+                    Image.asset(
+                      'assets/images/png/facebook.png',
+                      width: 3.0.w,
+                      height: 3.0.w,
                     ),
                     SizedBox(
                       width: 2.0.w,
@@ -344,6 +346,83 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
             ),
+            SizedBox(
+              height: 2.0.h,
+            ),
+            Platform.isIOS
+                ? Padding(
+                    padding: const EdgeInsets.only(right: 28, left: 28),
+                    child: TextButton(
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40.0),
+                          ),
+                        ),
+                        minimumSize: MaterialStateProperty.all(
+                          Size(SizeUtil.buttonWidth().w, 6.5.h),
+                        ),
+                        backgroundColor: MaterialStateProperty.all(
+                          Color(ColorUtils.hexToInt("#000000")),
+                        ),
+                        overlayColor: MaterialStateProperty.all(
+                          Colors.white.withOpacity(0.3),
+                        ),
+                      ),
+                      onPressed: () async {
+                        final credential =
+                            await SignInWithApple.getAppleIDCredential(
+                          scopes: [
+                            AppleIDAuthorizationScopes.email,
+                            AppleIDAuthorizationScopes.fullName,
+                          ],
+                        );
+
+                        bloc.customerLoginApple(
+                            context: context,
+                            accessToken: credential.identityToken);
+                        print("########### SignInWithApple ##################");
+                        print("credential =>  $credential");
+                        print("email =>  ${credential.email}");
+                        print("familyName =>  ${credential.familyName}");
+                        print("givenName =>  ${credential.givenName}");
+                        print("state =>  ${credential.state}");
+                        print(
+                            "userIdentifier =>  ${credential.userIdentifier}");
+                        print(
+                            "authorizationCode =>  ${credential.authorizationCode}");
+                        print("identityToken =>  ${credential.identityToken}");
+                        print("########### SignInWithApple ##################");
+
+                        // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(left: 2.0.w),
+                        width: 43.0.w,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Ionicons.logo_apple,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 2.0.w,
+                            ),
+                            Text(
+                              LocaleKeys.btn_apple.tr(),
+                              style: FunctionHelper.fontTheme(
+                                  color: Colors.white,
+                                  fontSize: SizeUtil.titleFontSize().sp,
+                                  fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                : SizedBox(),
             SizedBox(
               height: 3.0.h,
             ),
@@ -421,44 +500,40 @@ class _LoginViewState extends State<LoginView> {
             children: [
               widget.isHeader
                   ? Container(
-                    margin: EdgeInsets.only(left: 2.0.w, top: 2.0.w),
-                    child: IconButton(
-                      icon: Icon(
-                        Platform.isAndroid
-                            ? Icons.arrow_back
-                            : Icons.arrow_back_ios_rounded,
-                        color: Colors.white,
+                      margin: EdgeInsets.only(left: 2.0.w, top: 2.0.w),
+                      child: IconButton(
+                        icon: Icon(
+                          Platform.isAndroid
+                              ? Icons.arrow_back
+                              : Icons.arrow_back_ios_rounded,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context, false);
+                        },
                       ),
-                      onPressed: () {
-                        Navigator.pop(context, false);
-                      },
-                    ),
-                  )
+                    )
                   : SizedBox(
                       height: 1.5.h,
                     ),
-              widget.isSetting?IconButton(
-                padding: EdgeInsets.only(right: 2.0.w, top: 2.0.w),
-                icon: Icon(Icons.settings,
-                    color: Colors.white, size: SizeUtil.iconLargeSize().w),
-                onPressed: () async {
-                  // ignore: unused_local_variable
+              widget.isSetting
+                  ? IconButton(
+                      padding: EdgeInsets.only(right: 2.0.w, top: 2.0.w),
+                      icon: Icon(Icons.settings,
+                          color: Colors.white,
+                          size: SizeUtil.iconLargeSize().w),
+                      onPressed: () async {
+                        // ignore: unused_local_variable
 
-                  final result = await AppRoute.settingGuest(context,IsHeader: true,IsCallBack: false);
-                  if(result==false){
-                    NaiFarmLocalStorage.saveNowPage(0);
-                  }
-
-                },
-              ):SizedBox()
+                        final result = await AppRoute.settingGuest(context,
+                            isHeader: true, isCallBack: false);
+                        if (result == false) {
+                          NaiFarmLocalStorage.saveNowPage(0);
+                        }
+                      },
+                    )
+                  : SizedBox()
             ],
-          ),
-          Text(
-            "NaiFarm",
-            style: FunctionHelper.fontTheme(
-                color: Colors.white,
-                fontSize: SizeUtil.appNameFontSize().sp,
-                fontWeight: FontWeight.w500),
           ),
         ],
       ),

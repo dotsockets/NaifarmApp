@@ -5,7 +5,6 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
-import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/AssetImages.dart';
 import 'package:naifarm/app/model/pojo/response/FeedbackRespone.dart';

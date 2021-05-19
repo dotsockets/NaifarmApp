@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naifarm/app/bloc/NaiFarmBlocObserver.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
+import 'package:naifarm/app/bloc/Provider/HomeMenuIndex.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Provider/SettingReloadCubit.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
@@ -10,7 +11,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:naifarm/utility/OneSignalCall.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:flutter/material.dart';
 
 enum EnvType { DEVELOPMENT, STAGING, PRODUCTION }
 enum DeviceType { PHONE, TABLET }
@@ -36,7 +36,6 @@ class Env {
   }
 
   void _init() async {
-
     WidgetsFlutterBinding.ensureInitialized();
     var application = AppNaiFarmApplication();
     await application.onCreate();
@@ -46,7 +45,8 @@ class Env {
     runApp(
       EasyLocalization(
           supportedLocales: [Locale('en', 'US'), Locale('th', 'TH')],
-          path: 'resources/langs', // <-- change patch to your
+          path: 'resources/langs',
+          // <-- change patch to your
           fallbackLocale: Locale('th', 'TH'),
           startLocale: Locale('th', 'TH'),
           child: MultiBlocProvider(
@@ -62,6 +62,9 @@ class Env {
               ),
               BlocProvider(
                 create: (_) => SettingReloadCubit(),
+              ),
+              BlocProvider(
+                create: (_) => HomeMenuIndex(),
               ),
             ],
             child: BlocBuilder<SettingReloadCubit, bool>(builder: (_, status) {

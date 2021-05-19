@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:like_button/like_button.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
@@ -25,7 +24,7 @@ class ProductInto extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final bool showBtn;
   final bool isLogin;
-  final Function() callback_login;
+  final Function() callbackLogin;
 
   ProductInto(
       {Key key,
@@ -33,7 +32,7 @@ class ProductInto extends StatelessWidget {
       this.dataWishlist,
       this.scaffoldKey,
       this.showBtn = true,
-      this.callback_login,
+      this.callbackLogin,
       this.isLogin})
       : super(key: key);
   ProductBloc bloc;
@@ -152,7 +151,7 @@ class ProductInto extends StatelessWidget {
                   width: 1.0.w,
                 ),
                 Text(
-                    "${data.rating != null && data.rating != 0 ? data.rating : 0}",
+                    "${data.rating != null && data.rating != 0 ? data.rating.toStringAsFixed(2) : 0}",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp)),
                 SizedBox(
@@ -176,8 +175,8 @@ class ProductInto extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  child: SvgPicture.asset(
-                    'assets/images/svg/share.svg',
+                  child: Image.asset(
+                    'assets/images/png/share.png',
                     width: SizeUtil.checkMarkSize().w,
                     height: SizeUtil.checkMarkSize().w,
                     color: showBtn
@@ -247,7 +246,7 @@ class ProductInto extends StatelessWidget {
             isHeader: true,
             isSetting: false, homeCallBack: (bool fix) {
           if (fix) {
-            callback_login();
+            callbackLogin();
           }
 
           // iSLogin();
@@ -306,8 +305,8 @@ class ProductInto extends StatelessWidget {
         padding: const EdgeInsets.only(left: 10, bottom: 5, top: 5),
         child: Row(
           children: [
-            SvgPicture.asset(
-              'assets/images/svg/delivery.svg',
+            Image.asset(
+              'assets/images/png/delivery.png',
               width: 8.0.w,
               height: 8.0.w,
             ),

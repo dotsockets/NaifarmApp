@@ -46,7 +46,7 @@ class ProductMyShopRespone {
   List<ImageProductShop> image;
   int discountPercent;
   int rating;
-  double reviewCount;
+  int reviewCount;
 
   ProductMyShopRespone(
       {this.id,

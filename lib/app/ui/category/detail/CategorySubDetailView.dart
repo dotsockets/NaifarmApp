@@ -7,7 +7,6 @@ import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
-import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:naifarm/utility/widgets/ProductVertical.dart';
@@ -73,7 +72,7 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
             color: Colors.grey.shade300,
             child: Column(
               children: [
-              //  SizedBox(height: 1.2.h),
+                //  SizedBox(height: 1.2.h),
                 StreamBuilder(
                   stream: bloc.trendingGroup.stream,
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -85,7 +84,8 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
                               productRespone: snapshot.data,
                               titleInto: LocaleKeys.tab_bar_recommend.tr(),
                               //  showBorder: true,
-                              iconInto: 'assets/images/svg/like.svg',
+                              imageIcon: 'assets/images/png/like.png',
+                              iconSize: 5.0.w,
                               //  api_link: 'products',
                               onSelectMore: () {
                                 AppRoute.productMore(
@@ -134,7 +134,6 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
                       return ProductVertical(
                         titleInto: LocaleKeys.recommend_best_seller.tr(),
                         productRespone: snapshot.data,
-
                         imageIcon: 'assets/images/png/product_hot.png',
                         onSelectMore: () {
                           AppRoute.productMore(
@@ -151,7 +150,7 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
                                   ProductBloc.convertDataToProduct(data: item));
                         },
                         borderRadius: false,
-                        iconSize: SizeUtil.iconHeight().w,
+                        iconSize: 5.0.w,
                         tagHero: "sell_sub",
                       );
                     } else {

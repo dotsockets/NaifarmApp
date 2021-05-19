@@ -1,7 +1,6 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -61,7 +60,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         if (event.status > 400) {
           FunctionHelper.alertDialogRetry(context,
               title: LocaleKeys.btn_error.tr(),
-              message:event.message, callBack: () {
+              message: event.message, callBack: () {
             Usermanager().getUser().then((value) {
               for (var item in bloc.cartList.value.data) {
                 bloc.createOrder(context,
@@ -72,8 +71,9 @@ class _CartSummaryViewState extends State<CartSummaryView> {
             });
           });
         } else {
-         // FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
-          FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event.message);
+          // FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
+          FunctionHelper.alertDialogShop(context,
+              title: LocaleKeys.btn_error.tr(), message: event.message);
         }
         // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
@@ -94,9 +94,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
 
       Usermanager().getUser().then((value) =>
           bloc.addressesList(context, token: value.token, type: true));
-      bloc.getPaymentList(
-        context,shopIds: bloc.getAllShopID()
-      );
+      bloc.getPaymentList(context, shopIds: bloc.getAllShopID());
     }
   }
 
@@ -224,7 +222,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
     return Row(
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(SizeUtil.borderRadiusShop())),
+          borderRadius:
+              BorderRadius.all(Radius.circular(SizeUtil.borderRadiusShop())),
           child: CachedNetworkImage(
             width: 7.0.w,
             height: 7.0.w,
@@ -284,8 +283,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 //       size: 30,
                 //     )),
                 errorWidget: (context, url, error) => Container(
-                  width: 22.0.w,
-                  height: 22.0.w, child: NaifarmErrorWidget()),
+                    width: 22.0.w, height: 22.0.w, child: NaifarmErrorWidget()),
               ),
             ),
             SizedBox(width: 10),
@@ -306,24 +304,27 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                               fontSize: SizeUtil.titleFontSize().sp,
                               color: Colors.black)),
                       Row(
-
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           //   item.ProductDicount != 0 ?
-                          item.inventory.salePrice != null && item.inventory.offerPrice != null && item.inventory.offerPrice>0
+                          item.inventory.salePrice != null &&
+                                  item.inventory.offerPrice != null &&
+                                  item.inventory.offerPrice > 0
                               ? Text(
-                              "฿${NumberFormat("#,##0", "en_US").format(item.inventory.salePrice)}",
-                              style: FunctionHelper.fontTheme(
-                                  color: Colors.grey,
-                                  fontSize: SizeUtil.priceFontSize().sp-2,
-                                  decoration: TextDecoration.lineThrough))
+                                  "฿${NumberFormat("#,##0", "en_US").format(item.inventory.salePrice)}",
+                                  style: FunctionHelper.fontTheme(
+                                      color: Colors.grey,
+                                      fontSize: SizeUtil.priceFontSize().sp - 2,
+                                      decoration: TextDecoration.lineThrough))
                               : SizedBox(),
                           SizedBox(
-                              width: item.inventory.salePrice != null &&item.inventory.offerPrice != null
+                              width: item.inventory.salePrice != null &&
+                                      item.inventory.offerPrice != null
                                   ? 1.0.w
                                   : 0),
                           Text(
-                            item.inventory.offerPrice != null  && item.inventory.offerPrice !=0
+                            item.inventory.offerPrice != null &&
+                                    item.inventory.offerPrice != 0
                                 ? "฿${NumberFormat("#,##0", "en_US").format(item.inventory.offerPrice)}"
                                 : "฿${NumberFormat("#,##0", "en_US").format(item.inventory.salePrice)}",
                             maxLines: 1,
@@ -355,7 +356,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         color: Colors.white,
         padding: EdgeInsets.only(right: 5, left: 0),
         child: ListMenuItem(
-          icon: 'assets/images/svg/sale_cart.svg',
+          icon: 'assets/images/png/sale_cart.png',
           title: LocaleKeys.cart_discount_from.tr() + " Naifarm",
           message: "",
           iconSize: 8.0.w,
@@ -375,8 +376,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
       children: [
         Row(
           children: [
-            SvgPicture.asset(
-              'assets/images/svg/delivery.svg',
+            Image.asset(
+              'assets/images/png/delivery.png',
               width: 7.0.w,
               height: 7.0.w,
             ),
@@ -442,7 +443,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                             Icon(
                               Icons.arrow_forward_ios,
                               color: Colors.grey.withOpacity(0.7),
-                              size: SizeUtil.ratingSize().w ,
+                              size: SizeUtil.ratingSize().w,
                             )
                           ],
                         ),
@@ -595,7 +596,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                     return Container(
                         color: Colors.white,
                         child: ListMenuItem(
-                          icon: 'assets/images/svg/payment.svg',
+                          icon: 'assets/images/png/payment.png',
                           title: LocaleKeys.select.tr() +
                               LocaleKeys.me_title_pay.tr(),
                           message: data.name,
@@ -603,7 +604,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           fontWeight: FontWeight.w500,
                           onClick: () async {
                             final result = await AppRoute.cartBank(context,
-                                paymentRespone: bloc.paymentList.value,AllShopID: bloc.getAllShopID());
+                                paymentRespone: bloc.paymentList.value,
+                                allShopID: bloc.getAllShopID());
                             if (result != null) {
                               bloc.paymentList.add(result);
                             }
@@ -613,14 +615,16 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                     return Container(
                         color: Colors.white,
                         child: ListMenuItem(
-                          icon: 'assets/images/svg/payment.svg',
-                          title: LocaleKeys.select.tr() + LocaleKeys.me_title_pay.tr(),
+                          icon: 'assets/images/png/payment.png',
+                          title: LocaleKeys.select.tr() +
+                              LocaleKeys.me_title_pay.tr(),
                           message: LocaleKeys.message_select.tr(),
                           iconSize: 7.0.w,
                           fontWeight: FontWeight.w500,
                           onClick: () async {
                             final result = await AppRoute.cartBank(context,
-                                paymentRespone: bloc.paymentList.value,AllShopID: bloc.getAllShopID());
+                                paymentRespone: bloc.paymentList.value,
+                                allShopID: bloc.getAllShopID());
                             if (result != null) {
                               bloc.paymentList.add(result);
                             }
@@ -827,7 +831,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.grey.shade400,
-                  size: SizeUtil.ratingSize().w ,
+                  size: SizeUtil.ratingSize().w,
                 )
               ],
             ),
@@ -863,7 +867,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                           fontSize: SizeUtil.titleFontSize().sp,
                                           fontWeight: FontWeight.w500,
                                           color: Colors.black)),
-                                  Text("${value.addressLine1} ${value.city.name} ${value.state.name} ${value.zipCode}  ",
+                                  Text(
+                                      "${value.addressLine1} ${value.city.name} ${value.state.name} ${value.zipCode}  ",
                                       style: FunctionHelper.fontTheme(
                                           fontSize: SizeUtil.titleFontSize().sp,
                                           fontWeight: FontWeight.w500,
@@ -997,6 +1002,4 @@ class _CartSummaryViewState extends State<CartSummaryView> {
       },
     );
   }
-
-
 }

@@ -574,6 +574,21 @@ class ProductBloc {
     });
   }
 
+  getProductsByIdApplink(BuildContext context, {int id, bool onload}) {
+    onLoad.add(true);
+    Observable.fromFuture(
+        _application.appStoreAPIRepository.productsById(context, id: id))
+        .listen((event) {
+        onLoad.add(false);
+      if (event.httpCallBack.status == 200) {
+        var item = (event.respone as ProducItemRespone);
+        productItem.add(item);
+      } else {
+        onError.add(event.httpCallBack);
+      }
+    });
+  }
+
   // loadProductsPage({int id,String token}){
   // //  onLoad.add(true);
   //   onError.add(null);
@@ -1079,8 +1094,8 @@ class ProductBloc {
         id: data.id,
         saleCount: data.saleCount,
         discountPercent: data.discountPercent,
-        rating: data.rating!=null?data.rating.toDouble():0,
-        reviewCount: data.reviewCount!=null?data.reviewCount.toInt():0,
+        rating: data.rating!=null?double.parse(data.rating.toString()):0.0,
+        reviewCount: data.reviewCount,
         shop: ShopItem(
             id: data.shop.id,
             name: data.shop.name,

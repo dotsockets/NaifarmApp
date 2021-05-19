@@ -214,13 +214,13 @@ class AppRoute {
   }
 
   static Future<PaymentRespone> cartBank(BuildContext context,
-      {PaymentRespone paymentRespone, String AllShopID}) async {
+      {PaymentRespone paymentRespone, String allShopID}) async {
     return await Navigator.of(context).push(SwipeablePageRoute(
         canOnlySwipeFromEdge: true,
         builder: (context) {
           return CartBankView(
             paymentRespone: paymentRespone,
-            AllShopID: AllShopID,
+            allShopID: allShopID,
           );
         }));
   }
@@ -609,7 +609,6 @@ class AppRoute {
             customerInfoRespone: customerInfoRespone,
           );
         }));
-    ;
   }
 
   static Future<CustomerInfoRespone> settingEditProdileBio(
@@ -1083,17 +1082,18 @@ class AppRoute {
   }
 
   static Future<bool> settingGuest(BuildContext context,
-      {bool IsHeader, Function(bool) logincall, bool IsCallBack}) async {
+      {bool isHeader, Function(bool) logincall, bool isCallBack}) async {
     return await Navigator.of(context).push(SwipeablePageRoute(
         canOnlySwipeFromEdge: true,
         builder: (context) {
           return SettingGuestView(
-            IsHeader: IsHeader,
+            isHeader: isHeader,
             logincall: logincall,
-            IsCallBack: IsCallBack,
+            isCallBack: isCallBack,
           );
         }));
   }
+
 
   static reviewMore(
       {BuildContext context,
@@ -1104,4 +1104,5 @@ class AppRoute {
           return ReviewMoreView(feedbackRespone: feedbackRespone,productId: productId,);
         }));
   }
+
 }

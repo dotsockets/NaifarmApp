@@ -1,11 +1,11 @@
+import 'BannersRespone.dart';
 import 'CategoryGroupRespone.dart';
 import 'FlashsaleRespone.dart';
 import 'ProductRespone.dart';
-import 'SliderRespone.dart';
 import 'ThrowIfNoSuccess.dart';
 
 class HomeObjectCombine {
-  SliderRespone sliderRespone;
+  BannersRespone sliderRespone;
   ProductRespone productRespone;
   CategoryGroupRespone categoryGroupRespone;
   CategoryGroupRespone featuredRespone;
@@ -28,7 +28,7 @@ class HomeObjectCombine {
 
   HomeObjectCombine.fromJson(Map<String, dynamic> json) {
     sliderRespone = json['sliderRespone'] != null
-        ? new SliderRespone.fromJson(json['sliderRespone'])
+        ? new BannersRespone.fromJson(json['sliderRespone'])
         : null;
     productRespone = json['productRespone'] != null
         ? new ProductRespone.fromJson(json['productRespone'])

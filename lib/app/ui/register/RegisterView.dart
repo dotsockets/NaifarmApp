@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -14,6 +14,7 @@ import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:sizer/sizer.dart';
 
 class RegisterView extends StatefulWidget {
@@ -110,7 +111,9 @@ class _RegisterViewState extends State<RegisterView> {
               height: 4.0.h,
             ),
             Container(
-              padding: EdgeInsets.only(left: SizeUtil.paddingEdittext().w,right: SizeUtil.paddingEdittext().w),
+              padding: EdgeInsets.only(
+                  left: SizeUtil.paddingEdittext().w,
+                  right: SizeUtil.paddingEdittext().w),
               child: BuildEditText(
                 head: LocaleKeys.my_profile_phone.tr() + " *",
                 hint: LocaleKeys.my_profile_phone.tr(),
@@ -228,13 +231,13 @@ class _RegisterViewState extends State<RegisterView> {
                 child: //Text(LocaleKeys.facebook_regis_btn.tr(),
                     //style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleFontSize().sp,fontWeight: FontWeight.w500),
                     Row(
-                      mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SvgPicture.asset(
-                      'assets/images/svg/facebook.svg',
-                      width: 2.0.w,
-                      height: 2.0.h,
+                    Image.asset(
+                      'assets/images/png/facebook.png',
+                      width: 3.0.w,
+                      height: 3.0.h,
                     ),
                     SizedBox(
                       width: 2.0.w,
@@ -250,6 +253,82 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
               ),
             ),
+            SizedBox(
+              height: 2.0.h,
+            ),
+            Platform.isIOS
+                ? Padding(
+                    padding: const EdgeInsets.only(right: 28, left: 28),
+                    child: TextButton(
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40.0),
+                          ),
+                        ),
+                        minimumSize: MaterialStateProperty.all(
+                          Size(SizeUtil.buttonWidth().w, 6.5.h),
+                        ),
+                        backgroundColor: MaterialStateProperty.all(
+                          Color(ColorUtils.hexToInt("#000000")),
+                        ),
+                        overlayColor: MaterialStateProperty.all(
+                          Colors.white.withOpacity(0.3),
+                        ),
+                      ),
+                      onPressed: () async {
+                        final credential =
+                            await SignInWithApple.getAppleIDCredential(
+                          scopes: [
+                            AppleIDAuthorizationScopes.email,
+                            AppleIDAuthorizationScopes.fullName,
+                          ],
+                        );
+                        bloc.customerLoginApple(
+                            context: context,
+                            accessToken: credential.identityToken);
+                        print("########### SignInWithApple ##################");
+                        print("credential =>  $credential");
+                        print("email =>  ${credential.email}");
+                        print("familyName =>  ${credential.familyName}");
+                        print("givenName =>  ${credential.givenName}");
+                        print("state =>  ${credential.state}");
+                        print(
+                            "userIdentifier =>  ${credential.userIdentifier}");
+                        print(
+                            "authorizationCode =>  ${credential.authorizationCode}");
+                        print("identityToken =>  ${credential.identityToken}");
+                        print("########### SignInWithApple ##################");
+
+                        // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(left: 2.0.w),
+                        width: 43.0.w,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Ionicons.logo_apple,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 2.0.w,
+                            ),
+                            Text(
+                              LocaleKeys.btn_apple.tr(),
+                              style: FunctionHelper.fontTheme(
+                                  color: Colors.white,
+                                  fontSize: SizeUtil.titleFontSize().sp,
+                                  fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                : SizedBox(),
             SizedBox(
               height: 3.5.h,
             ),

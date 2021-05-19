@@ -600,6 +600,11 @@ class APIRepository {
     return _apiProvider.getSystem(context);
   }
 
+  Future<ApiResult> loginApple(BuildContext context,
+      {String accessToken}) {
+    return _apiProvider.loginApple(context, accessToken);
+  }
+
   Future<ApiResult> createFeedback(BuildContext context,
       {int rating,
       String comment,

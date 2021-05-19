@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
@@ -12,14 +11,16 @@ import 'package:sizer/sizer.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class SettingGuestView extends StatelessWidget {
-  final bool IsHeader;
+  final bool isHeader;
   final Function(bool) logincall;
-  final bool IsCallBack;
-  const SettingGuestView({Key key,this.IsHeader=false,this.IsCallBack=true,this.logincall}) : super(key: key);
+  final bool isCallBack;
+  const SettingGuestView(
+      {Key key, this.isHeader = false, this.isCallBack = true, this.logincall})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-   // NaiFarmLocalStorage.saveNowPage(4);
+    // NaiFarmLocalStorage.saveNowPage(4);
     final GlobalKey<ScaffoldState> _scaffoldKey =
         new GlobalKey<ScaffoldState>();
     return Scaffold(
@@ -36,14 +37,14 @@ class SettingGuestView extends StatelessWidget {
 
   Widget body(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: IsHeader?0.0:1.5.h),
+      padding: EdgeInsets.only(top: isHeader ? 0.0 : 1.5.h),
       child: SingleChildScrollView(
         child: Container(
           color: Colors.grey.shade300,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              IsHeader?appBar(context):SizedBox(),
+              isHeader ? appBar(context) : SizedBox(),
               header(context),
               content(context),
             ],
@@ -70,7 +71,6 @@ class SettingGuestView extends StatelessWidget {
       ),
     );
   }
-
 
   Widget header(BuildContext context) {
     return Stack(
@@ -106,7 +106,8 @@ class SettingGuestView extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(right: 2.0.w),
                 child: SizedBox(
-                  width: 30.0.w,
+                  width: 25.0.w,
+                  height: 4.0.h,
                   child: TextButton(
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(
@@ -124,7 +125,7 @@ class SettingGuestView extends StatelessWidget {
                         EdgeInsets.symmetric(horizontal: 3.0.w),
                       ),
                     ),
-                    onPressed: () =>login(context),
+                    onPressed: () => login(context),
                     child: Text(
                       LocaleKeys.btn_login.tr(),
                       style: FunctionHelper.fontTheme(
@@ -136,7 +137,8 @@ class SettingGuestView extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: 30.0.w,
+                width: 25.0.w,
+                height: 4.0.h,
                 child: TextButton(
                   style: ButtonStyle(
                     shape: MaterialStateProperty.all(
@@ -185,25 +187,24 @@ class SettingGuestView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ListMenuItem(
-          icon: 'assets/images/svg/latest.svg',
+          icon: 'assets/images/png/latest.png',
           title: LocaleKeys.me_title_history.tr(),
-          iconSize: 7.0.w,
+          iconSize: 6.0.w,
           onClick: () => login(context),
-
         ),
         divider(),
         ListMenuItem(
-            icon: 'assets/images/svg/like_2.svg',
-            title: LocaleKeys.me_title_likes.tr(),
-            message: "",
-            iconSize: 7.0.w,
+          icon: 'assets/images/png/like_2.png',
+          title: LocaleKeys.me_title_likes.tr(),
+          message: "",
+          iconSize: 6.0.w,
           onClick: () => login(context),
         ),
         divider(),
         menuTitle(LocaleKeys.setting_account_head_setting.tr()),
         ListMenuItem(
-          icon: 'assets/images/svg/translate.svg',
-          iconSize: 7.0.w,
+          icon: 'assets/images/png/translate.png',
+          iconSize: 6.0.w,
           message: FunctionHelper.localeLanguage(
               locale: EasyLocalization.of(context).locale),
           title: LocaleKeys.setting_account_title_language.tr(),
@@ -212,33 +213,33 @@ class SettingGuestView extends StatelessWidget {
         divider(),
         ListMenuItem(
           iconSize: 7.0.w,
-          icon: 'assets/images/svg/editprofile.svg',
+          icon: 'assets/images/png/editprofile.png',
           title: LocaleKeys.me_title_setting.tr(),
           onClick: () => login(context),
         ),
         menuTitle(LocaleKeys.setting_account_head_help.tr()),
         ListMenuItem(
-          icon: 'assets/images/svg/ruleofuse.svg',
+          icon: 'assets/images/png/ruleofuse.png',
           title: LocaleKeys.setting_account_title_rule.tr(),
-          iconSize: 7.0.w,
+          iconSize: 6.0.w,
           onClick: () {
             AppRoute.settingRules(context);
           },
         ),
         divider(),
         ListMenuItem(
-          icon: 'assets/images/svg/policy.svg',
+          icon: 'assets/images/png/policy.png',
           title: LocaleKeys.setting_account_title_policy.tr(),
-          iconSize: 7.0.w,
+          iconSize: 5.5.w,
           onClick: () {
             AppRoute.settingPolicy(context);
           },
         ),
         divider(),
         ListMenuItem(
-          icon: 'assets/images/svg/about.svg',
+          icon: 'assets/images/png/about.png',
           title: LocaleKeys.setting_account_title_about.tr(),
-          iconSize: 7.0.w,
+          iconSize: 5.5.w,
           onClick: () {
             AppRoute.settingAbout(context);
           },
@@ -259,18 +260,17 @@ class SettingGuestView extends StatelessWidget {
     );
   }
 
-  void login(BuildContext context){
-    if(IsCallBack){
+  void login(BuildContext context) {
+    if (isCallBack) {
       AppRoute.login(context,
           isHeader: true,
-          isCallBack: false,isSetting: false,homeCallBack: (index){
-            logincall(index);
-
-          });
-    }else{
+          isCallBack: false,
+          isSetting: false, homeCallBack: (index) {
+        logincall(index);
+      });
+    } else {
       AppRoute.login(context,
-          isHeader: true,
-          isCallBack: false,isSetting: false);
+          isHeader: true, isCallBack: false, isSetting: false);
     }
   }
 }

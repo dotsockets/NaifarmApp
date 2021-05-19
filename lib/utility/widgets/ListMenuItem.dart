@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -40,7 +39,10 @@ class ListMenuItem extends StatelessWidget {
       child: Container(
           color: Colors.white,
           padding: EdgeInsets.only(
-              right: 2.0.w, left: 3.5.w, top:  SizeUtil.paddingMenuItem().h, bottom: SizeUtil.paddingMenuItem().h),
+              right: 2.0.w,
+              left: 3.5.w,
+              top: SizeUtil.paddingMenuItem().h,
+              bottom: SizeUtil.paddingMenuItem().h),
           child: Row(
             children: [
               Expanded(
@@ -48,8 +50,8 @@ class ListMenuItem extends StatelessWidget {
                 child: Row(
                   children: [
                     Visibility(
-                      child: isPhoto== ""&&icon!=null
-                          ? SvgPicture.asset(
+                      child: isPhoto == "" && icon != null
+                          ? Image.asset(
                               icon,
                               width: iconSize,
                               height: iconSize,
@@ -80,11 +82,11 @@ class ListMenuItem extends StatelessWidget {
                                 //     )),
                                 errorWidget: (context, url, error) => Container(
                                     color: Colors.grey.shade300,
-                                    width:  iconSize,
-                                    height:  iconSize,
+                                    width: iconSize,
+                                    height: iconSize,
                                     child: Icon(
                                       Icons.person,
-                                      size: (SizeUtil.iconSize()-1).w,
+                                      size: (SizeUtil.iconSize() - 1).w,
                                       color: Colors.grey,
                                     )),
                               ),

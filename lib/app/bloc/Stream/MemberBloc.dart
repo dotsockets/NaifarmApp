@@ -74,6 +74,32 @@ class MemberBloc {
     _compositeSubscription.add(subscription);
   }
 
+  customerLoginApple({BuildContext context, String accessToken}) async {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(
+        _application.appStoreAPIRepository.loginApple(context,accessToken: accessToken))
+        .listen((respone) {
+      var item = (respone.respone as LoginRespone);
+      if (respone.httpCallBack.status == 200) {
+        context
+            .read<CustomerCountBloc>()
+            .loadCustomerCount(context, token: item.token);
+        context
+            .read<InfoCustomerBloc>()
+            .loadCustomInfo(context, token: item.token, oneSignal: true);
+        Usermanager().savelogin(
+            user: LoginRespone(
+                name: item.name, token: item.token, email: item.email));
+        // onLoad.add(false);
+        onSuccess.add(item);
+      } else {
+        onLoad.add(false);
+        onError.add(respone.httpCallBack);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
   customersLoginSocial(
       {BuildContext context,
       FbProfile loginRequest,

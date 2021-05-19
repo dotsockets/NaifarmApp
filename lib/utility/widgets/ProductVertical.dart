@@ -12,7 +12,6 @@ import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
@@ -106,14 +105,6 @@ class ProductVertical extends StatelessWidget {
           //   topRight: const Radius.circular(30.0),
           //   topLeft: const Radius.circular(30.0),
           // ):BorderRadius.all(Radius.circular(0.0)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 3,
-              blurRadius: 4,
-              offset: Offset(0, 3), // changes position of shadow
-            ),
-          ],
         ),
         child: Column(
           children: [
@@ -146,13 +137,13 @@ class ProductVertical extends StatelessWidget {
                 imageIcon != ""
                     ? Image.asset(
                         imageIcon,
-                        width: iconSize!=null?iconSize:8.5.w,
-                        height: iconSize!=null?iconSize:8.5.w,
+                        width: iconSize != null ? iconSize : 8.5.w,
+                        height: iconSize != null ? iconSize : 8.5.w,
                       )
                     : SvgPicture.asset(
                         iconInto,
-                        width: iconSize!=null?iconSize:8.5.w,
-                        height: iconSize!=null?iconSize:8.5.w,
+                        width: iconSize != null ? iconSize : 8.5.w,
+                        height: iconSize != null ? iconSize : 8.5.w,
                       ),
                 SizedBox(width: 2.0.w),
                 Text(titleInto,
@@ -171,10 +162,10 @@ class ProductVertical extends StatelessWidget {
                           fontSize: SizeUtil.titleFontSize().sp,
                           fontWeight: FontWeight.w500)),
                   SizedBox(width: 2.0.w),
-                  SvgPicture.asset(
-                    'assets/images/svg/next.svg',
-                    width: 3.0.w,
-                    height: 3.0.h,
+                  Image.asset(
+                    'assets/images/png/next.png',
+                    width: 5.0.w,
+                    height: 5.0.w,
                   ),
                 ],
               ),
@@ -203,36 +194,39 @@ class ProductVertical extends StatelessWidget {
                   flex: 2,
                   child: Stack(
                     children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 1, color: Colors.grey.shade400),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        child: Hero(
-                          tag: "${tagHero}_$index",
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(1.3.h),
-                            child: CachedNetworkImage(
-                              width: 28.0.w,
-                              height: 35.0.w,
-                              placeholder: (context, url) => Container(
-                                color: Colors.white,
-                                child: Lottie.asset(
-                                  'assets/json/loading.json',
-                                  width: 28.0.w,
-                                  height: 35.0.w,
+                      Card(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(color: Colors.grey, width: 0.1.w),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(2.0.w)),
+                        ),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Hero(
+                            tag: "${tagHero}_$index",
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(1.3.h),
+                              child: CachedNetworkImage(
+                                width: 28.0.w,
+                                height: 35.0.w,
+                                placeholder: (context, url) => Container(
+                                  color: Colors.white,
+                                  child: Lottie.asset(
+                                    'assets/json/loading.json',
+                                    width: 28.0.w,
+                                    height: 35.0.w,
+                                  ),
                                 ),
+                                imageUrl:
+                                    ProductLandscape.covertUrlImage(item.image),
+                                errorWidget: (context, url, error) => Container(
+                                    width: 28.0.w,
+                                    height: 35.0.w,
+                                    child: NaifarmErrorWidget()),
+                                //  child: Image.network(Env.value.noItemUrl,
+                                //  fit: BoxFit.cover)),
                               ),
-                             imageUrl: ProductLandscape.covertUrlImage(item.image),
-                              errorWidget: (context, url, error) => Container(
-                                  width: 28.0.w,
-                                  height: 35.0.w,
-                                  child: NaifarmErrorWidget()),
-                              //  child: Image.network(Env.value.noItemUrl,
-                              //  fit: BoxFit.cover)),
-
                             ),
                           ),
                         ),
@@ -348,8 +342,10 @@ class ProductVertical extends StatelessWidget {
                           allowHalfRating: false,
                           onRated: (v) {},
                           starCount: 5,
-                          rating: item.rating!=null?item.rating.toDouble():0,
-                          size:  SizeUtil.ratingSize().w,
+                          rating: item.rating != null
+                              ? item.rating.toDouble()
+                              : 0.0,
+                          size: SizeUtil.ratingSize().w,
                           isReadOnly: true,
                           filledIconData: Icons.star,
                           halfFilledIconData: Icons.star_half_outlined,
@@ -378,18 +374,22 @@ class ProductVertical extends StatelessWidget {
               ),
               InkWell(
                 child: Container(
+                  width: 20.0.w,
                   margin: EdgeInsets.only(right: 2.0.w),
                   padding: EdgeInsets.only(
                       right: 3.0.w, left: 3.0.w, top: 1.5.w, bottom: 1.5.w),
                   decoration: BoxDecoration(
                       color: Colors.red,
-                      borderRadius: BorderRadius.all(Radius.circular(SizeUtil.borderRadiusItem()))),
-                  child: Text(
-                    LocaleKeys.btn_buy_now.tr(),
-                    style: FunctionHelper.fontTheme(
-                        color: Colors.white,
-                        fontSize: SizeUtil.titleFontSize().sp,
-                        fontWeight: FontWeight.bold),
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(SizeUtil.borderRadiusItem()))),
+                  child: Center(
+                    child: Text(
+                      LocaleKeys.btn_buy_now.tr(),
+                      style: FunctionHelper.fontTheme(
+                          color: Colors.white,
+                          fontSize: SizeUtil.titleFontSize().sp,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
                 onTap: () {

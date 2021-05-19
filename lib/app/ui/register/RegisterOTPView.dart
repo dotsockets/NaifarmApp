@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:form_validator/form_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
@@ -60,7 +59,8 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
         _input3.text.isEmpty &&
         _input4.text.isEmpty) {
       //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: "ทำรายการไม่ถูกต้อง");
-      FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: "ทำรายการไม่ถูกต้อง");
+      FunctionHelper.alertDialogShop(context,
+          title: LocaleKeys.btn_error.tr(), message: "ทำรายการไม่ถูกต้อง");
     } else {
       // Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.fade, child: CreateAccountView()));
     }
@@ -109,9 +109,8 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
       });
       bloc.onSuccess.stream.listen((event) {
         if (widget.requestOtp == RequestOtp.Register) {
-         // AppRoute.registerSetPassword(context, widget.phoneNumber);
+          // AppRoute.registerSetPassword(context, widget.phoneNumber);
           AppRoute.registerNameOtp(context, widget.phoneNumber, _input1.text);
-
         } else if (widget.requestOtp == RequestOtp.Forgotpassword) {
           AppRoute.forgotSetNewPassword(context,
               phone: widget.phoneNumber,
@@ -215,7 +214,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                             cursorColor: ThemeColor.secondaryColor(),
                             keyboardType: TextInputType.number,
                             maxLength: 1,
-                            cursorHeight: SizeUtil.appNameFontSize().sp*1.7,
+                            cursorHeight: SizeUtil.appNameFontSize().sp * 1.7,
                             inputFormatters: [
                               FilteringTextInputFormatter.digitsOnly
                             ],
@@ -293,7 +292,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 .maxLength(30)
                                 .build(),
                             maxLength: 1,
-                            cursorHeight: SizeUtil.appNameFontSize().sp*1.7,
+                            cursorHeight: SizeUtil.appNameFontSize().sp * 1.7,
                             decoration: InputDecoration(
                                 hintText: '',
                                 hintStyle: TextStyle(
@@ -363,7 +362,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 .maxLength(30)
                                 .build(),
                             maxLength: 1,
-                            cursorHeight: SizeUtil.appNameFontSize().sp*1.7,
+                            cursorHeight: SizeUtil.appNameFontSize().sp * 1.7,
                             decoration: InputDecoration(
                                 hintText: '',
                                 hintStyle: TextStyle(
@@ -433,7 +432,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 .maxLength(30)
                                 .build(),
                             maxLength: 1,
-                            cursorHeight: SizeUtil.appNameFontSize().sp*1.7,
+                            cursorHeight: SizeUtil.appNameFontSize().sp * 1.7,
                             decoration: InputDecoration(
                                 hintText: '',
                                 hintStyle: TextStyle(
@@ -503,7 +502,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 .maxLength(30)
                                 .build(),
                             maxLength: 1,
-                            cursorHeight: SizeUtil.appNameFontSize().sp*1.7,
+                            cursorHeight: SizeUtil.appNameFontSize().sp * 1.7,
                             decoration: InputDecoration(
                                 hintText: '',
                                 hintStyle: TextStyle(
@@ -573,7 +572,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 .maxLength(30)
                                 .build(),
                             maxLength: 1,
-                            cursorHeight: SizeUtil.appNameFontSize().sp*1.7,
+                            cursorHeight: SizeUtil.appNameFontSize().sp * 1.7,
                             decoration: InputDecoration(
                                 hintText: '',
                                 hintStyle: TextStyle(
@@ -657,7 +656,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                   //   child:InkWell(
                                   //     child: Row(
                                   //       children: [
-                                  //         SvgPicture.asset('assets/images/svg/change.svg'),
+                                  //         SvgPicture.asset('assets/images//change.svg'),
                                   //         SizedBox(width: 10,),
                                   //         Text(LocaleKeys.edit_phone_otp_again.tr(),style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp),)
                                   //       ],
@@ -694,8 +693,11 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      SvgPicture.asset(
-                                          'assets/images/svg/change.svg'),
+                                      Image.asset(
+                                        'assets/images/png/change.png',
+                                        width: 7.0.w,
+                                        height: 7.0.w,
+                                      ),
                                       SizedBox(
                                         width: 10,
                                       ),
@@ -758,7 +760,8 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
         //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: value.httpCallBack.message);
 
         FunctionHelper.alertDialogShop(context,
-            title: LocaleKeys.btn_error.tr(), message: value.httpCallBack.message);
+            title: LocaleKeys.btn_error.tr(),
+            message: value.httpCallBack.message);
       }
     });
   }

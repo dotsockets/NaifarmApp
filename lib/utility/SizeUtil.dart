@@ -88,7 +88,7 @@ class SizeUtil {
   }
 
   static double custombarIconSize() {
-    return Device.get().isPhone ? 6.0 : 3.8;
+    return Device.get().isPhone ? 5.0 : 2.8;
   }
 
   static EdgeInsets custombarIndicationPadding() {
@@ -137,7 +137,7 @@ class SizeUtil {
   }
 
   static double paddingHeaderHome() {
-    return Device.get().isPhone ? 0.5 : 1.7;
+    return Device.get().isPhone ? 0.2 : 1.7;
   }
 
   static double borderRadiusHeader() {
@@ -177,7 +177,7 @@ class SizeUtil {
   }
 
   static double mediumImgProfileSize() {
-    return Device.get().isPhone ? 14.0 : 7.0;
+    return Device.get().isPhone ? 14.0 : 10.0;
   }
 
   static double headerHeight() {

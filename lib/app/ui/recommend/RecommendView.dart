@@ -18,6 +18,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
+import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
@@ -26,6 +27,7 @@ import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/app/ui/flashsale/FlashSaleView.dart';
 import 'package:naifarm/app/ui/home/HomeHeader.dart';
 import 'package:naifarm/app/ui/recommend/widget/CategoryTab.dart';
+import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/utility/OneSignalCall.dart';
@@ -38,8 +40,6 @@ import 'package:sticky_headers/sticky_headers.dart';
 import 'widget/RecommendMenu.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
-
-
 
 class RecommendView extends StatefulWidget {
   final Size size;
@@ -169,6 +169,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
   }
 
   Widget get contentMain => Scaffold(
+    backgroundColor: Colors.white,
         body: StreamBuilder(
           stream: _selectedIndex.stream,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -180,7 +181,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                     if (item is HomeDataLoaded) {
                       return SingleChildScrollView(
                         child: Container(
-                          color: Colors.grey.shade300,
+
                           child: StickyHeader(
                             header: Column(
                               children: [
@@ -200,57 +201,37 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                           ),
                         ),
                       );
-                    } else if (item is HomeDataError) {
-                      if (onDialog) {
-                        onDialog = false;
-                        bloc.onError.add(ThrowIfNoSuccess(
-                            status: 500,
-                            message:
-                                item.homeObjectCombine.httpCallBack.message));
-                      }
+                    } else  {
+                      // if (onDialog) {
+                      //   onDialog = false;
+                      //   bloc.onError.add(ThrowIfNoSuccess(
+                      //       status: 500,
+                      //       message:
+                      //           item.homeObjectCombine.httpCallBack.message));
+                      // }
 
-                      return item.homeObjectCombine.productRespone != null
-                          ? SingleChildScrollView(
-                              child: Container(
-                                color: Colors.grey.shade300,
-                                child: StickyHeader(
-                                  header: Column(
-                                    children: [
-                                      HomeHeader(
-                                          snapshot: item.homeObjectCombine,
-                                          onTap: (CategoryGroupData val) {
-                                            AppRoute.categoryDetail(
-                                                context, val.id,
-                                                title: val.name);
-                                          }),
-                                    ],
-                                  ),
-                                  content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        content(item: item.homeObjectCombine),
-                                      ]),
-                                ),
-                              ),
-                            )
-                          : Column(
+                      return SingleChildScrollView(
+                        child: Container(
+
+                          child: StickyHeader(
+                            header: Column(
                               children: [
                                 HomeHeader(
-                                  snapshot: HomeObjectCombine(),
-                                ),
-                                SizedBox(
-                                  height: 35.0.h,
-                                ),
-                                Platform.isAndroid
-                                    ? SizedBox(
-                                        width: 5.0.w,
-                                        height: 5.0.w,
-                                        child: CircularProgressIndicator())
-                                    : CupertinoActivityIndicator()
+                                    snapshot: HomeObjectCombine(),
+                                    onTap: (CategoryGroupData val) {
+                                      AppRoute.categoryDetail(context, val.id,
+                                          title: val.name);
+                                    }),
                               ],
-                            );
-                    } else {
-                      return SizedBox();
+                            ),
+                            content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  content(item: HomeObjectCombine()),
+                                ]),
+                          ),
+                        ),
+                      );
                     }
                   },
                 )
@@ -263,32 +244,31 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
   Widget content({HomeObjectCombine item}) {
     return Column(
       children: [
-        item.sliderRespone != null
-            ? item.sliderRespone.data.isNotEmpty
-                ? BannerSlide(
-                    image:
-                        convertSliderImage(sliderRespone: item.sliderRespone))
-                : SizedBox()
+        item!=null && item.sliderRespone != null && item.sliderRespone.data.isNotEmpty
+            ? BannerSlide(
+                image: item.sliderRespone.data
+                    .map((e) =>
+                        "${Env.value.baseUrl}/storage/images/${e.image[0].path}")
+                    .toList())
             : SizedBox(),
+        SizedBox(height: 1.0.h),
         RecommendMenu(
           homeObjectCombine: item,
           onClick: (int index) {
             widget.onClick(index);
           },
         ),
-        SizedBox(
-          height: 1.0.h,
-        ),
-        item.flashsaleRespone.data.length > 0
+
+        item!=null && item.flashsaleRespone!=null
             ? FlashSale(flashsaleRespone: item.flashsaleRespone)
             : SizedBox(),
-        SizedBox(height: 1.5.h),
+        Container(height: 1.0.h,color: Colors.grey.withOpacity(0.5),),
         ProductLandscape(
-          productRespone: item.productRespone,
+          productRespone: item!=null?item.productRespone:null,
           titleInto: LocaleKeys.recommend_best_seller.tr(),
           producViewModel: ProductViewModel().getBestSaller(),
-
-          iconInto: 'assets/images/svg/product_hot.svg',
+          imageIcon: 'assets/images/png/product_hot.png',
+          iconSize: 7.0.w,
           onSelectMore: () {
             AppRoute.productMore(
                 apiLink: "products/types/popular",
@@ -302,14 +282,14 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
           },
           tagHero: "product_hot",
         ),
+        Container(height: 1.0.h,color: Colors.grey.withOpacity(0.5),),
         // SizedBox(height: 1.5.h),
         // _BannerAds(),
 
-        SizedBox(height: 1.5.h),
         ProductVertical(
-            productRespone: item.martket,
+            productRespone: item!=null?item.martket:null,
             titleInto: LocaleKeys.recommend_market.tr(),
-            iconInto: 'assets/images/svg/menu_market.svg',
+            imageIcon: 'assets/images/png/menu_market.png',
             onSelectMore: () {
               AppRoute.shopMain(
                   context: context, myShopRespone: MyShopRespone(id: 1));
@@ -321,13 +301,13 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
             },
             borderRadius: false,
             tagHero: "market"),
-        SizedBox(height: 2.0.h),
-        CategoryTab(categoryGroupRespone: item.categoryGroupRespone),
-        SizedBox(height: 2.0.h),
+        Container(height: 1.0.h,color: Colors.grey.withOpacity(0.5),),
+        CategoryTab(categoryGroupRespone: item!=null?item.categoryGroupRespone:null),
+        Container(height: 1.0.h,color: Colors.grey.withOpacity(0.5),),
         ProductVertical(
-            productRespone: item.productForyou,
+            productRespone: item!=null?item.productForyou:null,
             titleInto: LocaleKeys.tab_bar_recommend.tr(),
-            iconInto: 'assets/images/svg/like.svg',
+            imageIcon: 'assets/images/png/like.png',
             iconSize: 6.0.w,
             onSelectMore: () {
               AppRoute.productMore(

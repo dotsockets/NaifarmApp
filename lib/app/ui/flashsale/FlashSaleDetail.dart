@@ -4,7 +4,6 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -81,7 +80,7 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
               preferredSize: Size.fromHeight(6.5.h),
               child: AppToobar(
                   headerType: Header_Type.barcartShop,
-                  icon: 'assets/images/svg/cart_top.svg',
+                  icon: 'assets/images/png/cart_top.png',
                   title: "Flash Sale")),
 
           backgroundColor: Colors.grey.shade300,
@@ -420,9 +419,8 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
                   ),
                 ),
               ),
-              SvgPicture.asset(
-                'assets/images/svg/flash.svg',
-                width: 8.0.w,
+              Image.asset(
+                'assets/images/png/flash.png',
                 height: 8.0.w,
               )
             ],

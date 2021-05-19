@@ -6,14 +6,12 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Stream/CartBloc.dart';
 import 'package:naifarm/app/bloc/Stream/NotiBloc.dart';
-import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -59,7 +57,6 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
 
   void _init() {
     if (null == bloc && blocNoti == null) {
-
       bloc = CartBloc(AppProvider.getApplication(context));
       blocNoti = NotiBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
@@ -80,16 +77,17 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
       });
       bloc.cartList.stream.listen((event) {
         if (event is CartResponse) {
-          if(widget.cartNowId !=null && widget.cartNowId.isNotEmpty){
+          if (widget.cartNowId != null && widget.cartNowId.isNotEmpty) {
             widget.cartNowId = <ProductData>[];
-            FunctionHelper.snackBarShow(context: context,scaffoldKey: _scaffoldKey,message: LocaleKeys.my_product_addcart.tr());
+            FunctionHelper.snackBarShow(
+                context: context,
+                scaffoldKey: _scaffoldKey,
+                message: LocaleKeys.my_product_addcart.tr());
           }
-
         }
       });
       bloc.onSuccess.stream.listen((event) {
         //  cartReq = event;
-
 
         if (event is bool) {
           Usermanager().getUser().then((value) => context
@@ -287,7 +285,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
         color: Colors.white,
         padding: EdgeInsets.only(right: 5, left: 0),
         child: ListMenuItem(
-          icon: 'assets/images/svg/sale_cart.svg',
+          icon: 'assets/images/png/sale_cart.png',
           title: LocaleKeys.cart_discount_from.tr(),
           message: LocaleKeys.cart_select_discount.tr(),
           iconSize: 8.0.w,
@@ -446,13 +444,13 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
               Container(
                 margin: EdgeInsets.all(3.0.w),
                 child: item.items[indexShopItem].select
-                    ? SvgPicture.asset(
-                        'assets/images/svg/checkmark.svg',
+                    ? Image.asset(
+                        'assets/images/png/checkmark.png',
                         width: SizeUtil.iconLargeSize().w,
                         height: SizeUtil.iconLargeSize().w,
                       )
-                    : SvgPicture.asset(
-                        'assets/images/svg/uncheckmark.svg',
+                    : Image.asset(
+                        'assets/images/png/uncheckmark.png',
                         width: SizeUtil.iconLargeSize().w,
                         height: SizeUtil.iconLargeSize().w,
                         color: Colors.black.withOpacity(0.5),
@@ -469,11 +467,18 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                               border: Border.all(
                                   color: Colors.black.withOpacity(0.1))),
                           child: GestureDetector(
-                            onTap: (){
-
+                            onTap: () {
                               AppRoute.productDetail(context,
-                                  productImage: "product_hot_${item.items[indexShopItem].inventory.id}1",
-                                  productItem: ProducItemRespone( id: item.items[indexShopItem].inventory.id));
+                                  productImage:
+                                      "product_hot_${item.items[indexShopItem].inventory.product.id}1",
+                                  productItem: ProducItemRespone(
+                                      id: item.items[indexShopItem].inventory
+                                          .product.id,
+                                      shop: ShopItem(
+                                          id: item.shop.id,
+                                          name: item.shop.name,
+                                          image: item.shop.image,
+                                          slug: item.shop.slug)));
                             },
                             child: CachedNetworkImage(
                               width: 20.0.w,
@@ -506,10 +511,18 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                         ),
                         SizedBox(width: 3.0.w),
                         InkWell(
-                          onTap: (){
+                          onTap: () {
                             AppRoute.productDetail(context,
-                                productImage: "product_hot_${item.items[indexShopItem].inventory.id}1",
-                                productItem: ProducItemRespone( id: item.items[indexShopItem].inventory.id));
+                                productImage:
+                                    "product_hot_${item.items[indexShopItem].inventory.product.id}1",
+                                productItem: ProducItemRespone(
+                                    id: item.items[indexShopItem].inventory
+                                        .product.id,
+                                    shop: ShopItem(
+                                        id: item.shop.id,
+                                        name: item.shop.name,
+                                        image: item.shop.image,
+                                        slug: item.shop.slug)));
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -543,7 +556,8 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                                           style: FunctionHelper.fontTheme(
                                               color: Colors.grey,
                                               fontSize:
-                                                  SizeUtil.priceFontSize().sp - 2,
+                                                  SizeUtil.priceFontSize().sp -
+                                                      2,
                                               decoration:
                                                   TextDecoration.lineThrough))
                                       : SizedBox(),
@@ -551,8 +565,8 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                                       width: item.items[indexShopItem].inventory
                                                       .salePrice !=
                                                   null &&
-                                              item.items[indexShopItem].inventory
-                                                      .offerPrice !=
+                                              item.items[indexShopItem]
+                                                      .inventory.offerPrice !=
                                                   null
                                           ? 1.0.w
                                           : 0),
@@ -640,13 +654,17 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                                   child: Text("+",
                                       style: TextStyle(
                                           fontSize: SizeUtil.titleFontSize().sp,
-                                          color: item.items[indexShopItem].quantity != item.items[indexShopItem].inventory.stockQuantity
+                                          color: item.items[indexShopItem]
+                                                      .quantity !=
+                                                  item.items[indexShopItem]
+                                                      .inventory.stockQuantity
                                               ? Colors.black
                                               : Colors.grey))),
                             ),
                             onTap: () {
-
-                              if (item.items[indexShopItem].quantity != item.items[indexShopItem].inventory.stockQuantity) {
+                              if (item.items[indexShopItem].quantity !=
+                                  item.items[indexShopItem].inventory
+                                      .stockQuantity) {
                                 Usermanager().getUser().then((value) =>
                                     bloc.cartPositiveQuantity(context,
                                         item: item,
@@ -704,7 +722,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
         color: Colors.white,
         padding: EdgeInsets.only(right: 1.0.w, left: 0),
         child: ListMenuItem(
-          icon: 'assets/images/svg/coupon.svg',
+          icon: 'assets/images/png/coupon.png',
           title: LocaleKeys.cart_discount.tr(),
           message: "",
           iconSize: 4.0.h,
@@ -725,8 +743,8 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
         padding: const EdgeInsets.only(left: 20, bottom: 10),
         child: Row(
           children: [
-            SvgPicture.asset(
-              'assets/images/svg/delivery.svg',
+            Image.asset(
+              'assets/images/png/delivery.png',
               width: 4.0.h,
               height: 4.0.h,
             ),
@@ -763,13 +781,13 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                         child: Row(
                           children: [
                             bloc.cartList.value.selectAll
-                                ? SvgPicture.asset(
-                                    'assets/images/svg/checkmark.svg',
+                                ? Image.asset(
+                                    'assets/images/png/checkmark.png',
                                     width: SizeUtil.iconLargeSize().w,
                                     height: SizeUtil.iconLargeSize().w,
                                   )
-                                : SvgPicture.asset(
-                                    'assets/images/svg/uncheckmark.svg',
+                                : Image.asset(
+                                    'assets/images/png/uncheckmark.png',
                                     width: SizeUtil.iconLargeSize().w,
                                     height: SizeUtil.iconLargeSize().w,
                                     color: Colors.black.withOpacity(0.5)),

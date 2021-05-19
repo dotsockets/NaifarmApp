@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
@@ -26,24 +25,22 @@ class _HomeHeaderState extends State<HomeHeader> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-          left: 0,
-          right: 0.3.w,
-          bottom: 1.0.h,
-          top: SizeUtil.paddingHeaderHome().h),
+          left: 0, right: 0.3.w, top: SizeUtil.paddingHeaderHome().h),
       decoration: new BoxDecoration(
           color: ThemeColor.primaryColor(),
-          borderRadius: new BorderRadius.only(
-            bottomRight: Radius.circular(widget.snapshot.sliderRespone != null
-                ? widget.snapshot.sliderRespone.data.isNotEmpty
-                    ? 0.0
-                    : SizeUtil.borderRadiusHeader()
-                : SizeUtil.borderRadiusHeader()),
-            bottomLeft: Radius.circular(widget.snapshot.sliderRespone != null
-                ? widget.snapshot.sliderRespone.data.isNotEmpty
-                    ? 0.0
-                    : SizeUtil.borderRadiusHeader()
-                : SizeUtil.borderRadiusHeader()),
-          )),
+          // borderRadius: new BorderRadius.only(
+          //   bottomRight: Radius.circular(widget.snapshot.sliderRespone != null
+          //       ? widget.snapshot.sliderRespone.data.isNotEmpty
+          //           ? 0.0
+          //           : SizeUtil.borderRadiusHeader()
+          //       : SizeUtil.borderRadiusHeader()),
+          //   bottomLeft: Radius.circular(widget.snapshot.sliderRespone != null
+          //       ? widget.snapshot.sliderRespone.data.isNotEmpty
+          //           ? 0.0
+          //           : SizeUtil.borderRadiusHeader()
+          //       : SizeUtil.borderRadiusHeader()),
+          // )
+      ),
       child: SafeArea(
         bottom: false,
         child: Column(
@@ -62,8 +59,8 @@ class _HomeHeaderState extends State<HomeHeader> {
                 // },
                 //         ),
                 SizedBox(
-                  width: 6.0.w,
-                  height: 6.0.w,
+                  width: 3.0.w,
+                  height: 3.0.w,
                 ),
                 Expanded(
                     child: InkWell(
@@ -78,8 +75,8 @@ class _HomeHeaderState extends State<HomeHeader> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SvgPicture.asset(
-                              'assets/images/svg/search.svg',
+                            Image.asset(
+                              'assets/images/png/search.png',
                               color: Colors.grey.shade400,
                               width: 5.0.w,
                               height: 5.0.w,

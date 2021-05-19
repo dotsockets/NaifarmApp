@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
-import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
-import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -17,7 +14,7 @@ class RegisterNameOtpView extends StatefulWidget {
   final String phone;
   final String password;
 
-  const RegisterNameOtpView({Key key, this.phone,this.password})
+  const RegisterNameOtpView({Key key, this.phone, this.password})
       : super(key: key);
   @override
   RegisterNameOtpViewState createState() => RegisterNameOtpViewState();
@@ -179,7 +176,8 @@ class RegisterNameOtpViewState extends State<RegisterNameOtpView> {
     }
 
     if (onError1 == "" && onError2 == "") {
-      AppRoute.registerSetPassword(context, widget.phone,_input1.text,_input2.text);
+      AppRoute.registerSetPassword(
+          context, widget.phone, _input1.text, _input2.text);
       // bloc.customersRegister(
       //     context: context,
       //     registerRequest: RegisterRequest(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Stream/NotiBloc.dart';
@@ -37,70 +36,75 @@ class RecommendMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     init(context);
-    return SingleChildScrollView(
-      child: Container(
-        margin: EdgeInsets.only(top: 2.0.h),
-        child: BlocBuilder<CustomerCountBloc, CustomerCountState>(
-          builder: (_, count) {
-            if (count is CustomerCountLoaded) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: _menuViewModel
-                    .asMap()
-                    .map((key, value) {
-                      return MapEntry(
-                          key,
-                          _menuBox(
-                              item: value,
-                              index: key,
-                              notification: count
-                                      .countLoaded.notification.unreadShop +
-                                  count.countLoaded.notification.unreadCustomer,
-                              context: context));
-                    })
-                    .values
-                    .toList(),
-              );
-            } else if (count is CustomerCountLoading) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: _menuViewModel
-                    .asMap()
-                    .map((key, value) {
-                      return MapEntry(
-                          key,
-                          _menuBox(
-                              item: value,
-                              index: key,
-                              notification: count.countLoaded != null
-                                  ? count.countLoaded.notification
-                                          .unreadCustomer +
-                                      count.countLoaded.notification.unreadShop
-                                  : 0,
-                              context: context));
-                    })
-                    .values
-                    .toList(),
-              );
-            } else {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: _menuViewModel
-                    .asMap()
-                    .map((key, value) {
-                      return MapEntry(
-                          key,
-                          _menuBox(
-                              item: value,
-                              index: key,
-                              notification: 0,
-                              context: context));
-                    })
-                    .values
-                    .toList(),
-              );
-            }
-          },
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.only(top: 1.5.h, bottom: 1.5.h),
+      child: SingleChildScrollView(
+        child: Container(
+          child: BlocBuilder<CustomerCountBloc, CustomerCountState>(
+            builder: (_, count) {
+              if (count is CustomerCountLoaded) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: _menuViewModel
+                      .asMap()
+                      .map((key, value) {
+                        return MapEntry(
+                            key,
+                            _menuBox(
+                                item: value,
+                                index: key,
+                                notification:
+                                    count.countLoaded.notification.unreadShop +
+                                        count.countLoaded.notification
+                                            .unreadCustomer,
+                                context: context));
+                      })
+                      .values
+                      .toList(),
+                );
+              } else if (count is CustomerCountLoading) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: _menuViewModel
+                      .asMap()
+                      .map((key, value) {
+                        return MapEntry(
+                            key,
+                            _menuBox(
+                                item: value,
+                                index: key,
+                                notification: count.countLoaded != null
+                                    ? count.countLoaded.notification
+                                            .unreadCustomer +
+                                        count
+                                            .countLoaded.notification.unreadShop
+                                    : 0,
+                                context: context));
+                      })
+                      .values
+                      .toList(),
+                );
+              } else {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: _menuViewModel
+                      .asMap()
+                      .map((key, value) {
+                        return MapEntry(
+                            key,
+                            _menuBox(
+                                item: value,
+                                index: key,
+                                notification: 0,
+                                context: context));
+                      })
+                      .values
+                      .toList(),
+                );
+              }
+            },
+          ),
         ),
       ),
     );
@@ -135,11 +139,15 @@ class RecommendMenu extends StatelessWidget {
         children: [
           Stack(
             children: [
-              Container(
-                padding: EdgeInsets.all(1.0.w),
-                child: SvgPicture.asset(
+              Card(
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.grey, width: 0.1.w),
+                  borderRadius: BorderRadius.all(Radius.circular(3.0.w)),
+                ),
+                child: Image.asset(
                   item.icon,
-                  width:  SizeUtil.tabIconSize().w,
+                  width: SizeUtil.tabIconSize().w,
                   height: SizeUtil.tabIconSize().w,
                 ),
               ),
@@ -175,14 +183,14 @@ class RecommendMenu extends StatelessWidget {
             {
               // NaiFarmLocalStorage.saveNowPage(2).then((data){
               //
-                //onClick(2);
+              //onClick(2);
               //         });
 
               Usermanager().isLogin().then((value) async {
                 if (!value) {
                   // ignore: unused_local_variable
                   final result = await AppRoute.login(context,
-                      isCallBack: true, isHeader: true,isSetting: false);
+                      isCallBack: true, isHeader: true, isSetting: false);
                 } else {
                   NaiFarmLocalStorage.saveNowPage(2).then((value) {
                     OneSignalCall.cancelNotification("", 0);
@@ -195,16 +203,16 @@ class RecommendMenu extends StatelessWidget {
           case "MyLikeView":
             {
               Usermanager().isLogin().then((value) async {
-                if(!value){
-                  final result = await  AppRoute.login(context,isCallBack: true,isHeader: true,isSetting: false);
-                  if(result){
+                if (!value) {
+                  final result = await AppRoute.login(context,
+                      isCallBack: true, isHeader: true, isSetting: false);
+                  if (result) {
                     AppRoute.wishlists(context: context);
                   }
-                }else{
+                } else {
                   AppRoute.wishlists(context: context);
                 }
               });
-
             }
             break;
         }

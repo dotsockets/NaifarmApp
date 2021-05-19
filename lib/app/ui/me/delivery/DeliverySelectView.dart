@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:naifarm/app/bloc/Stream/CartBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -168,28 +167,28 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
   Widget statusSelect({bool select, int id}) {
     if (widget.selectId > 0) {
       return widget.selectId == id
-          ? SvgPicture.asset(
-              'assets/images/svg/checkmark.svg',
+          ? Image.asset(
+              'assets/images/png/checkmark.png',
               width: SizeUtil.checkMarkSize().w,
               height: SizeUtil.checkMarkSize().w,
               color: ThemeColor.primaryColor(),
             )
-          : SvgPicture.asset(
-              'assets/images/svg/uncheckmark.svg',
+          : Image.asset(
+              'assets/images/png/uncheckmark.png',
               width: SizeUtil.checkMarkSize().w,
               height: SizeUtil.checkMarkSize().w,
               color: Colors.black.withOpacity(0.5),
             );
     } else {
       return select
-          ? SvgPicture.asset(
-              'assets/images/svg/checkmark.svg',
+          ? Image.asset(
+              'assets/images/png/checkmark.png',
               width: SizeUtil.checkMarkSize().w,
               height: SizeUtil.checkMarkSize().w,
               color: ThemeColor.primaryColor(),
             )
-          : SvgPicture.asset(
-              'assets/images/svg/uncheckmark.svg',
+          : Image.asset(
+              'assets/images/png/uncheckmark.png',
               width: SizeUtil.checkMarkSize().w,
               height: SizeUtil.checkMarkSize().w,
               color: Colors.black.withOpacity(0.5),
@@ -210,8 +209,9 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
                 ),
               ),
               padding: MaterialStateProperty.all(EdgeInsets.only(
-              left: 20.0.w, right: 20.0.w,)),
-
+                left: 20.0.w,
+                right: 20.0.w,
+              )),
               backgroundColor: MaterialStateProperty.all(
                 ThemeColor.secondaryColor(),
               ),

@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -20,20 +25,18 @@ class CategoryView extends StatefulWidget {
 
 class _CategoryViewState extends State<CategoryView> {
   ProductBloc bloc;
+  Future<void> _init(BuildContext context) async {
 
-  Future<void> _init() async {
-    if (null == bloc) {
-      bloc = ProductBloc(AppProvider.getApplication(context));
-      NaiFarmLocalStorage.getHomeDataCache().then((value) {
-        bloc.categoryGroup.add(value.categoryGroupRespone);
-      });
-      // bloc.loadCategoryGroup();
+    if(bloc==null){
+      bloc = ProductBloc(AppProvider.of(context).application);
+      bloc.loadCategoryGroup(context);
     }
+
   }
 
   @override
   Widget build(BuildContext context) {
-    _init();
+    _init(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
@@ -41,7 +44,7 @@ class _CategoryViewState extends State<CategoryView> {
           child: AppToobar(
               showBackBtn: false,
               headerType: Header_Type.barcartShop,
-              icon: 'assets/images/svg/cart_top.svg',
+              icon: 'assets/images/png/cart_top.png',
               title: LocaleKeys.recommend_category_product.tr())),
       body: SingleChildScrollView(
         child:
@@ -55,13 +58,44 @@ class _CategoryViewState extends State<CategoryView> {
       padding: EdgeInsets.all(2.0.h),
       child: StreamBuilder(
         stream: bloc.categoryGroup.stream,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
+        builder: (BuildContext context, AsyncSnapshot<CategoryGroupRespone> snapshot) {
+
+          if(snapshot.connectionState==ConnectionState.none ||snapshot.connectionState==ConnectionState.waiting){
+            return Container(
+              height: MediaQuery.of(context).size.height,
+              padding: EdgeInsets.only(bottom: 30.0.h),
+              child: Center(
+                child: Platform.isAndroid
+                    ? SizedBox(
+                    width: 5.0.w,
+                    height: 5.0.w,
+                    child:
+                    CircularProgressIndicator())
+                    : CupertinoActivityIndicator(),
+              ),
+            );
+          }else if(snapshot.hasError){
+            return Container(
+              height: MediaQuery.of(context).size.height,
+              padding: EdgeInsets.only(bottom: 30.0.h),
+              child: Center(
+                child: Platform.isAndroid
+                    ? SizedBox(
+                    width: 5.0.w,
+                    height: 5.0.w,
+                    child:
+                    CircularProgressIndicator())
+                    : CupertinoActivityIndicator(),
+              ),
+            );
+          }else{
             return Column(
               children: [
                 Column(
                   children: item(
-                      ((snapshot.data as CategoryGroupRespone).data.length / 4)
+                      (snapshot.data.data
+                          .length /
+                          4)
                           .floor(),
                       4,
                       context,
@@ -70,17 +104,18 @@ class _CategoryViewState extends State<CategoryView> {
                 Column(
                   children: item(
                       1,
-                      ((snapshot.data as CategoryGroupRespone).data.length / 4)
-                              .floor() *
+                      (snapshot.data.data
+                          .length /
+                          4)
+                          .floor() *
                           4,
                       context,
                       snapshot.data),
                 )
               ],
             );
-          } else {
-            return SizedBox();
           }
+
         },
       ),
     );
@@ -127,18 +162,19 @@ class _CategoryViewState extends State<CategoryView> {
             Container(
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black.withOpacity(0.2)),
-                  borderRadius: BorderRadius.all(Radius.circular(15))),
+                  borderRadius: BorderRadius.all(Radius.circular(3.0.w))),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Container(
-                  padding: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(0.7.w),
                   child: CachedNetworkImage(
                     width: SizeUtil.categoryTabSize().w,
                     height: SizeUtil.categoryTabSize().w,
                     placeholder: (context, url) => Container(
                       color: Colors.white,
-                      child:
-                          Lottie.asset('assets/json/loading.json', height: SizeUtil.categoryTabSize().w,width: SizeUtil.categoryTabSize().w),
+                      child: Lottie.asset('assets/json/loading.json',
+                          height: SizeUtil.categoryTabSize().w,
+                          width: SizeUtil.categoryTabSize().w),
                     ),
                     fit: BoxFit.cover,
                     imageUrl:

@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:like_button/like_button.dart';
 import 'package:lottie/lottie.dart';
@@ -22,7 +21,6 @@ import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -117,10 +115,13 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
                   return Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
-                      bloc.wishlists.value!=null && bloc.wishlists.value.data.length>0?Positioned(
-                        top: 25 * controller.value,
-                        child: CupertinoActivityIndicator(),
-                      ):SizedBox()
+                      bloc.wishlists.value != null &&
+                              bloc.wishlists.value.data.length > 0
+                          ? Positioned(
+                              top: 25 * controller.value,
+                              child: CupertinoActivityIndicator(),
+                            )
+                          : SizedBox()
                     ],
                   );
                 },
@@ -182,7 +183,6 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
               return SingleChildScrollView(
                 child: Column(
                   children: [
-
                     ClipRRect(
                       child: Container(
                           width: MediaQuery.of(context).size.width,
@@ -250,7 +250,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
             child: AppToobar(
               title: LocaleKeys.me_title_likes.tr(),
               headerType: Header_Type.barNormal,
-              icon: 'assets/images/svg/search.svg',
+              icon: 'assets/images/png/search.png',
             ),
           ),
           body: Platform.isAndroid
@@ -411,10 +411,9 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
                           width: 30.0.w,
                           height: 40.0.w,
 
-
 //child: Image.network(Env.value.noItemUrl,
-                            //    fit: BoxFit.cover)),
-                            child: NaifarmErrorWidget()),
+                          //    fit: BoxFit.cover)),
+                          child: NaifarmErrorWidget()),
                     ),
                   ),
                 ),
@@ -428,7 +427,10 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
                             color: ThemeColor.colorSale(),
                             borderRadius: BorderRadius.all(Radius.circular(7))),
                         padding: EdgeInsets.only(
-                            left: 1.5.w, right: 1.5.w, top: 1.0.w, bottom: 1.0.w),
+                            left: 1.5.w,
+                            right: 1.5.w,
+                            top: 1.0.w,
+                            bottom: 1.0.w),
                         child: Text(
                           item.product != null
                               ? "${item.product.discountPercent}%"
@@ -492,7 +494,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
               id: item.product.id,
               saleCount: item.product.saleCount,
               discountPercent: item.product.discountPercent,
-              rating: item.product.rating.toDouble(),
+              rating: double.parse(item.product.rating.toString()),
               reviewCount: item.product.reviewCount,
               shop: ShopItem(id: item.product.shopId),
               image: item.product.image);

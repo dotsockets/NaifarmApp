@@ -103,7 +103,7 @@ class _ShopMainViewState extends State<ShopMainView>
               child: AppToobar(
                 title: LocaleKeys.shop_title.tr(),
                 headerType: Header_Type.barcartShop,
-                icon: 'assets/images/svg/search.svg',
+                icon: 'assets/images/png/search.png',
               ),
             ),
             backgroundColor: Colors.white,
@@ -180,7 +180,8 @@ class _ShopMainViewState extends State<ShopMainView>
                               _tabbar(
                                   title: LocaleKeys.shop_title.tr(), index: 0),
                               _tabbar(
-                                  title: LocaleKeys.shop_category.tr(), index: 1),
+                                  title: LocaleKeys.shop_category.tr(),
+                                  index: 1),
                               _tabbar(
                                   title: LocaleKeys.shop_detail.tr(), index: 2),
                             ],

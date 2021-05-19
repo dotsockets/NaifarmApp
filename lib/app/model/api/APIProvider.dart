@@ -67,6 +67,9 @@ abstract class APIProvider {
   Future<ApiResult> customersLogin(
       BuildContext context, @Body() LoginRequest loginRequest);
 
+  @POST("/v1/customers/login/login-apple")
+  Future<ApiResult> loginApple(BuildContext context, String accessToken);
+
   @POST("/v1/customers/login-social")
   Future<ApiResult> customersLoginSocial(
       BuildContext context, @Body() LoginRequest loginRequest, String provider);

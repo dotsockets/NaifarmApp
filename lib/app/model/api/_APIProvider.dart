@@ -637,6 +637,8 @@ class _APIProvider implements APIProvider {
           httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
     } on DioError catch (e) {
       return ServerError.dioErrorExpction(e);
+    }catch (err) {
+      return ApiResult(httpCallBack: ThrowIfNoSuccess(status: 400,message: "Error"));
     }
   }
 
@@ -2777,6 +2779,34 @@ class _APIProvider implements APIProvider {
           data: _data);
       return ApiResult(
           respone: SystemRespone.fromJson(_result.data),
+          httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.dioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> loginApple(BuildContext context, String accessToken) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+      "accessToken": accessToken
+    };
+
+    try {
+      final _result = await _dio.request<dynamic>('/v1/customers/login-apple',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'POST',
+              headers: <String, dynamic>{
+                'Accept-Language':
+                EasyLocalization.of(context).locale.languageCode
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(
+          respone: LoginRespone.fromJson(_result.data),
           httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
     } on DioError catch (e) {
       return ServerError.dioErrorExpction(e);

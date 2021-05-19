@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -45,10 +44,10 @@ class SearchHot extends StatelessWidget {
           children: [
             Row(
               children: [
-                SvgPicture.asset(
-                  'assets/images/svg/search.svg',
-                  width: 3.0.w,
-                  height: 3.0.h,
+                Image.asset(
+                  'assets/images/png/search.png',
+                  width: 5.0.w,
+                  height: 5.0.w,
                 ),
                 SizedBox(width: 2.0.w),
                 Text(LocaleKeys.recommend_search_hot.tr(),
@@ -139,8 +138,9 @@ class SearchHot extends StatelessWidget {
                   child:
                       Lottie.asset('assets/json/loading.json', height: 20.0.w),
                 ),
-                imageUrl:
-                    item.image.length != 0 ? "${Env.value.baseUrl}/storage/images/${ item.image[0].path}" : Env.value.noItemUrl,
+                imageUrl: item.image.length != 0
+                    ? "${Env.value.baseUrl}/storage/images/${item.image[0].path}"
+                    : Env.value.noItemUrl,
                 errorWidget: (context, url, error) => Container(
                     width: 20.0.w,
                     height: 20.0.w,
@@ -158,7 +158,7 @@ class SearchHot extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height:SizeUtil.titleSmallFontSize().sp+1.0.h,
+                    height: SizeUtil.titleSmallFontSize().sp + 1.0.h,
                     child: Text(
                       item.name,
                       overflow: TextOverflow.ellipsis,
@@ -190,7 +190,7 @@ class SearchHot extends StatelessWidget {
                           allowHalfRating: false,
                           onRated: (v) {},
                           starCount: 5,
-                          rating: item.rating.toDouble(),
+                          rating: item.rating!=null?item.rating.toDouble():0,
                           size: 3.0.w,
                           isReadOnly: true,
                           filledIconData: Icons.star,
@@ -202,7 +202,7 @@ class SearchHot extends StatelessWidget {
                         width: 1.0.w,
                       ),
                       Text(
-                        "${item.rating.toDouble()}",
+                        "${item.rating!=null?item.rating.toDouble():0.0}",
                         style: FunctionHelper.fontTheme(
                             color: Colors.grey.shade400,
                             fontSize: SizeUtil.titleFontSize().sp,
