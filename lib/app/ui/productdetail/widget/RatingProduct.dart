@@ -45,7 +45,7 @@ class _RatingProductState extends State<RatingProduct> {
                 ? Column(
                     children: [
                       Column(
-                        children: List.generate(2, (index) {
+                        children: List.generate(widget.feedbackRespone.total>=2?2:1, (index) {
                           return buildReviewCard(
                               feedItem: widget.feedbackRespone.data[index]);
                         }),

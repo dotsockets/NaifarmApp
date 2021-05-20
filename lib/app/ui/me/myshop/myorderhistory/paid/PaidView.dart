@@ -22,6 +22,7 @@ class PaidView extends StatefulWidget {
   final OrderViewType typeView;
 
   const PaidView({Key key, this.typeView}) : super(key: key);
+
   @override
   _PaidViewState createState() => _PaidViewState();
 }
@@ -197,8 +198,10 @@ class _PaidViewState extends State<PaidView> {
                                                       .order_detail_confirm_pay
                                                       .tr()
                                                   : value.image.isNotEmpty
-                                                      ? "${value.orderStatusName}"
-                                                      : value.orderStatusName,
+                                                      //? "${value.orderStatusName}"
+                                                      // : value.orderStatusName,
+                                                      ? LocaleKeys.order_detail_wait_pay_verify.tr()
+                                                      : LocaleKeys.order_detail_wait_pay.tr(),
                                               item: value),
                                         ],
                                       ),

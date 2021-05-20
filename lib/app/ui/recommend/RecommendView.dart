@@ -21,6 +21,7 @@ import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SliderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';

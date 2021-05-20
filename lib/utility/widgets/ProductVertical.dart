@@ -49,6 +49,7 @@ class ProductVertical extends StatelessWidget {
   ProductBloc productBloc;
 
   init(BuildContext context) {
+
     if (productBloc == null) {
       productBloc = ProductBloc(AppProvider.getApplication(context));
       productBloc.onLoad.stream.listen((event) {
@@ -201,10 +202,10 @@ class ProductVertical extends StatelessWidget {
                           borderRadius:
                               BorderRadius.all(Radius.circular(2.0.w)),
                         ),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          child: Hero(
-                            tag: "${tagHero}_$index",
+                        child: Hero(
+                          tag: "${tagHero}_$index",
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(1.3.h),
                               child: CachedNetworkImage(
@@ -376,19 +377,20 @@ class ProductVertical extends StatelessWidget {
                 child: Container(
                   width: 20.0.w,
                   margin: EdgeInsets.only(right: 2.0.w),
-                  padding: EdgeInsets.only(
-                      right: 3.0.w, left: 3.0.w, top: 1.5.w, bottom: 1.5.w),
                   decoration: BoxDecoration(
                       color: Colors.red,
                       borderRadius: BorderRadius.all(
                           Radius.circular(SizeUtil.borderRadiusItem()))),
                   child: Center(
-                    child: Text(
-                      LocaleKeys.btn_buy_now.tr(),
-                      style: FunctionHelper.fontTheme(
-                          color: Colors.white,
-                          fontSize: SizeUtil.titleFontSize().sp,
-                          fontWeight: FontWeight.bold),
+                    child: Container(
+                      margin: EdgeInsets.only(top:1.0.h,bottom: 1.0.h),
+                      child: Text(
+                        LocaleKeys.btn_buy_now.tr(),
+                        style: FunctionHelper.fontTheme(
+                            color: Colors.white,
+                            fontSize: SizeUtil.titleFontSize().sp,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                 ),

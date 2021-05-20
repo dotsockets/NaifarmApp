@@ -188,9 +188,8 @@ class _ProductDetailViewState extends State<ProductDetailView>
             if (data.productObjectCombine.producItemRespone.id ==
                 widget.productItem.id) {
               // if (data.productObjectCombine.dataWishlists != null) {
-              //   print(
-              //       "ewfcerwfxxx ${data.productObjectCombine.dataWishlists.id}");
-              // }
+              print("ewfcerwfxxx ");
+
               bloc.zipProductDetail.add(data.productObjectCombine);
               bloc.searchProduct.add(data.searchRespone);
               break;
@@ -401,13 +400,21 @@ class _ProductDetailViewState extends State<ProductDetailView>
                   return FullScreenWidget(
                     backgroundIsTransparent: true,
                     child: Center(
-                      child:
-                          ProductSlide(imgList: item.producItemRespone.image),
-                    ),
+                        child:
+                            ProductSlide(imgList: item.producItemRespone.image)
+                        // Hero(
+                        //     // tag: widget.productImage,
+                        //     child: ProductSlide(
+                        //        imgList: item.producItemRespone.image)),
+                        ),
                   );
                 } else {
-                  return widget.productItem.image != null && item != null
-                      ? ProductSlide(imgList: item.producItemRespone.image)
+                  return widget.productItem.image != null
+                      ? ProductSlide(imgList: widget.productItem.image)
+                      // ? Hero(
+                      //     tag: widget.productImage,
+                      //     child: ProductSlide(
+                      //         imgList: widget.productItem.image))
                       : SizedBox();
                 }
               }),
@@ -419,18 +426,18 @@ class _ProductDetailViewState extends State<ProductDetailView>
                   return Column(
                     children: [
                       ProductInto(
-                              data: item.producItemRespone,
-                              dataWishlist: item.dataWishlists,
-                              scaffoldKey: _scaffoldKey,
-                              isLogin: isLogin,
-                              callbackLogin: () {
-                                iSLogin();
-                                Usermanager().getUser().then((value) {
-                                  bloc.loadProductsPage(context,
-                                      id: widget.productItem.id,
-                                      token: value.token);
-                                });
-                              }),
+                          data: item.producItemRespone,
+                          dataWishlist: item.dataWishlists,
+                          scaffoldKey: _scaffoldKey,
+                          isLogin: isLogin,
+                          callbackLogin: () {
+                            iSLogin();
+                            Usermanager().getUser().then((value) {
+                              bloc.loadProductsPage(context,
+                                  id: widget.productItem.id,
+                                  token: value.token);
+                            });
+                          }),
                       widget.productItem.image != null ? divider() : SizedBox(),
                       // BuildChoosesize(
                       //     IndexType1: IndexTypes1,
@@ -525,7 +532,8 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                 if (snapshot.hasError)
                                   return SizedBox();
                                 else
-                                  return RatingProduct(productId: item.producItemRespone.id,
+                                  return RatingProduct(
+                                    productId: item.producItemRespone.id,
                                     feedbackRespone: snapshot.data,
                                   );
                             }

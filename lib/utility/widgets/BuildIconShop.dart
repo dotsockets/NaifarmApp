@@ -54,7 +54,7 @@ class BuildIconShop extends StatelessWidget {
           padding: EdgeInsets.all(
               notification < 10 ? SizeUtil.shopBadgePadding().w : 0),
           child: Container(
-            // margin: EdgeInsets.only(bottom: 0.5.w),
+             margin: EdgeInsets.only(bottom: 0.5.w),
             child: Text(
               "$notification",
               style: FunctionHelper.fontTheme(
