@@ -43,7 +43,8 @@ class BuildIconShop extends StatelessWidget {
     return Badge(
         shape: BadgeShape.circle,
         position: BadgePosition.topStart(
-          top: SizeUtil.shopBadgeTop().w,start: SizeUtil.shopBadgeStart().w,
+          top: SizeUtil.shopBadgeTop().w,
+          start: SizeUtil.shopBadgeStart().w,
         ),
         animationDuration: Duration(milliseconds: 300),
         animationType: BadgeAnimationType.slide,
@@ -53,7 +54,7 @@ class BuildIconShop extends StatelessWidget {
           padding: EdgeInsets.all(
               notification < 10 ? SizeUtil.shopBadgePadding().w : 0),
           child: Container(
-            margin: EdgeInsets.only(bottom: 0.5.w),
+            // margin: EdgeInsets.only(bottom: 0.5.w),
             child: Text(
               "$notification",
               style: FunctionHelper.fontTheme(
@@ -69,14 +70,13 @@ class BuildIconShop extends StatelessWidget {
               size: SizeUtil.shopIconSize().w),
           onPressed: () {
             Usermanager().isLogin().then((value) async {
-              if(!value){
-                AppRoute.login(context,isCallBack: false,isHeader: true,isSetting: false);
-
-              }else{
+              if (!value) {
+                AppRoute.login(context,
+                    isCallBack: false, isHeader: true, isSetting: false);
+              } else {
                 AppRoute.myCart(context, btnBack);
               }
             });
-
           },
         ));
   }

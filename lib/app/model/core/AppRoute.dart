@@ -426,8 +426,8 @@ class AppRoute {
     BuildContext context,
   ) {
     Navigator.of(context).pushAndRemoveUntil(
-        SwipeablePageRoute(
-            canOnlySwipeFromEdge: true, builder: (context) => HomeView()),
+        PageTransition(
+            child: HomeView(), type: PageTransitionType.fade),
         (Route<dynamic> route) => route.isFirst);
   }
 

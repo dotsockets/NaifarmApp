@@ -169,16 +169,39 @@ class _PaidViewState extends State<PaidView> {
                                       pageVeiw: "paid",
                                       type: widget.typeView,
                                       order: value,
-                                      buttomAction: buildButtonBayItem(
-                                          btnTxt: widget.typeView ==
-                                                  OrderViewType.Shop
-                                              ? LocaleKeys
-                                                  .order_detail_confirm_pay
-                                                  .tr()
-                                              : value.image.isNotEmpty
-                                                  ? "${value.orderStatusName}"
-                                                  : value.orderStatusName,
-                                          item: value),
+                                      buttomAction: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            widget.typeView ==
+                                                    OrderViewType.Purchase
+                                                ? value.paymentStatus == 1
+                                                    ? "${LocaleKeys.order_detail_pay_date.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(value.requirePaymentAt))}"
+                                                    : "${LocaleKeys.order_detail_upload_slip.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(value.requestPaymentAt ?? DateTime.now().toString()))}"
+                                                : LocaleKeys.history_order_time
+                                                        .tr() +
+                                                    " " +
+                                                    " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(value.createdAt))}",
+                                            style: FunctionHelper.fontTheme(
+                                                fontSize: SizeUtil
+                                                        .titleSmallFontSize()
+                                                    .sp,
+                                                color: Colors.black
+                                                    .withOpacity(0.6)),
+                                          ),
+                                          buildButtonBayItem(
+                                              btnTxt: widget.typeView ==
+                                                      OrderViewType.Shop
+                                                  ? LocaleKeys
+                                                      .order_detail_confirm_pay
+                                                      .tr()
+                                                  : value.image.isNotEmpty
+                                                      ? "${value.orderStatusName}"
+                                                      : value.orderStatusName,
+                                              item: value),
+                                        ],
+                                      ),
                                     ),
                                     Container(
                                       height: 10,

@@ -55,12 +55,12 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                   headerType: Header_Type.barNormal,
                   icon: "",
                   onClick: () =>
-                      AppRoute.poppageCount(context: context, countpage: 2),
+                      AppRoute.poppageCount(context: context, countpage:3),
                 ),
               ),
               body: WillPopScope(
                 onWillPop: () async {
-                  AppRoute.poppageCount(context: context, countpage: 2);
+                  AppRoute.poppageCount(context: context, countpage: 3);
                   return false;
                 },
                 child: Column(
@@ -191,7 +191,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
               ),
               onPressed: () async {
                 if (Platform.isAndroid) {
-                  AppRoute.poppageCount(context: context, countpage: 2);
+                  AppRoute.poppageCount(context: context, countpage: 3);
                 } else if (Platform.isIOS) {
                   AppRoute.poppageCount(context: context, countpage: 3);
                 }

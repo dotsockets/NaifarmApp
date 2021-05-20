@@ -167,14 +167,51 @@ class _ShippedViewState extends State<ShippedView> {
                                       pageVeiw: "shipped",
                                       type: widget.typeView,
                                       order: value,
-                                      buttomAction: buildButtonBayItem(
-                                          btnTxt: widget.typeView ==
-                                                  OrderViewType.Purchase
-                                              ? LocaleKeys.order_detail_contact
-                                                  .tr()
-                                              : LocaleKeys.order_detail_ship
-                                                  .tr(),
-                                          item: value),
+                                      buttomAction: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                              constraints: BoxConstraints(
+                                                  maxWidth: (50.0.w - 12.0)),
+                                              child: Text(
+                                                widget.typeView ==
+                                                        OrderViewType.Purchase
+                                                    ? LocaleKeys
+                                                            .order_detail_ship_date
+                                                            .tr() +
+                                                        "\n" +
+                                                        LocaleKeys
+                                                            .order_detail_by_date
+                                                            .tr() +
+                                                        " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(value.createdAt))}"
+                                                    : LocaleKeys
+                                                            .history_order_time
+                                                            .tr() +
+                                                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(value.createdAt))}",
+                                                style: FunctionHelper.fontTheme(
+                                                    fontSize: SizeUtil
+                                                            .titleSmallFontSize()
+                                                        .sp,
+                                                    color: Colors.black
+                                                        .withOpacity(0.6)),
+                                              )),
+                                          Container(
+                                            constraints: BoxConstraints(
+                                                maxWidth: (50.0.w - 12.0)),
+                                            child: buildButtonBayItem(
+                                                btnTxt: widget.typeView ==
+                                                        OrderViewType.Purchase
+                                                    ? LocaleKeys
+                                                        .order_detail_contact
+                                                        .tr()
+                                                    : LocaleKeys
+                                                        .order_detail_ship
+                                                        .tr(),
+                                                item: value),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                     Container(
                                       height: 10,

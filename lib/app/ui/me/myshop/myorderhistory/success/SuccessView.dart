@@ -190,13 +190,34 @@ class _SuccessViewState extends State<SuccessView> {
                                       pageVeiw: "success",
                                       type: widget.typeView,
                                       order: value,
-                                      buttomAction: widget.typeView ==
-                                              OrderViewType.Purchase
-                                          ? buildButtonBayItem(
-                                              btnTxt: LocaleKeys.me_title_again
-                                                  .tr(),
-                                              item: value)
-                                          : Container(),
+                                      buttomAction: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          widget.typeView ==
+                                                  OrderViewType.Purchase
+                                              ? Text(
+                                                  LocaleKeys.history_order_time
+                                                          .tr() +
+                                                      " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(value.createdAt))}",
+                                                  style: FunctionHelper.fontTheme(
+                                                      fontSize: SizeUtil
+                                                              .titleSmallFontSize()
+                                                          .sp,
+                                                      color: Colors.black
+                                                          .withOpacity(0.6)),
+                                                )
+                                              : SizedBox(),
+                                          widget.typeView ==
+                                                  OrderViewType.Purchase
+                                              ? buildButtonBayItem(
+                                                  btnTxt: LocaleKeys
+                                                      .me_title_again
+                                                      .tr(),
+                                                  item: value)
+                                              : SizedBox()
+                                        ],
+                                      ),
                                     ),
                                     Container(
                                       height: 10,

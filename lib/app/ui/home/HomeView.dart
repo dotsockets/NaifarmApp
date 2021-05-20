@@ -40,7 +40,7 @@ class _HomeViewState extends State<HomeView>
     with SingleTickerProviderStateMixin, RouteAware {
   List<MenuModel> _menuViewModel;
   bool isLogin = true;
-  final _selectedIndex = BehaviorSubject<int>();
+  //final _selectedIndex = BehaviorSubject<int>();
   bool isDialogShowing = false;
   ProductBloc bloc;
   StreamSubscription sub;
@@ -72,8 +72,16 @@ class _HomeViewState extends State<HomeView>
       });
 
       NaiFarmLocalStorage.getNowPage().then((value) {
-        _selectedIndex.add(value);
-        NaiFarmLocalStorage.saveNowPage(0);
+        if(value==3){
+          context.read<HomeMenuIndex>().onSelect(0);
+          AppRoute.myCart(context, true);
+
+
+        }else{
+          context.read<HomeMenuIndex>().onSelect(value);
+        }
+
+       // NaiFarmLocalStorage.saveNowPage(0);
       });
     }
   }
