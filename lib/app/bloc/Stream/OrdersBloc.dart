@@ -371,7 +371,7 @@ class OrdersBloc {
                 token: token,
                 imageableId: int.parse((respone.respone as FeedbackData).id),
                 imageFile: file,
-                imageableType: "feedback",index: index
+                imageableType: "feedback"
               );
             });
           }
