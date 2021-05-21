@@ -396,8 +396,12 @@ class ProductVertical extends StatelessWidget {
                   Usermanager().isLogin().then((value) async {
                     if (!value) {
                       // ignore: unused_local_variable
-                      final result = await AppRoute.login(context,
-                          isCallBack: true, isHeader: true);
+                      final result = await AppRoute.login(
+                        context,
+                        isCallBack: true,
+                        isHeader: true,
+                        isSetting: false,
+                      );
                     } else {
                       productBloc.getProductsById(context, id: item.id);
                     }

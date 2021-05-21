@@ -220,7 +220,10 @@ class APIRepository {
   }
 
   Future<ApiResult> uploadImages(BuildContext context,
-      {List<File> imageFile, String imageableType, int imageableId, String token}) {
+      {List<File> imageFile,
+      String imageableType,
+      int imageableId,
+      String token}) {
     return _apiProvider.uploadImages(context,
         imageFile: imageFile,
         imageableType: imageableType,
@@ -555,6 +558,10 @@ class APIRepository {
     return _apiProvider.checkPhone(context, phone: phone);
   }
 
+  Future<ApiResult> checkExistingPhone(BuildContext context, {String phone}) {
+    return _apiProvider.checkExistingPhone(context, phone: phone);
+  }
+
   Future<ApiResult> addTracking(BuildContext context,
       {String trackingId, String token, int orderId}) {
     return _apiProvider.addTracking(context,
@@ -597,8 +604,7 @@ class APIRepository {
     return _apiProvider.getSystem(context);
   }
 
-  Future<ApiResult> loginApple(BuildContext context,
-      {String accessToken}) {
+  Future<ApiResult> loginApple(BuildContext context, {String accessToken}) {
     return _apiProvider.loginApple(context, accessToken);
   }
 

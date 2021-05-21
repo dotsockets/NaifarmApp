@@ -73,13 +73,17 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
         _input4.text.isEmpty ||
         _input5.text.isEmpty ||
         _input6.text.isEmpty) {
-      setState(() {
-        successForm = false;
-      });
+      if (mounted) {
+        setState(() {
+          successForm = false;
+        });
+      }
     } else {
-      setState(() {
-        successForm = true;
-      });
+      if (mounted) {
+        setState(() {
+          successForm = true;
+        });
+      }
     }
   }
 
@@ -670,9 +674,11 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
                                 }
                               },
                               onEnd: () {
-                                setState(() {
-                                  endTimes = false;
-                                });
+                                if (mounted) {
+                                  setState(() {
+                                    endTimes = false;
+                                  });
+                                }
                                 // Navigator.pop(context,false);
                               },
                             ),
@@ -748,13 +754,15 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
         .then((value) {
       if (value.httpCallBack.status == 200) {
         Navigator.of(context).pop();
-        setState(() {
-          widget.refCode = (value.respone as OTPRespone).refCode;
-          endTimes = true;
-          successForm = false;
-          endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 60 * 1;
-          cleanForm();
-        });
+        if (mounted) {
+          setState(() {
+            widget.refCode = (value.respone as OTPRespone).refCode;
+            endTimes = true;
+            successForm = false;
+            endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 60 * 1;
+            cleanForm();
+          });
+        }
       } else {
         Navigator.of(context).pop();
         //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: value.httpCallBack.message);

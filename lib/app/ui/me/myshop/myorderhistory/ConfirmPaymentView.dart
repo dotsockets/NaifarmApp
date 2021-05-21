@@ -56,11 +56,13 @@ class ConfirmPaymentView extends StatelessWidget {
         if (event is bool) {
           onDialog = true;
           FunctionHelper.successDialog(context,
-              message: LocaleKeys.dialog_message_success_pay.tr(), onClick: () {
+              message: LocaleKeys.dialog_message_success_pay.tr(),
+              onClick: () {},
+              barrierDismissible: false);
+          Future.delayed(const Duration(milliseconds: 800), () {
             onUpload = true;
-            if (onDialog) {
-              Navigator.pop(context, onUpload);
-            }
+            Navigator.pop(context, true);
+            Navigator.pop(context, true);
           });
         }
       });

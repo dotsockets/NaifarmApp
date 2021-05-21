@@ -345,18 +345,18 @@ class _APIProvider implements APIProvider {
 
     try {
       final _result =
-      await _dio.request<dynamic>('/v1/customers/first-password',
-          queryParameters: queryParameters,
-          options: RequestOptions(
-              method: 'PATCH',
-              headers: <String, dynamic>{
-                "token": accessToken,
-                'Accept-Language':
-                EasyLocalization.of(context).locale.languageCode
-              },
-              extra: _extra,
-              baseUrl: baseUrl),
-          data: data);
+          await _dio.request<dynamic>('/v1/customers/first-password',
+              queryParameters: queryParameters,
+              options: RequestOptions(
+                  method: 'PATCH',
+                  headers: <String, dynamic>{
+                    "token": accessToken,
+                    'Accept-Language':
+                        EasyLocalization.of(context).locale.languageCode
+                  },
+                  extra: _extra,
+                  baseUrl: baseUrl),
+              data: data);
       return ApiResult(
           respone: CustomerInfoRespone.fromJson(_result.data),
           httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
@@ -637,8 +637,9 @@ class _APIProvider implements APIProvider {
           httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
     } on DioError catch (e) {
       return ServerError.dioErrorExpction(e);
-    }catch (err) {
-      return ApiResult(httpCallBack: ThrowIfNoSuccess(status: 400,message: "Error"));
+    } catch (err) {
+      return ApiResult(
+          httpCallBack: ThrowIfNoSuccess(status: 400, message: "Error"));
     }
   }
 
@@ -1009,17 +1010,16 @@ class _APIProvider implements APIProvider {
   @override
   Future<ApiResult> uploadImages(BuildContext context,
       {List<File> imageFile,
-        String imageableType,
-        int imageableId,
-        String token}) async {
+      String imageableType,
+      int imageableId,
+      String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
 
     List uploadList = [];
     for (var file in imageFile) {
-      var multipartFile = await MultipartFile.fromFile(
-          file.path, filename: file.path.split('/').last
-      );
+      var multipartFile = await MultipartFile.fromFile(file.path,
+          filename: file.path.split('/').last);
       uploadList.add(multipartFile);
     }
 
@@ -1033,7 +1033,7 @@ class _APIProvider implements APIProvider {
               headers: <String, dynamic>{
                 "token": token,
                 'Accept-Language':
-                EasyLocalization.of(context).locale.languageCode
+                    EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -2560,6 +2560,35 @@ class _APIProvider implements APIProvider {
   }
 
   @override
+  Future<ApiResult> checkExistingPhone(BuildContext context,
+      {String phone}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{
+      "phone": phone,
+    };
+    try {
+      final _result = await _dio.request<dynamic>(
+          '/v1/customers/check-existing-phone',
+          queryParameters: queryParameters,
+          options: RequestOptions(
+              method: 'POST',
+              headers: <String, dynamic>{
+                'Accept-Language':
+                    EasyLocalization.of(context).locale.languageCode
+              },
+              extra: _extra,
+              baseUrl: baseUrl),
+          data: _data);
+      return ApiResult(
+          respone: true,
+          httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.dioErrorExpction(e);
+    }
+  }
+
+  @override
   Future<ApiResult> addTracking(BuildContext context,
       {String trackingId, String token, int orderId}) async {
     const _extra = <String, dynamic>{};
@@ -2789,9 +2818,7 @@ class _APIProvider implements APIProvider {
   Future<ApiResult> loginApple(BuildContext context, String accessToken) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{
-      "accessToken": accessToken
-    };
+    final _data = <String, dynamic>{"accessToken": accessToken};
 
     try {
       final _result = await _dio.request<dynamic>('/v1/customers/login-apple',
@@ -2800,7 +2827,7 @@ class _APIProvider implements APIProvider {
               method: 'POST',
               headers: <String, dynamic>{
                 'Accept-Language':
-                EasyLocalization.of(context).locale.languageCode
+                    EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),

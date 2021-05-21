@@ -47,22 +47,20 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
       });
       bloc.onError.stream.listen((event) {
         //Navigator.of(context).pop();
-       // FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
-        FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event.message);
+        // FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
         AppRoute.registerOTP(context,
             phoneNumber: _phone.text,
             refCode: (event as OTPRespone).refCode,
             requestOtp: RequestOtp.Forgotpassword);
-        // if(event is ForgotRespone){
-        //  setState(()=>_forgotRespone = (event as ForgotRespone));
-        // }else if(event is RegisterRespone){
-        //   FunctionHelper.SuccessDialog(context,message: "ตั้งรหัสผ่านสำเร็จ",onClick: (){
-        //     Navigator.of(context).pop();
-        //     Navigator.of(context).pop();
-        //   });
-        // }
+      });
+      bloc.checkExistingPhone.stream.listen((event) {
+        if (event) {
+          bloc.otpRequest(context, numberphone: _phone.text);
+        }
       });
     }
   }
@@ -114,7 +112,9 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               height: 4.0.h,
             ),
             Container(
-              padding: EdgeInsets.only(left: SizeUtil.paddingEdittext().w,right: SizeUtil.paddingEdittext().w),
+              padding: EdgeInsets.only(
+                  left: SizeUtil.paddingEdittext().w,
+                  right: SizeUtil.paddingEdittext().w),
               child: BuildEditText(
                 head: LocaleKeys.my_profile_phone.tr(),
                 hint: LocaleKeys.my_profile_phone.tr(),
@@ -148,7 +148,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                     Size(SizeUtil.buttonWidth().w, 7.0.h),
                   ),
                   backgroundColor: MaterialStateProperty.all(
-                    _phone.text.isNotEmpty&&_phone.text.length==10
+                    _phone.text.isNotEmpty && _phone.text.length == 10
                         ? ThemeColor.secondaryColor()
                         : Colors.grey.shade300,
                   ),
@@ -177,13 +177,12 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
     return Center(
       child: Container(
           padding: EdgeInsets.only(bottom: 3.5.h),
-         // width: MediaQuery.of(context).size.width,
+          // width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             color: ThemeColor.primaryColor(),
             borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(15.0.w),
-                bottomLeft: Radius.circular(15.0.w)
-            ),
+                bottomLeft: Radius.circular(15.0.w)),
           ),
           child: Column(
             children: [
@@ -232,8 +231,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   }
 
   void _validate() {
-    if (_phone.text.isNotEmpty&&_phone.text.length==10) {
-      bloc.otpRequest(context, numberphone: _phone.text);
+    if (_phone.text.isNotEmpty && _phone.text.length == 10) {
+      bloc.checkExistingPhoneNumber(context, phone: _phone.text);
     }
   }
 }

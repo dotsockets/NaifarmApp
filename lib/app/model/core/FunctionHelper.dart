@@ -430,10 +430,10 @@ class FunctionHelper {
   }
 
   static successDialog(BuildContext context,
-      {Function() onClick, String message}) {
+      {Function() onClick, String message, bool barrierDismissible = true}) {
     showDialog<bool>(
       context: context,
-      barrierDismissible: true,
+      barrierDismissible: barrierDismissible,
       builder: (BuildContext context) {
         return GestureDetector(
           child: Dialog(
