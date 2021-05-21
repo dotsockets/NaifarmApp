@@ -268,35 +268,37 @@ class HistoryProductCard extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         InkWell(
-          child: Hero(
+          child:
+              /*Hero(
             tag: "history_" +
                 this.pageVeiw +
                 "_$idOrder${item.inventoryId}${index}1",
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.black.withOpacity(0.1),
-                ),
+            child:*/
+              Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.black.withOpacity(0.1),
               ),
-              child: CachedNetworkImage(
-                width: 22.0.w,
+            ),
+            child: CachedNetworkImage(
+              width: 22.0.w,
+              height: 22.0.w,
+              placeholder: (context, url) => Container(
+                color: Colors.white,
+                child: Lottie.asset('assets/json/loading.json', height: 30),
+              ),
+              fit: BoxFit.cover,
+              imageUrl: item.itemImagePath != null
+                  ? "${Env.value.baseUrl}/storage/images/${item.itemImagePath}"
+                  : Env.value.noItemUrl,
+              errorWidget: (context, url, error) => Container(
                 height: 22.0.w,
-                placeholder: (context, url) => Container(
-                  color: Colors.white,
-                  child: Lottie.asset('assets/json/loading.json', height: 30),
-                ),
-                fit: BoxFit.cover,
-                imageUrl: item.itemImagePath != null
-                    ? "${Env.value.baseUrl}/storage/images/${item.itemImagePath}"
-                    : Env.value.noItemUrl,
-                errorWidget: (context, url, error) => Container(
-                  height: 22.0.w,
-                  width: 22.0.w,
-                  child: NaifarmErrorWidget(),
-                ),
+                width: 22.0.w,
+                child: NaifarmErrorWidget(),
               ),
             ),
           ),
+          //),
           onTap: () {
             ProductData product = ProductData();
             product = item.inventory.product;

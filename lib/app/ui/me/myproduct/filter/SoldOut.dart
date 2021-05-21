@@ -232,37 +232,39 @@ class _SoldOutState extends State<SoldOut> {
                                 color: Colors.black.withOpacity(0.2), width: 1),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        child: Hero(
+                        child:
+                            /*Hero(
                           tag: "myproduct_${index}_1",
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(1.0.h),
-                            child: CachedNetworkImage(
+                          child:*/
+                            ClipRRect(
+                          borderRadius: BorderRadius.circular(1.0.h),
+                          child: CachedNetworkImage(
+                            width: 30.0.w,
+                            height: 30.0.w,
+                            placeholder: (context, url) => Container(
                               width: 30.0.w,
                               height: 30.0.w,
-                              placeholder: (context, url) => Container(
+                              color: Colors.white,
+                              child: Lottie.asset(
+                                'assets/json/loading.json',
                                 width: 30.0.w,
                                 height: 30.0.w,
-                                color: Colors.white,
-                                child: Lottie.asset(
-                                  'assets/json/loading.json',
-                                  width: 30.0.w,
-                                  height: 30.0.w,
-                                ),
                               ),
-                              imageUrl: item.image.isNotEmpty
-                                  ? "${Env.value.baseUrl}/storage/images/${item.image[0].path}"
-                                  : '',
-                              errorWidget: (context, url, error) => Container(
-                                  width: 30.0.w,
-                                  height: 30.0.w,
-
-                                  //child: Image.network(Env.value.noItemUrl,
-                                  //    fit: BoxFit.cover)),
-                                  child: NaifarmErrorWidget()),
                             ),
+                            imageUrl: item.image.isNotEmpty
+                                ? "${Env.value.baseUrl}/storage/images/${item.image[0].path}"
+                                : '',
+                            errorWidget: (context, url, error) => Container(
+                                width: 30.0.w,
+                                height: 30.0.w,
+
+                                //child: Image.network(Env.value.noItemUrl,
+                                //    fit: BoxFit.cover)),
+                                child: NaifarmErrorWidget()),
                           ),
                         ),
                       ),
+                      // ),
                       Visibility(
                         child: Container(
                           margin: EdgeInsets.only(

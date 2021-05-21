@@ -389,34 +389,36 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
                       border: Border.all(
                           color: Colors.black.withOpacity(0.3), width: 1),
                       borderRadius: BorderRadius.all(Radius.circular(5))),
-                  child: Hero(
+                  child:
+                      /*Hero(
                     tag: "wishlist_${item.id}",
-                    child: CachedNetworkImage(
+                    child:*/
+                      CachedNetworkImage(
+                    width: 30.0.w,
+                    height: 40.0.w,
+                    placeholder: (context, url) => Container(
                       width: 30.0.w,
                       height: 40.0.w,
-                      placeholder: (context, url) => Container(
+                      color: Colors.white,
+                      child: Lottie.asset(
+                        'assets/json/loading.json',
                         width: 30.0.w,
                         height: 40.0.w,
-                        color: Colors.white,
-                        child: Lottie.asset(
-                          'assets/json/loading.json',
-                          width: 30.0.w,
-                          height: 40.0.w,
-                        ),
                       ),
-                      imageUrl: item.product != null
-                          ? ProductLandscape.covertUrlImage(item.product.image)
-                          : '',
-                      errorWidget: (context, url, error) => Container(
-                          width: 30.0.w,
-                          height: 40.0.w,
+                    ),
+                    imageUrl: item.product != null
+                        ? ProductLandscape.covertUrlImage(item.product.image)
+                        : '',
+                    errorWidget: (context, url, error) => Container(
+                        width: 30.0.w,
+                        height: 40.0.w,
 
 //child: Image.network(Env.value.noItemUrl,
-                          //    fit: BoxFit.cover)),
-                          child: NaifarmErrorWidget()),
-                    ),
+                        //    fit: BoxFit.cover)),
+                        child: NaifarmErrorWidget()),
                   ),
                 ),
+                //),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

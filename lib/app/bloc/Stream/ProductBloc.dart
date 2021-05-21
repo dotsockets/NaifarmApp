@@ -60,7 +60,6 @@ class ProductBloc {
   final wishlists = BehaviorSubject<WishlistsRespone>();
   final bayNow = <ProductData>[];
 
-
   final zipProductDetail = BehaviorSubject<ProductObjectCombine>();
 
   final zipMarketProfile = BehaviorSubject<MarketObjectCombine>();
@@ -429,7 +428,7 @@ class ProductBloc {
             }
 
             value.item.add(ProductDetailData(
-                searchRespone: tempSearch,
+                searchRespone: null,
                 productObjectCombine:
                     ProductObjectCombine(producItemRespone: tempProductItem)));
 
@@ -453,7 +452,6 @@ class ProductBloc {
                 inventoryId: inventoryId, productId: productId, token: token))
         .listen((respone) {
       if (respone.httpCallBack.status == 200) {
-
         // GetMyWishlists(token: token); GetWishlistsByProduct
         var item = (respone.respone as DataWishlists);
         ProducItemRespone tempProductItem = ProducItemRespone();
@@ -469,7 +467,7 @@ class ProductBloc {
               }
             }
             value.item.add(ProductDetailData(
-                searchRespone: tempSearch,
+                searchRespone: null,
                 productObjectCombine: ProductObjectCombine(
                     producItemRespone: tempProductItem, dataWishlists: item)));
 
@@ -517,8 +515,10 @@ class ProductBloc {
           getSearchCategoryGroupId(context,
               productItem: item.producItemRespone,
               dataWishlists: item.dataWishlists,
-              groupId:
-              item.producItemRespone.categories[0].category!=null?item.producItemRespone.categories[0].category.categorySubGroup.categoryGroup.id:0,
+              groupId: item.producItemRespone.categories[0].category != null
+                  ? item.producItemRespone.categories[0].category
+                      .categorySubGroup.categoryGroup.id
+                  : 0,
               limit: 10);
         }
 
@@ -574,9 +574,9 @@ class ProductBloc {
   getProductsByIdApplink(BuildContext context, {int id, bool onload}) {
     onLoad.add(true);
     Observable.fromFuture(
-        _application.appStoreAPIRepository.productsById(context, id: id))
+            _application.appStoreAPIRepository.productsById(context, id: id))
         .listen((event) {
-        onLoad.add(false);
+      onLoad.add(false);
       if (event.httpCallBack.status == 200) {
         var item = (event.respone as ProducItemRespone);
         productItem.add(item);
@@ -767,7 +767,7 @@ class ProductBloc {
               }
             }
             value.item.add(ProductDetailData(
-                searchRespone: (respone.respone as SearchRespone),
+                searchRespone: null,
                 productObjectCombine: ProductObjectCombine(
                     producItemRespone: productItem,
                     dataWishlists: dataWishlists)));
@@ -801,9 +801,7 @@ class ProductBloc {
             page: item.page,
             total: item.total));
       } else {
-
-          onError.add(respone.httpCallBack);
-
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
@@ -990,7 +988,9 @@ class ProductBloc {
             .getCustomerCount(context, token: token))
         .listen((respone) {
       // print("esfwcersfc ${respone.http_call_back.status}");
-      if (respone.httpCallBack.status == 200 || respone.httpCallBack.status == 401 || respone.httpCallBack.status == 406) {
+      if (respone.httpCallBack.status == 200 ||
+          respone.httpCallBack.status == 401 ||
+          respone.httpCallBack.status == 406) {
         onSuccess.add(true);
       } else {
         onError.add(respone.httpCallBack);
@@ -1065,7 +1065,8 @@ class ProductBloc {
         id: data.id,
         saleCount: data.saleCount,
         discountPercent: data.discountPercent,
-        rating: data.rating!=null?double.parse(data.rating.toString()):0.0,
+        rating:
+            data.rating != null ? double.parse(data.rating.toString()) : 0.0,
         reviewCount: data.reviewCount,
         shop: ShopItem(
             id: data.shop.id,

@@ -193,9 +193,11 @@ class ConfirmPaymentView extends StatelessWidget {
                                                     backgroundIsTransparent:
                                                         true,
                                                     child: Center(
-                                                        child: Hero(
+                                                      child:
+                                                          /*Hero(
                                                       tag: "payment",
-                                                      child: CachedNetworkImage(
+                                                      child:*/
+                                                          CachedNetworkImage(
                                                         // placeholder: (context, url) => Container(
                                                         //   child: Lottie.asset('assets/json/loading.json', ),
                                                         // ),
@@ -205,7 +207,7 @@ class ConfirmPaymentView extends StatelessWidget {
                                                                     item.image),
                                                         //  errorWidget: (context, url, error) => Container(child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                                                       ),
-                                                    ))))
+                                                    ))) //)
                                           ]),
                                     )
                                   : SizedBox()

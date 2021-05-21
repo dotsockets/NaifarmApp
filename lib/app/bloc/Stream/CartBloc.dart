@@ -82,7 +82,7 @@ class CartBloc {
         cartList.add(
             CartResponse(data: item.data, total: item.total, selectAll: false));
       } else {
-       // onLoad.add(false);
+        // onLoad.add(false);
         onError.add(respone.httpCallBack);
       }
     });
@@ -123,25 +123,20 @@ class CartBloc {
         // CartResponse(data: CartList.value.data);
         cartList.add(cartList.value);
       } else {
-
-          getCartlists(
-              context: context, token: token, cartActive: CartActive.CartDelete);
-          onError.add(respone.httpCallBack);
-
-
+        getCartlists(
+            context: context, token: token, cartActive: CartActive.CartDelete);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  getPaymentList(
-    BuildContext context,{String shopIds}
-  ) async {
+  getPaymentList(BuildContext context, {String shopIds}) async {
     // onLoad.add(true);
-    StreamSubscription subscription =
-        Observable.fromFuture(_application.appStoreAPIRepository.getPaymentList(
-      context,shopIds: shopIds ?? ""
-    )).listen((respone) {
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .getPaymentList(context, shopIds: shopIds ?? ""))
+        .listen((respone) {
       if (respone.httpCallBack.status == 200) {
         if ((respone.respone as PaymentRespone).data.isNotEmpty) {
           (respone.respone as PaymentRespone).data[0].active = true;
@@ -158,14 +153,14 @@ class CartBloc {
     _compositeSubscription.add(subscription);
   }
 
-  String getAllShopID(){
-    String id="";
-    int i=0;
-    for(var item in cartList.value.data){
-      if((i+1)==cartList.value.data.length){
-        id+="${item.shopId}";
-      }else{
-        id+="${item.shopId},";
+  String getAllShopID() {
+    String id = "";
+    int i = 0;
+    for (var item in cartList.value.data) {
+      if ((i + 1) == cartList.value.data.length) {
+        id += "${item.shopId}";
+      } else {
+        id += "${item.shopId},";
       }
       i++;
     }
@@ -359,22 +354,21 @@ class CartBloc {
 
   createOrder(BuildContext context,
       {OrderRequest orderRequest, String token}) async {
-    onLoad.add(true);
+    // onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(_application
             .appStoreAPIRepository
             .createOrder(context, orderRequest: orderRequest, token: token))
         .listen((respone) {
-      if (cartList.value.data.length == checkLoop) {
-        onLoad.add(false);
-      }
-
       if (respone.httpCallBack.status == 200 ||
           respone.httpCallBack.status == 201) {
-        onSuccess.add(respone.respone);
         checkLoop++;
         // bool temp = CartList.value.selectAll;
         // CartResponse(data: CartList.value.data);
         // CartList.add(CartList.value);
+        if (cartList.value.data.length == checkLoop) {
+          onLoad.add(false);
+          onSuccess.add(respone.respone);
+        }
       } else {
         onLoad.add(false);
         onError.add(respone.httpCallBack);

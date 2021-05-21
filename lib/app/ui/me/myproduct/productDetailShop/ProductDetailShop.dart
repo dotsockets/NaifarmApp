@@ -122,11 +122,12 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                                     as ProductMyShopRespone)
                                                 .image);
                                       } else
-                                        return Hero(
+                                        return /*Hero(
                                             tag: widget.productImage,
-                                            child: ProductSlide(
+                                            child:*/
+                                            ProductSlide(
                                                 imgList:
-                                                    widget.productItem.image));
+                                                    widget.productItem.image);
                                     }),
                                 StreamBuilder(
                                     stream: bloc.onSuccess.stream,
@@ -272,9 +273,12 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
           FullScreenWidget(
             backgroundIsTransparent: true,
             child: Center(
-              child: Hero(
+              child:
+                  /*Hero(
                 tag: widget.productImage,
-                child: ProductSlide(imgList: imgProductList(imgRes: img)),
+                child:*/
+                  ProductSlide(
+                imgList: imgProductList(imgRes: img),
               ),
             ),
           ),
