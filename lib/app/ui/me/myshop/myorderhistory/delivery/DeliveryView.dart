@@ -367,17 +367,19 @@ class _DeliveryViewState extends State<DeliveryView> {
               final result = await AppRoute.orderDetail(context,
                   orderData: item, typeView: widget.typeView);
               if (result) {
-                bloc.orderDataList.clear();
-                Usermanager().getUser().then((value) => bloc.loadOrder(context,
-                    load: true,
-                    orderType: widget.typeView == OrderViewType.Shop
-                        ? "myshop/orders"
-                        : "order",
-                    sort: "orders.updatedAt:desc",
-                    statusId: '4,5',
-                    limit: limit,
-                    page: 1,
-                    token: value.token));
+                Navigator.of(context).pop();
+                AppRoute.myShophistory(context, 3);
+               // bloc.orderDataList.clear();
+               //  Usermanager().getUser().then((value) => bloc.loadOrder(context,
+               //      load: true,
+               //      orderType: widget.typeView == OrderViewType.Shop
+               //          ? "myshop/orders"
+               //          : "order",
+               //      sort: "orders.updatedAt:desc",
+               //      statusId: '4,5',
+               //      limit: limit,
+               //      page: 1,
+               //      token: value.token));
               }
             }
           }

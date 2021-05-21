@@ -340,17 +340,19 @@ class _ShippedViewState extends State<ShippedView> {
           final result = await AppRoute.addtTrackingNumber(
               context: context, orderData: item);
           if (result) {
-            bloc.orderDataList.clear();
-            Usermanager().getUser().then((value) => bloc.loadOrder(context,
-                load: true,
-                orderType: widget.typeView == OrderViewType.Shop
-                    ? "myshop/orders"
-                    : "order",
-                sort: "orders.updatedAt:desc",
-                statusId: "3",
-                limit: limit,
-                page: 1,
-                token: value.token));
+            Navigator.of(context).pop();
+            AppRoute.shopOrderHistory(context, 2);
+            // bloc.orderDataList.clear();
+            // Usermanager().getUser().then((value) => bloc.loadOrder(context,
+            //     load: true,
+            //     orderType: widget.typeView == OrderViewType.Shop
+            //         ? "myshop/orders"
+            //         : "order",
+            //     sort: "orders.updatedAt:desc",
+            //     statusId: "3",
+            //     limit: limit,
+            //     page: 1,
+            //     token: value.token));
           }
         } else {
           // AppRoute.TransferPayMentView(context: context,orderData: item);

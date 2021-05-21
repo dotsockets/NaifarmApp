@@ -17,10 +17,10 @@ import 'delivery/DeliveryView.dart';
 
 // ignore: must_be_immutable
 class MyOrderHistoryView extends StatelessWidget {
-  final int index;
+  final int indexTab;
   final bool callback;
 
-  MyOrderHistoryView({Key key, this.index, this.callback}) : super(key: key);
+  MyOrderHistoryView({Key key, this.indexTab, this.callback}) : super(key: key);
 
   int tabCount = 5;
 
@@ -28,7 +28,7 @@ class MyOrderHistoryView extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: tabCount,
-      initialIndex: index,
+      initialIndex: indexTab,
       child: Container(
         color: ThemeColor.primaryColor(),
         child: SafeArea(
@@ -58,12 +58,14 @@ class MyOrderHistoryView extends StatelessWidget {
                     child: Container(
                       color: Colors.white,
                       child: TabBar(
+
                         indicator: MD2Indicator(
                           indicatorSize: MD2IndicatorSize.normal,
                           indicatorHeight: 0.8.h,
                           indicatorColor: ThemeColor.colorSale(),
                         ),
                         isScrollable: true,
+
                         tabs: [
                           _tabbar(
                               title: LocaleKeys.me_menu_pay.tr(),

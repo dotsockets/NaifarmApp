@@ -198,10 +198,29 @@ class HistoryProductCard extends StatelessWidget {
               ],
             ),
           ),
-          onTap: () => {
-            AppRoute.orderDetail(context,
-                orderData: this.order, typeView: this.type)
-          },
+          onTap: ()  async {
+            print(pageVeiw+"55855555645545656");
+            final result = await AppRoute.orderDetail(context,
+                orderData: this.order, typeView: this.type);
+            if (result) {
+              if(pageVeiw=="delivery"&&this.type == OrderViewType.Purchase) {
+                Navigator.of(context).pop();
+                AppRoute.myShophistory(context, 3);
+              }else if(pageVeiw=="paid"&&this.type == OrderViewType.Purchase){
+                Navigator.of(context).pop();
+                AppRoute.myShophistory(context, 4);
+              }else if(pageVeiw=="paid"&&this.type == OrderViewType.Shop){
+                Navigator.of(context).pop();
+                AppRoute.shopOrderHistory(context, 1);
+              }
+              else if(pageVeiw=="shipped"&&this.type == OrderViewType.Shop){
+                Navigator.of(context).pop();
+                AppRoute.shopOrderHistory(context, 2);
+              }
+              // AppRoute.orderDetail(context,
+              //     orderData: this.order, typeView: this.type);
+            }
+          }
         ),
         this.order.items[0].inventory == null
             ? Positioned.fill(
