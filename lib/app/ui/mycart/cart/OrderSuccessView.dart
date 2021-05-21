@@ -47,16 +47,13 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
           child: Scaffold(
               backgroundColor: Colors.grey.shade300,
               key: _scaffoldKey,
-              appBar: PreferredSize(
-                preferredSize: Size.fromHeight(6.5.h),
-                child: AppToobar(
-                  isEnableSearch: false,
-                  title: "รายละเอียดการสั่งซื้อ",
-                  headerType: Header_Type.barNormal,
-                  icon: "",
-                  onClick: () =>
-                      AppRoute.poppageCount(context: context, countpage:3),
-                ),
+              appBar: AppToobar(
+                isEnableSearch: false,
+                title: "รายละเอียดการสั่งซื้อ",
+                headerType: Header_Type.barNormal,
+                icon: "",
+                onClick: () =>
+                    AppRoute.poppageCount(context: context, countpage:3),
               ),
               body: WillPopScope(
                 onWillPop: () async {
