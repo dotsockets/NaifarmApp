@@ -252,32 +252,34 @@ class _RefundViewState extends State<RefundView> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         InkWell(
-          child: Hero(
+          child:
+              /*Hero(
             tag:
                 "history_refun_$idOrder${item.orderId}${item.inventoryId}$index",
-            child: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black.withOpacity(0.1))),
-              child: CachedNetworkImage(
-                width: 22.0.w,
-                height: 22.0.w,
-                placeholder: (context, url) => Container(
-                  color: Colors.white,
-                  child: Lottie.asset('assets/json/loading.json', height: 30),
-                ),
-                fit: BoxFit.cover,
-                imageUrl: item.itemImagePath != null
-                    ? "${Env.value.baseUrl}/storage/images/${item.itemImagePath}"
-                    : Env.value.noItemUrl,
-                errorWidget: (context, url, error) => Container(
-                    height: 22.0.w,
-                    width: 22.0.w,
-                    //child: Image.network(Env.value.noItemUrl)),
-
-                    child: NaifarmErrorWidget()),
+            child:*/
+              Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.black.withOpacity(0.1))),
+            child: CachedNetworkImage(
+              width: 22.0.w,
+              height: 22.0.w,
+              placeholder: (context, url) => Container(
+                color: Colors.white,
+                child: Lottie.asset('assets/json/loading.json', height: 30),
               ),
+              fit: BoxFit.cover,
+              imageUrl: item.itemImagePath != null
+                  ? "${Env.value.baseUrl}/storage/images/${item.itemImagePath}"
+                  : Env.value.noItemUrl,
+              errorWidget: (context, url, error) => Container(
+                  height: 22.0.w,
+                  width: 22.0.w,
+                  //child: Image.network(Env.value.noItemUrl)),
+
+                  child: NaifarmErrorWidget()),
             ),
           ),
+          //),
           onTap: () {
             ProductData product = ProductData();
             product = item.inventory.product;

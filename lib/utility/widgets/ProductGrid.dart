@@ -282,35 +282,37 @@ class _ProductGridState extends State<ProductGrid> {
                       border: Border.all(
                           color: Colors.black.withOpacity(0.2), width: 1),
                       borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Hero(
+                  child:
+                      /*Hero(
                     tag: "${widget.tagHero}_${item.id}",
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(1.0.h),
-                      child: CachedNetworkImage(
+                    child:*/
+                      ClipRRect(
+                    borderRadius: BorderRadius.circular(1.0.h),
+                    child: CachedNetworkImage(
+                      width: 30.0.w,
+                      height: 40.0.w,
+                      placeholder: (context, url) => Container(
                         width: 30.0.w,
                         height: 40.0.w,
-                        placeholder: (context, url) => Container(
+                        color: Colors.white,
+                        child: Lottie.asset(
+                          'assets/json/loading.json',
                           width: 30.0.w,
                           height: 40.0.w,
-                          color: Colors.white,
-                          child: Lottie.asset(
-                            'assets/json/loading.json',
-                            width: 30.0.w,
-                            height: 40.0.w,
-                          ),
                         ),
-                        imageUrl: ProductLandscape.covertUrlImage(item.image),
-                        errorWidget: (context, url, error) => Container(
-                            width: 30.0.w,
-                            height: 40.0.w,
-
-                            //child: Image.network(Env.value.noItemUrl,
-                            //    fit: BoxFit.cover)),
-                            child: NaifarmErrorWidget()),
                       ),
+                      imageUrl: ProductLandscape.covertUrlImage(item.image),
+                      errorWidget: (context, url, error) => Container(
+                          width: 30.0.w,
+                          height: 40.0.w,
+
+                          //child: Image.network(Env.value.noItemUrl,
+                          //    fit: BoxFit.cover)),
+                          child: NaifarmErrorWidget()),
                     ),
                   ),
                 ),
+                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

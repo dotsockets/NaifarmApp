@@ -222,31 +222,31 @@ class _ReviewViewState extends State<ReviewView> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Hero(
+              /*Hero(
                 tag: "history_$index",
-                child: Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black.withOpacity(0.1))),
-                  child: CachedNetworkImage(
-                    width: 22.0.w,
-                    height: 22.0.w,
-                    placeholder: (context, url) => Container(
-                      color: Colors.white,
-                      child:
-                          Lottie.asset('assets/json/loading.json', height: 30),
-                    ),
-                    fit: BoxFit.contain,
-                    imageUrl:
-                        "https://dev2-test.naifarm.com/img/thumb.e4f48571.png",
-                    errorWidget: (context, url, error) => Container(
-                        height: 30,
-                        child: Icon(
-                          Icons.error,
-                          size: 30,
-                        )),
+                child:*/
+              Container(
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black.withOpacity(0.1))),
+                child: CachedNetworkImage(
+                  width: 22.0.w,
+                  height: 22.0.w,
+                  placeholder: (context, url) => Container(
+                    color: Colors.white,
+                    child: Lottie.asset('assets/json/loading.json', height: 30),
                   ),
+                  fit: BoxFit.contain,
+                  imageUrl:
+                      "https://dev2-test.naifarm.com/img/thumb.e4f48571.png",
+                  errorWidget: (context, url, error) => Container(
+                      height: 30,
+                      child: Icon(
+                        Icons.error,
+                        size: 30,
+                      )),
                 ),
               ),
+              //),
               SizedBox(width: 10),
               Expanded(
                 child: Column(

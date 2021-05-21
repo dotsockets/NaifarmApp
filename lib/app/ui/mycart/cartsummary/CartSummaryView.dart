@@ -790,6 +790,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           // AppRoute.CartSummary(context,);
 
                           Usermanager().getUser().then((value) {
+                            bloc.onLoad.add(true);
                             for (var item in bloc.cartList.value.data) {
                               bloc.createOrder(context,
                                   orderRequest: bloc.convertOrderData(context,

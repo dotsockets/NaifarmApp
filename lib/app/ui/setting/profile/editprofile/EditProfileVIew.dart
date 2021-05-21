@@ -162,57 +162,59 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                     height: 30,
                   ),
                   GestureDetector(
-                      child: Hero(
+                      child:
+                          /*Hero(
                         tag: "image_profile_me",
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(60)),
-                          child: fileImage == null
-                              ? CachedNetworkImage(
-                                  width: SizeUtil.imgProfileSize().w,
-                                  height: SizeUtil.imgProfileSize().w,
-                                  placeholder: (context, url) => Container(
-                                        width: SizeUtil.imgProfileSize().w,
-                                        height: SizeUtil.imgProfileSize().w,
-                                        color: Colors.white,
-                                        child: Lottie.asset(
-                                            'assets/json/loading.json',
-                                            height: SizeUtil.imgProfileSize().w,width: SizeUtil.imgProfileSize().w),
-                                      ),
-                                  fit: BoxFit.cover,
-                                  imageUrl: itemInfo != null &&
-                                          itemInfo.image.length != 0
-                                      ? "${Env.value.baseUrl}/storage/images/${itemInfo.image[0].path}"
-                                      : "",
-                                  errorWidget: (context, url, error) =>
-                                      Container(
-                                          color: Colors.grey.shade300,
-                                          width: SizeUtil.imgProfileSize().w,
-                                          height: SizeUtil.imgProfileSize().w,
-                                          child: Icon(
-                                            Icons.person,
-                                            size: SizeUtil.iconSize().w,
-                                            color: Colors.white,
-                                          )))
-                              : Stack(
-                                  children: [
-                                    Container(
-                                      width: 80,
-                                      height: 80,
+                        child:*/
+                          ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(60)),
+                        child: fileImage == null
+                            ? CachedNetworkImage(
+                                width: SizeUtil.imgProfileSize().w,
+                                height: SizeUtil.imgProfileSize().w,
+                                placeholder: (context, url) => Container(
+                                      width: SizeUtil.imgProfileSize().w,
+                                      height: SizeUtil.imgProfileSize().w,
                                       color: Colors.white,
                                       child: Lottie.asset(
                                           'assets/json/loading.json',
-                                          height: 30),
+                                          height: SizeUtil.imgProfileSize().w,
+                                          width: SizeUtil.imgProfileSize().w),
                                     ),
-                                    Image.file(
-                                      fileImage,
-                                      width: 80,
-                                      height: 80,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ],
-                                ),
-                        ),
+                                fit: BoxFit.cover,
+                                imageUrl: itemInfo != null &&
+                                        itemInfo.image.length != 0
+                                    ? "${Env.value.baseUrl}/storage/images/${itemInfo.image[0].path}"
+                                    : "",
+                                errorWidget: (context, url, error) => Container(
+                                    color: Colors.grey.shade300,
+                                    width: SizeUtil.imgProfileSize().w,
+                                    height: SizeUtil.imgProfileSize().w,
+                                    child: Icon(
+                                      Icons.person,
+                                      size: SizeUtil.iconSize().w,
+                                      color: Colors.white,
+                                    )))
+                            : Stack(
+                                children: [
+                                  Container(
+                                    width: 80,
+                                    height: 80,
+                                    color: Colors.white,
+                                    child: Lottie.asset(
+                                        'assets/json/loading.json',
+                                        height: 30),
+                                  ),
+                                  Image.file(
+                                    fileImage,
+                                    width: 80,
+                                    height: 80,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ],
+                              ),
                       ),
+                      //),
                       onTap: () {
                         captureImage(ImageSource.gallery);
                       }),
@@ -375,10 +377,11 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                     message: "********",
                     title: LocaleKeys.my_profile_change_password.tr(),
                     onClick: () {
-                     // print("ewfvref ${itemInfo.socialSignup}");
-                      if(itemInfo.socialSignup!=null && itemInfo.socialSignup==1){
-                        AppRoute.editpasswordStep2(context,"");
-                      }else{
+                      // print("ewfvref ${itemInfo.socialSignup}");
+                      if (itemInfo.socialSignup != null &&
+                          itemInfo.socialSignup == 1) {
+                        AppRoute.editpasswordStep2(context, "");
+                      } else {
                         AppRoute.editpasswordStep1(context);
                       }
                     },

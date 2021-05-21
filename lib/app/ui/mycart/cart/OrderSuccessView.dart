@@ -55,7 +55,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
                   headerType: Header_Type.barNormal,
                   icon: "",
                   onClick: () =>
-                      AppRoute.poppageCount(context: context, countpage:3),
+                      AppRoute.poppageCount(context: context, countpage: 2),
                 ),
               ),
               body: WillPopScope(

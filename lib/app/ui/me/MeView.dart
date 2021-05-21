@@ -381,41 +381,43 @@ class _MeViewState extends State<MeView> with RouteAware {
                 height: 7.0.h,
               ),
               InkWell(
-                  child: Hero(
+                  child:
+                      /*Hero(
                     tag: "image_profile_me",
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0.w)),
-                      child: CachedNetworkImage(
+                    child:*/
+                      ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0.w)),
+                    child: CachedNetworkImage(
+                      width: SizeUtil.imgProfileSize().w,
+                      height: SizeUtil.imgProfileSize().w,
+                      placeholder: (context, url) => Container(
                         width: SizeUtil.imgProfileSize().w,
                         height: SizeUtil.imgProfileSize().w,
-                        placeholder: (context, url) => Container(
+                        color: Colors.white,
+                        child: Lottie.asset(
+                          'assets/json/loading.json',
+                          height: SizeUtil.imgProfileSize().w,
+                          width: SizeUtil.imgProfileSize().w,
+                        ),
+                      ),
+                      fit: BoxFit.cover,
+                      imageUrl: info != null
+                          ? info.image.length > 0
+                              ? "${Env.value.baseUrl}/storage/images/${info.image[0].path}"
+                              : ''
+                          : '',
+                      errorWidget: (context, url, error) => Container(
+                          color: Colors.grey.shade300,
                           width: SizeUtil.imgProfileSize().w,
                           height: SizeUtil.imgProfileSize().w,
-                          color: Colors.white,
-                          child: Lottie.asset(
-                            'assets/json/loading.json',
-                            height: SizeUtil.imgProfileSize().w,
-                            width: SizeUtil.imgProfileSize().w,
-                          ),
-                        ),
-                        fit: BoxFit.cover,
-                        imageUrl: info != null
-                            ? info.image.length > 0
-                                ? "${Env.value.baseUrl}/storage/images/${info.image[0].path}"
-                                : ''
-                            : '',
-                        errorWidget: (context, url, error) => Container(
-                            color: Colors.grey.shade300,
-                            width: SizeUtil.imgProfileSize().w,
-                            height: SizeUtil.imgProfileSize().w,
-                            child: Icon(
-                              Icons.person,
-                              size: SizeUtil.iconSize().w,
-                              color: Colors.white,
-                            )),
-                      ),
+                          child: Icon(
+                            Icons.person,
+                            size: SizeUtil.iconSize().w,
+                            color: Colors.white,
+                          )),
                     ),
                   ),
+                  //),
                   onTap: () {
                     AppRoute.imageFullScreenView(
                         heroTag: "image_profile_me",

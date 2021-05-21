@@ -47,10 +47,11 @@ class AddtTrackingNumberView extends StatelessWidget {
           onDialog = true;
           FunctionHelper.successDialog(context,
               message: LocaleKeys.dialog_message_success_track.tr(),
-              onClick: () {
-            if (onDialog) {
-              Navigator.pop(context, true);
-            }
+              onClick: () {},
+              barrierDismissible: false);
+          Future.delayed(const Duration(milliseconds: 800), () {
+            Navigator.pop(context, true);
+            Navigator.pop(context, true);
           });
         }
       });
@@ -196,7 +197,7 @@ class AddtTrackingNumberView extends StatelessWidget {
               ),
             ),
             onPressed: () {
-              if (trackController.text.length>0) {
+              if (trackController.text.length > 0) {
                 FunctionHelper.confirmDialog(context,
                     message: LocaleKeys.dialog_message_confirm_track.tr(),
                     onCancel: () {
