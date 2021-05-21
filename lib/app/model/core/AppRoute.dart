@@ -370,7 +370,7 @@ class AppRoute {
         canOnlySwipeFromEdge: true,
         builder: (context) {
           return MyOrderHistoryView(
-            index: index,
+            indexTab: index,
             callback: callback,
           );
         }));

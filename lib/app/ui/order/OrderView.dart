@@ -1018,7 +1018,7 @@ class _OrderViewState extends State<OrderView> {
                   //     onCancel: () {
                   //   Navigator.of(context).pop();
                   // }, onClick: () {
-                  //   Navigator.of(context).pop();
+                 //    Navigator.of(context).pop();
                   //   AppRoute.SellerCanceled(
                   //       context: context,
                   //       orderData: widget.orderData,
@@ -1184,7 +1184,7 @@ class _OrderViewState extends State<OrderView> {
                       onCancel: () {
                     Navigator.of(context).pop();
                   }, onClick: () {
-                    Navigator.of(context).pop();
+                    Navigator.pop(context, true);
                     Usermanager().getUser().then((value) {
                       bloc.goodsReceived(context,
                           orderId: orderData.id, token: value.token);
