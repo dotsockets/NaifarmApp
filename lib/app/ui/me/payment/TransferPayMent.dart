@@ -54,10 +54,12 @@ class _TransferPayMentState extends State<TransferPayMent> {
       bloc.onSuccess.stream.listen((event) {
         onDialog = true;
         FunctionHelper.successDialog(context,
-            message: LocaleKeys.dialog_message_success_slip.tr(), onClick: () {
-          if (onDialog) {
-            Navigator.pop(context, true);
-          }
+            message: LocaleKeys.dialog_message_success_slip.tr(),
+            onClick: () {},
+            barrierDismissible: false);
+        Future.delayed(const Duration(milliseconds: 800), () {
+          Navigator.pop(context, true);
+          Navigator.pop(context, true);
         });
       });
 
@@ -447,8 +449,8 @@ class _TransferPayMentState extends State<TransferPayMent> {
                             .length >
                         0 &&
                     systemRespone.bankAccountNumber != null) {
-
-                  captureImage(ImageSource.gallery,orderDataItem.image.isNotEmpty?false:true);
+                  captureImage(ImageSource.gallery,
+                      orderDataItem.image.isNotEmpty ? false : true);
                 }
               },
               child: Text(
@@ -555,7 +557,8 @@ class _TransferPayMentState extends State<TransferPayMent> {
           imageFile: fileImage,
           imageableType: "order",
           imageableId: widget.orderData.id,
-          token: value.token,requestPayments: requestPayment));
+          token: value.token,
+          requestPayments: requestPayment));
     } else {
       print('No image selected.');
     }

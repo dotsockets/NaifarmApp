@@ -210,7 +210,10 @@ abstract class APIProvider {
 
   @POST("/v1/image")
   Future<ApiResult> uploadImages(BuildContext context,
-      {List<File> imageFile, String imageableType, int imageableId, String token});
+      {List<File> imageFile,
+      String imageableType,
+      int imageableId,
+      String token});
 
   @GET("/v1/products")
   Future<ApiResult> productsById(BuildContext context, {int id});
@@ -431,6 +434,9 @@ abstract class APIProvider {
 
   @POST("/v1/customers/check-phone")
   Future<ApiResult> checkPhone(BuildContext context, {String phone});
+
+  @POST("/v1/customers/check-existing-phone")
+  Future<ApiResult> checkExistingPhone(BuildContext context, {String phone});
 
   @POST("/v1/order/298/fulfill")
   Future<ApiResult> addTracking(BuildContext context,
