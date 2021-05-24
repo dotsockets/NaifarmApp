@@ -106,7 +106,6 @@ class SettingGuestView extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(right: 2.0.w),
                 child: SizedBox(
-                  width: 25.0.w,
                   height: 4.0.h,
                   child: TextButton(
                     style: ButtonStyle(
@@ -122,7 +121,7 @@ class SettingGuestView extends StatelessWidget {
                         Colors.white.withOpacity(0.3),
                       ),
                       padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(horizontal: 3.0.w),
+                        EdgeInsets.symmetric(horizontal: 5.0.w),
                       ),
                     ),
                     onPressed: () => login(context),
@@ -137,7 +136,6 @@ class SettingGuestView extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: 25.0.w,
                 height: 4.0.h,
                 child: TextButton(
                   style: ButtonStyle(
@@ -153,7 +151,7 @@ class SettingGuestView extends StatelessWidget {
                       Colors.white.withOpacity(0.3),
                     ),
                     padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(horizontal: 3.0.w),
+                      EdgeInsets.symmetric(horizontal: 5.0.w),
                     ),
                   ),
                   onPressed: () {

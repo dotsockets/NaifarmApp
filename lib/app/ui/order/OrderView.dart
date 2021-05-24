@@ -612,7 +612,9 @@ class _OrderViewState extends State<OrderView> {
                     key,
                     Column(
                       children: [
-                        itemProduct(orderItems: orderData.items[key]),
+                        itemProduct(
+                            orderItems: orderData.items[key],
+                            productShop: orderData.shop),
                         SizedBox(
                           height: 1.0.h,
                         )
@@ -707,44 +709,42 @@ class _OrderViewState extends State<OrderView> {
     );
   }
 
-  Widget itemProduct({OrderItems orderItems}) {
+  Widget itemProduct({OrderItems orderItems, ProductShop productShop}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         InkWell(
-          child: Hero(
+          child:
+              /*Hero(
             tag: "orderview_${orderItems.inventoryId}1",
             child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black.withOpacity(0.1)),
-                borderRadius: BorderRadius.all(Radius.circular(5)),
+            child:*/
+              Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.black.withOpacity(0.1))),
+            child: CachedNetworkImage(
+              width: 22.0.w,
+              height: 22.0.w,
+              placeholder: (context, url) => Container(
+                width: 22.0.w,
+                height: 22.0.w,
+                color: Colors.white,
+                child: Lottie.asset('assets/json/loading.json', height: 30),
               ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: CachedNetworkImage(
+              fit: BoxFit.cover,
+              imageUrl: orderItems.itemImagePath != null
+                  ? "${Env.value.baseUrl}/storage/images/${orderItems.itemImagePath}"
+                  : Env.value.noItemUrl,
+              errorWidget: (context, url, error) => Container(
                   width: 22.0.w,
                   height: 22.0.w,
-                  placeholder: (context, url) => Container(
-                    width: 22.0.w,
-                    height: 22.0.w,
-                    color: Colors.white,
-                    child: Lottie.asset('assets/json/loading.json', height: 30),
-                  ),
-                  fit: BoxFit.cover,
-                  imageUrl: orderItems.itemImagePath != null
-                      ? "${Env.value.baseUrl}/storage/images/${orderItems.itemImagePath}"
-                      : Env.value.noItemUrl,
-                  errorWidget: (context, url, error) => Container(
-                      width: 22.0.w,
-                      height: 22.0.w,
-                      child: Icon(
-                        Icons.error,
-                        size: 30,
-                      )),
-                ),
-              ),
+                  child: Icon(
+                    Icons.error,
+                    size: 30,
+                  )),
             ),
           ),
+          //),
           onTap: () {
             if (orderItems.inventory != null) {
               // ignore: unused_local_variable
@@ -753,6 +753,9 @@ class _OrderViewState extends State<OrderView> {
               AppRoute.productDetail(context,
                   productImage: "orderview_${orderItems.inventoryId}1",
                   productItem: ProducItemRespone(
+                      shop: new ShopItem(
+                        id: productShop.id,
+                      ),
                       id: orderItems.inventory.product.id,
                       image: orderItems.inventory.image));
             }
@@ -1026,7 +1029,7 @@ class _OrderViewState extends State<OrderView> {
                   //     onCancel: () {
                   //   Navigator.of(context).pop();
                   // }, onClick: () {
-                  //   Navigator.of(context).pop();
+                 //    Navigator.of(context).pop();
                   //   AppRoute.SellerCanceled(
                   //       context: context,
                   //       orderData: widget.orderData,
@@ -1192,7 +1195,7 @@ class _OrderViewState extends State<OrderView> {
                       onCancel: () {
                     Navigator.of(context).pop();
                   }, onClick: () {
-                    Navigator.of(context).pop();
+                    Navigator.pop(context, true);
                     Usermanager().getUser().then((value) {
                       bloc.goodsReceived(context,
                           orderId: orderData.id, token: value.token);

@@ -16,29 +16,31 @@ class ImageFullScreen extends StatelessWidget {
         children: [
           GestureDetector(
             child: Center(
-              child: Hero(
+                child:
+                    /*Hero(
                   tag: heroTag,
-                  child: CachedNetworkImage(
-                    placeholder: (context, url) => Container(
-                      color: Colors.white,
-                      child: Lottie.asset('assets/json/loading.json',
-                          width: 30, height: 30),
+                  child:*/
+                    CachedNetworkImage(
+              placeholder: (context, url) => Container(
+                color: Colors.white,
+                child: Lottie.asset('assets/json/loading.json',
+                    width: 30, height: 30),
+              ),
+              fit: BoxFit.cover,
+              imageUrl: image,
+              errorWidget: (context, url, error) => Container(
+                  width: 60,
+                  height: 60,
+                  child: CircleAvatar(
+                    backgroundColor: Color(0xffE6E6E6),
+                    radius: 30,
+                    child: Icon(
+                      Icons.shopping_bag_rounded,
+                      color: Color(0xffCCCCCC),
                     ),
-                    fit: BoxFit.cover,
-                    imageUrl: image,
-                    errorWidget: (context, url, error) => Container(
-                        width: 60,
-                        height: 60,
-                        child: CircleAvatar(
-                          backgroundColor: Color(0xffE6E6E6),
-                          radius: 30,
-                          child: Icon(
-                            Icons.shopping_bag_rounded,
-                            color: Color(0xffCCCCCC),
-                          ),
-                        )),
                   )),
-            ),
+            )),
+            //),
             onTap: () {
               Navigator.pop(context);
             },

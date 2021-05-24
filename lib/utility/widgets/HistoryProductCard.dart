@@ -198,10 +198,29 @@ class HistoryProductCard extends StatelessWidget {
               ],
             ),
           ),
-          onTap: () => {
-            AppRoute.orderDetail(context,
-                orderData: this.order, typeView: this.type)
-          },
+          onTap: ()  async {
+            print(pageVeiw+"55855555645545656");
+            final result = await AppRoute.orderDetail(context,
+                orderData: this.order, typeView: this.type);
+            if (result) {
+              if(pageVeiw=="delivery"&&this.type == OrderViewType.Purchase) {
+                Navigator.of(context).pop();
+                AppRoute.myShophistory(context, 3);
+              }else if(pageVeiw=="paid"&&this.type == OrderViewType.Purchase){
+                Navigator.of(context).pop();
+                AppRoute.myShophistory(context, 4);
+              }else if(pageVeiw=="paid"&&this.type == OrderViewType.Shop){
+                Navigator.of(context).pop();
+                AppRoute.shopOrderHistory(context, 1);
+              }
+              else if(pageVeiw=="shipped"&&this.type == OrderViewType.Shop){
+                Navigator.of(context).pop();
+                AppRoute.shopOrderHistory(context, 2);
+              }
+              // AppRoute.orderDetail(context,
+              //     orderData: this.order, typeView: this.type);
+            }
+          }
         ),
         this.order.items[0].inventory == null
             ? Positioned.fill(
@@ -249,35 +268,37 @@ class HistoryProductCard extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         InkWell(
-          child: Hero(
+          child:
+              /*Hero(
             tag: "history_" +
                 this.pageVeiw +
                 "_$idOrder${item.inventoryId}${index}1",
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.black.withOpacity(0.1),
-                ),
+            child:*/
+              Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.black.withOpacity(0.1),
               ),
-              child: CachedNetworkImage(
-                width: 22.0.w,
+            ),
+            child: CachedNetworkImage(
+              width: 22.0.w,
+              height: 22.0.w,
+              placeholder: (context, url) => Container(
+                color: Colors.white,
+                child: Lottie.asset('assets/json/loading.json', height: 30),
+              ),
+              fit: BoxFit.cover,
+              imageUrl: item.itemImagePath != null
+                  ? "${Env.value.baseUrl}/storage/images/${item.itemImagePath}"
+                  : Env.value.noItemUrl,
+              errorWidget: (context, url, error) => Container(
                 height: 22.0.w,
-                placeholder: (context, url) => Container(
-                  color: Colors.white,
-                  child: Lottie.asset('assets/json/loading.json', height: 30),
-                ),
-                fit: BoxFit.cover,
-                imageUrl: item.itemImagePath != null
-                    ? "${Env.value.baseUrl}/storage/images/${item.itemImagePath}"
-                    : Env.value.noItemUrl,
-                errorWidget: (context, url, error) => Container(
-                  height: 22.0.w,
-                  width: 22.0.w,
-                  child: NaifarmErrorWidget(),
-                ),
+                width: 22.0.w,
+                child: NaifarmErrorWidget(),
               ),
             ),
           ),
+          //),
           onTap: () {
             ProductData product = ProductData();
             product = item.inventory.product;

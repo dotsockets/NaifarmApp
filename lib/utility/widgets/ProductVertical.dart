@@ -202,36 +202,38 @@ class ProductVertical extends StatelessWidget {
                           borderRadius:
                               BorderRadius.all(Radius.circular(2.0.w)),
                         ),
-                        child: Hero(
-                          tag: "${tagHero}_$index",
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(1.3.h),
-                              child: CachedNetworkImage(
-                                width: 28.0.w,
-                                height: 35.0.w,
-                                placeholder: (context, url) => Container(
-                                  color: Colors.white,
-                                  child: Lottie.asset(
-                                    'assets/json/loading.json',
-                                    width: 28.0.w,
-                                    height: 35.0.w,
-                                  ),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          child:
+                              /*Hero(
+                            tag: "${tagHero}_$index",
+                            child:*/
+                              ClipRRect(
+                            borderRadius: BorderRadius.circular(1.3.h),
+                            child: CachedNetworkImage(
+                              width: 28.0.w,
+                              height: 35.0.w,
+                              placeholder: (context, url) => Container(
+                                color: Colors.white,
+                                child: Lottie.asset(
+                                  'assets/json/loading.json',
+                                  width: 28.0.w,
+                                  height: 35.0.w,
                                 ),
-                                imageUrl:
-                                    ProductLandscape.covertUrlImage(item.image),
-                                errorWidget: (context, url, error) => Container(
-                                    width: 28.0.w,
-                                    height: 35.0.w,
-                                    child: NaifarmErrorWidget()),
-                                //  child: Image.network(Env.value.noItemUrl,
-                                //  fit: BoxFit.cover)),
                               ),
+                              imageUrl:
+                                  ProductLandscape.covertUrlImage(item.image),
+                              errorWidget: (context, url, error) => Container(
+                                  width: 28.0.w,
+                                  height: 35.0.w,
+                                  child: NaifarmErrorWidget()),
+                              //  child: Image.network(Env.value.noItemUrl,
+                              //  fit: BoxFit.cover)),
                             ),
                           ),
                         ),
                       ),
+                      // ),
                       Visibility(
                         child: Container(
                           margin: EdgeInsets.all(1.5.w),
@@ -398,8 +400,12 @@ class ProductVertical extends StatelessWidget {
                   Usermanager().isLogin().then((value) async {
                     if (!value) {
                       // ignore: unused_local_variable
-                      final result = await AppRoute.login(context,
-                          isCallBack: true, isHeader: true);
+                      final result = await AppRoute.login(
+                        context,
+                        isCallBack: true,
+                        isHeader: true,
+                        isSetting: false,
+                      );
                     } else {
                       productBloc.getProductsById(context, id: item.id);
                     }

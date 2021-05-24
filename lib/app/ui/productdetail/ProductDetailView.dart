@@ -399,14 +399,13 @@ class _ProductDetailViewState extends State<ProductDetailView>
                 if (snapshot.hasData && item.producItemRespone != null) {
                   return FullScreenWidget(
                     backgroundIsTransparent: true,
-                    child: Center(
+                    child: Hero(
+                      tag: "customTag",
+                      child: Center(
                         child:
-                            ProductSlide(imgList: item.producItemRespone.image)
-                        // Hero(
-                        //     // tag: widget.productImage,
-                        //     child: ProductSlide(
-                        //        imgList: item.producItemRespone.image)),
-                        ),
+                            ProductSlide(imgList: item.producItemRespone.image),
+                      ),
+                    ),
                   );
                 } else {
                   return widget.productItem.image != null

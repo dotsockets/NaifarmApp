@@ -192,8 +192,7 @@ class _PaidViewState extends State<PaidView> {
                                                     .withOpacity(0.6)),
                                           ),
                                           buildButtonBayItem(
-                                              btnTxt: widget.typeView ==
-                                                      OrderViewType.Shop
+                                              btnTxt: widget.typeView == OrderViewType.Shop
                                                   ? LocaleKeys
                                                       .order_detail_confirm_pay
                                                       .tr()

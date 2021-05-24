@@ -54,49 +54,51 @@ class NotiDetailView extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Hero(
+                /*Hero(
                   tag: notiImage,
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Colors.black.withOpacity(0.2), width: 1),
-                        borderRadius: BorderRadius.all(Radius.circular(6))),
-                    child: CachedNetworkImage(
-                      width: 35,
-                      height: 35,
-                      placeholder: (context, url) => Container(
-                        color: Colors.white,
-                        child: Lottie.asset('assets/json/loading.json',
-                            height: 30),
-                      ),
-                      fit: BoxFit.cover,
-                      imageUrl: item.imageShop,
-                      errorWidget: (context, url, error) => Container(
-                          height: 30,
-                          child: Icon(
-                            Icons.error,
-                            size: 30,
-                          )),
+                  child:*/
+                Container(
+                  padding: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                          color: Colors.black.withOpacity(0.2), width: 1),
+                      borderRadius: BorderRadius.all(Radius.circular(6))),
+                  child: CachedNetworkImage(
+                    width: 35,
+                    height: 35,
+                    placeholder: (context, url) => Container(
+                      color: Colors.white,
+                      child:
+                          Lottie.asset('assets/json/loading.json', height: 30),
                     ),
+                    fit: BoxFit.cover,
+                    imageUrl: item.imageShop,
+                    errorWidget: (context, url, error) => Container(
+                        height: 30,
+                        child: Icon(
+                          Icons.error,
+                          size: 30,
+                        )),
                   ),
                 ),
+                //),
                 Expanded(
                     child: Container(
                   padding: EdgeInsets.only(left: 10, right: 5),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Hero(
+                      /*Hero(
                         tag: notiTitle,
-                        child: Text(item.title,
-                            style: FunctionHelper.fontTheme(
-                                fontSize: SizeUtil.titleFontSize().sp,
-                                fontWeight: FontWeight.bold,
-                                color: item.statusSell != 2
-                                    ? Colors.black
-                                    : Colors.red)),
-                      ),
+                        child:*/
+                      Text(item.title,
+                          style: FunctionHelper.fontTheme(
+                              fontSize: SizeUtil.titleFontSize().sp,
+                              fontWeight: FontWeight.bold,
+                              color: item.statusSell != 2
+                                  ? Colors.black
+                                  : Colors.red)),
+                      //),
                       SizedBox(height: 5),
                       NotiViewModel().getStatusMessage(status: item),
                       SizedBox(height: 5),

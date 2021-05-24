@@ -126,30 +126,30 @@ class SearchHot extends StatelessWidget {
                     width: index == 0 ? 1 : 0, color: Colors.grey.shade200))),
         child: Row(
           children: [
-            Hero(
+            /*Hero(
               tag: "${tagHero}_${item.id}",
-              child: CachedNetworkImage(
+              child:*/
+            CachedNetworkImage(
+              width: 20.0.w,
+              height: 20.0.w,
+              placeholder: (context, url) => Container(
                 width: 20.0.w,
                 height: 20.0.w,
-                placeholder: (context, url) => Container(
+                color: Colors.white,
+                child: Lottie.asset('assets/json/loading.json', height: 20.0.w),
+              ),
+              imageUrl: item.image.length != 0
+                  ? "${Env.value.baseUrl}/storage/images/${item.image[0].path}"
+                  : Env.value.noItemUrl,
+              errorWidget: (context, url, error) => Container(
                   width: 20.0.w,
                   height: 20.0.w,
-                  color: Colors.white,
-                  child:
-                      Lottie.asset('assets/json/loading.json', height: 20.0.w),
-                ),
-                imageUrl: item.image.length != 0
-                    ? "${Env.value.baseUrl}/storage/images/${item.image[0].path}"
-                    : Env.value.noItemUrl,
-                errorWidget: (context, url, error) => Container(
-                    width: 20.0.w,
-                    height: 20.0.w,
-                    // child: Image.network(
-                    //     "https://via.placeholder.com/94x94/ffffff/cccccc?text=naifarm.com",
-                    //     fit: BoxFit.cover)),
-                    child: NaifarmErrorWidget()),
-              ),
+                  // child: Image.network(
+                  //     "https://via.placeholder.com/94x94/ffffff/cccccc?text=naifarm.com",
+                  //     fit: BoxFit.cover)),
+                  child: NaifarmErrorWidget()),
             ),
+            //),
             SizedBox(width: 2.0.w),
             Container(
               width: MediaQuery.of(context).size.width / 4,
@@ -190,7 +190,8 @@ class SearchHot extends StatelessWidget {
                           allowHalfRating: false,
                           onRated: (v) {},
                           starCount: 5,
-                          rating: item.rating!=null?item.rating.toDouble():0,
+                          rating:
+                              item.rating != null ? item.rating.toDouble() : 0,
                           size: 3.0.w,
                           isReadOnly: true,
                           filledIconData: Icons.star,
@@ -202,7 +203,7 @@ class SearchHot extends StatelessWidget {
                         width: 1.0.w,
                       ),
                       Text(
-                        "${item.rating!=null?item.rating.toDouble():0.0}",
+                        "${item.rating != null ? item.rating.toDouble() : 0.0}",
                         style: FunctionHelper.fontTheme(
                             color: Colors.grey.shade400,
                             fontSize: SizeUtil.titleFontSize().sp,

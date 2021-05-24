@@ -35,6 +35,9 @@ class MemberBloc {
   final textOn = BehaviorSubject<String>();
 
   final checkPhone = BehaviorSubject<bool>();
+
+  final checkExistingPhone = BehaviorSubject<bool>();
+
   Stream<Object> get feedList => onSuccess.stream;
 
   MemberBloc(this._application);
@@ -76,8 +79,9 @@ class MemberBloc {
 
   customerLoginApple({BuildContext context, String accessToken}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
-        _application.appStoreAPIRepository.loginApple(context,accessToken: accessToken))
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .loginApple(context, accessToken: accessToken))
         .listen((respone) {
       var item = (respone.respone as LoginRespone);
       if (respone.httpCallBack.status == 200) {
@@ -541,6 +545,22 @@ class MemberBloc {
       onLoad.add(false);
       if (respone.httpCallBack.status == 200) {
         checkPhone.add(respone.respone);
+      } else {
+        onError.add(respone.httpCallBack);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  checkExistingPhoneNumber(BuildContext context, {String phone}) async {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .checkExistingPhone(context, phone: phone))
+        .listen((respone) {
+      onLoad.add(false);
+      if (respone.httpCallBack.status == 200) {
+        checkExistingPhone.add(respone.respone);
       } else {
         onError.add(respone.httpCallBack);
       }

@@ -473,35 +473,37 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                   decoration: BoxDecoration(
                       border: Border.all(width: 1, color: Colors.grey.shade400),
                       borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Hero(
+                  child:
+                      /*Hero(
                     tag: "loadmore_${item.id}$index",
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(1.0.h),
-                      child: CachedNetworkImage(
+                    child:*/
+                      ClipRRect(
+                    borderRadius: BorderRadius.circular(1.0.h),
+                    child: CachedNetworkImage(
+                      width: 30.0.w,
+                      height: 40.0.w,
+                      placeholder: (context, url) => Container(
                         width: 30.0.w,
                         height: 40.0.w,
-                        placeholder: (context, url) => Container(
+                        color: Colors.white,
+                        child: Lottie.asset(
+                          'assets/json/loading.json',
                           width: 30.0.w,
                           height: 40.0.w,
-                          color: Colors.white,
-                          child: Lottie.asset(
-                            'assets/json/loading.json',
-                            width: 30.0.w,
-                            height: 40.0.w,
-                          ),
                         ),
-                        imageUrl: ProductLandscape.covertUrlImage(item.image),
-                        errorWidget: (context, url, error) => Container(
-                            width: 30.0.w,
-                            height: 40.0.w,
+                      ),
+                      imageUrl: ProductLandscape.covertUrlImage(item.image),
+                      errorWidget: (context, url, error) => Container(
+                          width: 30.0.w,
+                          height: 40.0.w,
 
 //child: Image.network(Env.value.noItemUrl,
-                            //    fit: BoxFit.cover)),
-                            child: NaifarmErrorWidget()),
-                      ),
+                          //    fit: BoxFit.cover)),
+                          child: NaifarmErrorWidget()),
                     ),
                   ),
                 ),
+                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

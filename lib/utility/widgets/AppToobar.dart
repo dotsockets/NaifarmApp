@@ -59,82 +59,78 @@ class AppToobar extends PreferredSize {
   }
 
   Widget barNormal(BuildContext context) {
-    return Wrap(
-      children: [
-        Container(
-          padding: EdgeInsets.only(left: 0, right: 0.3.w),
-          decoration: new BoxDecoration(
-            color: ThemeColor.primaryColor(),
-            // borderRadius:  IsborderRadius?BorderRadius.only(
-            //   topRight: const Radius.circular(30.0),
-            //   topLeft: const Radius.circular(30.0),
-            // ):BorderRadius.all(Radius.circular(0.0)),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+    return Container(
+      padding: EdgeInsets.only(left: 0, right: 0.3.w),
+      decoration: new BoxDecoration(
+        color: ThemeColor.primaryColor(),
+        // borderRadius:  IsborderRadius?BorderRadius.only(
+        //   topRight: const Radius.circular(30.0),
+        //   topLeft: const Radius.circular(30.0),
+        // ):BorderRadius.all(Radius.circular(0.0)),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  showBackBtn
-                      ? Container(
-                          width: 10.0.w,
-                          height: 10.0.w,
-                          child: IconButton(
-                            icon: Icon(
-                              Platform.isAndroid
-                                  ? Icons.arrow_back
-                                  : Icons.arrow_back_ios_rounded,
-                              color: Colors.white,
-                              size: SizeUtil.iconSmallSize().w,
-                            ),
-                            onPressed: () {
-                              onClick == null
-                                  ? Navigator.of(context).pop()
-                                  : onClick();
-                            },
-                          ),
-                        )
-                      : SizedBox(
-                          width: 10.0.w,
-                          height: 10.0.w,
+              showBackBtn
+                  ? Container(
+                      width: 10.0.w,
+                      height: 10.0.w,
+                      child: IconButton(
+                        icon: Icon(
+                          Platform.isAndroid
+                              ? Icons.arrow_back
+                              : Icons.arrow_back_ios_rounded,
+                          color: Colors.white,
+                          size: SizeUtil.iconSmallSize().w,
                         ),
-                  Expanded(
-                    child: Container(
-                      child: Center(
-                        child: Text(
-                          title,
-                          style: FunctionHelper.fontTheme(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: SizeUtil.titleFontSize().sp),
-                        ),
+                        onPressed: () {
+                          onClick == null
+                              ? Navigator.of(context).pop()
+                              : onClick();
+                        },
                       ),
+                    )
+                  : SizedBox(
+                      width: 10.0.w,
+                      height: 10.0.w,
+                    ),
+              Expanded(
+                child: Container(
+                  child: Center(
+                    child: Text(
+                      title,
+                      style: FunctionHelper.fontTheme(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: SizeUtil.titleFontSize().sp),
                     ),
                   ),
-                  isEnableSearch
-                      ? Container(
-                          width: 10.0.w,
-                          height: 10.0.w,
-                          child: IconButton(
-                            icon: Icon(Icons.search_rounded,
-                                color: Colors.white,
-                                size: SizeUtil.iconSmallSize().w),
-                            onPressed: () {
-                              AppRoute.searchHome(context);
-                            },
-                          ),
-                        )
-                      : SizedBox(
-                          width: 10.0.w,
-                          height: 10.0.w,
-                        )
-                ],
+                ),
               ),
+              isEnableSearch
+                  ? Container(
+                      width: 10.0.w,
+                      height: 10.0.w,
+                      child: IconButton(
+                        icon: Icon(Icons.search_rounded,
+                            color: Colors.white,
+                            size: SizeUtil.iconSmallSize().w),
+                        onPressed: () {
+                          AppRoute.searchHome(context);
+                        },
+                      ),
+                    )
+                  : SizedBox(
+                      width: 10.0.w,
+                      height: 10.0.w,
+                    )
             ],
           ),
-        )
-      ],
+        ],
+      ),
     );
   }
 

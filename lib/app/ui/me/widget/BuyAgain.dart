@@ -116,25 +116,26 @@ class BuyAgain extends StatelessWidget {
             border: Border.all(width: 1, color: Colors.grey.shade200)),
         child: Stack(
           children: [
-            Hero(
+            /*Hero(
               tag: "${tagHero}_${item.id}",
-              child: CachedNetworkImage(
+              child:*/
+            CachedNetworkImage(
+              width: 28.0.w,
+              height: 28.0.w,
+              placeholder: (context, url) => Container(
                 width: 28.0.w,
                 height: 28.0.w,
-                placeholder: (context, url) => Container(
+                color: Colors.white,
+                child: Lottie.asset('assets/json/loading.json', height: 28),
+              ),
+              imageUrl: ProductLandscape.covertUrlImage(item.image),
+              errorWidget: (context, url, error) => Container(
                   width: 28.0.w,
                   height: 28.0.w,
-                  color: Colors.white,
-                  child: Lottie.asset('assets/json/loading.json', height: 28),
-                ),
-                imageUrl: ProductLandscape.covertUrlImage(item.image),
-                errorWidget: (context, url, error) => Container(
-                    width: 28.0.w,
-                    height: 28.0.w,
-                    //child: Image.network(Env.value.noItemUrl, fit: BoxFit.cover)),
-                    child: NaifarmErrorWidget()),
-              ),
+                  //child: Image.network(Env.value.noItemUrl, fit: BoxFit.cover)),
+                  child: NaifarmErrorWidget()),
             ),
+            //),
             Visibility(
               child: Container(
                 margin: EdgeInsets.all(1.5.w),
