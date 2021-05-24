@@ -403,13 +403,13 @@ class _ProductDetailViewState extends State<ProductDetailView>
                       tag: "customTag",
                       child: Center(
                         child:
-                            ProductSlide(imgList: item.producItemRespone.image),
+                            ProductSlide(imgList: ProductLandscape().covertImgProduct(item.producItemRespone.image)),
                       ),
                     ),
                   );
                 } else {
                   return widget.productItem.image != null
-                      ? ProductSlide(imgList: widget.productItem.image)
+                      ? ProductSlide(imgList: ProductLandscape().covertImgProduct(widget.productItem.image))
                       // ? Hero(
                       //     tag: widget.productImage,
                       //     child: ProductSlide(

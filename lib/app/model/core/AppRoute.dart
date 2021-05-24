@@ -390,11 +390,13 @@ class AppRoute {
         }));
   }
 
-  static review(BuildContext context,OrderData orderData) {
+  static review(BuildContext context, OrderData orderData) {
     Navigator.of(context).push(SwipeablePageRoute(
         canOnlySwipeFromEdge: true,
         builder: (context) {
-          return ReviewView(orderData: orderData,);
+          return ReviewView(
+            orderData: orderData,
+          );
         }));
   }
 
@@ -426,8 +428,7 @@ class AppRoute {
     BuildContext context,
   ) {
     Navigator.of(context).pushAndRemoveUntil(
-        PageTransition(
-            child: HomeView(), type: PageTransitionType.fade),
+        PageTransition(child: HomeView(), type: PageTransitionType.fade),
         (Route<dynamic> route) => route.isFirst);
   }
 
@@ -996,15 +997,24 @@ class AppRoute {
   }
 
   static imageFullScreenView(
-      {BuildContext context, String image, String heroTag}) {
-    Navigator.of(context).push(SwipeablePageRoute(
-        canOnlySwipeFromEdge: true,
-        builder: (context) {
-          return ImageFullScreen(
-            image: image,
-            heroTag: heroTag,
-          );
-        }));
+      {BuildContext context, String heroTag, List<String> imgList,int indexImg}) {
+    Navigator.push(
+        context,
+        PageTransition(
+            duration: Duration(milliseconds: 300),
+            type: PageTransitionType.fade,
+            child: ImageFullScreen(
+              imgList: imgList,
+              tagHero: heroTag,indexImg: indexImg,
+            )));
+    // Navigator.of(context).push(SwipeablePageRoute(
+    //     canOnlySwipeFromEdge: true,
+    //     builder: (context) {
+    //       return ImageFullScreen(
+    //         imgList: imgList,
+    //         tagHero: heroTag,
+    //       );
+    //     }));
   }
 
   static Future<bool> transferPayMentView(
@@ -1094,15 +1104,15 @@ class AppRoute {
         }));
   }
 
-
   static reviewMore(
-      {BuildContext context,
-        FeedbackRespone feedbackRespone,int productId}) {
+      {BuildContext context, FeedbackRespone feedbackRespone, int productId}) {
     Navigator.of(context).push(SwipeablePageRoute(
         canOnlySwipeFromEdge: true,
         builder: (context) {
-          return ReviewMoreView(feedbackRespone: feedbackRespone,productId: productId,);
+          return ReviewMoreView(
+            feedbackRespone: feedbackRespone,
+            productId: productId,
+          );
         }));
   }
-
 }

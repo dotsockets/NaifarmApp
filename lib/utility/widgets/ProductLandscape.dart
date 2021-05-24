@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
+import 'package:naifarm/app/model/pojo/response/FeedbackRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -214,6 +215,33 @@ class ProductLandscape extends StatelessWidget {
       return "";
     }
   }
+  List<String> covertImgProduct(List<ProductImage> image) {
+    List<String> imageList = <String>[];
+    if (image.length != 0) {
+      imageList.add("${Env.value.baseUrl}/storage/images/${image[0].path}");
+    }else{
+      imageList.add("");
+    }
+    return imageList;
+  }
+
+  List<String> convertImgFeed({FeedbackData feedItem,int index}) {
+    List<String> imgList = <String>[];
+    if (feedItem.image.isNotEmpty) {
+    //  imgList.add("${Env.value.baseUrl}/storage/images/${feedItem.image[index].path}");
+    //  for (int i=0;i< feedItem.image.length;i++) {
+        for (var item in feedItem.image) {
+      //  if(i!=index)imgList.add("${Env.value.baseUrl}/storage/images/${feedItem.image[i].path}");
+      //  imgList.add("${Env.value.baseUrl}/storage/images/${feedItem.image[i].path}");
+          imgList.add("${Env.value.baseUrl}/storage/images/${item.path}");
+      //}
+      }
+    }else{
+      imgList.add("");
+    }
+    return imgList;
+  }
+
 }
 //
 //   Widget _intoProduct({ProductData item}){

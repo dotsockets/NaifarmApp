@@ -8,28 +8,29 @@ import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import 'package:sizer/sizer.dart';
 
 class ProductSlide extends StatefulWidget {
-  final List<ProductImage> imgList;
+  final List<String> imgList;
+  final int indexImg;
 
-  const ProductSlide({Key key, this.imgList}) : super(key: key);
+  const ProductSlide({Key key, this.imgList,this.indexImg=0}) : super(key: key);
   @override
   _ProductSlideState createState() => _ProductSlideState();
 }
 
 class _ProductSlideState extends State<ProductSlide> {
-  final List<String> _imgList = <String>[];
+  //final List<String> _imgList = <String>[];
 
   int _current;
 
   @override
   void initState() {
-    _current = 0;
+    _current = widget.indexImg;
     super.initState();
-    for (var item in widget.imgList) {
-      _imgList.add("${Env.value.baseUrl}/storage/images/${item.path}");
-    }
-    if (widget.imgList.isEmpty) {
-      _imgList.add(Env.value.noItemUrl);
-    }
+    // for (var item in widget.imgList) {
+    //   _imgList.add("${Env.value.baseUrl}/storage/images/${item.path}");
+    // }
+    // if (widget.imgList.isEmpty) {
+    //   _imgList.add(Env.value.noItemUrl);
+    // }
   }
 
   @override
@@ -55,6 +56,7 @@ class _ProductSlideState extends State<ProductSlide> {
           height: 40.0.h,
           viewportFraction: 0.999,
           autoPlay: true,
+          initialPage: widget.indexImg,
           enableInfiniteScroll: widget.imgList.length > 1 ? true : false,
           autoPlayInterval: Duration(seconds: 7),
           onPageChanged: (index, reason) {
@@ -63,7 +65,7 @@ class _ProductSlideState extends State<ProductSlide> {
             });
           },
         ),
-        items: _imgList
+        items: widget.imgList
             .map(
               (item) => Container(
                 child: CachedNetworkImage(
@@ -94,7 +96,7 @@ class _ProductSlideState extends State<ProductSlide> {
           width: MediaQuery.of(context).size.width,
           child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: _imgList
+              children: widget.imgList
                   .asMap()
                   .map((key, value) {
                     return MapEntry(

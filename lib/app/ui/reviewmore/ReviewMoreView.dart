@@ -13,10 +13,12 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/FeedbackRespone.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/app/ui/productdetail/widget/RatingProduct.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
@@ -389,46 +391,57 @@ class _ReviewMoreViewState extends State<ReviewMoreView> {
                 child: Row(
                   children: List.generate(feedItem.image.length, (index) {
                     return InkWell(
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black.withOpacity(0.2)),
-                            borderRadius: BorderRadius.all(Radius.circular(5))),
-                        margin: EdgeInsets.only(
-                            right: 5, left: 5, bottom: 5, top: 5),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(5),
-                          child: CachedNetworkImage(
-                            width: 22.0.w,
-                            height: 22.0.w,
-                            placeholder: (context, url) => Container(
-                              color: Colors.white,
-                              child: Lottie.asset('assets/json/loading.json',
-                                width: 22.0.w,
-                                height: 22.0.w,),
+                      child: Hero(
+                        tag: "image_${feedItem.image[index].path}",
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black.withOpacity(0.2)),
+                              borderRadius: BorderRadius.all(Radius.circular(5))),
+                          margin: EdgeInsets.only(
+                              right: 5, left: 5, bottom: 5, top: 5),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5),
+                            child: CachedNetworkImage(
+                              width: 22.0.w,
+                              height: 22.0.w,
+                              placeholder: (context, url) => Container(
+                                color: Colors.white,
+                                child: Lottie.asset('assets/json/loading.json',
+                                  width: 22.0.w,
+                                  height: 22.0.w,),
+                              ),
+                              fit: BoxFit.cover,
+                              imageUrl: "${Env.value.baseUrl}/storage/images/${feedItem.image.isNotEmpty ? feedItem.image[index].path : ''}",
+                              errorWidget: (context, url, error) => Container(
+                                  width: 22.0.w,
+                                  height: 22.0.w,
+                                  child: Icon(
+                                    Icons.error,
+                                    size: 30,
+                                  )),
                             ),
-                            fit: BoxFit.cover,
-                            imageUrl: "${Env.value.baseUrl}/storage/images/${feedItem.image.isNotEmpty ? feedItem.image[index].path : ''}",
-                            errorWidget: (context, url, error) => Container(
-                                width: 22.0.w,
-                                height: 22.0.w,
-                                child: Icon(
-                                  Icons.error,
-                                  size: 30,
-                                )),
                           ),
                         ),
                       ),
                       onTap: (){
+
                         AppRoute.imageFullScreenView(
                             heroTag: "image_${feedItem.image[index].path}",
-                            context: context,image:"${Env.value.baseUrl}/storage/images/${feedItem.image.isNotEmpty ? feedItem.image[index].path : ''}"
+                            context: context,indexImg: index,
+                            //  image: convertImage(index: index,feedItem: feedItem)
+                            imgList:  ProductLandscape().convertImgFeed(feedItem: feedItem,index: index)
                         );
                       },
                     );
                   }),
                 ),
               ),
-
+              SizedBox(height: 1.0.h),
+              Text(feedItem.createdAt!=null?"${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(feedItem.createdAt))}":"",
+                  style: FunctionHelper.fontTheme(
+                      color: Colors.grey,
+                      fontSize: SizeUtil.titleSmallFontSize().sp,
+                      fontWeight: FontWeight.w500)),
             ],
           ),
         ),
@@ -446,4 +459,5 @@ class _ReviewMoreViewState extends State<ReviewMoreView> {
         page: page);
 
   }
+
 }

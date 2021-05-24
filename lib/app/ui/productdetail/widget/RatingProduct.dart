@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:full_screen_image/full_screen_image.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -13,6 +14,8 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
+
+import 'ProductSlide.dart';
 
 class RatingProduct extends StatefulWidget {
   final FeedbackRespone feedbackRespone;
@@ -116,6 +119,12 @@ class _RatingProductState extends State<RatingProduct> {
                         color: Colors.black,
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.bold)),
+                SizedBox(width: 1.0.w),
+                Text("(${widget.feedbackRespone.total} ${LocaleKeys.btn_review.tr()})",
+                    style: FunctionHelper.fontTheme(
+                        color: Colors.grey,
+                        fontSize: SizeUtil.detailFontSize().sp,
+                        fontWeight: FontWeight.w600),)
               ],
             ),
             widget.feedbackRespone.total != 0
@@ -222,46 +231,49 @@ class _RatingProductState extends State<RatingProduct> {
                     child: Row(
                       children: List.generate(feedItem.image.length, (index) {
                         return InkWell(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Colors.black.withOpacity(0.2)),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(5))),
-                            margin: EdgeInsets.only(
-                                right: 5, left: 5, bottom: 5, top: 5),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(5),
-                              child: CachedNetworkImage(
-                                width: 22.0.w,
-                                height: 22.0.w,
-                                placeholder: (context, url) => Container(
-                                  color: Colors.white,
-                                  child: Lottie.asset(
-                                    'assets/json/loading.json',
-                                    width: 22.0.w,
-                                    height: 22.0.w,
+                          child: Hero(
+                            tag: "image_${feedItem.image[index].path}",
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Colors.black.withOpacity(0.2)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5))),
+                              margin: EdgeInsets.only(
+                                  right: 5, left: 5, bottom: 5, top: 5),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                child: CachedNetworkImage(
+                                  width: 22.0.w,
+                                  height: 22.0.w,
+                                  placeholder: (context, url) => Container(
+                                    color: Colors.white,
+                                    child: Lottie.asset(
+                                      'assets/json/loading.json',
+                                      width: 22.0.w,
+                                      height: 22.0.w,
+                                    ),
                                   ),
+                                  fit: BoxFit.cover,
+                                  imageUrl:
+                                      "${Env.value.baseUrl}/storage/images/${feedItem.image.isNotEmpty ? feedItem.image[index].path : ''}",
+                                  errorWidget: (context, url, error) => Container(
+                                      width: 22.0.w,
+                                      height: 22.0.w,
+                                      child: Icon(
+                                        Icons.error,
+                                        size: 30,
+                                      )),
                                 ),
-                                fit: BoxFit.cover,
-                                imageUrl:
-                                    "${Env.value.baseUrl}/storage/images/${feedItem.image.isNotEmpty ? feedItem.image[index].path : ''}",
-                                errorWidget: (context, url, error) => Container(
-                                    width: 22.0.w,
-                                    height: 22.0.w,
-                                    child: Icon(
-                                      Icons.error,
-                                      size: 30,
-                                    )),
                               ),
                             ),
                           ),
                           onTap: () {
                             AppRoute.imageFullScreenView(
                                 heroTag: "image_${feedItem.image[index].path}",
-                                context: context,
-                                image:
-                                    "${Env.value.baseUrl}/storage/images/${feedItem.image.isNotEmpty ? feedItem.image[index].path : ''}");
+                                context: context,indexImg: index,
+                              //  image: convertImage(index: index,feedItem: feedItem)
+                              imgList: ProductLandscape().convertImgFeed(feedItem: feedItem,index: index));
                           },
                         );
                       }),
@@ -269,10 +281,16 @@ class _RatingProductState extends State<RatingProduct> {
                   )
                 ],
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 1.0.h),
               Text(feedItem.comment,
                   style: FunctionHelper.fontTheme(
                       color: Colors.black,
+                      fontSize: SizeUtil.titleSmallFontSize().sp,
+                      fontWeight: FontWeight.w500)),
+              SizedBox(height: 1.0.h),
+              Text(feedItem.createdAt!=null?"${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(feedItem.createdAt))}":"",
+                  style: FunctionHelper.fontTheme(
+                      color: Colors.grey,
                       fontSize: SizeUtil.titleSmallFontSize().sp,
                       fontWeight: FontWeight.w500)),
             ],
@@ -284,4 +302,6 @@ class _RatingProductState extends State<RatingProduct> {
       ],
     );
   }
+
+
 }

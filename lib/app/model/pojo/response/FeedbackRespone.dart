@@ -32,6 +32,8 @@ class FeedbackData {
   String feedbackableType;
   CustomerFeedback customer;
   List<FeedbackImage> image;
+  String createdAt;
+  String updatedAt;
 
   FeedbackData(
       {this.id,
@@ -40,6 +42,8 @@ class FeedbackData {
         this.feedbackableId,
         this.feedbackableType,
         this.customer,
+        this.createdAt,
+        this.updatedAt,
         this.image});
 
   FeedbackData.fromJson(Map<String, dynamic> json) {
@@ -48,6 +52,8 @@ class FeedbackData {
     comment = json['comment'];
     feedbackableId = json['feedbackableId'];
     feedbackableType = json['feedbackableType'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updateAt'];
     customer = json['customer'] != null
         ? new CustomerFeedback.fromJson(json['customer'])
         : null;
@@ -66,6 +72,8 @@ class FeedbackData {
     data['comment'] = this.comment;
     data['feedbackableId'] = this.feedbackableId;
     data['feedbackableType'] = this.feedbackableType;
+    data['createdAt'] = this.createdAt;
+    data['updateAt'] = this.updatedAt;
     if (this.customer != null) {
       data['customer'] = this.customer.toJson();
     }

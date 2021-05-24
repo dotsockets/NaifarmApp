@@ -19,6 +19,7 @@ import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
 import 'package:naifarm/app/ui/productdetail/widget/ProductDetail.dart';
 import 'package:naifarm/app/ui/productdetail/widget/ProductInto.dart';
 import 'package:naifarm/app/ui/productdetail/widget/ProductSlide.dart';
+import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -136,9 +137,9 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                         return Column(
                                           children: [
                                             Container(
+
                                               child: ProductSlide(
-                                                  imgList:
-                                                      widget.productItem.image),color: Colors.white,
+                                                  imgList:convertImageProduct()),color: Colors.white,
                                             ),
                                             buildProductDetail(
                                                 ProductMyShopRespone(
@@ -326,16 +327,26 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
   }
 
   List imgProductList({List<ImageProductShop> imgRes}) {
-    List<ProductImage> img = <ProductImage>[];
-
-    if (imgRes != null) {
-      for (int i = 0; i < imgRes.length; i++)
-        img.add(ProductImage(name: imgRes[i].name, path: imgRes[i].path));
-    } else {
-      img.add(ProductImage(name: "", path: ""));
+   // List<ProductImage> img = <ProductImage>[];
+    List<String> image = <String>[];
+    if (imgRes.isNotEmpty) {
+      for (var item in imgRes) {
+        image.add("${Env.value.baseUrl}/storage/images/${item.path}");
+      }
+    }else{
+      image.add("");
     }
-    return img;
+    return image;
+    // if (imgRes != null) {
+    //   for (int i = 0; i < imgRes.length; i++)
+    //    // img.add(ProductImage(name: imgRes[i].name, path: imgRes[i].path));
+    //     imgList.add(ProductImage(name: imgRes[i].name, path: imgRes[i].path));
+    // } else {
+    //   img.add(ProductImage(name: "", path: ""));
+    // }
+    // return img;
   }
+
 
   List inventoryList({ProductMyShopRespone item}) {
     List<InventoriesProduct> inventory = <InventoriesProduct>[];
@@ -344,6 +355,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
           InventoriesProduct(stockQuantity: item.inventories[i].stockQuantity));
     return inventory;
   }
+
 
   List imgShopList({ProductMyShopRespone item}) {
     List<ProductImage> img = <ProductImage>[];
@@ -356,5 +368,17 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
       img.add(ProductImage(name: "", path: ""));
     }
     return img;
+  }
+
+  List<String> convertImageProduct() {
+    List<String> image = <String>[];
+    if (widget.productItem.image.isNotEmpty) {
+      for (var item in widget.productItem.image) {
+        image.add("${Env.value.baseUrl}/storage/images/${item.path}");
+      }
+    }else{
+      image.add("");
+    }
+    return image;
   }
 }

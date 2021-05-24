@@ -7,6 +7,8 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
+import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
@@ -44,47 +46,50 @@ class ShopOwn extends StatelessWidget {
 
               children: [
                 GestureDetector(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(SizeUtil.borderRadiusFooter()),
-                    child: CachedNetworkImage(
-                      width: SizeUtil.imgItemSize().w,
-                      height: SizeUtil.imgItemSize().w,
-                      placeholder: (context, url) => Container(
-                        color: Colors.white,
-                        child: Lottie.asset('assets/json/loading.json',
-                            width: SizeUtil.imgItemSize().w, height: SizeUtil.imgItemSize().w),
+                  child: Hero(
+                    tag: "image_profile_me${shopItem.id}",
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(SizeUtil.borderRadiusFooter()),
+                      child: CachedNetworkImage(
+                        width: SizeUtil.imgItemSize().w,
+                        height: SizeUtil.imgItemSize().w,
+                        placeholder: (context, url) => Container(
+                          color: Colors.white,
+                          child: Lottie.asset('assets/json/loading.json',
+                              width: SizeUtil.imgItemSize().w, height: SizeUtil.imgItemSize().w),
+                        ),
+                        fit: BoxFit.cover,
+                        imageUrl: shopItem.image != null
+                            ? ProductLandscape.covertUrlImage(shopItem.image)
+                            : "",
+                        // errorWidget: (context, url, error) => Container(
+                        //     width: SizeUtil.imgItemSize().w,
+                        //     height: SizeUtil.imgItemSize().w,
+                        //     child: CircleAvatar(
+                        //       backgroundColor: Color(0xffE6E6E6),
+                        //       radius: 30,
+                        //       child: Icon(
+                        //         Icons.shopping_bag_rounded,
+                        //         color: Color(0xffCCCCCC),
+                        //       ),
+                        //  )),
+                        errorWidget: (context, url, error) => Container(
+                            color: Colors.grey.shade300,
+                            width: SizeUtil.imgItemSize().w,
+                            height: SizeUtil.imgItemSize().w,
+                            child: Icon(
+                              Icons.person,
+                              size: (SizeUtil.iconSize()-2).w,
+                              color: Colors.white,
+                            )),
                       ),
-                      fit: BoxFit.cover,
-                      imageUrl: shopItem.image != null
-                          ? ProductLandscape.covertUrlImage(shopItem.image)
-                          : "",
-                      // errorWidget: (context, url, error) => Container(
-                      //     width: SizeUtil.imgItemSize().w,
-                      //     height: SizeUtil.imgItemSize().w,
-                      //     child: CircleAvatar(
-                      //       backgroundColor: Color(0xffE6E6E6),
-                      //       radius: 30,
-                      //       child: Icon(
-                      //         Icons.shopping_bag_rounded,
-                      //         color: Color(0xffCCCCCC),
-                      //       ),
-                      //  )),
-                      errorWidget: (context, url, error) => Container(
-                          color: Colors.grey.shade300,
-                          width: SizeUtil.imgItemSize().w,
-                          height: SizeUtil.imgItemSize().w,
-                          child: Icon(
-                            Icons.person,
-                            size: (SizeUtil.iconSize()-2).w,
-                            color: Colors.white,
-                          )),
                     ),
                   ),
                   onTap: () {
                     AppRoute.imageFullScreenView(
                         heroTag: "image_profile_me${shopItem.id}",
                         context: context,
-                        image: ProductLandscape.covertUrlImage(shopItem.image));
+                        imgList: ProductLandscape().covertImgProduct(shopItem.image));
                   },
                 ),
                 SizedBox(width: 20),
@@ -275,4 +280,14 @@ class ShopOwn extends StatelessWidget {
       ),
     );
   }
+  // List<String> covertImgShop(List<ProductImage> image) {
+  //   List<String> imageList = <String>[];
+  //   if (image.length != 0) {
+  //     imageList.add("${Env.value.baseUrl}/storage/images/${image[0].path}");
+  //   }else{
+  //     imageList.add("");
+  //   }
+  //   return imageList;
+  //
+  // }
 }
