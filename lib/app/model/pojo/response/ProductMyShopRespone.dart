@@ -46,7 +46,7 @@ class ProductMyShopRespone {
   List<ImageProductShop> image;
   int discountPercent;
   double rating;
-  int reviewCount;
+  double reviewCount;
 
   ProductMyShopRespone(
       {this.id,
@@ -117,7 +117,15 @@ class ProductMyShopRespone {
     } else {
       rating = double.parse(json['rating'].toString());
     }
-    reviewCount = json['reviewCount'];
+
+    if (json['reviewCount'] == null) {
+      reviewCount = 0.0;
+    } else if (json['reviewCount'] is double) {
+      reviewCount = json['reviewCount'];
+    } else {
+      reviewCount = double.parse(json['reviewCount'].toString());
+    }
+
   }
 
   Map<String, dynamic> toJson() {

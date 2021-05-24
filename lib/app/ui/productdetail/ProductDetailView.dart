@@ -423,52 +423,21 @@ class _ProductDetailViewState extends State<ProductDetailView>
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 var item = (snapshot.data as ProductObjectCombine);
                 if (snapshot.hasData && item.producItemRespone != null) {
+                  return buildProductDetail(item);
+                } else {
+                  return widget.productItem != null
+                      ? buildProductDetail(ProductObjectCombine(producItemRespone: widget.productItem))
+                      : SizedBox();
+                }
+              }),
+          StreamBuilder(
+              stream: bloc.zipProductDetail.stream,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                var item = (snapshot.data as ProductObjectCombine);
+                if (snapshot.hasData && item.producItemRespone != null) {
                   return Column(
                     children: [
-                      ProductInto(
-                          data: item.producItemRespone,
-                          dataWishlist: item.dataWishlists,
-                          scaffoldKey: _scaffoldKey,
-                          isLogin: isLogin,
-                          callbackLogin: () {
-                            iSLogin();
-                            Usermanager().getUser().then((value) {
-                              bloc.loadProductsPage(context,
-                                  id: widget.productItem.id,
-                                  token: value.token);
-                            });
-                          }),
-                      widget.productItem.image != null ? divider() : SizedBox(),
-                      // BuildChoosesize(
-                      //     IndexType1: IndexTypes1,
-                      //     IndexType2: IndexTypes2,
-                      //     onclick1: (int index) =>
-                      //         setState(() => IndexTypes1 = index),
-                      //     onclick2: (int index) =>
-                      //         setState(() => IndexTypes2 = index)),
-                      // divider(),
-                      InkWell(
-                        child: ShopOwn(
-                            rateStyle: true,
-                            shopItem: item.producItemRespone.shop,
-                            shopRespone: MyShopRespone(
-                                countProduct:
-                                    item.producItemRespone.shop.countProduct,
-                                id: item.producItemRespone.shopId)),
-                        onTap: () {
-                          AppRoute.shopMain(
-                              context: context,
-                              myShopRespone: MyShopRespone(
-                                  id: item.producItemRespone.shop.id,
-                                  name: item.producItemRespone.name,
-                                  countProduct:
-                                      item.producItemRespone.shop.countProduct,
-                                  image: item.producItemRespone.shop.image,
-                                  updatedAt:
-                                      item.producItemRespone.shop.updatedAt));
-                        },
-                      ),
-                      divider(),
+
                       ProductDetail(productItem: item.producItemRespone),
                       divider(),
                       StreamBuilder(
@@ -541,6 +510,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                     ],
                   );
                 } else {
+
                   return Container(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height - 30.0.h,
@@ -563,6 +533,54 @@ class _ProductDetailViewState extends State<ProductDetailView>
         ],
       );
 
+  Widget buildProductDetail(ProductObjectCombine item){
+    return Column(children: [
+      ProductInto(
+          data: item.producItemRespone,
+          dataWishlist: item.dataWishlists,
+          scaffoldKey: _scaffoldKey,
+          isLogin: isLogin,
+          callbackLogin: () {
+            iSLogin();
+            Usermanager().getUser().then((value) {
+              bloc.loadProductsPage(context,
+                  id: widget.productItem.id,
+                  token: value.token);
+            });
+          }),
+      widget.productItem.image != null ? divider() : SizedBox(),
+      // BuildChoosesize(
+      //     IndexType1: IndexTypes1,
+      //     IndexType2: IndexTypes2,
+      //     onclick1: (int index) =>
+      //         setState(() => IndexTypes1 = index),
+      //     onclick2: (int index) =>
+      //         setState(() => IndexTypes2 = index)),
+      // divider(),
+      InkWell(
+        child: ShopOwn(
+            rateStyle: true,
+            shopItem: item.producItemRespone.shop,
+            shopRespone: MyShopRespone(
+                countProduct:
+                item.producItemRespone.shop.countProduct,
+                id: item.producItemRespone.shopId)),
+        onTap: () {
+          AppRoute.shopMain(
+              context: context,
+              myShopRespone: MyShopRespone(
+                  id: item.producItemRespone.shop.id,
+                  name: item.producItemRespone.name,
+                  countProduct:
+                  item.producItemRespone.shop.countProduct,
+                  image: item.producItemRespone.shop.image,
+                  updatedAt:
+                  item.producItemRespone.shop.updatedAt));
+        },
+      ),
+      divider(),
+    ],);
+  }
   Widget buildFooterTotal({WishlistsRespone item}) {
     return widget.productItem.shop != null
         ? StreamBuilder(

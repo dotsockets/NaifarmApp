@@ -117,19 +117,47 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                     stream: bloc.productRes.stream,
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {
-                                        return buildTitle(
-                                            img: (snapshot.data
-                                                    as ProductMyShopRespone)
-                                                .image);
+                                        return Column(
+                                          children: [
+                                            buildTitle(
+                                                img: (snapshot.data
+                                                        as ProductMyShopRespone)
+                                                    .image),
+                                            buildProductDetail(snapshot.data
+                                                as ProductMyShopRespone),
+                                          ],
+                                        );
                                       } else
                                         // return Hero(
                                         //     tag: widget.productImage,
                                         //     child: ProductSlide(
                                         //         imgList:
                                         //             widget.productItem.image));
-                                      return ProductSlide(
-                                          imgList:
-                                          widget.productItem.image);
+                                        return Column(
+                                          children: [
+                                            Container(
+                                              child: ProductSlide(
+                                                  imgList:
+                                                      widget.productItem.image),color: Colors.white,
+                                            ),
+                                            buildProductDetail(
+                                                ProductMyShopRespone(
+                                                    rating: widget
+                                                        .productItem.rating,
+                                                    name: widget
+                                                        .productItem.name,
+                                                    discountPercent: widget
+                                                        .productItem
+                                                        .discountPercent,
+                                                    salePrice: widget
+                                                        .productItem.salePrice,
+                                                    offerPrice: widget
+                                                        .productItem.offerPrice,
+                                                    reviewCount: widget
+                                                        .productItem.reviewCount
+                                                        .toDouble())),
+                                          ],
+                                        );
                                     }),
                                 StreamBuilder(
                                     stream: bloc.onSuccess.stream,
@@ -140,32 +168,13 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                             as ProductMyShopRespone);
                                         return Column(
                                           children: [
-                                            Container(
-                                              color: Colors.white,
-                                              child: ProductInto(
-                                                  showBtn: false,
-                                                  data: ProducItemRespone(
-                                                    name: item.name,
-                                                    salePrice: item.salePrice,
-                                                    saleCount: item.saleCount,
-                                                    rating: item.rating == null
-                                                        ? 0.0
-                                                        : double.parse(item
-                                                            .rating
-                                                            .toString()),
-                                                    offerPrice: item.offerPrice,
-                                                    id: item.id,
-                                                  ),
-                                                  scaffoldKey: _scaffoldKey),
-                                            ),
-                                            SizedBox(
-                                              height: 0.8.h,
-                                            ),
                                             InkWell(
                                               child: ShopOwn(
                                                 rateStyle: true,
                                                 shopItem: ShopItem(
-                                                  rating: item.shop.rating,
+                                                  rating: item.shop != null
+                                                      ? item.shop.rating
+                                                      : 0,
                                                   name: item.shop.name != null
                                                       ? item.shop.name
                                                       : "-",
@@ -175,7 +184,10 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                                           .productItem.shop.id
                                                       : 0,
                                                   updatedAt:
-                                                      item.shop.updatedAt,
+                                                      item.shop.updatedAt !=
+                                                              null
+                                                          ? item.shop.updatedAt
+                                                          : "-",
                                                   slug:
                                                       widget.productItem.shop !=
                                                               null
@@ -264,6 +276,32 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildProductDetail(ProductMyShopRespone item) {
+    return Column(
+      children: [
+        Container(
+          color: Colors.white,
+          child: ProductInto(
+              showBtn: false,
+              data: ProducItemRespone(
+                name: item.name,
+                salePrice: item.salePrice,
+                saleCount: item.saleCount,
+                rating: item.rating == null
+                    ? 0.0
+                    : double.parse(item.rating.toString()),
+                offerPrice: item.offerPrice,
+                id: item.id,
+              ),
+              scaffoldKey: _scaffoldKey),
+        ),
+        SizedBox(
+          height: 0.8.h,
+        ),
+      ],
     );
   }
 
