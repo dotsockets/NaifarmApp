@@ -273,7 +273,7 @@ class _RatingProductState extends State<RatingProduct> {
                                 heroTag: "image_${feedItem.image[index].path}",
                                 context: context,indexImg: index,
                               //  image: convertImage(index: index,feedItem: feedItem)
-                              imgList: ProductLandscape().convertImgFeed(feedItem: feedItem,index: index));
+                              imgList: feedItem.image.isNotEmpty?feedItem.image.map((e) => "${Env.value.baseUrl}/storage/images/${e.path}").toList():"");
                           },
                         );
                       }),

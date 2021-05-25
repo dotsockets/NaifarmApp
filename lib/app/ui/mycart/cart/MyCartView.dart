@@ -63,6 +63,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
         if (event) {
           FunctionHelper.showDialogProcess(context);
         } else {
+
           Navigator.of(context).pop();
         }
       });

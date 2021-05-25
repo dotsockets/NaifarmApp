@@ -188,9 +188,9 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
               ),
               onPressed: () async {
                 if (Platform.isAndroid) {
-                  AppRoute.poppageCount(context: context, countpage: 3);
+                  AppRoute.poppageCount(context: context, countpage:2);
                 } else if (Platform.isIOS) {
-                  AppRoute.poppageCount(context: context, countpage: 3);
+                AppRoute.poppageCount(context: context, countpage:2);
                 }
 
                 AppRoute.orderDetail(context,
