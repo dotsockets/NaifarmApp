@@ -24,6 +24,7 @@ import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:naifarm/app/ui/productdetail/widget/HeaderDetail.dart';
 import 'package:naifarm/app/ui/productdetail/widget/RatingProduct.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
+import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
@@ -402,14 +403,21 @@ class _ProductDetailViewState extends State<ProductDetailView>
                     child: Hero(
                       tag: "customTag",
                       child: Center(
-                        child:
-                            ProductSlide(imgList: ProductLandscape().covertImgProduct(item.producItemRespone.image)),
+                        child: ProductSlide(
+                            imgList: item.producItemRespone.image.length!=0?item.producItemRespone.image
+                                .map((e) =>
+                                    "${Env.value.baseUrl}/storage/images/${e.path}")
+                                .toList():[""]),
                       ),
                     ),
                   );
                 } else {
                   return widget.productItem.image != null
-                      ? ProductSlide(imgList: ProductLandscape().covertImgProduct(widget.productItem.image))
+                      ? ProductSlide(
+                          imgList: widget.productItem.image.length!=0?widget.productItem.image
+                              .map((e) =>
+                                  "${Env.value.baseUrl}/storage/images/${e.path}")
+                              .toList():[""])
                       // ? Hero(
                       //     tag: widget.productImage,
                       //     child: ProductSlide(
@@ -425,7 +433,8 @@ class _ProductDetailViewState extends State<ProductDetailView>
                   return buildProductDetail(item);
                 } else {
                   return widget.productItem != null
-                      ? buildProductDetail(ProductObjectCombine(producItemRespone: widget.productItem))
+                      ? buildProductDetail(ProductObjectCombine(
+                          producItemRespone: widget.productItem))
                       : SizedBox();
                 }
               }),
@@ -436,7 +445,6 @@ class _ProductDetailViewState extends State<ProductDetailView>
                 if (snapshot.hasData && item.producItemRespone != null) {
                   return Column(
                     children: [
-
                       ProductDetail(productItem: item.producItemRespone),
                       divider(),
                       StreamBuilder(
@@ -495,7 +503,10 @@ class _ProductDetailViewState extends State<ProductDetailView>
                               case ConnectionState.none:
                                 return SizedBox();
                               case ConnectionState.waiting:
-                                return SizedBox();
+                                return RatingProduct(
+                                  productId: item.producItemRespone.id,
+                                  feedbackRespone: snapshot.data,
+                                );
                               default:
                                 if (snapshot.hasError)
                                   return SizedBox();
@@ -509,7 +520,6 @@ class _ProductDetailViewState extends State<ProductDetailView>
                     ],
                   );
                 } else {
-
                   return Container(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height - 30.0.h,
@@ -532,54 +542,53 @@ class _ProductDetailViewState extends State<ProductDetailView>
         ],
       );
 
-  Widget buildProductDetail(ProductObjectCombine item){
-    return Column(children: [
-      ProductInto(
-          data: item.producItemRespone,
-          dataWishlist: item.dataWishlists,
-          scaffoldKey: _scaffoldKey,
-          isLogin: isLogin,
-          callbackLogin: () {
-            iSLogin();
-            Usermanager().getUser().then((value) {
-              bloc.loadProductsPage(context,
-                  id: widget.productItem.id,
-                  token: value.token);
-            });
-          }),
-      widget.productItem.image != null ? divider() : SizedBox(),
-      // BuildChoosesize(
-      //     IndexType1: IndexTypes1,
-      //     IndexType2: IndexTypes2,
-      //     onclick1: (int index) =>
-      //         setState(() => IndexTypes1 = index),
-      //     onclick2: (int index) =>
-      //         setState(() => IndexTypes2 = index)),
-      // divider(),
-      InkWell(
-        child: ShopOwn(
-            rateStyle: true,
-            shopItem: item.producItemRespone.shop,
-            shopRespone: MyShopRespone(
-                countProduct:
-                item.producItemRespone.shop.countProduct,
-                id: item.producItemRespone.shopId)),
-        onTap: () {
-          AppRoute.shopMain(
-              context: context,
-              myShopRespone: MyShopRespone(
-                  id: item.producItemRespone.shop.id,
-                  name: item.producItemRespone.name,
-                  countProduct:
-                  item.producItemRespone.shop.countProduct,
-                  image: item.producItemRespone.shop.image,
-                  updatedAt:
-                  item.producItemRespone.shop.updatedAt));
-        },
-      ),
-      divider(),
-    ],);
+  Widget buildProductDetail(ProductObjectCombine item) {
+    return Column(
+      children: [
+        ProductInto(
+            data: item.producItemRespone,
+            dataWishlist: item.dataWishlists,
+            scaffoldKey: _scaffoldKey,
+            isLogin: isLogin,
+            callbackLogin: () {
+              iSLogin();
+              Usermanager().getUser().then((value) {
+                bloc.loadProductsPage(context,
+                    id: widget.productItem.id, token: value.token);
+              });
+            }),
+        widget.productItem.image != null ? divider() : SizedBox(),
+        // BuildChoosesize(
+        //     IndexType1: IndexTypes1,
+        //     IndexType2: IndexTypes2,
+        //     onclick1: (int index) =>
+        //         setState(() => IndexTypes1 = index),
+        //     onclick2: (int index) =>
+        //         setState(() => IndexTypes2 = index)),
+        // divider(),
+        InkWell(
+          child: ShopOwn(
+              rateStyle: true,
+              shopItem: item.producItemRespone.shop,
+              shopRespone: MyShopRespone(
+                  countProduct: item.producItemRespone.shop.countProduct,
+                  id: item.producItemRespone.shopId)),
+          onTap: () {
+            AppRoute.shopMain(
+                context: context,
+                myShopRespone: MyShopRespone(
+                    id: item.producItemRespone.shop.id,
+                    name: item.producItemRespone.name,
+                    countProduct: item.producItemRespone.shop.countProduct,
+                    image: item.producItemRespone.shop.image,
+                    updatedAt: item.producItemRespone.shop.updatedAt));
+          },
+        ),
+        divider(),
+      ],
+    );
   }
+
   Widget buildFooterTotal({WishlistsRespone item}) {
     return widget.productItem.shop != null
         ? StreamBuilder(

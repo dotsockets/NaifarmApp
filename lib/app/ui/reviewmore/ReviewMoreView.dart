@@ -18,6 +18,7 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
+import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
@@ -412,13 +413,11 @@ class _ReviewMoreViewState extends State<ReviewMoreView> {
                               ),
                               fit: BoxFit.cover,
                               imageUrl: "${Env.value.baseUrl}/storage/images/${feedItem.image.isNotEmpty ? feedItem.image[index].path : ''}",
-                              errorWidget: (context, url, error) => Container(
+                              errorWidget: (context, url, error) =>  Container(
                                   width: 22.0.w,
                                   height: 22.0.w,
-                                  child: Icon(
-                                    Icons.error,
-                                    size: 30,
-                                  )),
+                                  //child: Image.network(Env.value.noItemUrl, fit: BoxFit.cover)),
+                                  child: NaifarmErrorWidget()),
                             ),
                           ),
                         ),
@@ -429,7 +428,7 @@ class _ReviewMoreViewState extends State<ReviewMoreView> {
                             heroTag: "image_${feedItem.image[index].path}",
                             context: context,indexImg: index,
                             //  image: convertImage(index: index,feedItem: feedItem)
-                            imgList:  ProductLandscape().convertImgFeed(feedItem: feedItem,index: index)
+                            imgList:  feedItem.image.length!=0?feedItem.image.map((e) => "${Env.value.baseUrl}/storage/images/${e.path}").toList():[""]
                         );
                       },
                     );

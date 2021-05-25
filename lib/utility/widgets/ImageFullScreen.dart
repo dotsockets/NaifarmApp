@@ -5,6 +5,8 @@ import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/ui/productdetail/widget/ProductSlide.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 
+import 'NaifarmErrorWidget.dart';
+
 class ImageFullScreen extends StatelessWidget {
   final String tagHero;
   final List<String> imgList;
@@ -27,13 +29,15 @@ class ImageFullScreen extends StatelessWidget {
                     imgList.length <=1
                         ? CachedNetworkImage(
                             placeholder: (context, url) => Container(
-                              color: Colors.white,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                  borderRadius: BorderRadius.all(Radius.circular(30))),
                               child: Lottie.asset('assets/json/loading.json',
                                   width: 60, height: 60),
                             ),
                             fit: BoxFit.cover,
                             imageUrl: imgList != null ? imgList[0] : "",
-                            errorWidget: (context, url, error) => Container(
+                            errorWidget: (context, url, error) => tagHero=="image_profile_me"?Container(
                                 width: 60,
                                 height: 60,
                                 child: CircleAvatar(
@@ -43,7 +47,11 @@ class ImageFullScreen extends StatelessWidget {
                                     Icons.person,
                                     color: Colors.white,
                                   ),
-                                )),
+                                )): Container(
+                                width: 60,
+                                height: 60,
+                                //child: Image.network(Env.value.noItemUrl, fit: BoxFit.cover)),
+                                child: NaifarmErrorWidget()),
                           )
                         : ProductSlide(imgList: imgList,indexImg: indexImg,),
               ),

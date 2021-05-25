@@ -206,41 +206,32 @@ class ProductLandscape extends StatelessWidget {
   //   );
   // }
 //
-  static String covertUrlImage(List<ProductImage> image) {
-    if (image.length != 0) {
-      // Random random = new Random();
-      // int randomNumber = random.nextInt(image.length); // from
-      return "${Env.value.baseUrl}/storage/images/${image[0].path}";
-    } else {
-      return "";
-    }
-  }
-  List<String> covertImgProduct(List<ProductImage> image) {
-    List<String> imageList = <String>[];
-    if (image.length != 0) {
-      imageList.add("${Env.value.baseUrl}/storage/images/${image[0].path}");
-    }else{
-      imageList.add("");
-    }
-    return imageList;
-  }
+//   static String covertUrlImage(List<ProductImage> image) {
+//     if (image.length != 0) {
+//       // Random random = new Random();
+//       // int randomNumber = random.nextInt(image.length); // from
+//       return "${Env.value.baseUrl}/storage/images/${image[0].path}";
+//     } else {
+//       return "";
+//     }
+//   }
 
-  List<String> convertImgFeed({FeedbackData feedItem,int index}) {
-    List<String> imgList = <String>[];
-    if (feedItem.image.isNotEmpty) {
-    //  imgList.add("${Env.value.baseUrl}/storage/images/${feedItem.image[index].path}");
-    //  for (int i=0;i< feedItem.image.length;i++) {
-        for (var item in feedItem.image) {
-      //  if(i!=index)imgList.add("${Env.value.baseUrl}/storage/images/${feedItem.image[i].path}");
-      //  imgList.add("${Env.value.baseUrl}/storage/images/${feedItem.image[i].path}");
-          imgList.add("${Env.value.baseUrl}/storage/images/${item.path}");
-      //}
-      }
-    }else{
-      imgList.add("");
-    }
-    return imgList;
-  }
+  // List<String> convertImgFeed({FeedbackData feedItem,int index}) {
+  //   List<String> imgList = <String>[];
+  //   if (feedItem.image.isNotEmpty) {
+  //   //  imgList.add("${Env.value.baseUrl}/storage/images/${feedItem.image[index].path}");
+  //   //  for (int i=0;i< feedItem.image.length;i++) {
+  //       for (var item in feedItem.image) {
+  //     //  if(i!=index)imgList.add("${Env.value.baseUrl}/storage/images/${feedItem.image[i].path}");
+  //     //  imgList.add("${Env.value.baseUrl}/storage/images/${feedItem.image[i].path}");
+  //         imgList.add("${Env.value.baseUrl}/storage/images/${item.path}");
+  //     //}
+  //     }
+  //   }else{
+  //     imgList.add("");
+  //   }
+  //   return imgList;
+  // }
 
 }
 //

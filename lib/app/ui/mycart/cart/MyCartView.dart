@@ -412,7 +412,8 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                 child: Lottie.asset('assets/json/loading.json', height: 30),
               ),
               fit: BoxFit.cover,
-              imageUrl: ProductLandscape.covertUrlImage(item.image),
+              imageUrl: item.image.length != 0?
+              "${Env.value.baseUrl}/storage/images/${item.image[0].path}":"",
               errorWidget: (context, url, error) => Container(
                   width: 7.0.w,
                   height: 7.0.w,

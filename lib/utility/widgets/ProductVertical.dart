@@ -12,6 +12,7 @@ import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
@@ -222,7 +223,8 @@ class ProductVertical extends StatelessWidget {
                                 ),
                               ),
                               imageUrl:
-                                  ProductLandscape.covertUrlImage(item.image),
+                              item.image.length != 0?
+                              "${Env.value.baseUrl}/storage/images/${item.image[0].path}":"",
                               errorWidget: (context, url, error) => Container(
                                   width: 28.0.w,
                                   height: 35.0.w,

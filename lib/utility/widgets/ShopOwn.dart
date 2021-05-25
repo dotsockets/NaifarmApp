@@ -43,25 +43,27 @@ class ShopOwn extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
-
               children: [
                 GestureDetector(
                   child: Hero(
-                    tag: "image_profile_me${shopItem.id}",
+                    tag: "image_profile_me",
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(SizeUtil.borderRadiusFooter()),
+                      borderRadius:
+                          BorderRadius.circular(SizeUtil.borderRadiusFooter()),
                       child: CachedNetworkImage(
                         width: SizeUtil.imgItemSize().w,
                         height: SizeUtil.imgItemSize().w,
                         placeholder: (context, url) => Container(
                           color: Colors.white,
                           child: Lottie.asset('assets/json/loading.json',
-                              width: SizeUtil.imgItemSize().w, height: SizeUtil.imgItemSize().w),
+                              width: SizeUtil.imgItemSize().w,
+                              height: SizeUtil.imgItemSize().w),
                         ),
                         fit: BoxFit.cover,
-                        imageUrl: shopItem.image != null
-                            ? ProductLandscape.covertUrlImage(shopItem.image)
-                            : "",
+                        imageUrl: shopItem.image!=null?shopItem.image.length != 0
+                            ?
+                        "${Env.value.baseUrl}/storage/images/${shopItem.image[0].path}"
+                            : "":"",
                         // errorWidget: (context, url, error) => Container(
                         //     width: SizeUtil.imgItemSize().w,
                         //     height: SizeUtil.imgItemSize().w,
@@ -79,7 +81,7 @@ class ShopOwn extends StatelessWidget {
                             height: SizeUtil.imgItemSize().w,
                             child: Icon(
                               Icons.person,
-                              size: (SizeUtil.iconSize()-2).w,
+                              size: (SizeUtil.iconSize() - 2).w,
                               color: Colors.white,
                             )),
                       ),
@@ -87,14 +89,18 @@ class ShopOwn extends StatelessWidget {
                   ),
                   onTap: () {
                     AppRoute.imageFullScreenView(
-                        heroTag: "image_profile_me${shopItem.id}",
+                        heroTag: "image_profile_me",
                         context: context,
-                        imgList: ProductLandscape().covertImgProduct(shopItem.image));
+                        imgList:
+                        shopItem.image.length!=0?
+                        shopItem.image
+                            .map((e) =>
+                                "${Env.value.baseUrl}/storage/images/${e.path}")
+                            .toList(): [""]);
                   },
                 ),
                 SizedBox(width: 20),
                 Column(
-
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(shopItem.name != null ? shopItem.name : "Naifarm Shop",
@@ -194,7 +200,7 @@ class ShopOwn extends StatelessWidget {
                                     ? shopItem.rating
                                     : 0,
                                 //  rating: shopItem.rating!=null&&shopItem.rating!=0?shopItem.rating.toDouble():0.0,
-                                size: (SizeUtil.ratingSize()+0.5).w,
+                                size: (SizeUtil.ratingSize() + 0.5).w,
                                 isReadOnly: true,
                                 filledIconData: Icons.star,
                                 halfFilledIconData: Icons.star_half_outlined,
@@ -280,14 +286,14 @@ class ShopOwn extends StatelessWidget {
       ),
     );
   }
-  // List<String> covertImgShop(List<ProductImage> image) {
-  //   List<String> imageList = <String>[];
-  //   if (image.length != 0) {
-  //     imageList.add("${Env.value.baseUrl}/storage/images/${image[0].path}");
-  //   }else{
-  //     imageList.add("");
-  //   }
-  //   return imageList;
-  //
-  // }
+// List<String> covertImgShop(List<ProductImage> image) {
+//   List<String> imageList = <String>[];
+//   if (image.length != 0) {
+//     imageList.add("${Env.value.baseUrl}/storage/images/${image[0].path}");
+//   }else{
+//     imageList.add("");
+//   }
+//   return imageList;
+//
+// }
 }

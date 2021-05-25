@@ -17,6 +17,7 @@ import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
 import 'package:naifarm/app/models/CartModel.dart';
 import 'package:naifarm/app/ui/mycart/widget/ModalFitBottom_Sheet.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
+import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -234,7 +235,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
               child: Lottie.asset('assets/json/loading.json', height: 30),
             ),
             fit: BoxFit.cover,
-            imageUrl: ProductLandscape.covertUrlImage(item.shop.image),
+            imageUrl: item.shop.image.length != 0?
+            "${Env.value.baseUrl}/storage/images/${item.shop.image[0].path}":"",
             errorWidget: (context, url, error) => Container(
                 width: 7.0.w,
                 height: 7.0.w,
@@ -274,8 +276,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                   child: Lottie.asset('assets/json/loading.json', height: 30),
                 ),
                 fit: BoxFit.cover,
-                imageUrl: ProductLandscape.covertUrlImage(
-                    item.inventory.product.image),
+                imageUrl: item.inventory.product.image.length != 0?
+    "${Env.value.baseUrl}/storage/images/${item.inventory.product.image[0].path}":"",
                 // errorWidget: (context, url, error) => Container(
                 //     height: 30,
                 //     child: Icon(

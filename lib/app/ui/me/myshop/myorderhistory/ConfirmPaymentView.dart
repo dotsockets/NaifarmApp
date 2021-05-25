@@ -11,6 +11,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
+import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -201,10 +202,8 @@ class ConfirmPaymentView extends StatelessWidget {
                                                         // placeholder: (context, url) => Container(
                                                         //   child: Lottie.asset('assets/json/loading.json', ),
                                                         // ),
-                                                        imageUrl:
-                                                            ProductLandscape
-                                                                .covertUrlImage(
-                                                                    item.image),
+                                                        imageUrl:item.image.length != 0?
+                                                        "${Env.value.baseUrl}/storage/images/${item.image[0].path}":""
                                                         //  errorWidget: (context, url, error) => Container(child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                                                       ),
                                                     ))) //)

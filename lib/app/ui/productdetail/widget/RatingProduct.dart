@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -11,6 +14,7 @@ import 'package:naifarm/app/model/pojo/response/FeedbackRespone.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
@@ -41,61 +45,66 @@ class _RatingProductState extends State<RatingProduct> {
       child: Container(
         width: MediaQuery.of(context).size.width,
         color: Colors.white,
-        child: Column(
+        child:  widget.feedbackRespone != null
+            ?Column(
           children: [
             _headerBar(),
             widget.feedbackRespone.total != 0
-                ? Column(
-                    children: [
-                      Column(
-                        children: List.generate(widget.feedbackRespone.total>=2?2:1, (index) {
-                          return buildReviewCard(
-                              feedItem: widget.feedbackRespone.data[index]);
-                        }),
+                    ? Column(
+                        children: [
+                          Column(
+                            children: List.generate(
+                                widget.feedbackRespone.total >= 2 ? 2 : 1,
+                                (index) {
+                              return buildReviewCard(
+                                  feedItem: widget.feedbackRespone.data[index]);
+                            }),
 
-                        // children: widget.feedbackRespone.data
-                        //     .asMap()
-                        //     .map((key, value) {
-                        //       return MapEntry(
-                        //           key,
-                        //           buildReviewCard(
-                        //               feedItem:
-                        //                   widget.feedbackRespone.data[key]));
-                        //     })
-                        //     .values
-                        //     .toList(),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          AppRoute.reviewMore(
-                              context: context,
-                              feedbackRespone: widget.feedbackRespone,
-                              productId: widget.productId);
-                        },
-                        child: Container(
-                          margin: EdgeInsets.only(bottom: 2.0.h, top: 1.0.h),
-                          child: Text(
-                              "${LocaleKeys.review_all.tr()} (${widget.feedbackRespone.total}) >",
+                            // children: widget.feedbackRespone.data
+                            //     .asMap()
+                            //     .map((key, value) {
+                            //       return MapEntry(
+                            //           key,
+                            //           buildReviewCard(
+                            //               feedItem:
+                            //                   widget.feedbackRespone.data[key]));
+                            //     })
+                            //     .values
+                            //     .toList(),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              AppRoute.reviewMore(
+                                  context: context,
+                                  feedbackRespone: widget.feedbackRespone,
+                                  productId: widget.productId);
+                            },
+                            child: Container(
+                              margin:
+                                  EdgeInsets.only(bottom: 2.0.h, top: 1.0.h),
+                              child: Text(
+                                  "${LocaleKeys.review_all.tr()} (${widget.feedbackRespone.total}) >",
+                                  style: FunctionHelper.fontTheme(
+                                      color: ThemeColor.colorSale(),
+                                      fontSize: SizeUtil.titleFontSize().sp,
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                          )
+                        ],
+                      )
+                    : Container(
+                        height: 10.0.h,
+                        child: Center(
+                          child: Text(LocaleKeys.review_no.tr(),
                               style: FunctionHelper.fontTheme(
-                                  color: ThemeColor.colorSale(),
+                                  color: Colors.grey,
                                   fontSize: SizeUtil.titleFontSize().sp,
                                   fontWeight: FontWeight.bold)),
                         ),
                       )
-                    ],
-                  )
-                : Container(
-                    height: 10.0.h,
-                    child: Center(
-                      child: Text(LocaleKeys.review_no.tr(),
-                          style: FunctionHelper.fontTheme(
-                              color: Colors.black,
-                              fontSize: SizeUtil.titleFontSize().sp,
-                              fontWeight: FontWeight.bold)),
-                    ),
-                  ),
+                ,
           ],
-        ),
+        ): SizedBox(),
       ),
     );
   }
@@ -120,37 +129,42 @@ class _RatingProductState extends State<RatingProduct> {
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.bold)),
                 SizedBox(width: 1.0.w),
-                Text("(${widget.feedbackRespone.total} ${LocaleKeys.btn_review.tr()})",
-                    style: FunctionHelper.fontTheme(
-                        color: Colors.grey,
-                        fontSize: SizeUtil.detailFontSize().sp,
-                        fontWeight: FontWeight.w600),)
+                widget.feedbackRespone.total != 0
+                    ? Text(
+                  "(${widget.feedbackRespone != null ? widget.feedbackRespone.total : ""} ${LocaleKeys.btn_review.tr()})",
+                  style: FunctionHelper.fontTheme(
+                      color: Colors.grey,
+                      fontSize: SizeUtil.detailFontSize().sp,
+                      fontWeight: FontWeight.w600),
+                ):SizedBox()
               ],
             ),
-            widget.feedbackRespone.total != 0
-                ? InkWell(
-                    onTap: () {
-                      AppRoute.reviewMore(
-                          context: context,
-                          feedbackRespone: widget.feedbackRespone,
-                          productId: widget.productId);
-                    },
-                    child: Row(
-                      children: [
-                        Text(LocaleKeys.recommend_see_more.tr(),
-                            style: FunctionHelper.fontTheme(
-                                color: Colors.black,
-                                fontSize: SizeUtil.titleFontSize().sp,
-                                fontWeight: FontWeight.w500)),
-                        SizedBox(width: 2.0.w),
-                        SvgPicture.asset(
-                          'assets/images/svg/next.svg',
-                          width: 3.0.w,
-                          height: 3.0.h,
+            widget.feedbackRespone != null
+                ? widget.feedbackRespone.total != 0
+                    ? InkWell(
+                        onTap: () {
+                          AppRoute.reviewMore(
+                              context: context,
+                              feedbackRespone: widget.feedbackRespone,
+                              productId: widget.productId);
+                        },
+                        child: Row(
+                          children: [
+                            Text(LocaleKeys.recommend_see_more.tr(),
+                                style: FunctionHelper.fontTheme(
+                                    color: Colors.black,
+                                    fontSize: SizeUtil.titleFontSize().sp,
+                                    fontWeight: FontWeight.w500)),
+                            SizedBox(width: 2.0.w),
+                            SvgPicture.asset(
+                              'assets/images/svg/next.svg',
+                              width: 3.0.w,
+                              height: 3.0.h,
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  )
+                      )
+                    : SizedBox()
                 : SizedBox(),
           ],
         ),
@@ -232,7 +246,7 @@ class _RatingProductState extends State<RatingProduct> {
                       children: List.generate(feedItem.image.length, (index) {
                         return InkWell(
                           child: Hero(
-                            tag: "image_${feedItem.image[index].path}",
+                            tag: "feed_${feedItem.image[index].path}",
                             child: Container(
                               decoration: BoxDecoration(
                                   border: Border.all(
@@ -257,23 +271,28 @@ class _RatingProductState extends State<RatingProduct> {
                                   fit: BoxFit.cover,
                                   imageUrl:
                                       "${Env.value.baseUrl}/storage/images/${feedItem.image.isNotEmpty ? feedItem.image[index].path : ''}",
-                                  errorWidget: (context, url, error) => Container(
-                                      width: 22.0.w,
-                                      height: 22.0.w,
-                                      child: Icon(
-                                        Icons.error,
-                                        size: 30,
-                                      )),
+                                  errorWidget: (context, url, error) =>
+                                      Container(
+                                          width: 22.0.w,
+                                          height: 22.0.w,
+                                          //child: Image.network(Env.value.noItemUrl, fit: BoxFit.cover)),
+                                          child: NaifarmErrorWidget()),
                                 ),
                               ),
                             ),
                           ),
                           onTap: () {
                             AppRoute.imageFullScreenView(
-                                heroTag: "image_${feedItem.image[index].path}",
-                                context: context,indexImg: index,
-                              //  image: convertImage(index: index,feedItem: feedItem)
-                              imgList: feedItem.image.isNotEmpty?feedItem.image.map((e) => "${Env.value.baseUrl}/storage/images/${e.path}").toList():"");
+                                heroTag: "feed_${feedItem.image[index].path}",
+                                context: context,
+                                indexImg: index,
+                                //  image: convertImage(index: index,feedItem: feedItem)
+                                imgList: feedItem.image.length != 0
+                                    ? feedItem.image
+                                        .map((e) =>
+                                            "${Env.value.baseUrl}/storage/images/${e.path}")
+                                        .toList()
+                                    : [""]);
                           },
                         );
                       }),
@@ -288,7 +307,10 @@ class _RatingProductState extends State<RatingProduct> {
                       fontSize: SizeUtil.titleSmallFontSize().sp,
                       fontWeight: FontWeight.w500)),
               SizedBox(height: 1.0.h),
-              Text(feedItem.createdAt!=null?"${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(feedItem.createdAt))}":"",
+              Text(
+                  feedItem.createdAt != null
+                      ? "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(feedItem.createdAt))}"
+                      : "",
                   style: FunctionHelper.fontTheme(
                       color: Colors.grey,
                       fontSize: SizeUtil.titleSmallFontSize().sp,
@@ -302,6 +324,4 @@ class _RatingProductState extends State<RatingProduct> {
       ],
     );
   }
-
-
 }

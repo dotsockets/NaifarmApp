@@ -4,6 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
+import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -128,7 +129,8 @@ class BuyAgain extends StatelessWidget {
                 color: Colors.white,
                 child: Lottie.asset('assets/json/loading.json', height: 28),
               ),
-              imageUrl: ProductLandscape.covertUrlImage(item.image),
+              imageUrl: item.image.length != 0?
+              "${Env.value.baseUrl}/storage/images/${item.image[0].path}":"",
               errorWidget: (context, url, error) => Container(
                   width: 28.0.w,
                   height: 28.0.w,
