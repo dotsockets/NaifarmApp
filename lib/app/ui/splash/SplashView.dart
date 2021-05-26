@@ -65,9 +65,8 @@ class _SplashViewState extends State<SplashView>
 
       // NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_ProductMore);
       bloc = ProductBloc(AppProvider.getApplication(context));
-      Usermanager()
-          .getUser()
-          .then((value) => bloc.loadCustomerCount(context, token: value.token));
+      Usermanager().getUser().then((value) => bloc.loadCustomerCount(context, token: value.token));
+
       bloc.onError.stream.listen((event) {
 
         Future.delayed(const Duration(milliseconds: 1000), () {
