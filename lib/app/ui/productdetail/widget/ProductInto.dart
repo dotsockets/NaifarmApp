@@ -130,6 +130,7 @@ class ProductInto extends StatelessWidget {
                   onTap: () {
                     if (data.rating != null && data.rating != 0) {
                       AppRoute.reviewMore(context: context, productId: data.id);
+                      print(data.rating.toDouble());
                     }
                   },
                   child: SmoothStarRating(

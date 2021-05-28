@@ -259,9 +259,11 @@ class _HomeViewState extends State<HomeView>
                               Radius.circular(SizeUtil.borderRadiusFooter())),
                       boxShadow: <BoxShadow>[
                         BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 1.5,
-                          spreadRadius: 0.5,
+                          color: Color(0xFF254117).withOpacity(0.75),
+                         // color: Colors.black.withOpacity(0.5),
+                          blurRadius: 3,
+                          spreadRadius: 1.0,
+                          offset: Offset(0, -1),
                         ),
                       ],
                       color: ThemeColor.primaryColor(),

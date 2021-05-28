@@ -133,7 +133,7 @@ class _RatingProductState extends State<RatingProduct> {
                     ? Text(
                   "(${widget.feedbackRespone != null ? widget.feedbackRespone.total : ""} ${LocaleKeys.btn_review.tr()})",
                   style: FunctionHelper.fontTheme(
-                      color: Colors.grey,
+                      color: Colors.black.withOpacity(0.75),
                       fontSize: SizeUtil.detailFontSize().sp,
                       fontWeight: FontWeight.w600),
                 ):SizedBox()
@@ -237,7 +237,13 @@ class _RatingProductState extends State<RatingProduct> {
                       spacing: 0.0)
                 ],
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 1.0.h),
+              Text(feedItem.comment,
+                  style: FunctionHelper.fontTheme(
+                      color: Colors.black,
+                      fontSize: SizeUtil.titleSmallFontSize().sp,
+                      fontWeight: FontWeight.w500)),
+              SizedBox(height: 1.0.h),
               Wrap(
                 children: [
                   SingleChildScrollView(
@@ -301,20 +307,30 @@ class _RatingProductState extends State<RatingProduct> {
                 ],
               ),
               SizedBox(height: 1.0.h),
-              Text(feedItem.comment,
-                  style: FunctionHelper.fontTheme(
-                      color: Colors.black,
-                      fontSize: SizeUtil.titleSmallFontSize().sp,
-                      fontWeight: FontWeight.w500)),
-              SizedBox(height: 1.0.h),
-              Text(
-                  feedItem.createdAt != null
-                      ? "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(feedItem.createdAt))}"
-                      : "",
-                  style: FunctionHelper.fontTheme(
-                      color: Colors.grey,
-                      fontSize: SizeUtil.titleSmallFontSize().sp,
-                      fontWeight: FontWeight.w500)),
+              Row(
+                children: [
+                  Text(
+                      feedItem.createdAt != null
+                          ? "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(feedItem.createdAt))}"
+                          : "",
+                      style: FunctionHelper.fontTheme(
+                          color: Colors.black.withOpacity(0.75),
+                          fontSize: SizeUtil.detailFontSize().sp,
+                          fontWeight: FontWeight.w500)),
+                  Container(
+                    width: 1,
+                    color: Colors.black.withOpacity(0.75),
+                    height: 1.3.h,
+                    margin: EdgeInsets.only(left: 0.5.w,right: 0.5.w),
+                  ),
+                  Text(
+                     "${LocaleKeys.my_product_option.tr()}: -",
+                      style: FunctionHelper.fontTheme(
+                          color: Colors.black.withOpacity(0.75),
+                          fontSize: SizeUtil.detailFontSize().sp,
+                          fontWeight: FontWeight.w500)),
+                ],
+              ),
             ],
           ),
         ),

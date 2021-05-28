@@ -37,7 +37,7 @@ class ImageFullScreen extends StatelessWidget {
                             ),
                             fit: BoxFit.cover,
                             imageUrl: imgList != null ? imgList[0] : "",
-                            errorWidget: (context, url, error) => tagHero=="image_profile_me"?Container(
+                            errorWidget: (context, url, error) => tagHero=="image_profile_me"||tagHero=="image_profile"?Container(
                                 width: 60,
                                 height: 60,
                                 child: CircleAvatar(

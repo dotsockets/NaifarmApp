@@ -436,8 +436,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           children: [
                             SizedBox(width: 1.0.w),
                             Text(
-                                "฿${snapshot.data.rate != null ? snapshot.data.rate : 0}",
-                                // "฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data.rate != null ? snapshot.data.rate : 0)}",
+                                //"฿${snapshot.data.rate != null ? snapshot.data.rate : 0}",
+                                 "฿${NumberFormat("#,##0", "en_US").format(snapshot.data.rate != null ? snapshot.data.rate : 0)}",
                                 style: FunctionHelper.fontTheme(
                                     fontSize: SizeUtil.titleFontSize().sp,
                                     color: Colors.black)),
@@ -558,7 +558,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                 fontSize: SizeUtil.titleFontSize().sp,
                                 color: Colors.black)),
                         Text(
-                            "฿${item.total + (item.shippingRates != null ? item.shippingRates.rate : 0)}",
+                            "฿${NumberFormat("#,##0", "en_US").format(item.total + (item.shippingRates != null ? item.shippingRates.rate : 0))}",
+
                             //   Text("฿${NumberFormat("#,##0.00", "en_US").format(item.total)}",
                             style: FunctionHelper.fontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp,
@@ -653,8 +654,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                   fontSize: SizeUtil.titleSmallFontSize().sp,
                                   color: Colors.black.withOpacity(0.6))),
                           Text(
-                              //   "฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data)}",
-                              "฿${snapshot.data}",
+                                "฿${NumberFormat("#,##0", "en_US").format(snapshot.data)}",
+                             // "฿${snapshot.data}",
                               style: FunctionHelper.fontTheme(
                                   fontSize: SizeUtil.titleSmallFontSize().sp,
                                   fontWeight: FontWeight.w500,
@@ -683,7 +684,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                   color: Colors.black.withOpacity(0.6))),
                           Text(
                               //  "฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data)}",
-                              "฿${snapshot.data}",
+                              "฿${NumberFormat("#,##0", "en_US").format(snapshot.data)}",
+                              //"฿${snapshot.data}",
                               style: FunctionHelper.fontTheme(
                                   fontSize: SizeUtil.titleSmallFontSize().sp,
                                   fontWeight: FontWeight.w500,
@@ -711,7 +713,9 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                   fontSize: SizeUtil.titleFontSize().sp,
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold)),
-                          Text("฿${snapshot.data}",
+                          Text(
+                              //"฿${snapshot.data}",
+                              "฿${NumberFormat("#,##0", "en_US").format(snapshot.data)}",
                               // "฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data)}",
                               style: FunctionHelper.fontTheme(
                                   fontSize: SizeUtil.titleFontSize().sp,
@@ -768,7 +772,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                 margin: EdgeInsets.only(right: 10),
                                 child: Text(
                                     //"฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data)}",
-                                    "฿${snapshot.data}",
+                                    "฿${NumberFormat("#,##0", "en_US").format(snapshot.data)}",
+                                    //"฿${snapshot.data}",
                                     style: FunctionHelper.fontTheme(
                                         fontSize: SizeUtil.titleFontSize().sp,
                                         fontWeight: FontWeight.bold,

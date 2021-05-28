@@ -46,7 +46,7 @@ class ShopOwn extends StatelessWidget {
               children: [
                 GestureDetector(
                   child: Hero(
-                    tag: "image_profile_me",
+                    tag: "image_profile",
                     child: ClipRRect(
                       borderRadius:
                           BorderRadius.circular(SizeUtil.borderRadiusFooter()),
@@ -89,7 +89,7 @@ class ShopOwn extends StatelessWidget {
                   ),
                   onTap: () {
                     AppRoute.imageFullScreenView(
-                        heroTag: "image_profile_me",
+                        heroTag: "image_profile",
                         context: context,
                         imgList:
                         shopItem.image.length!=0?
