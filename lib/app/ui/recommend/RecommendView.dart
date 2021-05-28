@@ -6,9 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
-import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
-import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -18,12 +16,10 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
-import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SliderRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/app/ui/flashsale/FlashSaleView.dart';
 import 'package:naifarm/app/ui/home/HomeHeader.dart';
 import 'package:naifarm/app/ui/recommend/widget/CategoryTab.dart';
@@ -68,7 +64,8 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
       bloc.onSuccess.stream.listen((event) {
         if (event is bool) {
           OneSignalCall.cancelNotification("", 0);
-          _refreshProducts();
+          context.read<HomeDataBloc>().loadHomeData(context);
+          // _refreshProducts();
         } else {
           NaiFarmLocalStorage.getHomeDataCache().then((value) {
             onReLoad = true;
@@ -372,13 +369,16 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
       // AudioCache().play("sound/Click.mp3");
       // Vibration.vibrate(duration: 500);
     }
-    context.read<HomeDataBloc>().loadHomeData(context);
+    Usermanager().getUser().then(
+          (value) => bloc.loadCustomerCount(context, token: value.token),
+        );
+    /*context.read<HomeDataBloc>().loadHomeData(context);
     Usermanager().getUser().then((value) => context
         .read<CustomerCountBloc>()
         .loadCustomerCount(context, token: value.token));
     Usermanager().getUser().then((value) => context
         .read<InfoCustomerBloc>()
-        .loadCustomInfo(context, token: value.token));
+        .loadCustomInfo(context, token: value.token));*/
     // bloc.loadHomeData(context: context,callback: true);
   }
 
