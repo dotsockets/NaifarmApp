@@ -30,9 +30,8 @@ class PaymentBloc {
 
   loadPaymentPage(BuildContext context, {String token}) {
     StreamSubscription subscription = Observable.combineLatest2(
-        Observable.fromFuture(_application.appStoreAPIRepository.getPaymentList(
-          context,shopIds: ""
-        )),
+        Observable.fromFuture(_application.appStoreAPIRepository
+            .getPaymentList(context, shopIds: "")),
         Observable.fromFuture(_application.appStoreAPIRepository
             .getPaymentMyShop(context, token: token)), (a, b) {
       final _paymentlist = (a as ApiResult).respone;
@@ -40,13 +39,15 @@ class PaymentBloc {
       return PaymentObjectCombine(
           paymentRespone: _paymentlist, paymenMyshopRespone: _paymentmyshop);
     }).listen((event) {
-      for (var item in event.paymentRespone.data) {
-        for (var value in event.paymenMyshopRespone.data) {
-          if (item.id == value.paymentMethodId) {
-            item.active = true;
-            break;
-          } else {
-            item.active = false;
+      if (event.paymentRespone != null) {
+        for (var item in event.paymentRespone.data) {
+          for (var value in event.paymenMyshopRespone.data) {
+            if (item.id == value.paymentMethodId) {
+              item.active = true;
+              break;
+            } else {
+              item.active = false;
+            }
           }
         }
       }

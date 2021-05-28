@@ -72,6 +72,28 @@ class _PaidViewState extends State<PaidView> {
         Navigator.of(context).pop();
       }
     });
+    bloc.onError.stream.listen((msg) {
+      Future.delayed(const Duration(milliseconds: 300), () {
+        FunctionHelper.alertDialogRetry(context,
+            cancalMessage: LocaleKeys.btn_exit.tr(),
+            callCancle: () {
+              Navigator.of(context).pop();
+            },
+            title: LocaleKeys.btn_error.tr(),
+            message: msg,
+            callBack: () {
+              Usermanager().getUser().then((value) => bloc.loadOrder(context,
+                  orderType: widget.typeView == OrderViewType.Shop
+                      ? "myshop/orders"
+                      : "order",
+                  statusId: "1",
+                  sort: "orders.createdAt:desc",
+                  limit: limit,
+                  page: 1,
+                  token: value.token));
+            });
+      });
+    });
     // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
@@ -191,7 +213,8 @@ class _PaidViewState extends State<PaidView> {
                                                     .withOpacity(0.6)),
                                           ),
                                           buildButtonBayItem(
-                                              btnTxt: widget.typeView == OrderViewType.Shop
+                                              btnTxt: widget.typeView ==
+                                                      OrderViewType.Shop
                                                   ? LocaleKeys
                                                       .order_detail_confirm_pay
                                                       .tr()

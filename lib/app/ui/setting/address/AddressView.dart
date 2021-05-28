@@ -37,10 +37,17 @@ class _AddressViewState extends State<AddressView> {
         }
       });
       bloc.onError.stream.listen((event) {
-      //  FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
-
-        FunctionHelper.alertDialogShop(context,
-            title: LocaleKeys.btn_error.tr(), message: event.message);
+        FunctionHelper.alertDialogRetry(context,
+            cancalMessage: LocaleKeys.btn_exit.tr(),
+            callCancle: () {
+              Navigator.of(context).pop();
+            },
+            title: LocaleKeys.btn_error.tr(),
+            message: event.message,
+            callBack: () {
+              Usermanager().getUser().then(
+                  (value) => bloc.addressesList(context, token: value.token));
+            });
       });
 
       bloc.onSuccess.stream.listen((event) {
@@ -234,7 +241,8 @@ class _AddressViewState extends State<AddressView> {
                             color: Colors.grey,
                             height: 1.5),
                       ),
-                    Text("${item.addressLine1} ${item.city.name} ${item.state.name} ${item.zipCode} ",
+                      Text(
+                        "${item.addressLine1} ${item.city.name} ${item.state.name} ${item.zipCode} ",
                         style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             color: Colors.grey,

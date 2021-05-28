@@ -43,13 +43,15 @@ class ShippingBloc {
       return ShppingOjectCombine(
           carriersRespone: _shppinglist, shppingMyShopRespone: _shppingmyshop);
     }).listen((event) {
-      for (var item in event.carriersRespone.data) {
-        for (var value in event.shppingMyShopRespone.data[0].rates) {
-          if (item.id == value.carrierId) {
-            item.active = true;
-            break;
-          } else {
-            item.active = false;
+      if (event.carriersRespone != null) {
+        for (var item in event.carriersRespone.data) {
+          for (var value in event.shppingMyShopRespone.data[0].rates) {
+            if (item.id == value.carrierId) {
+              item.active = true;
+              break;
+            } else {
+              item.active = false;
+            }
           }
         }
       }

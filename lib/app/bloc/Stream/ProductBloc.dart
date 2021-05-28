@@ -350,6 +350,8 @@ class ProductBloc {
                 page: item.page,
                 total: item.total));
           }
+        } else {
+          onError.add(respone.httpCallBack);
         }
       });
       _compositeSubscription.add(subscription);
@@ -690,7 +692,7 @@ class ProductBloc {
       NaiFarmLocalStorage.getNaiFarmShopCache().then((value) {
         if (value != null) {
           for (var data in value.item) {
-            if (data.shopRespone.id == shopid) {
+            if (data.shopRespone != null && data.shopRespone.id == shopid) {
               value.item.remove(data);
               break;
             }

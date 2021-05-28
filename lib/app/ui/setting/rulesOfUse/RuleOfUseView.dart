@@ -33,6 +33,18 @@ class _RulesOfUseViewState extends State<RulesOfUseView> {
           Navigator.of(context).pop();
         }
       });
+      bloc.onError.stream.listen((event) {
+        FunctionHelper.alertDialogRetry(context,
+            cancalMessage: LocaleKeys.btn_exit.tr(),
+            callCancle: () {
+              Navigator.of(context).pop();
+            },
+            title: LocaleKeys.btn_error.tr(),
+            message: event.message,
+            callBack: () {
+              bloc.getInfoRules(context, slug: "terms-of-use-customer");
+            });
+      });
       bloc.getInfoRules(context, slug: "terms-of-use-customer");
     }
   }

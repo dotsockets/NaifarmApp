@@ -34,7 +34,8 @@ class _DeliveryViewState extends State<DeliveryView> {
             .read<InfoCustomerBloc>()
             .loadCustomInfo(context, token: value.token));
       });
-      Usermanager().getUser().then((value) => bloc.loadShppingPage(context: context,token: value.token));
+      Usermanager().getUser().then((value) =>
+          bloc.loadShppingPage(context: context, token: value.token));
     }
   }
 
@@ -62,36 +63,43 @@ class _DeliveryViewState extends State<DeliveryView> {
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.hasData) {
                       var item = (snapshot.data as ShppingOjectCombine);
-                      return Column(
-                        children:
-                            List.generate(item.carriersRespone.total, (index) {
-                          return GestureDetector(
-                            child: Column(
-                              children: [
-                                _buildDelivery(
-                                    nameDeli:
-                                        item.carriersRespone.data[index].name,
-                                    item: item.carriersRespone.data[index]),
-                                Container(
-                                  height: 1,
-                                  color: Colors.grey.shade300,
-                                ),
-                              ],
-                            ),
-                            onTap: () async {
-                              var result = await AppRoute.deliveryEdit(context,
-                                  shppingMyShopRespone:
-                                      item.shppingMyShopRespone,
-                                  carriersDat:
-                                      item.carriersRespone.data[index]);
-                              if (result) {
-                                Usermanager().getUser().then((value) =>
-                                    bloc.loadShppingPage(context: context,token: value.token));
-                              }
-                            },
-                          );
-                        }),
-                      );
+                      if (item.carriersRespone != null) {
+                        return Column(
+                          children: List.generate(item.carriersRespone.total,
+                              (index) {
+                            return GestureDetector(
+                              child: Column(
+                                children: [
+                                  _buildDelivery(
+                                      nameDeli:
+                                          item.carriersRespone.data[index].name,
+                                      item: item.carriersRespone.data[index]),
+                                  Container(
+                                    height: 1,
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ],
+                              ),
+                              onTap: () async {
+                                var result = await AppRoute.deliveryEdit(
+                                    context,
+                                    shppingMyShopRespone:
+                                        item.shppingMyShopRespone,
+                                    carriersDat:
+                                        item.carriersRespone.data[index]);
+                                if (result) {
+                                  Usermanager().getUser().then((value) =>
+                                      bloc.loadShppingPage(
+                                          context: context,
+                                          token: value.token));
+                                }
+                              },
+                            );
+                          }),
+                        );
+                      } else {
+                        return Skeleton.loaderList(context);
+                      }
                     } else {
                       return Skeleton.loaderList(context);
                     }

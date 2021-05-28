@@ -95,6 +95,28 @@ class _SuccessViewState extends State<SuccessView> {
         // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
       }
     });
+    bloc.onError.stream.listen((msg) {
+      Future.delayed(const Duration(milliseconds: 300), () {
+        FunctionHelper.alertDialogRetry(context,
+            cancalMessage: LocaleKeys.btn_exit.tr(),
+            callCancle: () {
+              Navigator.of(context).pop();
+            },
+            title: LocaleKeys.btn_error.tr(),
+            message: msg,
+            callBack: () {
+              Usermanager().getUser().then((value) => bloc.loadOrder(context,
+                  orderType: widget.typeView == OrderViewType.Shop
+                      ? "myshop/orders"
+                      : "order",
+                  statusId: "6",
+                  sort: "orders.updatedAt:desc",
+                  limit: limit,
+                  page: 1,
+                  token: value.token));
+            });
+      });
+    });
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
               _scrollController.position.pixels <=

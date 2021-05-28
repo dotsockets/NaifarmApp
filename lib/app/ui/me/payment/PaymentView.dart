@@ -70,31 +70,37 @@ class _PaymentViewState extends State<PaymentView> {
                     stream: bloc.zipPaymentObject.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.hasData) {
-                        return Column(
-                          children: List.generate(
-                              (snapshot.data as PaymentObjectCombine)
-                                  .paymentRespone
-                                  .total, (index) {
-                            return Column(
-                              children: [
-                                buildDelivery(
-                                    nameDeli:
-                                        (snapshot.data as PaymentObjectCombine)
-                                            .paymentRespone
-                                            .data[index]
-                                            .name,
-                                    item:
-                                        (snapshot.data as PaymentObjectCombine)
-                                            .paymentRespone
-                                            .data[index]),
-                                Container(
-                                  height: 1,
-                                  color: Colors.grey.shade300,
-                                ),
-                              ],
-                            );
-                          }),
-                        );
+                        if ((snapshot.data as PaymentObjectCombine)
+                                .paymentRespone !=
+                            null) {
+                          return Column(
+                            children: List.generate(
+                                (snapshot.data as PaymentObjectCombine)
+                                    .paymentRespone
+                                    .total, (index) {
+                              return Column(
+                                children: [
+                                  buildDelivery(
+                                      nameDeli: (snapshot.data
+                                              as PaymentObjectCombine)
+                                          .paymentRespone
+                                          .data[index]
+                                          .name,
+                                      item: (snapshot.data
+                                              as PaymentObjectCombine)
+                                          .paymentRespone
+                                          .data[index]),
+                                  Container(
+                                    height: 1,
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ],
+                              );
+                            }),
+                          );
+                        } else {
+                          return Skeleton.loaderList(context);
+                        }
                       } else {
                         return Skeleton.loaderList(context);
                       }

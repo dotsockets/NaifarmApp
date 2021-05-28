@@ -108,6 +108,9 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                   } else if (item is InfoCustomerLoading) {
                     itemInfo = item.profileObjectCombine.customerInfoRespone;
                     return contentMe(itemInfo: itemInfo);
+                  } else if (item is InfoCustomerError) {
+                    itemInfo = item.profileObjectCombine.customerInfoRespone;
+                    return contentMe(itemInfo: itemInfo);
                   } else {
                     return SizedBox();
                   }

@@ -75,6 +75,28 @@ class _DeliveryViewState extends State<DeliveryView> {
         Navigator.of(context).pop();
       }
     });
+    bloc.onError.stream.listen((msg) {
+      Future.delayed(const Duration(milliseconds: 300), () {
+        FunctionHelper.alertDialogRetry(context,
+            cancalMessage: LocaleKeys.btn_exit.tr(),
+            callCancle: () {
+              Navigator.of(context).pop();
+            },
+            title: LocaleKeys.btn_error.tr(),
+            message: msg,
+            callBack: () {
+              Usermanager().getUser().then((value) => bloc.loadOrder(context,
+                  orderType: widget.typeView == OrderViewType.Shop
+                      ? "myshop/orders"
+                      : "order",
+                  statusId: "4,5",
+                  sort: "orders.updatedAt:desc",
+                  limit: limit,
+                  page: 1,
+                  token: value.token));
+            });
+      });
+    });
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
               _scrollController.position.pixels <=
@@ -369,17 +391,17 @@ class _DeliveryViewState extends State<DeliveryView> {
               if (result) {
                 Navigator.of(context).pop();
                 AppRoute.myShophistory(context, 3);
-               // bloc.orderDataList.clear();
-               //  Usermanager().getUser().then((value) => bloc.loadOrder(context,
-               //      load: true,
-               //      orderType: widget.typeView == OrderViewType.Shop
-               //          ? "myshop/orders"
-               //          : "order",
-               //      sort: "orders.updatedAt:desc",
-               //      statusId: '4,5',
-               //      limit: limit,
-               //      page: 1,
-               //      token: value.token));
+                // bloc.orderDataList.clear();
+                //  Usermanager().getUser().then((value) => bloc.loadOrder(context,
+                //      load: true,
+                //      orderType: widget.typeView == OrderViewType.Shop
+                //          ? "myshop/orders"
+                //          : "order",
+                //      sort: "orders.updatedAt:desc",
+                //      statusId: '4,5',
+                //      limit: limit,
+                //      page: 1,
+                //      token: value.token));
               }
             }
           }
