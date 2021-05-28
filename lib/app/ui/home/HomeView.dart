@@ -50,6 +50,7 @@ class _HomeViewState extends State<HomeView>
   bool initialUriIsHandled = true;
 
   init() {
+    OneSignalCall.cancelNotification("", 0);
     _handleIncomingLinks();
     _handleInitialUri();
     if (bloc == null) {

@@ -392,9 +392,9 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
 
   @override
   void onResumed() {
+    OneSignalCall.cancelNotification("", 0);
     NaiFarmLocalStorage.getNowPage().then((value) {
       if (value == 0) {
-        OneSignalCall.cancelNotification("", 0);
         _refreshProducts();
       }
     });
