@@ -13,6 +13,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/HistoryProductCard.dart';
@@ -65,6 +66,32 @@ class _CanceledViewState extends State<CanceledView> {
             token: value.token));
       });
     }
+    bloc.onError.stream.listen((msg) {
+      Future.delayed(const Duration(milliseconds: 300), () {
+        FunctionHelper.alertDialogRetry(context,
+            cancalMessage: LocaleKeys.btn_exit.tr(),
+            callCancle: () {
+              if((msg as ThrowIfNoSuccess).status==406){
+                Navigator.of(context).pop();
+              }else{
+                AppRoute.poppageCount(context: context, countpage:2);
+              }
+            },
+            title: LocaleKeys.btn_error.tr(),
+            message: (msg as ThrowIfNoSuccess).message,
+            callBack: () {
+              Usermanager().getUser().then((value) => bloc.loadOrder(context,
+                  orderType: widget.typeView == OrderViewType.Shop
+                      ? "myshop/orders"
+                      : "order",
+                  statusId: "8",
+                  sort: "orders.updatedAt:desc",
+                  limit: limit,
+                  page: 1,
+                  token: value.token));
+            });
+      });
+    });
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
               _scrollController.position.pixels <=

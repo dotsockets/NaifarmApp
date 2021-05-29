@@ -69,7 +69,8 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
         // Navigator.of(context).pop();
         onUpdate = false;
         //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
-        FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event.message);
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
         // Future.delayed(const Duration(milliseconds: 1000), () {
@@ -141,6 +142,9 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                   } else if (item is InfoCustomerLoading) {
                     itemInfo = item.profileObjectCombine.myShopRespone;
                     return contentMe(itemInfo: itemInfo);
+                  } else if (item is InfoCustomerError) {
+                    itemInfo = item.profileObjectCombine.myShopRespone;
+                    return contentMe(itemInfo: itemInfo);
                   } else {
                     return SizedBox();
                   }
@@ -192,14 +196,17 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                       borderRadius: BorderRadius.all(Radius.circular(60)),
                       child: fileImage == null
                           ? CachedNetworkImage(
-                              width: (SizeUtil.iconSize()*2).w,
-                              height: (SizeUtil.iconSize()*2).w,
+                              width: (SizeUtil.iconSize() * 2).w,
+                              height: (SizeUtil.iconSize() * 2).w,
                               placeholder: (context, url) => Container(
-                                width: (SizeUtil.iconSize()*2).w,
-                                height: (SizeUtil.iconSize()*2).w,
+                                width: (SizeUtil.iconSize() * 2).w,
+                                height: (SizeUtil.iconSize() * 2).w,
                                 color: Colors.white,
-                                child: Lottie.asset('assets/json/loading.json',
-                                    height: (SizeUtil.iconSize()*2).w,width: (SizeUtil.iconSize()*2).w,),
+                                child: Lottie.asset(
+                                  'assets/json/loading.json',
+                                  height: (SizeUtil.iconSize() * 2).w,
+                                  width: (SizeUtil.iconSize() * 2).w,
+                                ),
                               ),
                               fit: BoxFit.cover,
                               imageUrl: itemInfo != null
@@ -208,9 +215,9 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                                       : ''
                                   : '',
                               errorWidget: (context, url, error) => Container(
-                                   color: Colors.grey.shade300,
-                                  width: (SizeUtil.iconSize()*2).w,
-                                  height: (SizeUtil.iconSize()*2).w,
+                                  color: Colors.grey.shade300,
+                                  width: (SizeUtil.iconSize() * 2).w,
+                                  height: (SizeUtil.iconSize() * 2).w,
                                   child: Icon(
                                     Icons.person,
                                     size: SizeUtil.iconSize().w,

@@ -20,7 +20,9 @@ class CategoryMenu extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    if (featuredRespone.data != null && featuredRespone.data.isNotEmpty) {
+    if (featuredRespone != null &&
+        featuredRespone.data != null &&
+        featuredRespone.data.isNotEmpty) {
       return Container(
           padding:
               EdgeInsets.only(left: 1.0.w, bottom: moreSize ? 2.5.h : 1.0.h),
@@ -35,11 +37,12 @@ class CategoryMenu extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: SizeUtil.paddingMenu().w,),
+              SizedBox(
+                height: SizeUtil.paddingMenu().w,
+              ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child:
-                Container(
+                child: Container(
                   padding: EdgeInsets.only(right: 10),
                   child: Row(
                     children:

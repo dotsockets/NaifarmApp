@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/InformationResponce.dart';
@@ -33,6 +34,18 @@ class _PolicyViewState extends State<PolicyView> {
         } else {
           Navigator.of(context).pop();
         }
+      });
+      bloc.onError.stream.listen((event) {
+        FunctionHelper.alertDialogRetry(context,
+            cancalMessage: LocaleKeys.btn_exit.tr(),
+            callCancle: () {
+              AppRoute.poppageCount(context: context, countpage:2);
+            },
+            title: LocaleKeys.btn_error.tr(),
+            message: event.message,
+            callBack: () {
+              bloc.getInfoRules(context, slug: "privacy-policy");
+            });
       });
       bloc.getInfoRules(context, slug: "privacy-policy");
     }

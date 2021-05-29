@@ -203,7 +203,7 @@ class RecommendMenu extends StatelessWidget {
                   final result = await AppRoute.login(context,
                       isCallBack: true, isHeader: true, isSetting: false);
                   if (result) {
-                    AppRoute.wishlists(context: context);
+                    AppRoute.poppageCount(context: context, countpage:2);
                   }
                 } else {
                   AppRoute.wishlists(context: context);

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -14,7 +15,6 @@ import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ZipShopObjectCombin.dart';
 import 'package:naifarm/app/ui/shopmain/shop/Shop.dart';
 import 'package:naifarm/app/ui/shopmain/shopdetails/ShopDetailsView.dart';
-import 'package:naifarm/app/ui/splash/ConnectErrorView.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -48,7 +48,8 @@ class _ShopMainViewState extends State<ShopMainView>
       NaiFarmLocalStorage.getNaiFarmShopCache().then((value) {
         if (value != null) {
           for (var data in value.item) {
-            if (data.shopRespone.id == widget.myShopRespone.id) {
+            if (data.shopRespone != null &&
+                data.shopRespone.id == widget.myShopRespone.id) {
               bloc.zipShopObject.add(data);
               break;
             }
@@ -56,6 +57,30 @@ class _ShopMainViewState extends State<ShopMainView>
         }
         Usermanager().getUser().then((value) => bloc.loadShop(context,
             shopid: widget.myShopRespone.id, token: value.token));
+      });
+
+      bloc.onError.stream.listen((event) {
+        if (event.status == 0 || event.status >= 500) {
+          Future.delayed(const Duration(milliseconds: 300), () {
+            FunctionHelper.alertDialogRetry(context,
+                cancalMessage: LocaleKeys.btn_exit.tr(),
+                callCancle: () {
+                  AppRoute.poppageCount(context: context, countpage:2);
+                },
+                title: LocaleKeys.btn_error.tr(),
+                message: event.message,
+                callBack: () {
+                  NaiFarmLocalStorage.getNaiFarmShopCache().then((value) {
+                    if (value != null) {
+                      Usermanager().getUser().then((value) => bloc.loadShop(
+                          context,
+                          shopid: widget.myShopRespone.id,
+                          token: value.token));
+                    }
+                  });
+                });
+          });
+        }
       });
 
       // bloc.onError.stream.listen((event) {
@@ -110,21 +135,7 @@ class _ShopMainViewState extends State<ShopMainView>
             body: StreamBuilder(
               stream: bloc.onError.stream,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  return Center(
-                    child: ConnectErrorView(
-                        result: snapshot.data,
-                        showFull: false,
-                        callback: () {
-                          Usermanager().getUser().then((value) => bloc.loadShop(
-                              context,
-                              shopid: widget.myShopRespone.id,
-                              token: value.token));
-                        }),
-                  );
-                } else {
-                  return _content;
-                }
+                return _content;
               },
             )),
       ),

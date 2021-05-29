@@ -14,6 +14,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/HistoryProductCard.dart';
@@ -74,6 +75,32 @@ class _DeliveryViewState extends State<DeliveryView> {
       } else {
         Navigator.of(context).pop();
       }
+    });
+    bloc.onError.stream.listen((msg) {
+      Future.delayed(const Duration(milliseconds: 300), () {
+        FunctionHelper.alertDialogRetry(context,
+            cancalMessage: LocaleKeys.btn_exit.tr(),
+            callCancle: () {
+              if((msg as ThrowIfNoSuccess).status==406){
+                Navigator.of(context).pop();
+              }else{
+                AppRoute.poppageCount(context: context, countpage:2);
+              }
+            },
+            title: LocaleKeys.btn_error.tr(),
+            message: (msg as ThrowIfNoSuccess).message,
+            callBack: () {
+              Usermanager().getUser().then((value) => bloc.loadOrder(context,
+                  orderType: widget.typeView == OrderViewType.Shop
+                      ? "myshop/orders"
+                      : "order",
+                  statusId: "4,5",
+                  sort: "orders.updatedAt:desc",
+                  limit: limit,
+                  page: 1,
+                  token: value.token));
+            });
+      });
     });
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
@@ -369,17 +396,17 @@ class _DeliveryViewState extends State<DeliveryView> {
               if (result) {
                 Navigator.of(context).pop();
                 AppRoute.myShophistory(context, 3);
-               // bloc.orderDataList.clear();
-               //  Usermanager().getUser().then((value) => bloc.loadOrder(context,
-               //      load: true,
-               //      orderType: widget.typeView == OrderViewType.Shop
-               //          ? "myshop/orders"
-               //          : "order",
-               //      sort: "orders.updatedAt:desc",
-               //      statusId: '4,5',
-               //      limit: limit,
-               //      page: 1,
-               //      token: value.token));
+                // bloc.orderDataList.clear();
+                //  Usermanager().getUser().then((value) => bloc.loadOrder(context,
+                //      load: true,
+                //      orderType: widget.typeView == OrderViewType.Shop
+                //          ? "myshop/orders"
+                //          : "order",
+                //      sort: "orders.updatedAt:desc",
+                //      statusId: '4,5',
+                //      limit: limit,
+                //      page: 1,
+                //      token: value.token));
               }
             }
           }

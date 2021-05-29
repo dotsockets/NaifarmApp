@@ -82,7 +82,7 @@ class CartBloc {
         cartList.add(
             CartResponse(data: item.data, total: item.total, selectAll: false));
       } else {
-        // onLoad.add(false);
+        onLoad.add(false);
         onError.add(respone.httpCallBack);
       }
     });
@@ -147,6 +147,7 @@ class CartBloc {
         // CartResponse(data: CartList.value.data);
         // CartList.add(CartList.value);
       } else {
+        onLoad.add(false);
         onError.add(respone.httpCallBack);
       }
     });
