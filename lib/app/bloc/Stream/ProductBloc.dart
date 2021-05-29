@@ -568,6 +568,7 @@ class ProductBloc {
         var item = (event.respone as ProducItemRespone);
         productItem.add(item);
       } else {
+        onLoad.add(false);
         onError.add(event.httpCallBack);
       }
     });

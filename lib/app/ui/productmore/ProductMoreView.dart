@@ -82,7 +82,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
             FunctionHelper.alertDialogRetry(context,
                 cancalMessage: LocaleKeys.btn_exit.tr(),
                 callCancle: () {
-                  Navigator.of(context).pop();
+                  AppRoute.poppageCount(context: context, countpage:2);
                 },
                 title: LocaleKeys.btn_error.tr(),
                 message: event.message,

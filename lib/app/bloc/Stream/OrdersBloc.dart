@@ -101,7 +101,7 @@ class OrdersBloc {
           ));
         }
       } else {
-        onError.add(respone.httpCallBack.message);
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);

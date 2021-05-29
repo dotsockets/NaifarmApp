@@ -40,7 +40,7 @@ class _AddressViewState extends State<AddressView> {
         FunctionHelper.alertDialogRetry(context,
             cancalMessage: LocaleKeys.btn_exit.tr(),
             callCancle: () {
-              Navigator.of(context).pop();
+              AppRoute.poppageCount(context: context, countpage:2);
             },
             title: LocaleKeys.btn_error.tr(),
             message: event.message,

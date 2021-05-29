@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -64,7 +65,7 @@ class _ShopMainViewState extends State<ShopMainView>
             FunctionHelper.alertDialogRetry(context,
                 cancalMessage: LocaleKeys.btn_exit.tr(),
                 callCancle: () {
-                  Navigator.of(context).pop();
+                  AppRoute.poppageCount(context: context, countpage:2);
                 },
                 title: LocaleKeys.btn_error.tr(),
                 message: event.message,
