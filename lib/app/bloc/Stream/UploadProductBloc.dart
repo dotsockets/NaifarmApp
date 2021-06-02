@@ -470,7 +470,7 @@ class UploadProductBloc {
       if (respone.httpCallBack.status == 200) {
         onLoad.add(false);
         onSuccess.add(true);
-        attributeMyShop.add((respone.respone as MyShopAttributeRespone));
+        attributeMyShop.add(respone.respone as MyShopAttributeRespone);
       } else {
         onLoad.add(false);
         onError.add(respone.httpCallBack.message);
@@ -479,15 +479,27 @@ class UploadProductBloc {
     _compositeSubscription.add(subscription);
   }
 
-  addAttributeMyShop(BuildContext context, {String name, String token}) {
+  addAttributeMyShop(BuildContext context,
+      {String name, String token, List<String> value, String color = ""}) {
     onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(_application
             .appStoreAPIRepository
             .addMyShopAttribute(context, token: token, name: name))
         .listen((respone) async {
       if (respone.httpCallBack.status == 200) {
+        var item = (respone.respone as AttributeData);
         onLoad.add(false);
-        onSuccess.add(true);
+        // onSuccess.add(true);
+        if (value.length != 0) {
+          for (var subType in value) {
+            addSubAttribute(context,
+                id: item.id,
+                token: token,
+                color: color,
+                value: subType,
+                length: value.length);
+          }
+        }else onSuccess.add(respone.respone as AttributeData);
       } else {
         onLoad.add(false);
         onError.add(respone.httpCallBack.message);
@@ -540,7 +552,7 @@ class UploadProductBloc {
         .listen((respone) {
       if (respone.httpCallBack.status == 200) {
         onLoad.add(false);
-        onSuccess.add(true);
+        onSuccess.add(respone.respone as AttributeData);
       } else {
         onLoad.add(false);
         onError.add(respone.httpCallBack.message);
@@ -549,34 +561,38 @@ class UploadProductBloc {
     _compositeSubscription.add(subscription);
   }
 
-  addAttributeDetail(BuildContext context,
-      {String value, String color, int id, String token}) {
-    onLoad.add(true);
+  addSubAttribute(BuildContext context,
+      {String value, String color = "", int id, String token, int length}) {
+    //   onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(
             _application.appStoreAPIRepository.addAttributeDetail(context,
                 token: token, value: value, color: color, id: id))
         .listen((respone) async {
       if (respone.httpCallBack.status == 200) {
-        onLoad.add(false);
-        onSuccess.add(true);
+        // onLoad.add(false);
+        checkloop++;
+        if (checkloop == length) onSuccess.add(respone.respone as SubAttributeData);
       } else {
-        onLoad.add(false);
+        //   onLoad.add(false);
         onError.add(respone.httpCallBack.message);
       }
     });
     _compositeSubscription.add(subscription);
   }
 
-  updateAttributeDetail(BuildContext context,
-      {String value, String color, int id, int vid, String token}) async {
-    onLoad.add(true);
+  updateSubAttribute(BuildContext context,
+      {String value, String color, int id, int vid, String token,int total,int index}) async {
+    if(index+1==total) onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(
             _application.appStoreAPIRepository.updateAttributeDetail(context,
                 value: value, id: id, color: color, vid: vid, token: token))
         .listen((respone) {
       if (respone.httpCallBack.status == 200) {
-        onLoad.add(false);
-        onSuccess.add(true);
+        if(index+1==total) {
+          onLoad.add(false);
+          onSuccess.add(respone.respone as SubAttributeData);
+        }
+        print((index+1).toString()+" 8999999 "+total.toString());
       } else {
         onLoad.add(false);
         onError.add(respone.httpCallBack.message);
@@ -585,14 +601,14 @@ class UploadProductBloc {
     _compositeSubscription.add(subscription);
   }
 
-  deleteAttributeDetail(BuildContext context, {int id, String token, int vid}) {
-    onLoad.add(true);
+  deleteSubAttribute(BuildContext context, {int id, String token, int vid}) {
+   // onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(_application
             .appStoreAPIRepository
             .deleteAttributeDetail(context, id: id, token: token, vid: vid))
         .listen((respone) {
       if (respone.httpCallBack.status == 200) {
-        onLoad.add(false);
+       // onLoad.add(false);
         getAttributeDetail(context, token: token, id: id);
         //  onSuccessDel.add(true);
       } else {

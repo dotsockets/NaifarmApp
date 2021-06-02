@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
@@ -78,11 +79,44 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
           backgroundColor: Colors.grey.shade300,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(6.5.h),
-            child: AppToobar(
-              title: LocaleKeys.attributes_set.tr(),
-              icon: "",
-              isEnableSearch: false,
-              headerType: Header_Type.barNormal,
+            child: AppBar(
+              elevation: 0,
+              toolbarHeight: 6.5.h,
+              iconTheme: IconThemeData(
+                color: Colors.white, //change your color here
+              ),
+              backgroundColor: ThemeColor.primaryColor(),
+              title: Text(
+                LocaleKeys.attributes_set.tr(),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleFontSize().sp,
+                    fontWeight: FontWeight.w600),
+              ),
+              centerTitle: true,
+              actions: [
+                Container(
+                  padding: EdgeInsets.only(
+                      right: SizeUtil.paddingCart().w,
+                      left: SizeUtil.paddingItem().w),
+                  child: IconButton(
+                    onPressed: () async {
+                      var result = await AppRoute.attributeAdd(context: context);
+                      if (result) {
+                        // Usermanager().getUser().then(
+                        //         (value) => bloc.getAttributeMyShop(context, token: value.token));
+                      }
+
+                    },
+                    icon: Icon(
+                      Icons.add,
+                      size: SizeUtil.mediumIconSize().w,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
           body: SingleChildScrollView(
@@ -104,7 +138,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                                                   SlidableDrawerActionPane(),
                                               actionExtentRatio: 0.25,
                                               child: _buildItem(
-                                                  txt: item.data[index].name,
+                                                  name: item.data[index].name,
                                                   id: item.data[index].id),
                                               secondaryActions: <Widget>[
                                                 IconSlideAction(
@@ -117,9 +151,14 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                                                     children: [
                                                       Lottie.asset(
                                                           'assets/json/edit.json',
-                                                          height:
-                                                          (SizeUtil.iconSmallSize()-0.5).h,
-                                                          width: (SizeUtil.iconSmallSize()-0.5).h,
+                                                          height: (SizeUtil
+                                                                      .iconSmallSize() -
+                                                                  0.5)
+                                                              .h,
+                                                          width: (SizeUtil
+                                                                      .iconSmallSize() -
+                                                                  0.5)
+                                                              .h,
                                                           repeat: true),
                                                       Text(
                                                         LocaleKeys.cart_edit
@@ -140,10 +179,8 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                                                   onTap: () {
                                                     AppRoute.attributeEdit(
                                                         idAttr:
-                                                            item.data[index].id,
-                                                        context: context,
-                                                        nameAttr: item
-                                                            .data[index].name);
+                                                            item.data[index].id,nameAttr:  item.data[index].name,
+                                                        context: context,);
                                                   },
                                                 ),
                                                 IconSlideAction(
@@ -158,8 +195,12 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                                                             top: 0.5.h),
                                                         child: Lottie.asset(
                                                             'assets/json/delete.json',
-                                                            height: SizeUtil.imgSmallWidth().h,
-                                                            width: SizeUtil.imgSmallWidth().h,
+                                                            height: SizeUtil
+                                                                    .imgSmallWidth()
+                                                                .h,
+                                                            width: SizeUtil
+                                                                    .imgSmallWidth()
+                                                                .h,
                                                             repeat: true),
                                                       ),
                                                       Container(
@@ -207,7 +248,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                                           ],
                                         )),
                               ),
-                              _buildButton()
+                              //_buildButton()
                             ],
                           )
                         : Column(
@@ -223,7 +264,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                                           fontWeight: FontWeight.w500)),
                                 ),
                               ),
-                              _buildButton()
+                              //_buildButton()
                             ],
                           );
                   } else {
@@ -233,7 +274,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                           if (snapshot.hasData) {
                             return Container(
                               width: MediaQuery.of(context).size.width,
-                              height: 15.0.h,
+                              height: MediaQuery.of(context).size.height,
                               color: Colors.white,
                               child: Center(
                                 child: Text(
@@ -255,7 +296,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
     );
   }
 
-  Widget _buildItem({String txt, int id}) {
+  Widget _buildItem({String name, int id}) {
     return InkWell(
       child: Container(
         color: Colors.white,
@@ -268,7 +309,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(txt,
+                  Text(name,
                       style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleFontSize().sp,
                           color: ThemeColor.primaryColor())),
@@ -284,7 +325,10 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
         ),
       ),
       onTap: () {
-        AppRoute.attributeDetail(context: context, idAttr: id);
+        AppRoute.attributeEdit(
+          idAttr: id,
+          nameAttr: name,
+          context: context,);
       },
     );
   }
@@ -295,39 +339,39 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
       color: Colors.black.withOpacity(0.4),
     );
   }*/
-  Widget _buildButton() {
-    return Container(
-      margin: EdgeInsets.only(top: 2.0.h),
-      child: Center(
-        child: TextButton(
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(40.0),
-              ),
-            ),
-            minimumSize: MaterialStateProperty.all(
-              Size(50.0.w, 5.0.h),
-            ),
-            backgroundColor: MaterialStateProperty.all(
-              ThemeColor.secondaryColor(),
-            ),
-            overlayColor: MaterialStateProperty.all(
-              Colors.white.withOpacity(0.3),
-            ),
-          ),
-          onPressed: () {
-            AppRoute.attributeEdit(context: context, nameAttr: "", idAttr: 0);
-          },
-          child: Text(
-            LocaleKeys.attributes_add.tr(),
-            style: FunctionHelper.fontTheme(
-                color: Colors.white,
-                fontSize: SizeUtil.titleFontSize().sp,
-                fontWeight: FontWeight.w500),
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget _buildButton() {
+  //   return Container(
+  //     margin: EdgeInsets.only(top: 2.0.h),
+  //     child: Center(
+  //       child: TextButton(
+  //         style: ButtonStyle(
+  //           shape: MaterialStateProperty.all(
+  //             RoundedRectangleBorder(
+  //               borderRadius: BorderRadius.circular(40.0),
+  //             ),
+  //           ),
+  //           minimumSize: MaterialStateProperty.all(
+  //             Size(50.0.w, 5.0.h),
+  //           ),
+  //           backgroundColor: MaterialStateProperty.all(
+  //             ThemeColor.secondaryColor(),
+  //           ),
+  //           overlayColor: MaterialStateProperty.all(
+  //             Colors.white.withOpacity(0.3),
+  //           ),
+  //         ),
+  //         onPressed: () {
+  //           AppRoute.attributeEdit(context: context, nameAttr: "", idAttr: 0);
+  //         },
+  //         child: Text(
+  //           LocaleKeys.attributes_add.tr(),
+  //           style: FunctionHelper.fontTheme(
+  //               color: Colors.white,
+  //               fontSize: SizeUtil.titleFontSize().sp,
+  //               fontWeight: FontWeight.w500),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 }

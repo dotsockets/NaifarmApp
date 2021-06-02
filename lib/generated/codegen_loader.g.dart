@@ -173,6 +173,7 @@ class CodegenLoader extends AssetLoader{
     "add_product": "Add Product",
     "login": "LOGIN",
     "facebook": "Continue with Facebook",
+    "apple": "Continue with Apple",
     "edit_img": "Edit Image",
     "img": "Image",
     "save": "SAVE",
@@ -316,7 +317,8 @@ class CodegenLoader extends AssetLoader{
     "empty": "Data not found",
     "color": "Color code",
     "edit": "Edit Attributes",
-    "list": "Attributes List"
+    "list": "Attributes List",
+    "label": "Attributes"
   },
   "my_product": {
     "sell": "Open sales",
@@ -735,6 +737,7 @@ static const Map<String,dynamic> th_TH = {
     "logout": "ออกจากระบบ",
     "login": "เข้าสู่ระบบ",
     "facebook": "ดำเนินการต่อด้วย Facebook",
+    "apple": "ดำเนินการต่อด้วย Apple",
     "register": "สมัครสมาชิก",
     "add_address": "เพิ่มที่อยู่ใหม่",
     "add_product": "เพิ่มสินค้า",
@@ -945,12 +948,13 @@ static const Map<String,dynamic> th_TH = {
     "inactive": "ไม่แสดง"
   },
   "attributes": {
-    "set": "จัดการแอททริบิวต์",
-    "add": "เพิ่มแอททริบิวต์",
+    "set": "จัดการตัวเลือกสินค้า",
+    "add": "เพิ่มตัวเลือกสินค้า",
     "empty": "ไม่พบรายการ",
     "color": "โค้ดสี",
-    "edit": "แก้ไขแอททริบิวต์",
-    "list": "รายการแอททริบิวต์"
+    "edit": "แก้ไขตัวเลือกสินค้า",
+    "list": "รายการตัวเลือกสินค้า",
+    "label": "ตัวเลือก"
   },
   "recommend": {
     "title": "แนะนำ",

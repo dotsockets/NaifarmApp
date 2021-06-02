@@ -314,7 +314,8 @@
     "empty": "Data not found",
     "color": "Color code",
     "edit": "Edit Attributes",
-    "list": "Attributes List"
+    "list": "Attributes List",
+    "label": "Attributes"
   },
 
 

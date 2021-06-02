@@ -37,9 +37,8 @@ import 'package:naifarm/app/ui/me/mynewproduct/MyNewProductView.dart';
 import 'package:naifarm/app/ui/me/myproduct/MyProductView.dart';
 import 'package:naifarm/app/ui/me/myproduct/SearchMyProduct.dart';
 import 'package:naifarm/app/ui/me/myproduct/attribute/AttributeEditView.dart';
+import 'package:naifarm/app/ui/me/myproduct/attribute/AttributeAddView.dart';
 import 'package:naifarm/app/ui/me/myproduct/attribute/AttributeView.dart';
-import 'package:naifarm/app/ui/me/myproduct/attribute/detail/AttributeDetailEditView.dart';
-import 'package:naifarm/app/ui/me/myproduct/attribute/detail/AttributeDetailView.dart';
 import 'package:naifarm/app/ui/me/myproduct/productDetailShop/ProductDetailShop.dart';
 import 'package:naifarm/app/ui/me/myproductaddtype/ProductAddTypeView.dart';
 import 'package:naifarm/app/ui/me/myproductsetprice/ProductSetPriceView.dart';
@@ -970,29 +969,11 @@ class AppRoute {
         }));
   }
 
-  static attributeDetail({BuildContext context, int idAttr}) {
+  static attributeEdit({BuildContext context,int idAttr,String nameAttr}) {
     Navigator.of(context).push(SwipeablePageRoute(
         canOnlySwipeFromEdge: true,
         builder: (context) {
-          return AttributeDetailView(idAttr: idAttr);
-        }));
-  }
-
-  static attributeEdit({BuildContext context, String nameAttr, int idAttr}) {
-    Navigator.of(context).push(SwipeablePageRoute(
-        canOnlySwipeFromEdge: true,
-        builder: (context) {
-          return AttributeEditView(nameAttr: nameAttr, idAttr: idAttr);
-        }));
-  }
-
-  static attributeDetailEdit(
-      {BuildContext context, String value, int idAttr, String color, int vid}) {
-    Navigator.of(context).push(SwipeablePageRoute(
-        canOnlySwipeFromEdge: true,
-        builder: (context) {
-          return AttributeDetailEditView(
-              idAttr: idAttr, value: value, color: color, vid: vid);
+          return AttributeEditView(idAttr: idAttr,nameAttr: nameAttr,);
         }));
   }
 
@@ -1113,6 +1094,14 @@ class AppRoute {
             feedbackRespone: feedbackRespone,
             productId: productId,
           );
+        }));
+  }
+
+  static attributeAdd({BuildContext context}) {
+    Navigator.of(context).push(SwipeablePageRoute(
+        canOnlySwipeFromEdge: true,
+        builder: (context) {
+          return AttributeAddView();
         }));
   }
 }
