@@ -77,6 +77,26 @@ class _ProductMoreViewState extends State<ProductMoreView> {
             link: widget.apiLink,
             typeMore: widget.typeMore);
       });
+      bloc.onError.stream.listen((event) {
+        if (event.status == 0 || event.status >= 500) {
+          Future.delayed(const Duration(milliseconds: 300), () {
+            FunctionHelper.alertDialogRetry(context,
+                cancalMessage: LocaleKeys.btn_exit.tr(),
+                callCancle: () {
+                  AppRoute.poppageCount(context: context, countpage:2);
+                },
+                title: LocaleKeys.btn_error.tr(),
+                message: event.message,
+                callBack: () {
+                  bloc.loadMoreData(context,
+                      page: page.toString(),
+                      limit: 10,
+                      link: widget.apiLink,
+                      typeMore: widget.typeMore);
+                });
+          });
+        }
+      });
     }
 
     _scrollController.addListener(() {

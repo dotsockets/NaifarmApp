@@ -72,7 +72,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
             title: LocaleKeys.btn_error.tr(),
             message: event.message,
             callCancle: () {
-              AppRoute.poppageCount(context: context, countpage: 1);
+              AppRoute.poppageCount(context: context, countpage:2);
             },
             callBack: () => _refreshProducts());
       });

@@ -573,7 +573,10 @@ class FunctionHelper {
                   // okButton,
                   showbtn
                       ? TextButton(
-                          child: Text(LocaleKeys.btn_close.tr()),
+                          child: Text(LocaleKeys.btn_close.tr(),
+                              style: FunctionHelper.fontTheme(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: SizeUtil.titleSmallFontSize().sp)),
                           onPressed: () {
                             callCancle != null
                                 ? callCancle()

@@ -606,6 +606,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           iconSize: 7.0.w,
                           fontWeight: FontWeight.w500,
                           onClick: () async {
+                            
                             final result = await AppRoute.cartBank(context,
                                 paymentRespone: bloc.paymentList.value,
                                 allShopID: bloc.getAllShopID());
@@ -625,12 +626,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           iconSize: 7.0.w,
                           fontWeight: FontWeight.w500,
                           onClick: () async {
-                            final result = await AppRoute.cartBank(context,
-                                paymentRespone: bloc.paymentList.value,
-                                allShopID: bloc.getAllShopID());
-                            if (result != null) {
-                              bloc.paymentList.add(result);
-                            }
+
                           },
                         ));
                   }
@@ -796,15 +792,19 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                         onPressed: () {
                           // AppRoute.CartSummary(context,);
 
-                          Usermanager().getUser().then((value) {
-                            bloc.onLoad.add(true);
-                            for (var item in bloc.cartList.value.data) {
-                              bloc.createOrder(context,
-                                  orderRequest: bloc.convertOrderData(context,
-                                      cartData: item, email: value.email),
-                                  token: value.token);
-                            }
-                          });
+                          if(bloc.checkListOut()){
+                            Usermanager().getUser().then((value) {
+                              bloc.onLoad.add(true);
+                              for (var item in bloc.cartList.value.data) {
+                                bloc.createOrder(context,
+                                    orderRequest: bloc.convertOrderData(context,
+                                        cartData: item, email: value.email),
+                                    token: value.token);
+                              }
+                            });
+                          }
+
+
                           // AppRoute.OrderSuccess(context: context,payment_total: bloc.total_payment.value.toString());
                         },
                         child: Text(LocaleKeys.cart_check_out.tr(),
@@ -894,17 +894,20 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         ),
       ),
       onTap: () async {
-        final result = await AppRoute.cartAddres(context,
-            installSelect: bloc.addressList.value.data.isNotEmpty
-                ? bloc.addressList.value.data[0]
-                : null);
-        if (result is AddressesListRespone) {
-          //bloc.AddressList.add(AddressesListRespone());
-          bloc.addressList.add(result);
-          // Usermanager()
-          //     .getUser()
-          //     .then((value) => bloc.AddressesList(token: value.token,type: true));
+        if(bloc.addressList.value.data!=null){
+          final result = await AppRoute.cartAddres(context,
+              installSelect: bloc.addressList.value.data.isNotEmpty
+                  ? bloc.addressList.value.data[0]
+                  : null);
+          if (result is AddressesListRespone) {
+            //bloc.AddressList.add(AddressesListRespone());
+            bloc.addressList.add(result);
+            // Usermanager()
+            //     .getUser()
+            //     .then((value) => bloc.AddressesList(token: value.token,type: true));
+          }
         }
+
       },
     );
   }

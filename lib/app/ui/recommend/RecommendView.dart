@@ -6,9 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
-import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
-import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -18,13 +16,11 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
-import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
 import 'package:naifarm/app/model/pojo/response/HomeObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SliderRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/app/ui/flashsale/FlashSaleView.dart';
 import 'package:naifarm/app/ui/home/HomeHeader.dart';
 import 'package:naifarm/app/ui/recommend/widget/CategoryTab.dart';
@@ -67,26 +63,14 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
       bloc.onSuccess.stream.listen((event) {
-        NaiFarmLocalStorage.getHomeDataCache().then((value) {
-          onReLoad = true;
-          bloc.zipHomeObject.add(value);
-        });
-      });
-      bloc.onError.stream.listen((event) {
-        onDialog = false;
-        if (event.status == 0 || event.status >= 500) {
-          Future.delayed(const Duration(milliseconds: 300), () {
-            FunctionHelper.alertDialogRetry(context,
-                cancalMessage: LocaleKeys.btn_exit.tr(),
-                callCancle: () {
-                  exit(0);
-                },
-                title: LocaleKeys.btn_error.tr(),
-                message: event.message,
-                callBack: () {
-                  onDialog = true;
-                  _refreshProducts();
-                });
+        if (event is bool) {
+          OneSignalCall.cancelNotification("", 0);
+          context.read<HomeDataBloc>().loadHomeData(context);
+          // _refreshProducts();
+        } else {
+          NaiFarmLocalStorage.getHomeDataCache().then((value) {
+            onReLoad = true;
+            bloc.zipHomeObject.add(value);
           });
         }
       });
@@ -97,7 +81,25 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
           Navigator.of(context).pop();
         }
       });
-
+      bloc.onError.stream.listen((event) {
+        onDialog = false;
+        if (event.status == 0 || event.status >= 500) {
+          Future.delayed(const Duration(milliseconds: 300), () {
+            FunctionHelper.alertDialogRetry(context,
+                cancalMessage: LocaleKeys.btn_exit.tr(),
+                callCancle: () {
+                  Navigator.of(context).pop();
+                },
+                title: LocaleKeys.btn_error.tr(),
+                message: event.message,
+                callBack: () {
+                  onDialog = true;
+                  // _refreshProducts();
+                  onResumed();
+                });
+          });
+        }
+      });
       // bloc.loadHomeData();
     }
   }
@@ -170,7 +172,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
   }
 
   Widget get contentMain => Scaffold(
-    backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         body: StreamBuilder(
           stream: _selectedIndex.stream,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -182,7 +184,6 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                     if (item is HomeDataLoaded) {
                       return SingleChildScrollView(
                         child: Container(
-
                           child: StickyHeader(
                             header: Column(
                               children: [
@@ -202,7 +203,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                           ),
                         ),
                       );
-                    } else  {
+                    } else {
                       // if (onDialog) {
                       //   onDialog = false;
                       //   bloc.onError.add(ThrowIfNoSuccess(
@@ -213,7 +214,6 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
 
                       return SingleChildScrollView(
                         child: Container(
-
                           child: StickyHeader(
                             header: Column(
                               children: [
@@ -245,7 +245,9 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
   Widget content({HomeObjectCombine item}) {
     return Column(
       children: [
-        item!=null && item.sliderRespone != null && item.sliderRespone.data.isNotEmpty
+        item != null &&
+                item.sliderRespone != null &&
+                item.sliderRespone.data.isNotEmpty
             ? BannerSlide(
                 image: item.sliderRespone.data
                     .map((e) =>
@@ -260,12 +262,15 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
           },
         ),
 
-        item!=null && item.flashsaleRespone!=null
+        item != null && item.flashsaleRespone != null
             ? FlashSale(flashsaleRespone: item.flashsaleRespone)
             : SizedBox(),
-        Container(height: 1.0.h,color: Colors.grey.withOpacity(0.5),),
+        Container(
+          height: 1.0.h,
+          color: Colors.grey.withOpacity(0.5),
+        ),
         ProductLandscape(
-          productRespone: item!=null?item.productRespone:null,
+          productRespone: item != null ? item.productRespone : null,
           titleInto: LocaleKeys.recommend_best_seller.tr(),
           producViewModel: ProductViewModel().getBestSaller(),
           imageIcon: 'assets/images/png/product_hot.png',
@@ -283,12 +288,15 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
           },
           tagHero: "product_hot",
         ),
-        Container(height: 1.0.h,color: Colors.grey.withOpacity(0.5),),
+        Container(
+          height: 1.0.h,
+          color: Colors.grey.withOpacity(0.5),
+        ),
         // SizedBox(height: 1.5.h),
         // _BannerAds(),
 
         ProductVertical(
-            productRespone: item!=null?item.martket:null,
+            productRespone: item != null ? item.martket : null,
             titleInto: LocaleKeys.recommend_market.tr(),
             imageIcon: 'assets/images/png/menu_market.png',
             onSelectMore: () {
@@ -302,11 +310,19 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
             },
             borderRadius: false,
             tagHero: "market"),
-        Container(height: 1.0.h,color: Colors.grey.withOpacity(0.5),),
-        CategoryTab(categoryGroupRespone: item!=null?item.categoryGroupRespone:null),
-        Container(height: 1.0.h,color: Colors.grey.withOpacity(0.5),),
+        Container(
+          height: 1.0.h,
+          color: Colors.grey.withOpacity(0.5),
+        ),
+        CategoryTab(
+            categoryGroupRespone:
+                item != null ? item.categoryGroupRespone : null),
+        Container(
+          height: 1.0.h,
+          color: Colors.grey.withOpacity(0.5),
+        ),
         ProductVertical(
-            productRespone: item!=null?item.productForyou:null,
+            productRespone: item != null ? item.productForyou : null,
             titleInto: LocaleKeys.tab_bar_recommend.tr(),
             imageIcon: 'assets/images/png/like.png',
             iconSize: 6.0.w,
@@ -354,13 +370,16 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
       // AudioCache().play("sound/Click.mp3");
       // Vibration.vibrate(duration: 500);
     }
-    context.read<HomeDataBloc>().loadHomeData(context);
+    Usermanager().getUser().then(
+          (value) => bloc.loadCustomerCount(context, token: value.token),
+        );
+    /*context.read<HomeDataBloc>().loadHomeData(context);
     Usermanager().getUser().then((value) => context
         .read<CustomerCountBloc>()
         .loadCustomerCount(context, token: value.token));
     Usermanager().getUser().then((value) => context
         .read<InfoCustomerBloc>()
-        .loadCustomInfo(context, token: value.token));
+        .loadCustomInfo(context, token: value.token));*/
     // bloc.loadHomeData(context: context,callback: true);
   }
 
@@ -395,7 +414,11 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
     OneSignalCall.cancelNotification("", 0);
     NaiFarmLocalStorage.getNowPage().then((value) {
       if (value == 0) {
-        _refreshProducts();
+        Usermanager().getUser().then(
+              (value) => bloc.loadCustomerCount(context, token: value.token),
+            );
+        // OneSignalCall.cancelNotification("", 0);
+        // _refreshProducts();
       }
     });
   }

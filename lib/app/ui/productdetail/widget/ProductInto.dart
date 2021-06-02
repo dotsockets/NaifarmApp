@@ -114,7 +114,7 @@ class ProductInto extends StatelessWidget {
                 Text(
                   data.offerPrice != null
                       ? "฿${NumberFormat("#,##0", "en_US").format(data.offerPrice)}"
-                      : "฿${NumberFormat("#,##0", "en_US").format(data.salePrice)}",
+                      : "฿${NumberFormat("#,##0", "en_US").format(data.salePrice!=null?data.salePrice:0)}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: FunctionHelper.fontTheme(
