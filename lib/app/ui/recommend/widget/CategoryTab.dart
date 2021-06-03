@@ -117,7 +117,7 @@ class CategoryTab extends StatelessWidget {
                   height: 18.0.w,
                   child: Icon(
                     Icons.error,
-                    size: 30,
+                    size: 6.0.w,
                   )),
             ),
             SizedBox(height: 2.0.h),

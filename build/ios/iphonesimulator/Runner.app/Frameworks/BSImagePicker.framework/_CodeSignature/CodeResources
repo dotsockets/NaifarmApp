@@ -6,11 +6,11 @@
 	<dict>
 		<key>BSImagePicker.bundle/Info.plist</key>
 		<data>
-		2qwlQK2xGKTwH5MvWpuGkGGWf/s=
+		XSA4GpDJfA+YM4bVNMr63O5AJ0I=
 		</data>
 		<key>BSImagePicker.bundle/_CodeSignature/CodeDirectory</key>
 		<data>
-		Vv3RtwD9MQfzULt7KNSgZhT5Lz0=
+		sMsc3PdPZvpZrDPX4LaF4a04HtE=
 		</data>
 		<key>BSImagePicker.bundle/_CodeSignature/CodeRequirements</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>BSImagePicker.bundle/_CodeSignature/CodeRequirements-1</key>
 		<data>
-		tcYCr28JOnEzsGdHgC707uEE68g=
+		wx/o+2QMqnznTkocio6GlYcvb5k=
 		</data>
 		<key>BSImagePicker.bundle/_CodeSignature/CodeResources</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		AF2dOv00aX6Xzza0nLEzYaMsZ5M=
+		Pqzc1AdDuetK1yLhz0J6uhFrdqw=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -63,22 +63,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			2qwlQK2xGKTwH5MvWpuGkGGWf/s=
+			XSA4GpDJfA+YM4bVNMr63O5AJ0I=
 			</data>
 			<key>hash2</key>
 			<data>
-			sIfTx9xMkjibBrSiHKqD12Sk5Mx5sxeeU6DosFi3QiY=
+			XxDMj5cbi04rYs84nBLaBrfN/QWbVnY8nKQocFy0ODA=
 			</data>
 		</dict>
 		<key>BSImagePicker.bundle/_CodeSignature/CodeDirectory</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Vv3RtwD9MQfzULt7KNSgZhT5Lz0=
+			sMsc3PdPZvpZrDPX4LaF4a04HtE=
 			</data>
 			<key>hash2</key>
 			<data>
-			rlSp6LN8YZ1qY+4ec0d3mCLFnY01SAU7DiLjUQyqhu8=
+			/wmgSslOSELYk14yGQIQj7mMeYs8qj7dxv8FE7WtaE4=
 			</data>
 		</dict>
 		<key>BSImagePicker.bundle/_CodeSignature/CodeRequirements</key>
@@ -96,11 +96,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			tcYCr28JOnEzsGdHgC707uEE68g=
+			wx/o+2QMqnznTkocio6GlYcvb5k=
 			</data>
 			<key>hash2</key>
 			<data>
-			OT9ArpMghlJK0BHwsz0Zi2ZAIJ6LxBjgIaNFZ8hDr4Y=
+			NED88b+u0a9Kpbv+c6M6Fal0ODISNw0rg4zukbfpNbc=
 			</data>
 		</dict>
 		<key>BSImagePicker.bundle/_CodeSignature/CodeResources</key>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+  <g id="Check" transform="translate(8163 1415)">
+    <g id="Rectangle_1545" data-name="Rectangle 1545" transform="translate(-8163 -1415)" fill="#d8d8d8" stroke="#989898" stroke-width="4">
+      <rect width="60" height="60" rx="15" stroke="none"/>
+      <rect x="2" y="2" width="56" height="56" rx="13" fill="none"/>
+    </g>
+    <path id="Icon_ionic-ios-checkmark" data-name="Icon ionic-ios-checkmark" d="M53.61,16.1l-3.548-3.648a.763.763,0,0,0-.564-.242h0a.732.732,0,0,0-.564.242L24.342,37.22l-8.949-8.949a.779.779,0,0,0-1.129,0l-3.588,3.588a.8.8,0,0,0,0,1.149L21.964,44.3a3.57,3.57,0,0,0,2.358,1.149,3.74,3.74,0,0,0,2.338-1.109h.02L53.63,17.245A.862.862,0,0,0,53.61,16.1Z" transform="translate(-8165.052 -1413.825)" fill="#79af66"/>
+  </g>
+</svg>

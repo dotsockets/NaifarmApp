@@ -10,7 +10,7 @@
 		</data>
 		<key>Headers/multi_image_picker-Swift.h</key>
 		<data>
-		+ZM8gEkvw/sqEWcQKjtA6CrvQbw=
+		OuCaUx0Bw5Wnk8KMiudKKeSaFYc=
 		</data>
 		<key>Headers/multi_image_picker-umbrella.h</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		84MMLH2uwdy8YJZ5Qw66w1Dgk1A=
+		5hamcnUegoF0k0HscVLaMqg413g=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -26,27 +26,27 @@
 		</data>
 		<key>Modules/multi_image_picker.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		azPBG4ArucoLi6j0JMO0NL8w5YA=
+		5lYzgkHO2zz2UNVZC+khI6skJBg=
 		</data>
 		<key>Modules/multi_image_picker.swiftmodule/Project/x86_64.swiftsourceinfo</key>
 		<data>
-		azPBG4ArucoLi6j0JMO0NL8w5YA=
+		5lYzgkHO2zz2UNVZC+khI6skJBg=
 		</data>
 		<key>Modules/multi_image_picker.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		v9aof4/DyGE+eZRIqVl3/rXUBGY=
+		JHJEWPbgNqRvH+xTwcXsjKzhKF8=
 		</data>
 		<key>Modules/multi_image_picker.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		hT1PfeR9rP1+fgfgYhmSPVM1Mq8=
+		+rsqb1iTZe/z+7ymzA0K12rSeL4=
 		</data>
 		<key>Modules/multi_image_picker.swiftmodule/x86_64.swiftdoc</key>
 		<data>
-		v9aof4/DyGE+eZRIqVl3/rXUBGY=
+		JHJEWPbgNqRvH+xTwcXsjKzhKF8=
 		</data>
 		<key>Modules/multi_image_picker.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		hT1PfeR9rP1+fgfgYhmSPVM1Mq8=
+		+rsqb1iTZe/z+7ymzA0K12rSeL4=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -66,11 +66,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			+ZM8gEkvw/sqEWcQKjtA6CrvQbw=
+			OuCaUx0Bw5Wnk8KMiudKKeSaFYc=
 			</data>
 			<key>hash2</key>
 			<data>
-			BSboW3C5DN0zX5IPlnTVBN98kl1SLa11xGr64tiI0F0=
+			tBcLF+18QCSZP0W2hs3fZdZbryYlQZ4E8Guef4jcnj0=
 			</data>
 		</dict>
 		<key>Headers/multi_image_picker-umbrella.h</key>
@@ -99,66 +99,66 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			azPBG4ArucoLi6j0JMO0NL8w5YA=
+			5lYzgkHO2zz2UNVZC+khI6skJBg=
 			</data>
 			<key>hash2</key>
 			<data>
-			/kihdJ9XDRWtwYAMvW0PveApIMaJIIw4nqEbXpG3hzw=
+			GqB7Q7nD3m/u6PDInUSH8iPEn9PFzDSoZcqYkg3G4Ac=
 			</data>
 		</dict>
 		<key>Modules/multi_image_picker.swiftmodule/Project/x86_64.swiftsourceinfo</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			azPBG4ArucoLi6j0JMO0NL8w5YA=
+			5lYzgkHO2zz2UNVZC+khI6skJBg=
 			</data>
 			<key>hash2</key>
 			<data>
-			/kihdJ9XDRWtwYAMvW0PveApIMaJIIw4nqEbXpG3hzw=
+			GqB7Q7nD3m/u6PDInUSH8iPEn9PFzDSoZcqYkg3G4Ac=
 			</data>
 		</dict>
 		<key>Modules/multi_image_picker.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			v9aof4/DyGE+eZRIqVl3/rXUBGY=
+			JHJEWPbgNqRvH+xTwcXsjKzhKF8=
 			</data>
 			<key>hash2</key>
 			<data>
-			5L77M1yYKcpTP5fhFILdg9NV7+LPOd8r9EV/YoXZV2E=
+			Hj3C+6ohG3APTGPfvHsmw++sohZeubo9fSivbVe8DE0=
 			</data>
 		</dict>
 		<key>Modules/multi_image_picker.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			hT1PfeR9rP1+fgfgYhmSPVM1Mq8=
+			+rsqb1iTZe/z+7ymzA0K12rSeL4=
 			</data>
 			<key>hash2</key>
 			<data>
-			huNaCGs6nJMzktyc+fWCa0l/ARCp5tAuSGxcFuQAcrQ=
+			f++vESfWLzd/UmlWf0+IkzkvqIkpxWOLmJAGo+ZuS9A=
 			</data>
 		</dict>
 		<key>Modules/multi_image_picker.swiftmodule/x86_64.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			v9aof4/DyGE+eZRIqVl3/rXUBGY=
+			JHJEWPbgNqRvH+xTwcXsjKzhKF8=
 			</data>
 			<key>hash2</key>
 			<data>
-			5L77M1yYKcpTP5fhFILdg9NV7+LPOd8r9EV/YoXZV2E=
+			Hj3C+6ohG3APTGPfvHsmw++sohZeubo9fSivbVe8DE0=
 			</data>
 		</dict>
 		<key>Modules/multi_image_picker.swiftmodule/x86_64.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			hT1PfeR9rP1+fgfgYhmSPVM1Mq8=
+			+rsqb1iTZe/z+7ymzA0K12rSeL4=
 			</data>
 			<key>hash2</key>
 			<data>
-			huNaCGs6nJMzktyc+fWCa0l/ARCp5tAuSGxcFuQAcrQ=
+			f++vESfWLzd/UmlWf0+IkzkvqIkpxWOLmJAGo+ZuS9A=
 			</data>
 		</dict>
 	</dict>

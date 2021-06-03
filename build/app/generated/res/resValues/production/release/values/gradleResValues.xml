@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Automatically generated file. DO NOT MODIFY -->
+
+    <!-- Values from product flavor: production -->
+    <string name="app_name" translatable="false">Naifarm</string>
+    <string name="facebook_app_id" translatable="false">219341536017829</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb219341536017829</string>
+
+</resources>

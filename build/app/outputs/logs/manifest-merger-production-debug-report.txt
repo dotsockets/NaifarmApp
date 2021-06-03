@@ -1,0 +1,1138 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:1:1-106:12
+INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:1:1-106:12
+INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:1:1-106:12
+INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:1:1-106:12
+MERGED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:1:1-106:12
+MERGED from [:onesignal_flutter] /Users/dotsocket/Desktop/NaifarmApp/build/onesignal_flutter/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:vibration] /Users/dotsocket/Desktop/NaifarmApp/build/vibration/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:image_picker] /Users/dotsocket/Desktop/NaifarmApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-22:12
+MERGED from [:flutter_plugin_android_lifecycle] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:sign_in_with_apple] /Users/dotsocket/Desktop/NaifarmApp/build/sign_in_with_apple/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-23:12
+MERGED from [:multi_image_picker] /Users/dotsocket/Desktop/NaifarmApp/build/multi_image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:wakelock] /Users/dotsocket/Desktop/NaifarmApp/build/wakelock/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:get_version] /Users/dotsocket/Desktop/NaifarmApp/build/get_version/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
+MERGED from [:package_info] /Users/dotsocket/Desktop/NaifarmApp/build/package_info/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:permission_handler] /Users/dotsocket/Desktop/NaifarmApp/build/permission_handler/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:device_info_plus] /Users/dotsocket/Desktop/NaifarmApp/build/device_info_plus/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:shared_preferences] /Users/dotsocket/Desktop/NaifarmApp/build/shared_preferences/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:uni_links] /Users/dotsocket/Desktop/NaifarmApp/build/uni_links/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:webview_flutter] /Users/dotsocket/Desktop/NaifarmApp/build/webview_flutter/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:share] /Users/dotsocket/Desktop/NaifarmApp/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-19:12
+MERGED from [:keyboard_visibility] /Users/dotsocket/Desktop/NaifarmApp/build/keyboard_visibility/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:sqflite] /Users/dotsocket/Desktop/NaifarmApp/build/sqflite/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:flutter_facebook_login] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_facebook_login/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:path_provider] /Users/dotsocket/Desktop/NaifarmApp/build/path_provider/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:video_player] /Users/dotsocket/Desktop/NaifarmApp/build/video_player/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [com.sangcomz:FishBun:0.11.2] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9ab536998acaa1ae7f19344438f64585/jetified-FishBun-0.11.2/AndroidManifest.xml:2:1-34:12
+MERGED from [com.google.firebase:firebase-analytics:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/dc4278fe713e857a676af867a3b620ef/firebase-analytics-18.0.1/AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.core:core-ktx:1.2.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/a673266349bf73c218ec2f8c986b45b1/core-ktx-1.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:2:1-122:12
+MERGED from [com.facebook.android:facebook-login:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/af83d22a908f0e3d2818b2f00c230c76/jetified-facebook-login-5.5.1/AndroidManifest.xml:21:1-31:12
+MERGED from [com.facebook.android:facebook-common:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/31737f40f3de8de2543cd1ffc251f6a3/jetified-facebook-common-5.5.1/AndroidManifest.xml:21:1-37:12
+MERGED from [androidx.browser:browser:1.2.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/a65e58c42c40b024e8af475ea426aca7/browser-1.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [com.github.bumptech.glide:glide:4.11.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/031a11c9ca6a73d5e367ea3429e3429a/glide-4.11.0/AndroidManifest.xml:2:1-12:12
+MERGED from [androidx.exifinterface:exifinterface:1.3.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/2936f150aba132448d68cc760d32ac0c/exifinterface-1.3.1/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.webkit:webkit:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/bd71571ce3829068c9e366b5c6c83b85/webkit-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/f6332252ffc017761317d626b33daa71/legacy-support-v4-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media:media:1.1.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/91eda91c8945827df17ed1d60ca55f6c/media-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-location:15.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3fe2f2468f06b7d75bc6bdc4409e38b2/jetified-play-services-location-15.0.1/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.firebase:firebase-messaging:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9a21f58db2bbe1bf02a6338d80d04c54/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:17:1-45:12
+MERGED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:17:1-47:12
+MERGED from [com.google.firebase:firebase-iid-interop:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/71aea3a7d6078ab3cb7aee5e0e956b11/firebase-iid-interop-17.0.0/AndroidManifest.xml:2:1-10:12
+MERGED from [com.google.android.gms:play-services-base:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/eb47ebaa415480000026f88ca6df58ed/play-services-base-17.0.0/AndroidManifest.xml:17:1-29:12
+MERGED from [com.google.android.material:material:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/81acc98cdd06be4974c9fb9692099406/material-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.appcompat:appcompat:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/1f62d99099668148f008bae1c51e465b/appcompat-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:17:1-46:12
+MERGED from [com.google.android.gms:play-services-measurement-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/454254109a682b906972aaa1f665ac65/play-services-measurement-api-18.0.1/AndroidManifest.xml:17:1-36:12
+MERGED from [com.google.android.gms:play-services-measurement-sdk:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/48c1f82cfca26c6f20105bf6f4823d5d/play-services-measurement-sdk-18.0.1/AndroidManifest.xml:17:1-25:12
+MERGED from [com.google.android.gms:play-services-places-placereport:15.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/8f2d0a0f3b78b301167926a34e2b9f32/play-services-places-placereport-15.0.1/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-cloud-messaging:16.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b23f57069571b6c3e0a1f94f0555d2ed/play-services-cloud-messaging-16.0.0/AndroidManifest.xml:2:1-13:12
+MERGED from [com.google.firebase:firebase-installations:16.3.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ff330bc02ec8457fc65ea697e3295204/firebase-installations-16.3.5/AndroidManifest.xml:2:1-24:12
+MERGED from [com.google.firebase:firebase-installations-interop:16.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/1d4e61877da578575539d057abbf76e7/firebase-installations-interop-16.0.1/AndroidManifest.xml:15:1-23:12
+MERGED from [com.google.firebase:firebase-datatransport:17.0.10] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/4775e992f79f69e1dde9d0778daee42b/firebase-datatransport-17.0.10/AndroidManifest.xml:15:1-34:12
+MERGED from [com.google.firebase:firebase-common:19.5.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/85b8c2a420bd3d5fc334ffbe98905eb7/jetified-firebase-common-19.5.0/AndroidManifest.xml:15:1-49:12
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/f65adb74040d0a7f06c540fe700e4173/play-services-tasks-17.0.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-measurement-impl:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/d7a2773ff1b9951af831321d8d14af8b/play-services-measurement-impl-18.0.1/AndroidManifest.xml:17:1-31:12
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/357593541c28516783ad0d23e7c175ba/play-services-stats-17.0.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ae6f19b3830eaf3513b6b7219dcbb4ae/firebase-measurement-connector-18.0.0/AndroidManifest.xml:17:1-25:12
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/c2250e898548d6574ceb8de6aab57ff9/play-services-ads-identifier-17.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/4b6d5c89e8134ba31f9bb3b5ce8c5771/play-services-measurement-sdk-api-18.0.1/AndroidManifest.xml:17:1-27:12
+MERGED from [com.google.android.gms:play-services-measurement-base:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9497cd401ea6478a7fd415ac82efd87a/play-services-measurement-base-18.0.1/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9f3aeb669d8fed6c8de556275de6bc2a/jetified-play-services-basement-17.0.0/AndroidManifest.xml:17:1-28:12
+MERGED from [androidx.fragment:fragment:1.1.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9392e44d302d2b741fdc2fca155aaec0/fragment-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/364c0899307c0e4eb9ab5855ce815770/recyclerview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ac262a3df1bb9d3321d27812220b7556/vectordrawable-animated-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/dbd1609051f63b343797085c13f5d7c7/legacy-support-core-ui-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/fd1319c46e4e3f171575b2292bee611d/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.facebook.android:facebook-core:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c4f14ee1edf26d35bfd9fce33efc47b/jetified-facebook-core-5.5.1/AndroidManifest.xml:21:1-61:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/cfdd9b17b3b612d3b3e2476fe7f357ff/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9b13496274c78263915f5c7bfee1fc61/loader-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/885eeef0ef3472836e9451d8fef1763d/activity-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.transition:transition:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/1ba7cd69698d9ac48e37d8e565f3207a/transition-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ca3bef018c06441be722e533d6fcd70b/vectordrawable-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/70514eff7e902a4d85746850f9c99b59/coordinatorlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3bd2932b42cb6009fa6974355aa5b543/drawerlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/2fd57513d859483c9f7d147bea93e015/slidingpanelayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/86e91e458e7ab3ebbcf6a69f3ada9dc5/customview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/6f0a517b01831a801058a2a485304edf/swiperefreshlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b55f9ba03655c3ae033e6a5a0f0918e0/asynclayoutinflater-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.3.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b221ee966e066ff61a4ead70a0ce0142/core-1.3.1/AndroidManifest.xml:17:1-26:12
+MERGED from [com.google.android.exoplayer:exoplayer-hls:2.12.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/6d7ae9755cefa5b61b426fcdf7e73fa2/exoplayer-hls-2.12.1/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.exoplayer:exoplayer-dash:2.12.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9b556e00e4e166f358e18ee8317514ca/exoplayer-dash-2.12.1/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.exoplayer:exoplayer-smoothstreaming:2.12.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/34502522ab37559b6c7c798344f2536e/exoplayer-smoothstreaming-2.12.1/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.exoplayer:exoplayer-core:2.12.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/1670199fb6090f6d09d3893da51f94cd/exoplayer-core-2.12.1/AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/808b0ba835b39b283668bcab77b4b2fd/cardview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/14fbf05e76cd82d0dfd8d7983f1769cd/lifecycle-runtime-2.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.savedstate:savedstate:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/d9ee76096fb1a782bf8da09b6a904ea6/savedstate-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c5a80532ab0b3b3ed3cad3fbd896fa3/lifecycle-livedata-2.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0aea2c33df829af85af58bded9b4e230/lifecycle-livedata-core-2.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3e146e39fd85432cad3007700344e3d3/versionedparcelable-1.1.0/AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/11a1edaefedebe533dd66fd9e1725835/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.github.bumptech.glide:gifdecoder:4.11.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/fa27598542e1fc997b1586f171fbe6ab/gifdecoder-4.11.0/AndroidManifest.xml:2:1-11:12
+MERGED from [com.google.android.exoplayer:exoplayer-extractor:2.12.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/a1d1eb419bbed58547539ca5d6d7f094/jetified-exoplayer-extractor-2.12.1/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.exoplayer:exoplayer-common:2.12.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/02630f693310e8056ab908b0cd58db7a/jetified-exoplayer-common-2.12.1/AndroidManifest.xml:17:1-26:12
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/7a7d77f342b391dc783e111ff508aff7/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:15:1-38:12
+MERGED from [com.google.firebase:firebase-components:16.1.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/da077981d12c41ea86d26e32b3e892f3/jetified-firebase-components-16.1.0/AndroidManifest.xml:15:1-23:12
+MERGED from [com.google.firebase:firebase-encoders-json:17.1.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b3abf6c3c939b264137e08ce2c03c969/firebase-encoders-json-17.1.0/AndroidManifest.xml:15:1-23:12
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/379d2d5e1528ac6bfd587aeb5a3b1abd/core-runtime-2.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/6ccc8d4d666cc40211897b9f0d03feda/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.datatransport:transport-runtime:2.2.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3c6751a8b54884c738fbed228152f9aa/jetified-transport-runtime-2.2.5/AndroidManifest.xml:15:1-41:12
+MERGED from [com.google.android.datatransport:transport-api:2.2.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3f96ef59a435fbe915b6dc2a1f8074a5/jetified-transport-api-2.2.1/AndroidManifest.xml:15:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b251e701b9ff3d9258215cf224025c4e/lifecycle-viewmodel-2.1.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ca5190f4a23b40b241e14478e595ba91/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3ec8761ca90af369ff331305db1ee4c9/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/a911d0d69b1a3207818bdf8f1989a186/print-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/1c7580d37aed687f2c6fef20896adb77/threetenabp-1.2.3/AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b9f982ee44197cb0a938b7ed5da80051/constraintlayout-1.1.3/AndroidManifest.xml:2:1-11:12
+INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/debug/AndroidManifest.xml:1:1-7:12
+INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/debug/AndroidManifest.xml:1:1-7:12
+INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/debug/AndroidManifest.xml:1:1-7:12
+	package
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:2:5-30
+		INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/debug/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:1:1-106:12
+		INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/debug/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:1:1-106:12
+		INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/debug/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:1:11-69
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:4:5-79
+	android:name
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:4:22-76
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:5:5-81
+	android:name
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:5:22-78
+application
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:7:5-105:19
+MERGED from [:image_picker] /Users/dotsocket/Desktop/NaifarmApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:10:5-20:19
+MERGED from [:image_picker] /Users/dotsocket/Desktop/NaifarmApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:10:5-20:19
+MERGED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-21:19
+MERGED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-21:19
+MERGED from [:share] /Users/dotsocket/Desktop/NaifarmApp/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-17:19
+MERGED from [:share] /Users/dotsocket/Desktop/NaifarmApp/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-17:19
+MERGED from [com.sangcomz:FishBun:0.11.2] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9ab536998acaa1ae7f19344438f64585/jetified-FishBun-0.11.2/AndroidManifest.xml:11:5-32:19
+MERGED from [com.sangcomz:FishBun:0.11.2] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9ab536998acaa1ae7f19344438f64585/jetified-FishBun-0.11.2/AndroidManifest.xml:11:5-32:19
+MERGED from [com.google.firebase:firebase-analytics:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/dc4278fe713e857a676af867a3b620ef/firebase-analytics-18.0.1/AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-analytics:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/dc4278fe713e857a676af867a3b620ef/firebase-analytics-18.0.1/AndroidManifest.xml:7:5-20
+MERGED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:48:5-120:19
+MERGED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:48:5-120:19
+MERGED from [com.facebook.android:facebook-login:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/af83d22a908f0e3d2818b2f00c230c76/jetified-facebook-login-5.5.1/AndroidManifest.xml:28:5-29:19
+MERGED from [com.facebook.android:facebook-login:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/af83d22a908f0e3d2818b2f00c230c76/jetified-facebook-login-5.5.1/AndroidManifest.xml:28:5-29:19
+MERGED from [com.facebook.android:facebook-common:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/31737f40f3de8de2543cd1ffc251f6a3/jetified-facebook-common-5.5.1/AndroidManifest.xml:28:5-35:19
+MERGED from [com.facebook.android:facebook-common:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/31737f40f3de8de2543cd1ffc251f6a3/jetified-facebook-common-5.5.1/AndroidManifest.xml:28:5-35:19
+MERGED from [com.github.bumptech.glide:glide:4.11.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/031a11c9ca6a73d5e367ea3429e3429a/glide-4.11.0/AndroidManifest.xml:10:5-20
+MERGED from [com.github.bumptech.glide:glide:4.11.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/031a11c9ca6a73d5e367ea3429e3429a/glide-4.11.0/AndroidManifest.xml:10:5-20
+MERGED from [com.google.android.gms:play-services-location:15.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3fe2f2468f06b7d75bc6bdc4409e38b2/jetified-play-services-location-15.0.1/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-location:15.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3fe2f2468f06b7d75bc6bdc4409e38b2/jetified-play-services-location-15.0.1/AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-messaging:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9a21f58db2bbe1bf02a6338d80d04c54/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:22:5-43:19
+MERGED from [com.google.firebase:firebase-messaging:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9a21f58db2bbe1bf02a6338d80d04c54/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:22:5-43:19
+MERGED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:28:5-45:19
+MERGED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:28:5-45:19
+MERGED from [com.google.firebase:firebase-iid-interop:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/71aea3a7d6078ab3cb7aee5e0e956b11/firebase-iid-interop-17.0.0/AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.firebase:firebase-iid-interop:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/71aea3a7d6078ab3cb7aee5e0e956b11/firebase-iid-interop-17.0.0/AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.android.gms:play-services-base:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/eb47ebaa415480000026f88ca6df58ed/play-services-base-17.0.0/AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/eb47ebaa415480000026f88ca6df58ed/play-services-base-17.0.0/AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.material:material:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/81acc98cdd06be4974c9fb9692099406/material-1.0.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/81acc98cdd06be4974c9fb9692099406/material-1.0.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:28:5-44:19
+MERGED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:28:5-44:19
+MERGED from [com.google.android.gms:play-services-measurement-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/454254109a682b906972aaa1f665ac65/play-services-measurement-api-18.0.1/AndroidManifest.xml:26:5-34:19
+MERGED from [com.google.android.gms:play-services-measurement-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/454254109a682b906972aaa1f665ac65/play-services-measurement-api-18.0.1/AndroidManifest.xml:26:5-34:19
+MERGED from [com.google.android.gms:play-services-measurement-sdk:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/48c1f82cfca26c6f20105bf6f4823d5d/play-services-measurement-sdk-18.0.1/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.android.gms:play-services-measurement-sdk:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/48c1f82cfca26c6f20105bf6f4823d5d/play-services-measurement-sdk-18.0.1/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.android.gms:play-services-places-placereport:15.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/8f2d0a0f3b78b301167926a34e2b9f32/play-services-places-placereport-15.0.1/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-places-placereport:15.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/8f2d0a0f3b78b301167926a34e2b9f32/play-services-places-placereport-15.0.1/AndroidManifest.xml:22:5-20
+MERGED from [com.google.firebase:firebase-installations:16.3.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ff330bc02ec8457fc65ea697e3295204/firebase-installations-16.3.5/AndroidManifest.xml:14:5-22:19
+MERGED from [com.google.firebase:firebase-installations:16.3.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ff330bc02ec8457fc65ea697e3295204/firebase-installations-16.3.5/AndroidManifest.xml:14:5-22:19
+MERGED from [com.google.firebase:firebase-datatransport:17.0.10] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/4775e992f79f69e1dde9d0778daee42b/firebase-datatransport-17.0.10/AndroidManifest.xml:24:5-32:19
+MERGED from [com.google.firebase:firebase-datatransport:17.0.10] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/4775e992f79f69e1dde9d0778daee42b/firebase-datatransport-17.0.10/AndroidManifest.xml:24:5-32:19
+MERGED from [com.google.firebase:firebase-common:19.5.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/85b8c2a420bd3d5fc334ffbe98905eb7/jetified-firebase-common-19.5.0/AndroidManifest.xml:25:5-47:19
+MERGED from [com.google.firebase:firebase-common:19.5.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/85b8c2a420bd3d5fc334ffbe98905eb7/jetified-firebase-common-19.5.0/AndroidManifest.xml:25:5-47:19
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/f65adb74040d0a7f06c540fe700e4173/play-services-tasks-17.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/f65adb74040d0a7f06c540fe700e4173/play-services-tasks-17.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-measurement-impl:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/d7a2773ff1b9951af831321d8d14af8b/play-services-measurement-impl-18.0.1/AndroidManifest.xml:28:5-29:19
+MERGED from [com.google.android.gms:play-services-measurement-impl:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/d7a2773ff1b9951af831321d8d14af8b/play-services-measurement-impl-18.0.1/AndroidManifest.xml:28:5-29:19
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/357593541c28516783ad0d23e7c175ba/play-services-stats-17.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/357593541c28516783ad0d23e7c175ba/play-services-stats-17.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ae6f19b3830eaf3513b6b7219dcbb4ae/firebase-measurement-connector-18.0.0/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ae6f19b3830eaf3513b6b7219dcbb4ae/firebase-measurement-connector-18.0.0/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/c2250e898548d6574ceb8de6aab57ff9/play-services-ads-identifier-17.0.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/c2250e898548d6574ceb8de6aab57ff9/play-services-ads-identifier-17.0.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-measurement-base:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9497cd401ea6478a7fd415ac82efd87a/play-services-measurement-base-18.0.1/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-measurement-base:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9497cd401ea6478a7fd415ac82efd87a/play-services-measurement-base-18.0.1/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9f3aeb669d8fed6c8de556275de6bc2a/jetified-play-services-basement-17.0.0/AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9f3aeb669d8fed6c8de556275de6bc2a/jetified-play-services-basement-17.0.0/AndroidManifest.xml:22:5-26:19
+MERGED from [com.facebook.android:facebook-core:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c4f14ee1edf26d35bfd9fce33efc47b/jetified-facebook-core-5.5.1/AndroidManifest.xml:28:5-59:19
+MERGED from [com.facebook.android:facebook-core:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c4f14ee1edf26d35bfd9fce33efc47b/jetified-facebook-core-5.5.1/AndroidManifest.xml:28:5-59:19
+MERGED from [androidx.core:core:1.3.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b221ee966e066ff61a4ead70a0ce0142/core-1.3.1/AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.3.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b221ee966e066ff61a4ead70a0ce0142/core-1.3.1/AndroidManifest.xml:24:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3e146e39fd85432cad3007700344e3d3/versionedparcelable-1.1.0/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3e146e39fd85432cad3007700344e3d3/versionedparcelable-1.1.0/AndroidManifest.xml:24:5-25:19
+MERGED from [com.github.bumptech.glide:gifdecoder:4.11.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/fa27598542e1fc997b1586f171fbe6ab/gifdecoder-4.11.0/AndroidManifest.xml:9:5-20
+MERGED from [com.github.bumptech.glide:gifdecoder:4.11.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/fa27598542e1fc997b1586f171fbe6ab/gifdecoder-4.11.0/AndroidManifest.xml:9:5-20
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/7a7d77f342b391dc783e111ff508aff7/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:28:5-36:19
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/7a7d77f342b391dc783e111ff508aff7/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:28:5-36:19
+MERGED from [com.google.android.datatransport:transport-runtime:2.2.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3c6751a8b54884c738fbed228152f9aa/jetified-transport-runtime-2.2.5/AndroidManifest.xml:25:5-39:19
+MERGED from [com.google.android.datatransport:transport-runtime:2.2.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3c6751a8b54884c738fbed228152f9aa/jetified-transport-runtime-2.2.5/AndroidManifest.xml:25:5-39:19
+MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/1c7580d37aed687f2c6fef20896adb77/threetenabp-1.2.3/AndroidManifest.xml:7:5-20
+MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/1c7580d37aed687f2c6fef20896adb77/threetenabp-1.2.3/AndroidManifest.xml:7:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b9f982ee44197cb0a938b7ed5da80051/constraintlayout-1.1.3/AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b9f982ee44197cb0a938b7ed5da80051/constraintlayout-1.1.3/AndroidManifest.xml:9:5-20
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.3.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b221ee966e066ff61a4ead70a0ce0142/core-1.3.1/AndroidManifest.xml:24:18-86
+	android:supportsRtl
+		ADDED from [com.facebook.android:facebook-login:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/af83d22a908f0e3d2818b2f00c230c76/jetified-facebook-login-5.5.1/AndroidManifest.xml:28:18-44
+	android:label
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:8:9-41
+	android:icon
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:9:9-43
+meta-data#com.onesignal.NotificationAccentColor.DEFAULT
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:11:9-13:38
+	android:value
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:13:13-35
+	android:name
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:12:13-73
+activity#com.naifarm.app.MainActivity
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:15:9-71:20
+	android:launchMode
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:17:13-43
+	android:hardwareAccelerated
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:20:13-47
+	android:windowSoftInputMode
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:21:13-55
+	android:configChanges
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:19:13-163
+	android:theme
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:18:13-47
+	android:name
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:16:13-41
+meta-data#io.flutter.embedding.android.NormalTheme
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:26:13-28:57
+	android:resource
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:28:17-54
+	android:name
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:27:17-72
+meta-data#asset_statements
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:35:13-37:62
+	android:resource
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:37:17-60
+	android:name
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:36:17-48
+meta-data#io.flutter.embedding.android.SplashScreenDrawable
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:39:13-41:66
+	android:resource
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:41:17-63
+	android:name
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:40:17-81
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:43:13-47:29
+action#android.intent.action.MAIN
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:44:17-69
+	android:name
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:44:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:46:17-77
+	android:name
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:46:27-74
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:host:www.naifarm.com+data:scheme:https
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:49:13-58:29
+	android:autoVerify
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:49:28-53
+action#android.intent.action.VIEW
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:50:17-69
+	android:name
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:50:25-66
+category#android.intent.category.DEFAULT
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:52:17-76
+	android:name
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:52:27-73
+category#android.intent.category.BROWSABLE
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:53:17-78
+	android:name
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:53:27-75
+data
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:55:17-57:54
+	android:host
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:57:21-51
+	android:scheme
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:56:21-43
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:host:naifarm.com+data:scheme:https
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:59:13-68:29
+meta-data#com.facebook.sdk.ApplicationId
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:74:9-76:55
+	android:value
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:76:13-52
+	android:name
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:75:13-58
+activity#com.facebook.FacebookActivity
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:79:9-82:48
+MERGED from [com.facebook.android:facebook-common:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/31737f40f3de8de2543cd1ffc251f6a3/jetified-facebook-common-5.5.1/AndroidManifest.xml:29:9-32:66
+MERGED from [com.facebook.android:facebook-common:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/31737f40f3de8de2543cd1ffc251f6a3/jetified-facebook-common-5.5.1/AndroidManifest.xml:29:9-32:66
+	android:label
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:82:13-45
+	android:configChanges
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:81:13-96
+	android:theme
+		ADDED from [com.facebook.android:facebook-common:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/31737f40f3de8de2543cd1ffc251f6a3/jetified-facebook-common-5.5.1/AndroidManifest.xml:32:13-63
+	android:name
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:80:13-57
+activity#com.facebook.CustomTabActivity
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:84:9-95:20
+MERGED from [com.facebook.android:facebook-common:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/31737f40f3de8de2543cd1ffc251f6a3/jetified-facebook-common-5.5.1/AndroidManifest.xml:34:9-67
+MERGED from [com.facebook.android:facebook-common:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/31737f40f3de8de2543cd1ffc251f6a3/jetified-facebook-common-5.5.1/AndroidManifest.xml:34:9-67
+	android:exported
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:86:13-36
+	android:name
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:85:13-58
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:scheme:@string/fb_login_protocol_scheme
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:87:13-94:29
+meta-data#flutterEmbedding
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:97:9-99:33
+	android:value
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:99:13-30
+	android:name
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:98:13-44
+meta-data#com.google.android.geo.API_KEY
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:100:9-102:71
+	android:value
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:102:13-68
+	android:name
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml:101:13-58
+uses-sdk
+INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml
+INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml
+MERGED from [:onesignal_flutter] /Users/dotsocket/Desktop/NaifarmApp/build/onesignal_flutter/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:onesignal_flutter] /Users/dotsocket/Desktop/NaifarmApp/build/onesignal_flutter/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:vibration] /Users/dotsocket/Desktop/NaifarmApp/build/vibration/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:vibration] /Users/dotsocket/Desktop/NaifarmApp/build/vibration/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:image_picker] /Users/dotsocket/Desktop/NaifarmApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:image_picker] /Users/dotsocket/Desktop/NaifarmApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_plugin_android_lifecycle] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_plugin_android_lifecycle] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:sign_in_with_apple] /Users/dotsocket/Desktop/NaifarmApp/build/sign_in_with_apple/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:sign_in_with_apple] /Users/dotsocket/Desktop/NaifarmApp/build/sign_in_with_apple/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:multi_image_picker] /Users/dotsocket/Desktop/NaifarmApp/build/multi_image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:multi_image_picker] /Users/dotsocket/Desktop/NaifarmApp/build/multi_image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:wakelock] /Users/dotsocket/Desktop/NaifarmApp/build/wakelock/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:wakelock] /Users/dotsocket/Desktop/NaifarmApp/build/wakelock/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:get_version] /Users/dotsocket/Desktop/NaifarmApp/build/get_version/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:get_version] /Users/dotsocket/Desktop/NaifarmApp/build/get_version/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:package_info] /Users/dotsocket/Desktop/NaifarmApp/build/package_info/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:package_info] /Users/dotsocket/Desktop/NaifarmApp/build/package_info/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:permission_handler] /Users/dotsocket/Desktop/NaifarmApp/build/permission_handler/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:permission_handler] /Users/dotsocket/Desktop/NaifarmApp/build/permission_handler/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:device_info_plus] /Users/dotsocket/Desktop/NaifarmApp/build/device_info_plus/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:device_info_plus] /Users/dotsocket/Desktop/NaifarmApp/build/device_info_plus/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences] /Users/dotsocket/Desktop/NaifarmApp/build/shared_preferences/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences] /Users/dotsocket/Desktop/NaifarmApp/build/shared_preferences/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:uni_links] /Users/dotsocket/Desktop/NaifarmApp/build/uni_links/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:uni_links] /Users/dotsocket/Desktop/NaifarmApp/build/uni_links/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:webview_flutter] /Users/dotsocket/Desktop/NaifarmApp/build/webview_flutter/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:webview_flutter] /Users/dotsocket/Desktop/NaifarmApp/build/webview_flutter/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:share] /Users/dotsocket/Desktop/NaifarmApp/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:share] /Users/dotsocket/Desktop/NaifarmApp/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:keyboard_visibility] /Users/dotsocket/Desktop/NaifarmApp/build/keyboard_visibility/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:keyboard_visibility] /Users/dotsocket/Desktop/NaifarmApp/build/keyboard_visibility/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:sqflite] /Users/dotsocket/Desktop/NaifarmApp/build/sqflite/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:sqflite] /Users/dotsocket/Desktop/NaifarmApp/build/sqflite/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_facebook_login] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_facebook_login/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_facebook_login] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_facebook_login/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:path_provider] /Users/dotsocket/Desktop/NaifarmApp/build/path_provider/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:path_provider] /Users/dotsocket/Desktop/NaifarmApp/build/path_provider/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:video_player] /Users/dotsocket/Desktop/NaifarmApp/build/video_player/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:video_player] /Users/dotsocket/Desktop/NaifarmApp/build/video_player/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [com.sangcomz:FishBun:0.11.2] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9ab536998acaa1ae7f19344438f64585/jetified-FishBun-0.11.2/AndroidManifest.xml:7:5-9:41
+MERGED from [com.sangcomz:FishBun:0.11.2] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9ab536998acaa1ae7f19344438f64585/jetified-FishBun-0.11.2/AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.firebase:firebase-analytics:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/dc4278fe713e857a676af867a3b620ef/firebase-analytics-18.0.1/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-analytics:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/dc4278fe713e857a676af867a3b620ef/firebase-analytics-18.0.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-ktx:1.2.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/a673266349bf73c218ec2f8c986b45b1/core-ktx-1.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.core:core-ktx:1.2.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/a673266349bf73c218ec2f8c986b45b1/core-ktx-1.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:4:5-44
+MERGED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:4:5-44
+MERGED from [com.facebook.android:facebook-login:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/af83d22a908f0e3d2818b2f00c230c76/jetified-facebook-login-5.5.1/AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-login:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/af83d22a908f0e3d2818b2f00c230c76/jetified-facebook-login-5.5.1/AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-common:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/31737f40f3de8de2543cd1ffc251f6a3/jetified-facebook-common-5.5.1/AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-common:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/31737f40f3de8de2543cd1ffc251f6a3/jetified-facebook-common-5.5.1/AndroidManifest.xml:24:5-26:41
+MERGED from [androidx.browser:browser:1.2.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/a65e58c42c40b024e8af475ea426aca7/browser-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.browser:browser:1.2.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/a65e58c42c40b024e8af475ea426aca7/browser-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.github.bumptech.glide:glide:4.11.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/031a11c9ca6a73d5e367ea3429e3429a/glide-4.11.0/AndroidManifest.xml:6:5-8:41
+MERGED from [com.github.bumptech.glide:glide:4.11.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/031a11c9ca6a73d5e367ea3429e3429a/glide-4.11.0/AndroidManifest.xml:6:5-8:41
+MERGED from [androidx.exifinterface:exifinterface:1.3.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/2936f150aba132448d68cc760d32ac0c/exifinterface-1.3.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.exifinterface:exifinterface:1.3.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/2936f150aba132448d68cc760d32ac0c/exifinterface-1.3.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.webkit:webkit:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/bd71571ce3829068c9e366b5c6c83b85/webkit-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.webkit:webkit:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/bd71571ce3829068c9e366b5c6c83b85/webkit-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/f6332252ffc017761317d626b33daa71/legacy-support-v4-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/f6332252ffc017761317d626b33daa71/legacy-support-v4-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.1.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/91eda91c8945827df17ed1d60ca55f6c/media-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.media:media:1.1.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/91eda91c8945827df17ed1d60ca55f6c/media-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.gms:play-services-location:15.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3fe2f2468f06b7d75bc6bdc4409e38b2/jetified-play-services-location-15.0.1/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-location:15.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3fe2f2468f06b7d75bc6bdc4409e38b2/jetified-play-services-location-15.0.1/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-messaging:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9a21f58db2bbe1bf02a6338d80d04c54/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-messaging:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9a21f58db2bbe1bf02a6338d80d04c54/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-iid-interop:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/71aea3a7d6078ab3cb7aee5e0e956b11/firebase-iid-interop-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-iid-interop:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/71aea3a7d6078ab3cb7aee5e0e956b11/firebase-iid-interop-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-base:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/eb47ebaa415480000026f88ca6df58ed/play-services-base-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/eb47ebaa415480000026f88ca6df58ed/play-services-base-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/81acc98cdd06be4974c9fb9692099406/material-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/81acc98cdd06be4974c9fb9692099406/material-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/1f62d99099668148f008bae1c51e465b/appcompat-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/1f62d99099668148f008bae1c51e465b/appcompat-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/454254109a682b906972aaa1f665ac65/play-services-measurement-api-18.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/454254109a682b906972aaa1f665ac65/play-services-measurement-api-18.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/48c1f82cfca26c6f20105bf6f4823d5d/play-services-measurement-sdk-18.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/48c1f82cfca26c6f20105bf6f4823d5d/play-services-measurement-sdk-18.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-places-placereport:15.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/8f2d0a0f3b78b301167926a34e2b9f32/play-services-places-placereport-15.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-places-placereport:15.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/8f2d0a0f3b78b301167926a34e2b9f32/play-services-places-placereport-15.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-cloud-messaging:16.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b23f57069571b6c3e0a1f94f0555d2ed/play-services-cloud-messaging-16.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-cloud-messaging:16.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b23f57069571b6c3e0a1f94f0555d2ed/play-services-cloud-messaging-16.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-installations:16.3.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ff330bc02ec8457fc65ea697e3295204/firebase-installations-16.3.5/AndroidManifest.xml:6:5-8:41
+MERGED from [com.google.firebase:firebase-installations:16.3.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ff330bc02ec8457fc65ea697e3295204/firebase-installations-16.3.5/AndroidManifest.xml:6:5-8:41
+MERGED from [com.google.firebase:firebase-installations-interop:16.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/1d4e61877da578575539d057abbf76e7/firebase-installations-interop-16.0.1/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-installations-interop:16.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/1d4e61877da578575539d057abbf76e7/firebase-installations-interop-16.0.1/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-datatransport:17.0.10] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/4775e992f79f69e1dde9d0778daee42b/firebase-datatransport-17.0.10/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-datatransport:17.0.10] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/4775e992f79f69e1dde9d0778daee42b/firebase-datatransport-17.0.10/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-common:19.5.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/85b8c2a420bd3d5fc334ffbe98905eb7/jetified-firebase-common-19.5.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.firebase:firebase-common:19.5.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/85b8c2a420bd3d5fc334ffbe98905eb7/jetified-firebase-common-19.5.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/f65adb74040d0a7f06c540fe700e4173/play-services-tasks-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/f65adb74040d0a7f06c540fe700e4173/play-services-tasks-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-measurement-impl:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/d7a2773ff1b9951af831321d8d14af8b/play-services-measurement-impl-18.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-impl:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/d7a2773ff1b9951af831321d8d14af8b/play-services-measurement-impl-18.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/357593541c28516783ad0d23e7c175ba/play-services-stats-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/357593541c28516783ad0d23e7c175ba/play-services-stats-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ae6f19b3830eaf3513b6b7219dcbb4ae/firebase-measurement-connector-18.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ae6f19b3830eaf3513b6b7219dcbb4ae/firebase-measurement-connector-18.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/c2250e898548d6574ceb8de6aab57ff9/play-services-ads-identifier-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/c2250e898548d6574ceb8de6aab57ff9/play-services-ads-identifier-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/4b6d5c89e8134ba31f9bb3b5ce8c5771/play-services-measurement-sdk-api-18.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/4b6d5c89e8134ba31f9bb3b5ce8c5771/play-services-measurement-sdk-api-18.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-base:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9497cd401ea6478a7fd415ac82efd87a/play-services-measurement-base-18.0.1/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-measurement-base:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9497cd401ea6478a7fd415ac82efd87a/play-services-measurement-base-18.0.1/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9f3aeb669d8fed6c8de556275de6bc2a/jetified-play-services-basement-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9f3aeb669d8fed6c8de556275de6bc2a/jetified-play-services-basement-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.1.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9392e44d302d2b741fdc2fca155aaec0/fragment-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.1.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9392e44d302d2b741fdc2fca155aaec0/fragment-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/364c0899307c0e4eb9ab5855ce815770/recyclerview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/364c0899307c0e4eb9ab5855ce815770/recyclerview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ac262a3df1bb9d3321d27812220b7556/vectordrawable-animated-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ac262a3df1bb9d3321d27812220b7556/vectordrawable-animated-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/dbd1609051f63b343797085c13f5d7c7/legacy-support-core-ui-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/dbd1609051f63b343797085c13f5d7c7/legacy-support-core-ui-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/fd1319c46e4e3f171575b2292bee611d/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/fd1319c46e4e3f171575b2292bee611d/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.facebook.android:facebook-core:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c4f14ee1edf26d35bfd9fce33efc47b/jetified-facebook-core-5.5.1/AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-core:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c4f14ee1edf26d35bfd9fce33efc47b/jetified-facebook-core-5.5.1/AndroidManifest.xml:24:5-26:41
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/cfdd9b17b3b612d3b3e2476fe7f357ff/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/cfdd9b17b3b612d3b3e2476fe7f357ff/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9b13496274c78263915f5c7bfee1fc61/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9b13496274c78263915f5c7bfee1fc61/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/885eeef0ef3472836e9451d8fef1763d/activity-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/885eeef0ef3472836e9451d8fef1763d/activity-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/1ba7cd69698d9ac48e37d8e565f3207a/transition-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.transition:transition:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/1ba7cd69698d9ac48e37d8e565f3207a/transition-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ca3bef018c06441be722e533d6fcd70b/vectordrawable-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ca3bef018c06441be722e533d6fcd70b/vectordrawable-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/70514eff7e902a4d85746850f9c99b59/coordinatorlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/70514eff7e902a4d85746850f9c99b59/coordinatorlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3bd2932b42cb6009fa6974355aa5b543/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3bd2932b42cb6009fa6974355aa5b543/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/2fd57513d859483c9f7d147bea93e015/slidingpanelayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/2fd57513d859483c9f7d147bea93e015/slidingpanelayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/86e91e458e7ab3ebbcf6a69f3ada9dc5/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/86e91e458e7ab3ebbcf6a69f3ada9dc5/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/6f0a517b01831a801058a2a485304edf/swiperefreshlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/6f0a517b01831a801058a2a485304edf/swiperefreshlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b55f9ba03655c3ae033e6a5a0f0918e0/asynclayoutinflater-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b55f9ba03655c3ae033e6a5a0f0918e0/asynclayoutinflater-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.3.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b221ee966e066ff61a4ead70a0ce0142/core-1.3.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.3.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b221ee966e066ff61a4ead70a0ce0142/core-1.3.1/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-hls:2.12.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/6d7ae9755cefa5b61b426fcdf7e73fa2/exoplayer-hls-2.12.1/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-hls:2.12.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/6d7ae9755cefa5b61b426fcdf7e73fa2/exoplayer-hls-2.12.1/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-dash:2.12.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9b556e00e4e166f358e18ee8317514ca/exoplayer-dash-2.12.1/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-dash:2.12.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9b556e00e4e166f358e18ee8317514ca/exoplayer-dash-2.12.1/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-smoothstreaming:2.12.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/34502522ab37559b6c7c798344f2536e/exoplayer-smoothstreaming-2.12.1/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-smoothstreaming:2.12.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/34502522ab37559b6c7c798344f2536e/exoplayer-smoothstreaming-2.12.1/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-core:2.12.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/1670199fb6090f6d09d3893da51f94cd/exoplayer-core-2.12.1/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-core:2.12.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/1670199fb6090f6d09d3893da51f94cd/exoplayer-core-2.12.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/808b0ba835b39b283668bcab77b4b2fd/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/808b0ba835b39b283668bcab77b4b2fd/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/14fbf05e76cd82d0dfd8d7983f1769cd/lifecycle-runtime-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/14fbf05e76cd82d0dfd8d7983f1769cd/lifecycle-runtime-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/d9ee76096fb1a782bf8da09b6a904ea6/savedstate-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/d9ee76096fb1a782bf8da09b6a904ea6/savedstate-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c5a80532ab0b3b3ed3cad3fbd896fa3/lifecycle-livedata-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c5a80532ab0b3b3ed3cad3fbd896fa3/lifecycle-livedata-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0aea2c33df829af85af58bded9b4e230/lifecycle-livedata-core-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0aea2c33df829af85af58bded9b4e230/lifecycle-livedata-core-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3e146e39fd85432cad3007700344e3d3/versionedparcelable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3e146e39fd85432cad3007700344e3d3/versionedparcelable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/11a1edaefedebe533dd66fd9e1725835/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/11a1edaefedebe533dd66fd9e1725835/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.github.bumptech.glide:gifdecoder:4.11.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/fa27598542e1fc997b1586f171fbe6ab/gifdecoder-4.11.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.bumptech.glide:gifdecoder:4.11.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/fa27598542e1fc997b1586f171fbe6ab/gifdecoder-4.11.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.android.exoplayer:exoplayer-extractor:2.12.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/a1d1eb419bbed58547539ca5d6d7f094/jetified-exoplayer-extractor-2.12.1/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-extractor:2.12.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/a1d1eb419bbed58547539ca5d6d7f094/jetified-exoplayer-extractor-2.12.1/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-common:2.12.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/02630f693310e8056ab908b0cd58db7a/jetified-exoplayer-common-2.12.1/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-common:2.12.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/02630f693310e8056ab908b0cd58db7a/jetified-exoplayer-common-2.12.1/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/7a7d77f342b391dc783e111ff508aff7/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/7a7d77f342b391dc783e111ff508aff7/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-components:16.1.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/da077981d12c41ea86d26e32b3e892f3/jetified-firebase-components-16.1.0/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-components:16.1.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/da077981d12c41ea86d26e32b3e892f3/jetified-firebase-components-16.1.0/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-encoders-json:17.1.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b3abf6c3c939b264137e08ce2c03c969/firebase-encoders-json-17.1.0/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-encoders-json:17.1.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b3abf6c3c939b264137e08ce2c03c969/firebase-encoders-json-17.1.0/AndroidManifest.xml:19:5-21:41
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/379d2d5e1528ac6bfd587aeb5a3b1abd/core-runtime-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/379d2d5e1528ac6bfd587aeb5a3b1abd/core-runtime-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/6ccc8d4d666cc40211897b9f0d03feda/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/6ccc8d4d666cc40211897b9f0d03feda/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.datatransport:transport-runtime:2.2.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3c6751a8b54884c738fbed228152f9aa/jetified-transport-runtime-2.2.5/AndroidManifest.xml:18:5-20:41
+MERGED from [com.google.android.datatransport:transport-runtime:2.2.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3c6751a8b54884c738fbed228152f9aa/jetified-transport-runtime-2.2.5/AndroidManifest.xml:18:5-20:41
+MERGED from [com.google.android.datatransport:transport-api:2.2.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3f96ef59a435fbe915b6dc2a1f8074a5/jetified-transport-api-2.2.1/AndroidManifest.xml:18:5-20:41
+MERGED from [com.google.android.datatransport:transport-api:2.2.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3f96ef59a435fbe915b6dc2a1f8074a5/jetified-transport-api-2.2.1/AndroidManifest.xml:18:5-20:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b251e701b9ff3d9258215cf224025c4e/lifecycle-viewmodel-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b251e701b9ff3d9258215cf224025c4e/lifecycle-viewmodel-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ca5190f4a23b40b241e14478e595ba91/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ca5190f4a23b40b241e14478e595ba91/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3ec8761ca90af369ff331305db1ee4c9/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3ec8761ca90af369ff331305db1ee4c9/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/a911d0d69b1a3207818bdf8f1989a186/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/a911d0d69b1a3207818bdf8f1989a186/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/1c7580d37aed687f2c6fef20896adb77/threetenabp-1.2.3/AndroidManifest.xml:5:5-44
+MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/1c7580d37aed687f2c6fef20896adb77/threetenabp-1.2.3/AndroidManifest.xml:5:5-44
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b9f982ee44197cb0a938b7ed5da80051/constraintlayout-1.1.3/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b9f982ee44197cb0a938b7ed5da80051/constraintlayout-1.1.3/AndroidManifest.xml:5:5-7:41
+INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/debug/AndroidManifest.xml
+INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/debug/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/debug/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/debug/AndroidManifest.xml
+uses-permission#android.permission.INTERNET
+ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/debug/AndroidManifest.xml:6:5-66
+MERGED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:16:5-67
+MERGED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:16:5-67
+MERGED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/454254109a682b906972aaa1f665ac65/play-services-measurement-api-18.0.1/AndroidManifest.xml:22:5-67
+MERGED from [com.google.android.gms:play-services-measurement-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/454254109a682b906972aaa1f665ac65/play-services-measurement-api-18.0.1/AndroidManifest.xml:22:5-67
+MERGED from [com.google.android.gms:play-services-cloud-messaging:16.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b23f57069571b6c3e0a1f94f0555d2ed/play-services-cloud-messaging-16.0.0/AndroidManifest.xml:8:5-67
+MERGED from [com.google.android.gms:play-services-cloud-messaging:16.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b23f57069571b6c3e0a1f94f0555d2ed/play-services-cloud-messaging-16.0.0/AndroidManifest.xml:8:5-67
+MERGED from [com.google.firebase:firebase-installations:16.3.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ff330bc02ec8457fc65ea697e3295204/firebase-installations-16.3.5/AndroidManifest.xml:11:5-67
+MERGED from [com.google.firebase:firebase-installations:16.3.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ff330bc02ec8457fc65ea697e3295204/firebase-installations-16.3.5/AndroidManifest.xml:11:5-67
+MERGED from [com.google.android.gms:play-services-measurement-impl:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/d7a2773ff1b9951af831321d8d14af8b/play-services-measurement-impl-18.0.1/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-impl:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/d7a2773ff1b9951af831321d8d14af8b/play-services-measurement-impl-18.0.1/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/4b6d5c89e8134ba31f9bb3b5ce8c5771/play-services-measurement-sdk-api-18.0.1/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/4b6d5c89e8134ba31f9bb3b5ce8c5771/play-services-measurement-sdk-api-18.0.1/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/7a7d77f342b391dc783e111ff508aff7/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:26:5-67
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/7a7d77f342b391dc783e111ff508aff7/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:26:5-67
+	android:name
+		ADDED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/debug/AndroidManifest.xml:6:22-64
+uses-permission#android.permission.VIBRATE
+ADDED from [:vibration] /Users/dotsocket/Desktop/NaifarmApp/build/vibration/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-66
+MERGED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-66
+MERGED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-66
+MERGED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:23:5-66
+MERGED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:23:5-66
+	android:name
+		ADDED from [:vibration] /Users/dotsocket/Desktop/NaifarmApp/build/vibration/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-63
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from [:image_picker] /Users/dotsocket/Desktop/NaifarmApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-80
+	android:name
+		ADDED from [:image_picker] /Users/dotsocket/Desktop/NaifarmApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-77
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from [:image_picker] /Users/dotsocket/Desktop/NaifarmApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-81
+	android:name
+		ADDED from [:image_picker] /Users/dotsocket/Desktop/NaifarmApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-78
+provider#io.flutter.plugins.imagepicker.ImagePickerFileProvider
+ADDED from [:image_picker] /Users/dotsocket/Desktop/NaifarmApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:11:9-19:20
+	android:grantUriPermissions
+		ADDED from [:image_picker] /Users/dotsocket/Desktop/NaifarmApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-47
+	android:authorities
+		ADDED from [:image_picker] /Users/dotsocket/Desktop/NaifarmApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-74
+	android:exported
+		ADDED from [:image_picker] /Users/dotsocket/Desktop/NaifarmApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-37
+	android:name
+		ADDED from [:image_picker] /Users/dotsocket/Desktop/NaifarmApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-82
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from [:image_picker] /Users/dotsocket/Desktop/NaifarmApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-18:75
+	android:resource
+		ADDED from [:image_picker] /Users/dotsocket/Desktop/NaifarmApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-72
+	android:name
+		ADDED from [:image_picker] /Users/dotsocket/Desktop/NaifarmApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-67
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-81
+MERGED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:29:5-81
+MERGED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:29:5-81
+	android:name
+		ADDED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-78
+uses-permission#android.permission.USE_FULL_SCREEN_INTENT
+ADDED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:9:5-81
+	android:name
+		ADDED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:9:22-78
+receiver#com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver
+ADDED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-106
+	android:name
+		ADDED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:12:19-103
+receiver#com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver
+ADDED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:13:9-20:20
+	android:name
+		ADDED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:13:19-107
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.intent.action.MY_PACKAGE_REPLACED+action:name:android.intent.action.QUICKBOOT_POWERON+action:name:com.htc.intent.action.QUICKBOOT_POWERON
+ADDED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-19:29
+action#android.intent.action.BOOT_COMPLETED
+ADDED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:15:17-79
+	android:name
+		ADDED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:15:25-76
+action#android.intent.action.MY_PACKAGE_REPLACED
+ADDED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:16:17-84
+	android:name
+		ADDED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:16:25-81
+action#android.intent.action.QUICKBOOT_POWERON
+ADDED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-82
+	android:name
+		ADDED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:17:25-79
+action#com.htc.intent.action.QUICKBOOT_POWERON
+ADDED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-82
+	android:name
+		ADDED from [:flutter_local_notifications] /Users/dotsocket/Desktop/NaifarmApp/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:18:25-79
+provider#io.flutter.plugins.share.ShareFileProvider
+ADDED from [:share] /Users/dotsocket/Desktop/NaifarmApp/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-16:20
+	android:grantUriPermissions
+		ADDED from [:share] /Users/dotsocket/Desktop/NaifarmApp/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-47
+	android:authorities
+		ADDED from [:share] /Users/dotsocket/Desktop/NaifarmApp/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:10:13-74
+	android:exported
+		ADDED from [:share] /Users/dotsocket/Desktop/NaifarmApp/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-37
+	android:name
+		ADDED from [:share] /Users/dotsocket/Desktop/NaifarmApp/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-70
+provider#com.sangcomz.fishbun.FishBunFileProvider
+ADDED from [com.sangcomz:FishBun:0.11.2] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9ab536998acaa1ae7f19344438f64585/jetified-FishBun-0.11.2/AndroidManifest.xml:12:9-20:20
+	android:grantUriPermissions
+		ADDED from [com.sangcomz:FishBun:0.11.2] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9ab536998acaa1ae7f19344438f64585/jetified-FishBun-0.11.2/AndroidManifest.xml:16:13-47
+	android:authorities
+		ADDED from [com.sangcomz:FishBun:0.11.2] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9ab536998acaa1ae7f19344438f64585/jetified-FishBun-0.11.2/AndroidManifest.xml:14:13-71
+	android:exported
+		ADDED from [com.sangcomz:FishBun:0.11.2] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9ab536998acaa1ae7f19344438f64585/jetified-FishBun-0.11.2/AndroidManifest.xml:15:13-37
+	android:name
+		ADDED from [com.sangcomz:FishBun:0.11.2] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9ab536998acaa1ae7f19344438f64585/jetified-FishBun-0.11.2/AndroidManifest.xml:13:13-68
+activity#com.sangcomz.fishbun.ui.album.AlbumActivity
+ADDED from [com.sangcomz:FishBun:0.11.2] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9ab536998acaa1ae7f19344438f64585/jetified-FishBun-0.11.2/AndroidManifest.xml:22:9-25:51
+	android:label
+		ADDED from [com.sangcomz:FishBun:0.11.2] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9ab536998acaa1ae7f19344438f64585/jetified-FishBun-0.11.2/AndroidManifest.xml:24:13-42
+	android:theme
+		ADDED from [com.sangcomz:FishBun:0.11.2] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9ab536998acaa1ae7f19344438f64585/jetified-FishBun-0.11.2/AndroidManifest.xml:25:13-48
+	android:name
+		ADDED from [com.sangcomz:FishBun:0.11.2] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9ab536998acaa1ae7f19344438f64585/jetified-FishBun-0.11.2/AndroidManifest.xml:23:13-71
+activity#com.sangcomz.fishbun.ui.picker.PickerActivity
+ADDED from [com.sangcomz:FishBun:0.11.2] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9ab536998acaa1ae7f19344438f64585/jetified-FishBun-0.11.2/AndroidManifest.xml:26:9-28:51
+	android:theme
+		ADDED from [com.sangcomz:FishBun:0.11.2] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9ab536998acaa1ae7f19344438f64585/jetified-FishBun-0.11.2/AndroidManifest.xml:28:13-48
+	android:name
+		ADDED from [com.sangcomz:FishBun:0.11.2] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9ab536998acaa1ae7f19344438f64585/jetified-FishBun-0.11.2/AndroidManifest.xml:27:13-73
+activity#com.sangcomz.fishbun.ui.detail.DetailActivity
+ADDED from [com.sangcomz:FishBun:0.11.2] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9ab536998acaa1ae7f19344438f64585/jetified-FishBun-0.11.2/AndroidManifest.xml:29:9-31:54
+	android:theme
+		ADDED from [com.sangcomz:FishBun:0.11.2] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9ab536998acaa1ae7f19344438f64585/jetified-FishBun-0.11.2/AndroidManifest.xml:31:13-51
+	android:name
+		ADDED from [com.sangcomz:FishBun:0.11.2] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9ab536998acaa1ae7f19344438f64585/jetified-FishBun-0.11.2/AndroidManifest.xml:30:13-73
+permission#${applicationId}.permission.C2D_MESSAGE
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:7:5-9:47
+	android:protectionLevel
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:9:9-44
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:8:9-63
+permission#com.naifarm.app.permission.C2D_MESSAGE
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:7:5-9:47
+	android:protectionLevel
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:9:9-44
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:8:9-63
+uses-permission#${applicationId}.permission.C2D_MESSAGE
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:11:5-79
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:11:22-76
+uses-permission#com.naifarm.app.permission.C2D_MESSAGE
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:11:5-79
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:11:22-76
+uses-permission#com.google.android.c2dm.permission.RECEIVE
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:17:5-82
+MERGED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:26:5-82
+MERGED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:26:5-82
+MERGED from [com.google.android.gms:play-services-cloud-messaging:16.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b23f57069571b6c3e0a1f94f0555d2ed/play-services-cloud-messaging-16.0.0/AndroidManifest.xml:11:5-82
+MERGED from [com.google.android.gms:play-services-cloud-messaging:16.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b23f57069571b6c3e0a1f94f0555d2ed/play-services-cloud-messaging-16.0.0/AndroidManifest.xml:11:5-82
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:17:22-79
+uses-permission#android.permission.WAKE_LOCK
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:18:5-68
+MERGED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:24:5-68
+MERGED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:24:5-68
+MERGED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/454254109a682b906972aaa1f665ac65/play-services-measurement-api-18.0.1/AndroidManifest.xml:24:5-68
+MERGED from [com.google.android.gms:play-services-measurement-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/454254109a682b906972aaa1f665ac65/play-services-measurement-api-18.0.1/AndroidManifest.xml:24:5-68
+MERGED from [com.google.android.gms:play-services-cloud-messaging:16.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b23f57069571b6c3e0a1f94f0555d2ed/play-services-cloud-messaging-16.0.0/AndroidManifest.xml:9:5-68
+MERGED from [com.google.android.gms:play-services-cloud-messaging:16.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b23f57069571b6c3e0a1f94f0555d2ed/play-services-cloud-messaging-16.0.0/AndroidManifest.xml:9:5-68
+MERGED from [com.google.android.gms:play-services-measurement-impl:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/d7a2773ff1b9951af831321d8d14af8b/play-services-measurement-impl-18.0.1/AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement-impl:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/d7a2773ff1b9951af831321d8d14af8b/play-services-measurement-impl-18.0.1/AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/4b6d5c89e8134ba31f9bb3b5ce8c5771/play-services-measurement-sdk-api-18.0.1/AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/4b6d5c89e8134ba31f9bb3b5ce8c5771/play-services-measurement-sdk-api-18.0.1/AndroidManifest.xml:25:5-68
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:18:22-65
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:24:5-79
+MERGED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:22:5-79
+MERGED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:22:5-79
+MERGED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/454254109a682b906972aaa1f665ac65/play-services-measurement-api-18.0.1/AndroidManifest.xml:23:5-79
+MERGED from [com.google.android.gms:play-services-measurement-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/454254109a682b906972aaa1f665ac65/play-services-measurement-api-18.0.1/AndroidManifest.xml:23:5-79
+MERGED from [com.google.android.gms:play-services-cloud-messaging:16.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b23f57069571b6c3e0a1f94f0555d2ed/play-services-cloud-messaging-16.0.0/AndroidManifest.xml:7:5-79
+MERGED from [com.google.android.gms:play-services-cloud-messaging:16.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/b23f57069571b6c3e0a1f94f0555d2ed/play-services-cloud-messaging-16.0.0/AndroidManifest.xml:7:5-79
+MERGED from [com.google.firebase:firebase-installations:16.3.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ff330bc02ec8457fc65ea697e3295204/firebase-installations-16.3.5/AndroidManifest.xml:10:5-79
+MERGED from [com.google.firebase:firebase-installations:16.3.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ff330bc02ec8457fc65ea697e3295204/firebase-installations-16.3.5/AndroidManifest.xml:10:5-79
+MERGED from [com.google.android.gms:play-services-measurement-impl:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/d7a2773ff1b9951af831321d8d14af8b/play-services-measurement-impl-18.0.1/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-impl:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/d7a2773ff1b9951af831321d8d14af8b/play-services-measurement-impl-18.0.1/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/4b6d5c89e8134ba31f9bb3b5ce8c5771/play-services-measurement-sdk-api-18.0.1/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/4b6d5c89e8134ba31f9bb3b5ce8c5771/play-services-measurement-sdk-api-18.0.1/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.exoplayer:exoplayer-core:2.12.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/1670199fb6090f6d09d3893da51f94cd/exoplayer-core-2.12.1/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.exoplayer:exoplayer-core:2.12.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/1670199fb6090f6d09d3893da51f94cd/exoplayer-core-2.12.1/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.exoplayer:exoplayer-common:2.12.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/02630f693310e8056ab908b0cd58db7a/jetified-exoplayer-common-2.12.1/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.exoplayer:exoplayer-common:2.12.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/02630f693310e8056ab908b0cd58db7a/jetified-exoplayer-common-2.12.1/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/7a7d77f342b391dc783e111ff508aff7/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:25:5-79
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/7a7d77f342b391dc783e111ff508aff7/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:25:5-79
+MERGED from [com.google.android.datatransport:transport-runtime:2.2.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3c6751a8b54884c738fbed228152f9aa/jetified-transport-runtime-2.2.5/AndroidManifest.xml:22:5-79
+MERGED from [com.google.android.datatransport:transport-runtime:2.2.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3c6751a8b54884c738fbed228152f9aa/jetified-transport-runtime-2.2.5/AndroidManifest.xml:22:5-79
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:24:22-76
+uses-permission#com.sec.android.provider.badge.permission.READ
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:31:5-86
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:31:22-83
+uses-permission#com.sec.android.provider.badge.permission.WRITE
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:32:5-87
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:32:22-84
+uses-permission#com.htc.launcher.permission.READ_SETTINGS
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:33:5-81
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:33:22-78
+uses-permission#com.htc.launcher.permission.UPDATE_SHORTCUT
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:34:5-83
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:34:22-80
+uses-permission#com.sonyericsson.home.permission.BROADCAST_BADGE
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:35:5-88
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:35:22-85
+uses-permission#com.sonymobile.home.permission.PROVIDER_INSERT_BADGE
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:36:5-92
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:36:22-89
+uses-permission#com.anddoes.launcher.permission.UPDATE_COUNT
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:37:5-84
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:37:22-81
+uses-permission#com.majeur.launcher.permission.UPDATE_BADGE
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:38:5-83
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:38:22-80
+uses-permission#com.huawei.android.launcher.permission.CHANGE_BADGE
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:39:5-91
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:39:22-88
+uses-permission#com.huawei.android.launcher.permission.READ_SETTINGS
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:40:5-92
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:40:22-89
+uses-permission#com.huawei.android.launcher.permission.WRITE_SETTINGS
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:41:5-93
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:41:22-90
+uses-permission#android.permission.READ_APP_BADGE
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:42:5-73
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:42:22-70
+uses-permission#com.oppo.launcher.permission.READ_SETTINGS
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:43:5-82
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:43:22-79
+uses-permission#com.oppo.launcher.permission.WRITE_SETTINGS
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:44:5-83
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:44:22-80
+uses-permission#me.everything.badger.permission.BADGE_COUNT_READ
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:45:5-88
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:45:22-85
+uses-permission#me.everything.badger.permission.BADGE_COUNT_WRITE
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:46:5-89
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:46:22-86
+meta-data#onesignal_app_id
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:49:9-51:51
+INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/debug/AndroidManifest.xml:49:9-51:51
+	android:value
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:51:13-48
+		INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/debug/AndroidManifest.xml
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:50:13-44
+meta-data#onesignal_google_project_number
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:53:9-55:70
+INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/debug/AndroidManifest.xml:53:9-55:70
+	android:value
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:55:13-67
+		INJECTED from /Users/dotsocket/Desktop/NaifarmApp/android/app/src/debug/AndroidManifest.xml
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:54:13-59
+receiver#com.onesignal.GcmBroadcastReceiver
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:57:9-67:20
+	android:permission
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:59:13-73
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:58:13-62
+intent-filter#action:name:com.google.android.c2dm.intent.RECEIVE+category:name:${applicationId}
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:62:13-66:29
+	android:priority
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:62:28-50
+intent-filter#action:name:com.google.android.c2dm.intent.RECEIVE+category:name:com.naifarm.app
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:62:13-66:29
+	android:priority
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:62:28-50
+action#com.google.android.c2dm.intent.RECEIVE
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:63:17-81
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:63:25-78
+category#${applicationId}
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:65:17-61
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:65:27-58
+category#com.naifarm.app
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:65:17-61
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:65:27-58
+receiver#com.onesignal.NotificationOpenedReceiver
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:68:9-77
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:68:19-74
+service#com.onesignal.HmsMessageServiceOneSignal
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:70:9-76:19
+	android:exported
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:72:13-37
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:71:13-68
+intent-filter#action:name:com.huawei.push.action.MESSAGING_EVENT
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:73:13-75:29
+action#com.huawei.push.action.MESSAGING_EVENT
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:74:17-81
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:74:25-78
+activity#com.onesignal.NotificationOpenedActivityHMS
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:78:9-84:20
+	android:theme
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:80:13-72
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:79:13-71
+intent-filter#action:name:android.intent.action.VIEW
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:81:13-83:29
+service#com.onesignal.GcmIntentService
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:86:9-66
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:86:18-63
+service#com.onesignal.GcmIntentJobService
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:87:9-89:72
+	android:permission
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:89:13-69
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:88:13-61
+service#com.onesignal.RestoreJobService
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:90:9-92:72
+	android:permission
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:92:13-69
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:91:13-59
+service#com.onesignal.RestoreKickoffJobService
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:93:9-95:72
+	android:permission
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:95:13-69
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:94:13-66
+service#com.onesignal.SyncService
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:96:9-98:43
+	android:stopWithTask
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:98:13-40
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:97:13-53
+service#com.onesignal.SyncJobService
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:99:9-101:72
+	android:permission
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:101:13-69
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:100:13-56
+activity#com.onesignal.PermissionsActivity
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:103:9-105:75
+	android:theme
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:105:13-72
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:104:13-61
+service#com.onesignal.NotificationRestoreService
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:107:9-76
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:107:18-73
+receiver#com.onesignal.BootUpReceiver
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:109:9-114:20
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:109:19-62
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.intent.action.QUICKBOOT_POWERON
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:110:13-113:29
+receiver#com.onesignal.UpgradeReceiver
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:115:9-119:20
+	android:name
+		ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:115:19-63
+intent-filter#action:name:android.intent.action.MY_PACKAGE_REPLACED
+ADDED from [com.onesignal:OneSignal:3.15.7] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/42ebcf9f89e918700d0472d49e9927bb/jetified-OneSignal-3.15.7/AndroidManifest.xml:116:13-118:29
+activity#com.facebook.CustomTabMainActivity
+ADDED from [com.facebook.android:facebook-common:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/31737f40f3de8de2543cd1ffc251f6a3/jetified-facebook-common-5.5.1/AndroidManifest.xml:33:9-71
+	android:name
+		ADDED from [com.facebook.android:facebook-common:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/31737f40f3de8de2543cd1ffc251f6a3/jetified-facebook-common-5.5.1/AndroidManifest.xml:33:19-68
+service#com.google.firebase.messaging.FirebaseMessagingService
+ADDED from [com.google.firebase:firebase-messaging:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9a21f58db2bbe1bf02a6338d80d04c54/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:28:9-35:19
+	android:exported
+		ADDED from [com.google.firebase:firebase-messaging:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9a21f58db2bbe1bf02a6338d80d04c54/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:31:13-37
+	android:directBootAware
+		ADDED from [com.google.firebase:firebase-messaging:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9a21f58db2bbe1bf02a6338d80d04c54/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:30:13-43
+	android:name
+		ADDED from [com.google.firebase:firebase-messaging:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9a21f58db2bbe1bf02a6338d80d04c54/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:29:13-82
+intent-filter#action:name:com.google.firebase.MESSAGING_EVENT
+ADDED from [com.google.firebase:firebase-messaging:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9a21f58db2bbe1bf02a6338d80d04c54/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:32:13-34:29
+	android:priority
+		ADDED from [com.google.firebase:firebase-messaging:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9a21f58db2bbe1bf02a6338d80d04c54/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:32:28-51
+action#com.google.firebase.MESSAGING_EVENT
+ADDED from [com.google.firebase:firebase-messaging:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9a21f58db2bbe1bf02a6338d80d04c54/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:33:17-78
+	android:name
+		ADDED from [com.google.firebase:firebase-messaging:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9a21f58db2bbe1bf02a6338d80d04c54/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:33:25-75
+service#com.google.firebase.components.ComponentDiscoveryService
+ADDED from [com.google.firebase:firebase-messaging:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9a21f58db2bbe1bf02a6338d80d04c54/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:36:9-42:19
+MERGED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:29:9-35:19
+MERGED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:29:9-35:19
+MERGED from [com.google.android.gms:play-services-measurement-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/454254109a682b906972aaa1f665ac65/play-services-measurement-api-18.0.1/AndroidManifest.xml:27:9-33:19
+MERGED from [com.google.android.gms:play-services-measurement-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/454254109a682b906972aaa1f665ac65/play-services-measurement-api-18.0.1/AndroidManifest.xml:27:9-33:19
+MERGED from [com.google.firebase:firebase-installations:16.3.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ff330bc02ec8457fc65ea697e3295204/firebase-installations-16.3.5/AndroidManifest.xml:15:9-21:19
+MERGED from [com.google.firebase:firebase-installations:16.3.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ff330bc02ec8457fc65ea697e3295204/firebase-installations-16.3.5/AndroidManifest.xml:15:9-21:19
+MERGED from [com.google.firebase:firebase-datatransport:17.0.10] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/4775e992f79f69e1dde9d0778daee42b/firebase-datatransport-17.0.10/AndroidManifest.xml:25:9-31:19
+MERGED from [com.google.firebase:firebase-datatransport:17.0.10] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/4775e992f79f69e1dde9d0778daee42b/firebase-datatransport-17.0.10/AndroidManifest.xml:25:9-31:19
+MERGED from [com.google.firebase:firebase-common:19.5.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/85b8c2a420bd3d5fc334ffbe98905eb7/jetified-firebase-common-19.5.0/AndroidManifest.xml:33:9-46:19
+MERGED from [com.google.firebase:firebase-common:19.5.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/85b8c2a420bd3d5fc334ffbe98905eb7/jetified-firebase-common-19.5.0/AndroidManifest.xml:33:9-46:19
+	android:exported
+		ADDED from [com.google.firebase:firebase-messaging:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9a21f58db2bbe1bf02a6338d80d04c54/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:38:13-37
+	tools:targetApi
+		ADDED from [com.google.firebase:firebase-common:19.5.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/85b8c2a420bd3d5fc334ffbe98905eb7/jetified-firebase-common-19.5.0/AndroidManifest.xml:37:13-32
+	android:directBootAware
+		ADDED from [com.google.firebase:firebase-common:19.5.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/85b8c2a420bd3d5fc334ffbe98905eb7/jetified-firebase-common-19.5.0/AndroidManifest.xml:35:13-43
+	android:name
+		ADDED from [com.google.firebase:firebase-messaging:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9a21f58db2bbe1bf02a6338d80d04c54/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:37:13-84
+meta-data#com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar
+ADDED from [com.google.firebase:firebase-messaging:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9a21f58db2bbe1bf02a6338d80d04c54/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:39:13-41:85
+	android:value
+		ADDED from [com.google.firebase:firebase-messaging:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9a21f58db2bbe1bf02a6338d80d04c54/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:41:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-messaging:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9a21f58db2bbe1bf02a6338d80d04c54/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:40:17-119
+meta-data#com.google.firebase.components:com.google.firebase.iid.Registrar
+ADDED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:32:13-34:85
+	android:value
+		ADDED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:34:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:33:17-96
+receiver#com.google.firebase.iid.FirebaseInstanceIdReceiver
+ADDED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:37:9-44:20
+	android:exported
+		ADDED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:39:13-36
+	android:permission
+		ADDED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:40:13-73
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:38:13-78
+intent-filter#action:name:com.google.android.c2dm.intent.RECEIVE
+ADDED from [com.google.firebase:firebase-iid:21.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/67f8422129302361677816838107912d/firebase-iid-21.0.1/AndroidManifest.xml:41:13-43:29
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/eb47ebaa415480000026f88ca6df58ed/play-services-base-17.0.0/AndroidManifest.xml:23:9-26:75
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/eb47ebaa415480000026f88ca6df58ed/play-services-base-17.0.0/AndroidManifest.xml:25:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/eb47ebaa415480000026f88ca6df58ed/play-services-base-17.0.0/AndroidManifest.xml:26:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/eb47ebaa415480000026f88ca6df58ed/play-services-base-17.0.0/AndroidManifest.xml:24:13-79
+uses-permission#com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE
+ADDED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:26:5-110
+MERGED from [com.google.android.gms:play-services-measurement-impl:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/d7a2773ff1b9951af831321d8d14af8b/play-services-measurement-impl-18.0.1/AndroidManifest.xml:26:5-110
+MERGED from [com.google.android.gms:play-services-measurement-impl:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/d7a2773ff1b9951af831321d8d14af8b/play-services-measurement-impl-18.0.1/AndroidManifest.xml:26:5-110
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:26:22-107
+receiver#com.google.android.gms.measurement.AppMeasurementReceiver
+ADDED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:29:9-33:20
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:31:13-35
+	android:exported
+		ADDED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:32:13-37
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:30:13-85
+service#com.google.android.gms.measurement.AppMeasurementService
+ADDED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:35:9-38:40
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:37:13-35
+	android:exported
+		ADDED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:38:13-37
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:36:13-84
+service#com.google.android.gms.measurement.AppMeasurementJobService
+ADDED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:39:9-43:72
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:41:13-35
+	android:exported
+		ADDED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:42:13-37
+	android:permission
+		ADDED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:43:13-69
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ffb06f335c65c5bc20f93a8acd48ebcb/play-services-measurement-18.0.1/AndroidManifest.xml:40:13-87
+meta-data#com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar
+ADDED from [com.google.android.gms:play-services-measurement-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/454254109a682b906972aaa1f665ac65/play-services-measurement-api-18.0.1/AndroidManifest.xml:30:13-32:85
+	android:value
+		ADDED from [com.google.android.gms:play-services-measurement-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/454254109a682b906972aaa1f665ac65/play-services-measurement-api-18.0.1/AndroidManifest.xml:32:17-82
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement-api:18.0.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/454254109a682b906972aaa1f665ac65/play-services-measurement-api-18.0.1/AndroidManifest.xml:31:17-139
+meta-data#com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar
+ADDED from [com.google.firebase:firebase-installations:16.3.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ff330bc02ec8457fc65ea697e3295204/firebase-installations-16.3.5/AndroidManifest.xml:18:13-20:85
+	android:value
+		ADDED from [com.google.firebase:firebase-installations:16.3.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ff330bc02ec8457fc65ea697e3295204/firebase-installations-16.3.5/AndroidManifest.xml:20:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-installations:16.3.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/ff330bc02ec8457fc65ea697e3295204/firebase-installations-16.3.5/AndroidManifest.xml:19:17-127
+meta-data#com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar
+ADDED from [com.google.firebase:firebase-datatransport:17.0.10] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/4775e992f79f69e1dde9d0778daee42b/firebase-datatransport-17.0.10/AndroidManifest.xml:28:13-30:85
+	android:value
+		ADDED from [com.google.firebase:firebase-datatransport:17.0.10] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/4775e992f79f69e1dde9d0778daee42b/firebase-datatransport-17.0.10/AndroidManifest.xml:30:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-datatransport:17.0.10] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/4775e992f79f69e1dde9d0778daee42b/firebase-datatransport-17.0.10/AndroidManifest.xml:29:17-115
+provider#com.google.firebase.provider.FirebaseInitProvider
+ADDED from [com.google.firebase:firebase-common:19.5.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/85b8c2a420bd3d5fc334ffbe98905eb7/jetified-firebase-common-19.5.0/AndroidManifest.xml:26:9-31:39
+	android:authorities
+		ADDED from [com.google.firebase:firebase-common:19.5.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/85b8c2a420bd3d5fc334ffbe98905eb7/jetified-firebase-common-19.5.0/AndroidManifest.xml:28:13-72
+	android:exported
+		ADDED from [com.google.firebase:firebase-common:19.5.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/85b8c2a420bd3d5fc334ffbe98905eb7/jetified-firebase-common-19.5.0/AndroidManifest.xml:30:13-37
+	android:directBootAware
+		ADDED from [com.google.firebase:firebase-common:19.5.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/85b8c2a420bd3d5fc334ffbe98905eb7/jetified-firebase-common-19.5.0/AndroidManifest.xml:29:13-43
+	android:initOrder
+		ADDED from [com.google.firebase:firebase-common:19.5.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/85b8c2a420bd3d5fc334ffbe98905eb7/jetified-firebase-common-19.5.0/AndroidManifest.xml:31:13-36
+	android:name
+		ADDED from [com.google.firebase:firebase-common:19.5.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/85b8c2a420bd3d5fc334ffbe98905eb7/jetified-firebase-common-19.5.0/AndroidManifest.xml:27:13-77
+meta-data#com.google.firebase.components:com.google.firebase.dynamicloading.DynamicLoadingRegistrar
+ADDED from [com.google.firebase:firebase-common:19.5.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/85b8c2a420bd3d5fc334ffbe98905eb7/jetified-firebase-common-19.5.0/AndroidManifest.xml:43:13-45:85
+	android:value
+		ADDED from [com.google.firebase:firebase-common:19.5.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/85b8c2a420bd3d5fc334ffbe98905eb7/jetified-firebase-common-19.5.0/AndroidManifest.xml:45:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-common:19.5.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/85b8c2a420bd3d5fc334ffbe98905eb7/jetified-firebase-common-19.5.0/AndroidManifest.xml:44:17-121
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9f3aeb669d8fed6c8de556275de6bc2a/jetified-play-services-basement-17.0.0/AndroidManifest.xml:23:9-25:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9f3aeb669d8fed6c8de556275de6bc2a/jetified-play-services-basement-17.0.0/AndroidManifest.xml:25:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:17.0.0] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/9f3aeb669d8fed6c8de556275de6bc2a/jetified-play-services-basement-17.0.0/AndroidManifest.xml:24:13-58
+provider#com.facebook.internal.FacebookInitProvider
+ADDED from [com.facebook.android:facebook-core:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c4f14ee1edf26d35bfd9fce33efc47b/jetified-facebook-core-5.5.1/AndroidManifest.xml:39:9-42:40
+	android:authorities
+		ADDED from [com.facebook.android:facebook-core:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c4f14ee1edf26d35bfd9fce33efc47b/jetified-facebook-core-5.5.1/AndroidManifest.xml:41:13-72
+	android:exported
+		ADDED from [com.facebook.android:facebook-core:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c4f14ee1edf26d35bfd9fce33efc47b/jetified-facebook-core-5.5.1/AndroidManifest.xml:42:13-37
+	android:name
+		ADDED from [com.facebook.android:facebook-core:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c4f14ee1edf26d35bfd9fce33efc47b/jetified-facebook-core-5.5.1/AndroidManifest.xml:40:13-70
+receiver#com.facebook.CurrentAccessTokenExpirationBroadcastReceiver
+ADDED from [com.facebook.android:facebook-core:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c4f14ee1edf26d35bfd9fce33efc47b/jetified-facebook-core-5.5.1/AndroidManifest.xml:44:9-50:20
+	android:exported
+		ADDED from [com.facebook.android:facebook-core:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c4f14ee1edf26d35bfd9fce33efc47b/jetified-facebook-core-5.5.1/AndroidManifest.xml:46:13-37
+	android:name
+		ADDED from [com.facebook.android:facebook-core:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c4f14ee1edf26d35bfd9fce33efc47b/jetified-facebook-core-5.5.1/AndroidManifest.xml:45:13-86
+intent-filter#action:name:com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED
+ADDED from [com.facebook.android:facebook-core:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c4f14ee1edf26d35bfd9fce33efc47b/jetified-facebook-core-5.5.1/AndroidManifest.xml:47:13-49:29
+action#com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED
+ADDED from [com.facebook.android:facebook-core:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c4f14ee1edf26d35bfd9fce33efc47b/jetified-facebook-core-5.5.1/AndroidManifest.xml:48:17-95
+	android:name
+		ADDED from [com.facebook.android:facebook-core:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c4f14ee1edf26d35bfd9fce33efc47b/jetified-facebook-core-5.5.1/AndroidManifest.xml:48:25-92
+receiver#com.facebook.CampaignTrackingReceiver
+ADDED from [com.facebook.android:facebook-core:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c4f14ee1edf26d35bfd9fce33efc47b/jetified-facebook-core-5.5.1/AndroidManifest.xml:51:9-58:20
+	android:exported
+		ADDED from [com.facebook.android:facebook-core:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c4f14ee1edf26d35bfd9fce33efc47b/jetified-facebook-core-5.5.1/AndroidManifest.xml:53:13-36
+	android:permission
+		ADDED from [com.facebook.android:facebook-core:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c4f14ee1edf26d35bfd9fce33efc47b/jetified-facebook-core-5.5.1/AndroidManifest.xml:54:13-69
+	android:name
+		ADDED from [com.facebook.android:facebook-core:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c4f14ee1edf26d35bfd9fce33efc47b/jetified-facebook-core-5.5.1/AndroidManifest.xml:52:13-65
+intent-filter#action:name:com.android.vending.INSTALL_REFERRER
+ADDED from [com.facebook.android:facebook-core:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c4f14ee1edf26d35bfd9fce33efc47b/jetified-facebook-core-5.5.1/AndroidManifest.xml:55:13-57:29
+action#com.android.vending.INSTALL_REFERRER
+ADDED from [com.facebook.android:facebook-core:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c4f14ee1edf26d35bfd9fce33efc47b/jetified-facebook-core-5.5.1/AndroidManifest.xml:56:17-79
+	android:name
+		ADDED from [com.facebook.android:facebook-core:5.5.1] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/0c4f14ee1edf26d35bfd9fce33efc47b/jetified-facebook-core-5.5.1/AndroidManifest.xml:56:25-76
+service#com.google.android.datatransport.runtime.backends.TransportBackendDiscovery
+ADDED from [com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/7a7d77f342b391dc783e111ff508aff7/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:29:9-35:19
+MERGED from [com.google.android.datatransport:transport-runtime:2.2.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3c6751a8b54884c738fbed228152f9aa/jetified-transport-runtime-2.2.5/AndroidManifest.xml:36:9-38:40
+MERGED from [com.google.android.datatransport:transport-runtime:2.2.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3c6751a8b54884c738fbed228152f9aa/jetified-transport-runtime-2.2.5/AndroidManifest.xml:36:9-38:40
+	android:exported
+		ADDED from [com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/7a7d77f342b391dc783e111ff508aff7/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:31:13-37
+	android:name
+		ADDED from [com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/7a7d77f342b391dc783e111ff508aff7/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:30:13-103
+meta-data#backend:com.google.android.datatransport.cct.CctBackendFactory
+ADDED from [com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/7a7d77f342b391dc783e111ff508aff7/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:32:13-34:39
+	android:value
+		ADDED from [com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/7a7d77f342b391dc783e111ff508aff7/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:34:17-36
+	android:name
+		ADDED from [com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/7a7d77f342b391dc783e111ff508aff7/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:33:17-94
+service#com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService
+ADDED from [com.google.android.datatransport:transport-runtime:2.2.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3c6751a8b54884c738fbed228152f9aa/jetified-transport-runtime-2.2.5/AndroidManifest.xml:26:9-30:19
+	android:exported
+		ADDED from [com.google.android.datatransport:transport-runtime:2.2.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3c6751a8b54884c738fbed228152f9aa/jetified-transport-runtime-2.2.5/AndroidManifest.xml:28:13-37
+	android:permission
+		ADDED from [com.google.android.datatransport:transport-runtime:2.2.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3c6751a8b54884c738fbed228152f9aa/jetified-transport-runtime-2.2.5/AndroidManifest.xml:29:13-69
+	android:name
+		ADDED from [com.google.android.datatransport:transport-runtime:2.2.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3c6751a8b54884c738fbed228152f9aa/jetified-transport-runtime-2.2.5/AndroidManifest.xml:27:13-117
+receiver#com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver
+ADDED from [com.google.android.datatransport:transport-runtime:2.2.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3c6751a8b54884c738fbed228152f9aa/jetified-transport-runtime-2.2.5/AndroidManifest.xml:32:9-34:40
+	android:exported
+		ADDED from [com.google.android.datatransport:transport-runtime:2.2.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3c6751a8b54884c738fbed228152f9aa/jetified-transport-runtime-2.2.5/AndroidManifest.xml:34:13-37
+	android:name
+		ADDED from [com.google.android.datatransport:transport-runtime:2.2.5] /Users/dotsocket/.gradle/caches/transforms-2/files-2.1/3c6751a8b54884c738fbed228152f9aa/jetified-transport-runtime-2.2.5/AndroidManifest.xml:33:13-132

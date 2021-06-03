@@ -184,7 +184,7 @@ class _CategoryViewState extends State<CategoryView> {
                         width: SizeUtil.categoryTabSize().w,
                         child: Icon(
                           Icons.error,
-                          size: 30,
+                          size: 6.0.w,
                         )),
                   ),
                 ),

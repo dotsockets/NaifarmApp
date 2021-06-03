@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/BSImageView-Swift.h</key>
 		<data>
-		ek5QEljAkLyyG7pM1dgSsqu4YhA=
+		rlnqvyfE/aZE7WjlpQcu/P2alKE=
 		</data>
 		<key>Headers/BSImageView-umbrella.h</key>
 		<data>
@@ -14,31 +14,31 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		v5w24j3SyXT9B6bKDaBrQhv3Mtc=
+		Kl05EJK53QXPoeWhBygIxARFOYI=
 		</data>
 		<key>Modules/BSImageView.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		AiMTuwbnkRe1Y+2hW7zFhId2u/w=
+		SDPdhKhNH0QkycvubB8dPDNyoJ4=
 		</data>
 		<key>Modules/BSImageView.swiftmodule/Project/x86_64.swiftsourceinfo</key>
 		<data>
-		AiMTuwbnkRe1Y+2hW7zFhId2u/w=
+		SDPdhKhNH0QkycvubB8dPDNyoJ4=
 		</data>
 		<key>Modules/BSImageView.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		3fNOYqkS3gRayFUTQwyAPHeZfLs=
+		VJxJxiDjuQU7QmwCmsUUKmMT3Qk=
 		</data>
 		<key>Modules/BSImageView.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		yoDEPmo8f4GuZzZa9h+TUfcKFoY=
+		eFudN2VclkMMsvSXd3PXIO4PH5U=
 		</data>
 		<key>Modules/BSImageView.swiftmodule/x86_64.swiftdoc</key>
 		<data>
-		3fNOYqkS3gRayFUTQwyAPHeZfLs=
+		VJxJxiDjuQU7QmwCmsUUKmMT3Qk=
 		</data>
 		<key>Modules/BSImageView.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		yoDEPmo8f4GuZzZa9h+TUfcKFoY=
+		eFudN2VclkMMsvSXd3PXIO4PH5U=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -51,11 +51,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ek5QEljAkLyyG7pM1dgSsqu4YhA=
+			rlnqvyfE/aZE7WjlpQcu/P2alKE=
 			</data>
 			<key>hash2</key>
 			<data>
-			hA5J4c7W9ZRocPzyp8o5kCOheYI2KPpM/4TwpItqYWQ=
+			/v752FieO0IP7QbRenjAa/kohOpGf++/PwWMfjOFSc0=
 			</data>
 		</dict>
 		<key>Headers/BSImageView-umbrella.h</key>
@@ -73,66 +73,66 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			AiMTuwbnkRe1Y+2hW7zFhId2u/w=
+			SDPdhKhNH0QkycvubB8dPDNyoJ4=
 			</data>
 			<key>hash2</key>
 			<data>
-			NdoHszMXC1L99Psx8VoiCESwxm/liwDKPxMs324+uEc=
+			kNLJ78GyvFk49DWYwGb8+iSco3PWmhleDXKwX/IyxrM=
 			</data>
 		</dict>
 		<key>Modules/BSImageView.swiftmodule/Project/x86_64.swiftsourceinfo</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			AiMTuwbnkRe1Y+2hW7zFhId2u/w=
+			SDPdhKhNH0QkycvubB8dPDNyoJ4=
 			</data>
 			<key>hash2</key>
 			<data>
-			NdoHszMXC1L99Psx8VoiCESwxm/liwDKPxMs324+uEc=
+			kNLJ78GyvFk49DWYwGb8+iSco3PWmhleDXKwX/IyxrM=
 			</data>
 		</dict>
 		<key>Modules/BSImageView.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			3fNOYqkS3gRayFUTQwyAPHeZfLs=
+			VJxJxiDjuQU7QmwCmsUUKmMT3Qk=
 			</data>
 			<key>hash2</key>
 			<data>
-			3PjV+eKGtBuz0lrJORIhqnJB5terhKMoUWvrK/v+woI=
+			lNvjwKUQzTCGF9t5WRds9uIijotbJCI5gfnzN2whw20=
 			</data>
 		</dict>
 		<key>Modules/BSImageView.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			yoDEPmo8f4GuZzZa9h+TUfcKFoY=
+			eFudN2VclkMMsvSXd3PXIO4PH5U=
 			</data>
 			<key>hash2</key>
 			<data>
-			n6PTy3LwajI8sDqFEvII/Rh3LWtFs3oF4cac1gJKcHM=
+			M/QyZOFe7Mna910HwzCh4vkaQsWfarVAzNXUD3xl7lU=
 			</data>
 		</dict>
 		<key>Modules/BSImageView.swiftmodule/x86_64.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			3fNOYqkS3gRayFUTQwyAPHeZfLs=
+			VJxJxiDjuQU7QmwCmsUUKmMT3Qk=
 			</data>
 			<key>hash2</key>
 			<data>
-			3PjV+eKGtBuz0lrJORIhqnJB5terhKMoUWvrK/v+woI=
+			lNvjwKUQzTCGF9t5WRds9uIijotbJCI5gfnzN2whw20=
 			</data>
 		</dict>
 		<key>Modules/BSImageView.swiftmodule/x86_64.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			yoDEPmo8f4GuZzZa9h+TUfcKFoY=
+			eFudN2VclkMMsvSXd3PXIO4PH5U=
 			</data>
 			<key>hash2</key>
 			<data>
-			n6PTy3LwajI8sDqFEvII/Rh3LWtFs3oF4cac1gJKcHM=
+			M/QyZOFe7Mna910HwzCh4vkaQsWfarVAzNXUD3xl7lU=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

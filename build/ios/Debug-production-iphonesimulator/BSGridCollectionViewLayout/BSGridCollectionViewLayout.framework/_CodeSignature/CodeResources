@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/BSGridCollectionViewLayout-Swift.h</key>
 		<data>
-		hur1VKht6+6sPcHyDn2QiqVbUIw=
+		9a7Xqs8eDZlPNqCxXeRLE9a2OAA=
 		</data>
 		<key>Headers/BSGridCollectionViewLayout-umbrella.h</key>
 		<data>
@@ -18,31 +18,31 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		WUrrNv01yd3ALOgTwDkd4NU7GmE=
+		JkVJ3AhrS7M+1hGzq7S7Dh2ec4g=
 		</data>
 		<key>Modules/BSGridCollectionViewLayout.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		4QV7p+KI3AwjxnmtUb06mjCDy7g=
+		GEin62VmiASrAkKjlSNOWI4Cb7A=
 		</data>
 		<key>Modules/BSGridCollectionViewLayout.swiftmodule/Project/x86_64.swiftsourceinfo</key>
 		<data>
-		4QV7p+KI3AwjxnmtUb06mjCDy7g=
+		GEin62VmiASrAkKjlSNOWI4Cb7A=
 		</data>
 		<key>Modules/BSGridCollectionViewLayout.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		B/xhYlumYjBL0OirR7HGPNvhz4Y=
+		qCtFEHx9JfGI5SXvu76yH4+2obo=
 		</data>
 		<key>Modules/BSGridCollectionViewLayout.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		07bhIdUPWMqz2B8rLIIO3C3icNQ=
+		iTqg15moedApgdzdGrsZZUUvuwg=
 		</data>
 		<key>Modules/BSGridCollectionViewLayout.swiftmodule/x86_64.swiftdoc</key>
 		<data>
-		B/xhYlumYjBL0OirR7HGPNvhz4Y=
+		qCtFEHx9JfGI5SXvu76yH4+2obo=
 		</data>
 		<key>Modules/BSGridCollectionViewLayout.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		07bhIdUPWMqz2B8rLIIO3C3icNQ=
+		iTqg15moedApgdzdGrsZZUUvuwg=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -55,11 +55,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			hur1VKht6+6sPcHyDn2QiqVbUIw=
+			9a7Xqs8eDZlPNqCxXeRLE9a2OAA=
 			</data>
 			<key>hash2</key>
 			<data>
-			m5OlM637J6nX5QLdYVK8Yd8iglqYzh8FAbyym99yzYM=
+			WxKuvQtrJqMKv3Or9XIODOpVlFfm/wGrQoD+Mr0sh5U=
 			</data>
 		</dict>
 		<key>Headers/BSGridCollectionViewLayout-umbrella.h</key>
@@ -88,66 +88,66 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			4QV7p+KI3AwjxnmtUb06mjCDy7g=
+			GEin62VmiASrAkKjlSNOWI4Cb7A=
 			</data>
 			<key>hash2</key>
 			<data>
-			b0F+wVKNE/Z474ZEh7bb+PeJ++zamXY+fXdF7nHMv6U=
+			pXrfGB6KwxEeczyfvI8YYjkEma2g/MGiSA+3twzzBOU=
 			</data>
 		</dict>
 		<key>Modules/BSGridCollectionViewLayout.swiftmodule/Project/x86_64.swiftsourceinfo</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			4QV7p+KI3AwjxnmtUb06mjCDy7g=
+			GEin62VmiASrAkKjlSNOWI4Cb7A=
 			</data>
 			<key>hash2</key>
 			<data>
-			b0F+wVKNE/Z474ZEh7bb+PeJ++zamXY+fXdF7nHMv6U=
+			pXrfGB6KwxEeczyfvI8YYjkEma2g/MGiSA+3twzzBOU=
 			</data>
 		</dict>
 		<key>Modules/BSGridCollectionViewLayout.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			B/xhYlumYjBL0OirR7HGPNvhz4Y=
+			qCtFEHx9JfGI5SXvu76yH4+2obo=
 			</data>
 			<key>hash2</key>
 			<data>
-			4Zy9sVCp+siE/ZePGa7INV4DYy9yCUVvrItBWhBMJnE=
+			nRS3TXi2EayhXr54scfmUOXbkc0Mc9LLiwv+iXqr1J4=
 			</data>
 		</dict>
 		<key>Modules/BSGridCollectionViewLayout.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			07bhIdUPWMqz2B8rLIIO3C3icNQ=
+			iTqg15moedApgdzdGrsZZUUvuwg=
 			</data>
 			<key>hash2</key>
 			<data>
-			bQPYZyJPlT5ZWN6JaFwDgf/UbW6c0aZHWVDUfKh+HBI=
+			AsyXqBqKXF5UCYxpOnXzAfOqxZUylKgxHdsBIHWP24E=
 			</data>
 		</dict>
 		<key>Modules/BSGridCollectionViewLayout.swiftmodule/x86_64.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			B/xhYlumYjBL0OirR7HGPNvhz4Y=
+			qCtFEHx9JfGI5SXvu76yH4+2obo=
 			</data>
 			<key>hash2</key>
 			<data>
-			4Zy9sVCp+siE/ZePGa7INV4DYy9yCUVvrItBWhBMJnE=
+			nRS3TXi2EayhXr54scfmUOXbkc0Mc9LLiwv+iXqr1J4=
 			</data>
 		</dict>
 		<key>Modules/BSGridCollectionViewLayout.swiftmodule/x86_64.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			07bhIdUPWMqz2B8rLIIO3C3icNQ=
+			iTqg15moedApgdzdGrsZZUUvuwg=
 			</data>
 			<key>hash2</key>
 			<data>
-			bQPYZyJPlT5ZWN6JaFwDgf/UbW6c0aZHWVDUfKh+HBI=
+			AsyXqBqKXF5UCYxpOnXzAfOqxZUylKgxHdsBIHWP24E=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
