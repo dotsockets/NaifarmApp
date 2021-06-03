@@ -262,7 +262,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
           },
         ),
 
-        item != null && item.flashsaleRespone != null
+        item != null && item.flashsaleRespone != null && item.flashsaleRespone.data.isNotEmpty
             ? FlashSale(flashsaleRespone: item.flashsaleRespone)
             : SizedBox(),
         Container(
