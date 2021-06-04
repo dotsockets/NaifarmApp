@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
+import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -49,7 +50,7 @@ class ProductDetailView extends StatefulWidget {
 }
 
 class _ProductDetailViewState extends State<ProductDetailView>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, RouteAware {
   TrackingScrollController trackingScrollController;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   int indexTypes1 = 1;
@@ -189,7 +190,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
             if (data.productObjectCombine.producItemRespone.id ==
                 widget.productItem.id) {
               // if (data.productObjectCombine.dataWishlists != null) {
-              print("ewfcerwfxxx ");
+
 
               bloc.zipProductDetail.add(data.productObjectCombine);
               bloc.searchProduct.add(data.searchRespone);
@@ -223,6 +224,21 @@ class _ProductDetailViewState extends State<ProductDetailView>
     _controller.dispose();
     trackingScrollController.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context));
+  }
+
+  @override
+  void didPopNext() {
+    Usermanager().getUser().then((value) {
+      token = value.token;
+      bloc.loadProductsPage(context,
+          id: widget.productItem.id, token: value.token);
+    });
   }
 
   @override

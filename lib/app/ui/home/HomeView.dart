@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
+import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
 import 'package:naifarm/app/bloc/Provider/HomeMenuIndex.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
@@ -198,6 +199,10 @@ class _HomeViewState extends State<HomeView>
   @override
   void didPopNext() {
     // setState(() {});
+    Usermanager().getUser().then(
+          (value) => bloc.loadCustomerCount(context, token: value.token),
+    );
+    context.read<HomeDataBloc>().loadHomeData(context);
   }
 
   @override
