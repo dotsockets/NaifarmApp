@@ -724,10 +724,10 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
         color: Colors.white,
         padding: EdgeInsets.only(right: 1.0.w, left: 0),
         child: ListMenuItem(
-          icon: 'assets/images/png/coupon.png',
+          icon: 'assets/images/png/sale_cart.png',
           title: LocaleKeys.cart_discount.tr(),
-          message: "",
-          iconSize: 4.0.h,
+          message: "เลือกโค๊ดส่วนลด",
+          iconSize: 3.0.h,
           fontWeight: FontWeight.w500,
           onClick: () {
             showMaterialModalBottomSheet(
@@ -771,6 +771,8 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
       child: Column(
         children: [
           Container(color: Colors.black.withOpacity(0.1), height: 1),
+          buildcoupon(),
+          Divider(),
           Container(
             padding: EdgeInsets.only(top: 1.0.h, bottom: 1.0.h, right: 0.5.h),
             child: InkWell(
@@ -779,7 +781,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                   Expanded(
                       flex: 5,
                       child: Container(
-                        padding: EdgeInsets.only(left: 3.0.w),
+                        padding: EdgeInsets.only(left: 4.0.w),
                         child: Row(
                           children: [
                             bloc.cartList.value.selectAll
@@ -829,7 +831,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
               },
             ),
           ),
-          Container(color: Colors.black.withOpacity(0.1), height: 1),
+          Divider(),
           Container(
             child: Row(
               children: [

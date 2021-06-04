@@ -46,7 +46,7 @@ class ListMenuItem extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                flex: 2,
+                flex: 3,
                 child: Row(
                   children: [
                     Visibility(
