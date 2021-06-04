@@ -472,17 +472,24 @@ class _CartSummaryViewState extends State<CartSummaryView> {
           height: 1.0.h,
         ),
         Divider(color: Colors.grey),
-        // SizedBox(
-        //   height: 1.0.h,
-        // ),
-        /*InkWell(
+        SizedBox(
+          height: 1.0.h,
+        ),
+        InkWell(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Discount coupons from the store",
-                  style: FunctionHelper.fontTheme(
-                      fontSize: SizeUtil.titleFontSize().sp,
-                      color: Colors.black)),
+              Row(
+                children: [
+                  Image.asset("assets/images/png/sale_cart.png",width: 5.0.w,height: 5.0.w,),
+                  SizedBox(width: 1.0.h,),
+                  Text("Discount coupons from the store",
+                      style: FunctionHelper.fontTheme(
+                          fontSize: SizeUtil.titleFontSize().sp,
+                          color: Colors.black)),
+                ],
+              ),
+
               Row(
                 children: [
                   Icon(
@@ -497,13 +504,13 @@ class _CartSummaryViewState extends State<CartSummaryView> {
           onTap: (){
             showMaterialModalBottomSheet(
                 context: context,
-                builder: (context) => ModalFitBottom_Sheet(
-                    discountModel: CartViewModel().getDiscountFormShop()));
+                builder: (context) => ModalFitBottomSheet(
+                    discountModel: CartViewModel().getDiscount()));
           },
         ),
        SizedBox(
           height: 2.0.h,
-        ),*/
+        ),
         StreamBuilder(
             stream: bloc.cartList.stream,
             builder: (context, snapshot) {

@@ -6,11 +6,11 @@
 	<dict>
 		<key>BSImagePicker.bundle/Info.plist</key>
 		<data>
-		2qwlQK2xGKTwH5MvWpuGkGGWf/s=
+		XSA4GpDJfA+YM4bVNMr63O5AJ0I=
 		</data>
 		<key>BSImagePicker.bundle/_CodeSignature/CodeDirectory</key>
 		<data>
-		Vv3RtwD9MQfzULt7KNSgZhT5Lz0=
+		sMsc3PdPZvpZrDPX4LaF4a04HtE=
 		</data>
 		<key>BSImagePicker.bundle/_CodeSignature/CodeRequirements</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>BSImagePicker.bundle/_CodeSignature/CodeRequirements-1</key>
 		<data>
-		tcYCr28JOnEzsGdHgC707uEE68g=
+		wx/o+2QMqnznTkocio6GlYcvb5k=
 		</data>
 		<key>BSImagePicker.bundle/_CodeSignature/CodeResources</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Headers/BSImagePicker-Swift.h</key>
 		<data>
-		RcsO3w7mrz2CZGCwim978MrPY2w=
+		dbJ0yUHReG11a4ppu3kW9fl0/oQ=
 		</data>
 		<key>Headers/BSImagePicker-umbrella.h</key>
 		<data>
@@ -62,31 +62,31 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		AF2dOv00aX6Xzza0nLEzYaMsZ5M=
+		Pqzc1AdDuetK1yLhz0J6uhFrdqw=
 		</data>
 		<key>Modules/BSImagePicker.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		shVcWjRBCVAgO6Oh095/QiDmTu8=
+		XG1HvafbVAi8VMQVXUOSs6A3tsE=
 		</data>
 		<key>Modules/BSImagePicker.swiftmodule/Project/x86_64.swiftsourceinfo</key>
 		<data>
-		shVcWjRBCVAgO6Oh095/QiDmTu8=
+		XG1HvafbVAi8VMQVXUOSs6A3tsE=
 		</data>
 		<key>Modules/BSImagePicker.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		860RoP+L5JqcQpWN8DqnyE3q+1g=
+		3swk3mP7dnF42AWtJroWJdakbXw=
 		</data>
 		<key>Modules/BSImagePicker.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		2f0+oTiTEDcvcDjwiUcEIQwwgGc=
+		9nLMnYQQ3Uop6hcVfDysVjMlUug=
 		</data>
 		<key>Modules/BSImagePicker.swiftmodule/x86_64.swiftdoc</key>
 		<data>
-		860RoP+L5JqcQpWN8DqnyE3q+1g=
+		3swk3mP7dnF42AWtJroWJdakbXw=
 		</data>
 		<key>Modules/BSImagePicker.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		2f0+oTiTEDcvcDjwiUcEIQwwgGc=
+		9nLMnYQQ3Uop6hcVfDysVjMlUug=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -99,22 +99,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			2qwlQK2xGKTwH5MvWpuGkGGWf/s=
+			XSA4GpDJfA+YM4bVNMr63O5AJ0I=
 			</data>
 			<key>hash2</key>
 			<data>
-			sIfTx9xMkjibBrSiHKqD12Sk5Mx5sxeeU6DosFi3QiY=
+			XxDMj5cbi04rYs84nBLaBrfN/QWbVnY8nKQocFy0ODA=
 			</data>
 		</dict>
 		<key>BSImagePicker.bundle/_CodeSignature/CodeDirectory</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Vv3RtwD9MQfzULt7KNSgZhT5Lz0=
+			sMsc3PdPZvpZrDPX4LaF4a04HtE=
 			</data>
 			<key>hash2</key>
 			<data>
-			rlSp6LN8YZ1qY+4ec0d3mCLFnY01SAU7DiLjUQyqhu8=
+			/wmgSslOSELYk14yGQIQj7mMeYs8qj7dxv8FE7WtaE4=
 			</data>
 		</dict>
 		<key>BSImagePicker.bundle/_CodeSignature/CodeRequirements</key>
@@ -132,11 +132,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			tcYCr28JOnEzsGdHgC707uEE68g=
+			wx/o+2QMqnznTkocio6GlYcvb5k=
 			</data>
 			<key>hash2</key>
 			<data>
-			OT9ArpMghlJK0BHwsz0Zi2ZAIJ6LxBjgIaNFZ8hDr4Y=
+			NED88b+u0a9Kpbv+c6M6Fal0ODISNw0rg4zukbfpNbc=
 			</data>
 		</dict>
 		<key>BSImagePicker.bundle/_CodeSignature/CodeResources</key>
@@ -231,11 +231,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			RcsO3w7mrz2CZGCwim978MrPY2w=
+			dbJ0yUHReG11a4ppu3kW9fl0/oQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			oX2vTqpO8HopilLloLr7y1p0VrJD+qNCgRXWHeQa82w=
+			8yfLL50KqPvJEGorUzON1gHODubSjCnC24SnGGl6Qy8=
 			</data>
 		</dict>
 		<key>Headers/BSImagePicker-umbrella.h</key>
@@ -253,66 +253,66 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			shVcWjRBCVAgO6Oh095/QiDmTu8=
+			XG1HvafbVAi8VMQVXUOSs6A3tsE=
 			</data>
 			<key>hash2</key>
 			<data>
-			KWaZOB1H+ZU6q2BAbP2D9nLzj4jcfYmImnoAcLZfNSo=
+			lKWxvo/HLcID27vbT1Kc6sxdhmdpRalzJx9IYAhPo60=
 			</data>
 		</dict>
 		<key>Modules/BSImagePicker.swiftmodule/Project/x86_64.swiftsourceinfo</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			shVcWjRBCVAgO6Oh095/QiDmTu8=
+			XG1HvafbVAi8VMQVXUOSs6A3tsE=
 			</data>
 			<key>hash2</key>
 			<data>
-			KWaZOB1H+ZU6q2BAbP2D9nLzj4jcfYmImnoAcLZfNSo=
+			lKWxvo/HLcID27vbT1Kc6sxdhmdpRalzJx9IYAhPo60=
 			</data>
 		</dict>
 		<key>Modules/BSImagePicker.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			860RoP+L5JqcQpWN8DqnyE3q+1g=
+			3swk3mP7dnF42AWtJroWJdakbXw=
 			</data>
 			<key>hash2</key>
 			<data>
-			IV7hoG00ZC5EiTUJTLDZ/v265UMgWSl69xgHukijHnQ=
+			gHRRWKHkKkkxjOhkZ+hVF+k+cvR93g5y9xPxpzWWt+8=
 			</data>
 		</dict>
 		<key>Modules/BSImagePicker.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			2f0+oTiTEDcvcDjwiUcEIQwwgGc=
+			9nLMnYQQ3Uop6hcVfDysVjMlUug=
 			</data>
 			<key>hash2</key>
 			<data>
-			3Xllqtokppy4nS6YDwZCKjzGDyN2vM6/p2iwtAZsXTo=
+			eWotzgNBT70uhyQAvEk553eKpvS1Rx9xpzKdRPn1KJU=
 			</data>
 		</dict>
 		<key>Modules/BSImagePicker.swiftmodule/x86_64.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			860RoP+L5JqcQpWN8DqnyE3q+1g=
+			3swk3mP7dnF42AWtJroWJdakbXw=
 			</data>
 			<key>hash2</key>
 			<data>
-			IV7hoG00ZC5EiTUJTLDZ/v265UMgWSl69xgHukijHnQ=
+			gHRRWKHkKkkxjOhkZ+hVF+k+cvR93g5y9xPxpzWWt+8=
 			</data>
 		</dict>
 		<key>Modules/BSImagePicker.swiftmodule/x86_64.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			2f0+oTiTEDcvcDjwiUcEIQwwgGc=
+			9nLMnYQQ3Uop6hcVfDysVjMlUug=
 			</data>
 			<key>hash2</key>
 			<data>
-			3Xllqtokppy4nS6YDwZCKjzGDyN2vM6/p2iwtAZsXTo=
+			eWotzgNBT70uhyQAvEk553eKpvS1Rx9xpzKdRPn1KJU=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

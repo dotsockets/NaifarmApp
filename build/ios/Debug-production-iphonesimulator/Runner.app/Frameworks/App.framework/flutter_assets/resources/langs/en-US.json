@@ -59,12 +59,19 @@
   "review": {
     "write": "write review",
     "rate": "Rate",
-    "deli_ex": "Excellent Delivery Speed",
-    "product_ex": "Excellent Product",
-    "quality_ex": "Excellent Quality of Product",
-    "tell": "Tell others why the product is good",
+    "deli": "Delivery Speed ",
+    "value": "Value ",
+    "quality": "Quality of Product ",
+    "tell": "Tell others why the product is ",
     "anonymous": "Leave your review anonymous",
-    "username": "Your username will be show"
+    "username": "Your username will be show",
+    "ex": "Excellent",
+    "good":"Good",
+    "ok": "OK",
+    "bad": "Bad",
+    "terrible": "Terrible",
+    "no": "No rating yet",
+    "all": "See All Reviews"
   },
   "edit_phone": {
     "title": "Please enter a new phone number to receive a OTP",
@@ -151,11 +158,13 @@
   "market_toobar": "Naifarm Farm Market Products",
 
   "btn":{
+
     "logout": "LOGOUT",
     "add_address": "Add New Address",
     "add_product": "Add Product",
     "login": "LOGIN",
     "facebook": "Continue with Facebook",
+    "apple": "Continue with Apple",
     "edit_img": "Edit Image",
     "img": "Image",
     "save": "SAVE",
@@ -305,7 +314,8 @@
     "empty": "Data not found",
     "color": "Color code",
     "edit": "Edit Attributes",
-    "list": "Attributes List"
+    "list": "Attributes List",
+    "label": "Attributes"
   },
 
 
@@ -317,6 +327,9 @@
     "sold": "sold",
     "sold_end": "Sold",
     "like": "Likes",
+    "islike": "Successfully added to your favorite product list!",
+    "unlike": "Successfully deleted your favorite product!",
+    "addcart": "You have already added the item to your cart",
     "visit": "visit",
     "baht": "Baht",
     "data": "Product Information",
@@ -422,9 +435,12 @@
     "shop_update": "Update shop information",
     "shop_status": "Status",
     "shop_open": "Open a new shop",
-    "shop_open_detail": "has been opened the shop",
-    "shop_outstock":"out of stock",
+    "shop_open_detail1": "Welcome",
+    "shop_open_detail2":"Become a part of NaiFarm",
+    "shop_outstock":"Inventory Stock Out",
+    "shop_outstock_detail":"is sold out. Replenish stock or list another?",
     "shop_live":"Shop is Live",
+    "shop_live_sub":"",
     "downformaintainace":"Shop Maintainace",
     "downformaintainace_sub":"Shop Maintainace",
     "playment_success": "Successfully",

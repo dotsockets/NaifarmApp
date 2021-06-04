@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">891950861123-okrorp93dj515t6tkf0fpnf582d4ef67.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">891950861123</string>
+    <string name="google_api_key" translatable="false">AIzaSyBGWGGAZRaF0JHH4-xTnmEahXJdXMj6Djo</string>
+    <string name="google_app_id" translatable="false">1:891950861123:android:eaba12fb5384f6373f3df6</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBGWGGAZRaF0JHH4-xTnmEahXJdXMj6Djo</string>
+    <string name="google_storage_bucket" translatable="false">naifarm-production.appspot.com</string>
+    <string name="project_id" translatable="false">naifarm-production</string>
+</resources>

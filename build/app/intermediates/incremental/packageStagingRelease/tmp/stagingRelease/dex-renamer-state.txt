@@ -1,0 +1,4 @@
+#Wed May 19 10:27:23 ICT 2021
+base.0=/Users/dotsocket/Desktop/NaifarmApp/build/app/intermediates/transforms/r8/staging/release/0/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
