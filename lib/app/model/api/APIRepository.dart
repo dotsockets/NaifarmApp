@@ -491,7 +491,7 @@ class APIRepository {
     return _apiProvider.deleteMyShopAttribute(context, id: id, token: token);
   }
 
-  Future<ApiResult> getAttributeDetail(BuildContext context,
+  Future<ApiResult> getSubAttribute(BuildContext context,
       {String token, int id}) {
     return _apiProvider.getAttributeDetail(context, id, token);
   }

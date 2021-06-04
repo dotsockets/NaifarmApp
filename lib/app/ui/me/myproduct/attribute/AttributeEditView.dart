@@ -78,7 +78,7 @@ class _AttributeEditViewState extends State<AttributeEditView> {
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event);
       });
-      Usermanager().getUser().then((value) => bloc.getAttributeDetail(context,
+      Usermanager().getUser().then((value) => bloc.getSubAttribute(context,
           token: value.token, id: widget.idAttr));
     }
   }

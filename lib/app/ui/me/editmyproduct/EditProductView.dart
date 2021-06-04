@@ -155,6 +155,7 @@ class _EditProductViewState extends State<EditProductView> {
                     stream: bloc.uploadProductStorage.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.hasData) {
+                        var item = (snapshot.data as UploadProductStorage);
                         return Expanded(
                           child: SingleChildScrollView(
                             child: Column(
@@ -277,7 +278,6 @@ class _EditProductViewState extends State<EditProductView> {
                                         inputType: TextInputType.number,
                                         controller: offerPriceController,
                                         onChanged: (String char) {
-
                                           bloc
                                               .uploadProductStorage
                                               .value
@@ -294,13 +294,24 @@ class _EditProductViewState extends State<EditProductView> {
                                     ],
                                   ),
                                 ),
+                               Container(
+                                 color: Colors.white,height: 1.0.h,
+                               ),
+                                Divider(
+                                  height: 0.5.h,
+                                ),
+
                                 _buildDeliveryTab(),
                                 Divider(
-                                  height: 10,
+                                  height:0.5.h,
                                 ),
                                 _buildImageTab(),
                                 Divider(
-                                  height: 10,
+                                  height: 0.5.h,
+                                ),
+                                _buildAttributeTab(bloc.productAttributeList),
+                                Divider(
+                                  height: 0.5.h,
                                 ),
                                 _buildActiveTab(),
                               ],
@@ -400,21 +411,23 @@ class _EditProductViewState extends State<EditProductView> {
   Widget _buildDeliveryTab() {
     return InkWell(
       child: Container(
-          padding: EdgeInsets.all(20),
           color: Colors.white,
+          padding: EdgeInsets.only(left: 5, right: 5),
           child: Container(
+              margin: EdgeInsets.all(15),
               child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(LocaleKeys.my_product_delivery_price.tr(),
-                  style: FunctionHelper.fontTheme(
-                      fontSize: SizeUtil.titleFontSize().sp)),
-              Icon(
-                Icons.arrow_forward_ios,
-                color: Colors.grey.withOpacity(0.7),
-              )
-            ],
-          ))),
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(LocaleKeys.my_product_delivery_price.tr(),
+                      style: FunctionHelper.fontTheme(
+                          fontSize: SizeUtil.titleFontSize().sp)),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.grey.withOpacity(0.7),
+                    size: SizeUtil.ratingSize().w,
+                  )
+                ],
+              ))),
       onTap: () async {
         FocusScope.of(context).unfocus();
         final result = await AppRoute.deliveryCost(context,
@@ -511,6 +524,7 @@ class _EditProductViewState extends State<EditProductView> {
                   Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.grey.withOpacity(0.7),
+                    size: SizeUtil.ratingSize().w,
                   )
                 ],
               ))),
@@ -526,6 +540,41 @@ class _EditProductViewState extends State<EditProductView> {
               token: value.token,
               productId: widget.productId));
         }
+      },
+    );
+  }
+
+  Widget _buildAttributeTab(List<AttributesItemShop> attributeList) {
+    return InkWell(
+      child: Container(
+          color: Colors.white,
+          padding: EdgeInsets.only(left: 5, right: 5),
+          child: Container(
+              margin: EdgeInsets.all(15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(LocaleKeys.attributes_set.tr(),
+                      style: FunctionHelper.fontTheme(
+                          fontSize: SizeUtil.titleFontSize().sp)),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.grey.withOpacity(0.7),
+                    size: SizeUtil.ratingSize().w,
+                  )
+                ],
+              ))),
+      onTap: () async {
+
+        var result = await AppRoute.attributeProduct(context: context,attributeList: attributeList);
+
+        // if (result) {
+        //   onUpdate = true;
+        //   Usermanager().getUser().then((value) => bloc.getProductIDMyShop(
+        //       context,
+        //       token: value.token,
+        //       productId: widget.productId));
+        // }
       },
     );
   }

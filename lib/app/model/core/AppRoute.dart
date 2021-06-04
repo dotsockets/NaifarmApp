@@ -15,6 +15,7 @@ import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/PaymentRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShppingMyShopRespone.dart';
@@ -113,7 +114,8 @@ import 'package:naifarm/app/ui/wishlist/WishlistsView.dart';
 import 'package:naifarm/utility/widgets/ImageFullScreen.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
-
+import 'package:naifarm/app/ui/me/attributemyproduct/AttributeProductView.dart';
+import 'package:naifarm/app/ui/me/attributemyproduct/AttributeSubProductView.dart';
 class AppRoute {
   // static  home(BuildContext context){
   //   Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.rightToLeftWithFade, child: HomeView()));
@@ -1102,6 +1104,21 @@ class AppRoute {
         canOnlySwipeFromEdge: true,
         builder: (context) {
           return AttributeAddView();
+        }));
+  }
+
+  static attributeProduct({BuildContext context,List<AttributesItemShop> attributeList}) {
+    Navigator.of(context).push(SwipeablePageRoute(
+        canOnlySwipeFromEdge: true,
+        builder: (context) {
+          return AttributeProductView(attributeList: attributeList,);
+        }));
+  }
+  static attributeSubProduct({BuildContext context,}) {
+    Navigator.of(context).push(SwipeablePageRoute(
+        canOnlySwipeFromEdge: true,
+        builder: (context) {
+          return AttributeSubProductView();
         }));
   }
 }

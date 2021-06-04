@@ -53,10 +53,10 @@ class _FlashSaleState extends State<FlashSale> {
             ],
           ),
         ),
-        // Align(
-        //   alignment: Alignment.bottomCenter,
-        //   child: FlashSaleBar(),
-        // )
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: FlashSaleBar(),
+        )
       ],
     );
   }

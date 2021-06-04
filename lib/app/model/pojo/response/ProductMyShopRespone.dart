@@ -191,8 +191,8 @@ class Inventories {
   String linkedItems;
   List<ImageProductShop> image;
   List<Feedbacks> feedbacks;
-  List<AttributesItem> attributes;
   int discountPercent;
+  List<AttributesItemShop> attributes;
   int rating;
   int reviewCount;
 
@@ -265,9 +265,9 @@ class Inventories {
       });
     }
     if (json['attributes'] != null) {
-      attributes = <AttributesItem>[];
+      attributes = <AttributesItemShop>[];
       json['attributes'].forEach((v) {
-        attributes.add(new AttributesItem.fromJson(v));
+        attributes.add(new AttributesItemShop.fromJson(v));
       });
     }
     discountPercent = json['discountPercent'];
@@ -402,15 +402,15 @@ class Feedbacks {
   }
 }
 
-class AttributesItem {
-  AttributesItem attributes;
+class AttributesItemShop {
+  Attributes attributes;
   Values values;
 
-  AttributesItem({this.attributes, this.values});
+  AttributesItemShop({this.attributes, this.values});
 
-  AttributesItem.fromJson(Map<String, dynamic> json) {
+  AttributesItemShop.fromJson(Map<String, dynamic> json) {
     attributes = json['attributes'] != null
-        ? new AttributesItem.fromJson(json['attributes'])
+        ? new Attributes.fromJson(json['attributes'])
         : null;
     values =
         json['values'] != null ? new Values.fromJson(json['values']) : null;

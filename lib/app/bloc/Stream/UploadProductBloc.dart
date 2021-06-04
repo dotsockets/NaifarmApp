@@ -35,6 +35,7 @@ class UploadProductBloc {
   List<OnSelectItem> itemImage = <OnSelectItem>[];
   List<ProductMyShop> productList = <ProductMyShop>[];
   List<ImageProductShop> productImageList = <ImageProductShop>[];
+  List<AttributesItemShop> productAttributeList = <AttributesItemShop>[];
 
   int inventoriesId = 0;
   var checkloop = 0;
@@ -364,6 +365,7 @@ class UploadProductBloc {
             category: item.categories[0].category.id,
             weight: item.inventories[0].shippingWeight,
             description: item.description);
+        productAttributeList.addAll(item.inventories[0].attributes);
         uploadProductStorage.add(uploadProductStorage.value);
       } else {
         onError.add(respone.httpCallBack.message);
@@ -526,11 +528,11 @@ class UploadProductBloc {
     _compositeSubscription.add(subscription);
   }
 
-  getAttributeDetail(BuildContext context, {String token, int id}) {
+  getSubAttribute(BuildContext context, {String token, int id}) {
     onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(_application
             .appStoreAPIRepository
-            .getAttributeDetail(context, id: id, token: token))
+            .getSubAttribute(context, id: id, token: token))
         .listen((respone) {
       if (respone.httpCallBack.status == 200) {
         onLoad.add(false);
@@ -609,7 +611,7 @@ class UploadProductBloc {
         .listen((respone) {
       if (respone.httpCallBack.status == 200) {
        // onLoad.add(false);
-        getAttributeDetail(context, token: token, id: id);
+        getSubAttribute(context, token: token, id: id);
         //  onSuccessDel.add(true);
       } else {
         onLoad.add(false);
