@@ -199,10 +199,10 @@ class _HomeViewState extends State<HomeView>
   @override
   void didPopNext() {
     // setState(() {});
-    Usermanager().getUser().then(
-          (value) => bloc.loadCustomerCount(context, token: value.token),
-    );
-    context.read<HomeDataBloc>().loadHomeData(context);
+    // Usermanager().getUser().then(
+    //       (value) => bloc.loadCustomerCount(context, token: value.token),
+    // );
+  //  context.read<HomeDataBloc>().loadHomeData(context);
   }
 
   @override

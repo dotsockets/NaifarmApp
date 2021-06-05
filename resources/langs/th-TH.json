@@ -552,7 +552,8 @@
     "show": "แสดงเพิ่ม",
     "hide": "ย่อ",
     "not_found": "ไม่พบข้อมูล",
-    "product_not_found": "ไม่พบรายการสินค้า"
+    "product_not_found": "ไม่พบรายการสินค้า",
+    "out_of_stock": "สินค้าหมด"
   },
   "server_error": {
     "cancel": "คำขอถูกยกเลิก",

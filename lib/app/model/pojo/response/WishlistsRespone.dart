@@ -76,6 +76,7 @@ class Product {
   int discountPercent;
   double rating;
   int reviewCount;
+  int stockQuantity;
 
   Product(
       {this.id,
@@ -98,7 +99,7 @@ class Product {
       this.image,
       this.discountPercent,
       this.rating,
-      this.reviewCount});
+      this.reviewCount,this.stockQuantity});
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -138,6 +139,8 @@ class Product {
       rating = double.parse(json['rating'].toString());
     }
     reviewCount = json['reviewCount'];
+    stockQuantity = json['stockQuantity'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -167,6 +170,7 @@ class Product {
     data['discountPercent'] = this.discountPercent;
     data['rating'] = this.rating;
     data['reviewCount'] = this.reviewCount;
+    data['stockQuantity'] = this.stockQuantity;
     return data;
   }
 }

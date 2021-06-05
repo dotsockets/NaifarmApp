@@ -12,8 +12,10 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:translator/translator.dart';
 import 'package:vibration/vibration.dart';
 import 'package:sizer/sizer.dart';
+import "ExtensionCore.dart";
 
 class FunctionHelper {
   static String reportDateTwo({String date}) {
@@ -734,6 +736,13 @@ class FunctionHelper {
   //
   // }
 
+  static  Future<String> translatorText({String name,String from,String to}) async {
+    final translator = GoogleTranslator();
+    var translation =
+    await translator.translate("${name}", from: from, to: to);
+    return translation.text.upperCaseFirst();
+  }
+
   static String replaceText({String text, String pattern}) {
     try {
       if (text != null) {
@@ -746,6 +755,8 @@ class FunctionHelper {
       return "";
     }
   }
+
+
 
   static TextStyle fontTheme(
       {FontWeight fontWeight,
@@ -775,3 +786,5 @@ class FunctionHelper {
         decoration: decoration);
   }
 }
+
+

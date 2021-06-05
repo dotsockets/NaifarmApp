@@ -115,6 +115,18 @@ class OrdersBloc {
     _compositeSubscription.add(subscription);
   }
 
+
+  Future<OrderRespone> getOrderBuyAgain(BuildContext context,
+      { String id, int limit, int page,String token}) async {
+    final respone = await _application.appStoreAPIRepository.
+    getOrder(context,page: page,limit: limit,orderType: "order",statusId: id,token:token );
+    if (respone.httpCallBack.status == 200) {
+      return (respone.respone as OrderRespone);
+    } else {
+      return OrderRespone();
+    }
+  }
+
   Future<OrderData> getOrderByIdFuture(BuildContext context,
       {int id, String orderType, String token}) async {
     final respons = await _application.appStoreAPIRepository

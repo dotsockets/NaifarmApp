@@ -18,6 +18,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
+import 'package:translator/translator.dart';
 
 class CategoryView extends StatefulWidget {
   @override
@@ -26,13 +27,13 @@ class CategoryView extends StatefulWidget {
 
 class _CategoryViewState extends State<CategoryView> {
   ProductBloc bloc;
-  Future<void> _init(BuildContext context) async {
 
-    if(bloc==null){
+
+  Future<void> _init(BuildContext context) async {
+    if (bloc == null) {
       bloc = ProductBloc(AppProvider.of(context).application);
       bloc.loadCategoryGroup(context);
     }
-
   }
 
   @override
@@ -59,64 +60,49 @@ class _CategoryViewState extends State<CategoryView> {
       padding: EdgeInsets.all(2.0.h),
       child: StreamBuilder(
         stream: bloc.categoryGroup.stream,
-        builder: (BuildContext context, AsyncSnapshot<CategoryGroupRespone> snapshot) {
-
-          if(snapshot.connectionState==ConnectionState.none ||snapshot.connectionState==ConnectionState.waiting){
+        builder: (BuildContext context,
+            AsyncSnapshot<CategoryGroupRespone> snapshot) {
+          if (snapshot.connectionState == ConnectionState.none ||
+              snapshot.connectionState == ConnectionState.waiting) {
             return Container(
               height: MediaQuery.of(context).size.height,
               padding: EdgeInsets.only(bottom: 30.0.h),
               child: Center(
                 child: Platform.isAndroid
                     ? SizedBox(
-                    width: 5.0.w,
-                    height: 5.0.w,
-                    child:
-                    CircularProgressIndicator())
+                        width: 5.0.w,
+                        height: 5.0.w,
+                        child: CircularProgressIndicator())
                     : CupertinoActivityIndicator(),
               ),
             );
-          }else if(snapshot.hasError){
+          } else if (snapshot.hasError) {
             return Container(
               height: MediaQuery.of(context).size.height,
               padding: EdgeInsets.only(bottom: 30.0.h),
               child: Center(
                 child: Platform.isAndroid
                     ? SizedBox(
-                    width: 5.0.w,
-                    height: 5.0.w,
-                    child:
-                    CircularProgressIndicator())
+                        width: 5.0.w,
+                        height: 5.0.w,
+                        child: CircularProgressIndicator())
                     : CupertinoActivityIndicator(),
               ),
             );
-          }else{
+          } else {
             return Column(
               children: [
                 Column(
-                  children: item(
-                      (snapshot.data.data
-                          .length /
-                          4)
-                          .floor(),
-                      4,
-                      context,
-                      snapshot.data),
+                  children: item((snapshot.data.data.length / 4).floor(), 4,
+                      context, snapshot.data),
                 ),
                 Column(
-                  children: item(
-                      1,
-                      (snapshot.data.data
-                          .length /
-                          4)
-                          .floor() *
-                          4,
-                      context,
-                      snapshot.data),
+                  children: item(1, (snapshot.data.data.length / 4).floor() * 4,
+                      context, snapshot.data),
                 )
               ],
             );
           }
-
         },
       ),
     );
@@ -195,16 +181,34 @@ class _CategoryViewState extends State<CategoryView> {
             Container(
                 height: SizeUtil.titleSmallFontSize().sp * 0.4.h,
                 width: 16.0.w,
-                child: Text(
-                  item.name,
-                  maxLines: 2,
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  style: FunctionHelper.fontTheme(
-                      color: Colors.black,
-                      fontSize: SizeUtil.titleSmallFontSize().sp,
-                      fontWeight: FontWeight.bold),
-                ))
+                child: EasyLocalization.of(context).locale ==
+                        EasyLocalization.of(context).supportedLocales[0]
+                    ? FutureBuilder(
+                        future: FunctionHelper.translatorText(name: item.name,from: 'th',to: 'en'),
+                        builder:
+                            (BuildContext context, AsyncSnapshot<String> text) {
+
+                          return Text(
+                            "${text.data ?? "${LocaleKeys.dialog_message_loading.tr()}"}",
+                            maxLines: 2,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            style: FunctionHelper.fontTheme(
+                                color: Colors.black,
+                                fontSize: SizeUtil.titleSmallFontSize().sp,
+                                fontWeight: FontWeight.bold),
+                          );
+                        })
+                    : Text(
+                        "${item.name}",
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: FunctionHelper.fontTheme(
+                            color: Colors.black,
+                            fontSize: SizeUtil.titleSmallFontSize().sp,
+                            fontWeight: FontWeight.bold),
+                      ))
           ],
         ),
       ),
@@ -222,4 +226,7 @@ class _CategoryViewState extends State<CategoryView> {
       },
     );
   }
+
+
 }
+

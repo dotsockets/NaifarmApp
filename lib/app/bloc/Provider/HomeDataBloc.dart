@@ -18,7 +18,7 @@ class HomeDataBloc extends Cubit<HomeDataState> {
       emit(HomeDataLoaded(value));
     });
 
-    Observable.combineLatest8(
+    Observable.combineLatest7(
         Observable.fromFuture(_application.appStoreAPIRepository
             .getBanners(context,group: "home_top")) // สไลด์ภาพ
         ,
@@ -26,8 +26,8 @@ class HomeDataBloc extends Cubit<HomeDataState> {
             .getProductPopular(context, "1", 10)), // สินค้าขายดี
         Observable.fromFuture(_application.appStoreAPIRepository
             .getCategoryGroup(context)), // หมวดหมู่ทั่วไป
-        Observable.fromFuture(_application.appStoreAPIRepository
-            .getCategoriesFeatured(context)), // หมวดหมู่แนะนำ
+        // Observable.fromFuture(_application.appStoreAPIRepository
+        //     .getCategoriesFeatured(context)), // หมวดหมู่แนะนำ
         Observable.fromFuture(_application.appStoreAPIRepository
             .getProductTrending(context, "1", 6)), // สินค้าแนะนำ
         Observable.fromFuture(_application.appStoreAPIRepository.getShopProduct(
@@ -38,11 +38,11 @@ class HomeDataBloc extends Cubit<HomeDataState> {
         Observable.fromFuture(_application.appStoreAPIRepository
             .flashsale(context, page: "1", limit: 5)), //  Flashsale
         Observable.fromFuture(_application.appStoreAPIRepository.moreProduct(context, page: "1", limit: 10, link: "products/types/trending")), // สินค้าสำหรับคุน
-        (a, b, c, d, e, f, g, h) {
+        (a, b, c, e, f, g, h) {
       final _slider = (a as ApiResult).respone;
       final _product = (b as ApiResult).respone;
       final _category = (c as ApiResult).respone;
-      final _featured = (d as ApiResult).respone;
+     // final _featured = (d as ApiResult).respone;
       final _trending = (e as ApiResult).respone;
       final _martket = (f as ApiResult).respone;
       final _flashsale = (g as ApiResult).respone;
@@ -53,7 +53,7 @@ class HomeDataBloc extends Cubit<HomeDataState> {
               sliderRespone: _slider,
               productRespone: _product,
               categoryGroupRespone: _category,
-              featuredRespone: _featured,
+             //featuredRespone: _featured,
               trendingRespone: _trending,
               martket: _martket,
               flashsaleRespone: _flashsale,
@@ -68,7 +68,7 @@ class HomeDataBloc extends Cubit<HomeDataState> {
         NaiFarmLocalStorage.getHomeDataCache().then((value) {
           emit(HomeDataError(HomeObjectCombine(
               categoryGroupRespone: value.categoryGroupRespone,
-              featuredRespone: value.featuredRespone,
+             // featuredRespone: value.featuredRespone,
               flashsaleRespone: value.flashsaleRespone,
               martket: value.martket,
               productForyou: value.productForyou,

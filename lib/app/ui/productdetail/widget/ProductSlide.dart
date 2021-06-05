@@ -2,16 +2,21 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/config/Env.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
+import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import 'package:sizer/sizer.dart';
 
 class ProductSlide extends StatefulWidget {
   final List<String> imgList;
   final int indexImg;
+  final int stockQuantity;
 
-  const ProductSlide({Key key, this.imgList,this.indexImg=0}) : super(key: key);
+  const ProductSlide({Key key, this.imgList,this.indexImg=0,this.stockQuantity=0}) : super(key: key);
   @override
   _ProductSlideState createState() => _ProductSlideState();
 }
@@ -47,27 +52,29 @@ class _ProductSlideState extends State<ProductSlide> {
   }
 
   Widget _buildBanner() {
-    return Container(
-      color: Colors.white,
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(top: 3, bottom: 30),
-      child: CarouselSlider(
-        options: CarouselOptions(
-          height: 40.0.h,
-          viewportFraction: 0.999,
-          autoPlay: true,
-          initialPage: widget.indexImg,
-          enableInfiniteScroll: widget.imgList.length > 1 ? true : false,
-          autoPlayInterval: Duration(seconds: 7),
-          onPageChanged: (index, reason) {
-            setState(() {
-              _current = index;
-            });
-          },
-        ),
-        items: widget.imgList
-            .map(
-              (item) => Container(
+    return Stack(
+      children: [
+        Container(
+          color: Colors.white,
+          width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.only(top: 3, bottom: 30),
+          child: CarouselSlider(
+            options: CarouselOptions(
+              height: 40.0.h,
+              viewportFraction: 0.999,
+              autoPlay: true,
+              initialPage: widget.indexImg,
+              enableInfiniteScroll: widget.imgList.length > 1 ? true : false,
+              autoPlayInterval: Duration(seconds: 7),
+              onPageChanged: (index, reason) {
+                setState(() {
+                  _current = index;
+                });
+              },
+            ),
+            items: widget.imgList
+                .map(
+                  (item) => Container(
                 child: CachedNetworkImage(
                   placeholder: (context, url) => Container(
                     width: MediaQuery.of(context).size.width,
@@ -84,8 +91,36 @@ class _ProductSlideState extends State<ProductSlide> {
                 ),
               ),
             )
-            .toList(),
-      ),
+                .toList(),
+          ),
+        ),
+        widget.stockQuantity==null || widget.stockQuantity==0?Positioned.fill(
+          child: IgnorePointer(
+            ignoring: true,
+            child: Container(
+              color: Colors.white.withOpacity(0.7),
+              child: Center(
+                child: Container(
+                  width: 20.0.w,
+                  height: 4.0.h,
+                  padding: EdgeInsets.all(2.0.w),
+                  decoration: new BoxDecoration(
+                      color: Colors.black.withOpacity(0.6),
+                      borderRadius:
+                      new BorderRadius.all(Radius.circular(10.0.w))),
+                  child: Center(
+                    child: Text(
+                        LocaleKeys.search_product_out_of_stock.tr(),
+                        style: FunctionHelper.fontTheme(
+                            fontSize: SizeUtil.detailFontSize().sp,
+                            color: Colors.white)),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ):SizedBox()
+      ],
     );
   }
 

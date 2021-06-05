@@ -327,7 +327,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
               item.product != null
                   ? item.product.offerPrice != null
                       ? "฿${NumberFormat("#,##0", "en_US").format(item.product.offerPrice)}"
-                      : "฿${NumberFormat("#,##0", "en_US").format(item.product.salePrice)}"
+                      : "฿${NumberFormat("#,##0", "en_US").format(item.product.salePrice!=null?item.product.salePrice:0)}"
                   : "000",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -474,7 +474,33 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
                           onLikeButtonTapped(like, item.id, index),
                     )
                   ],
-                )
+                ),
+                item.product.stockQuantity==null || item.product.stockQuantity==0?Positioned.fill(
+                  child: IgnorePointer(
+                    ignoring: true,
+                    child: Container(
+                      color: Colors.white.withOpacity(0.7),
+                      child: Center(
+                        child: Container(
+                          width: 20.0.w,
+                          height: 4.0.h,
+                          padding: EdgeInsets.all(2.0.w),
+                          decoration: new BoxDecoration(
+                              color: Colors.black.withOpacity(0.6),
+                              borderRadius:
+                              new BorderRadius.all(Radius.circular(10.0.w))),
+                          child: Center(
+                            child: Text(
+                                LocaleKeys.search_product_out_of_stock.tr(),
+                                style: FunctionHelper.fontTheme(
+                                    fontSize: SizeUtil.detailFontSize().sp,
+                                    color: Colors.white)),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ):SizedBox()
               ],
             ),
             SizedBox(

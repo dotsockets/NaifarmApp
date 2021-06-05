@@ -22,6 +22,7 @@ import 'package:naifarm/app/model/pojo/response/ProductObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
 import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
+import 'package:naifarm/app/ui/productdetail/widget/BuildChoosesize.dart';
 import 'package:naifarm/app/ui/productdetail/widget/HeaderDetail.dart';
 import 'package:naifarm/app/ui/productdetail/widget/RatingProduct.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
@@ -423,7 +424,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                             imgList: item.producItemRespone.image.length!=0?item.producItemRespone.image
                                 .map((e) =>
                                     "${Env.value.baseUrl}/storage/images/${e.path}")
-                                .toList():[""]),
+                                .toList():[""],stockQuantity: item.producItemRespone.inventories[0].stockQuantity,),
                       ),
                     ),
                   );
@@ -433,7 +434,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                           imgList: widget.productItem.image.length!=0?widget.productItem.image
                               .map((e) =>
                                   "${Env.value.baseUrl}/storage/images/${e.path}")
-                              .toList():[""])
+                              .toList():[""],stockQuantity: 1,)
                       // ? Hero(
                       //     tag: widget.productImage,
                       //     child: ProductSlide(
@@ -574,14 +575,8 @@ class _ProductDetailViewState extends State<ProductDetailView>
               });
             }),
         widget.productItem.image != null ? divider() : SizedBox(),
-        // BuildChoosesize(
-        //     IndexType1: IndexTypes1,
-        //     IndexType2: IndexTypes2,
-        //     onclick1: (int index) =>
-        //         setState(() => IndexTypes1 = index),
-        //     onclick2: (int index) =>
-        //         setState(() => IndexTypes2 = index)),
-        // divider(),
+        BuildChoosesize(),
+        divider(),
         InkWell(
           child: ShopOwn(
               rateStyle: true,

@@ -572,7 +572,8 @@
     "show": "Show more",
     "hide": "Hide",
     "not_found": "Data not found",
-    "product_not_found": "Product not found"
+    "product_not_found": "Product not found",
+    "out_of_stock": "out of stock"
   },
 
   "server_error": {

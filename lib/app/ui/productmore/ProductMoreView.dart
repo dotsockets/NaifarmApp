@@ -553,7 +553,33 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                       visible: item.discountPercent > 0 ? true : false,
                     )
                   ],
-                )
+                ),
+                item.stockQuantity==null || item.stockQuantity==0?Positioned.fill(
+                  child: IgnorePointer(
+                    ignoring: true,
+                    child: Container(
+                      color: Colors.white.withOpacity(0.7),
+                      child: Center(
+                        child: Container(
+                          width: 20.0.w,
+                          height: 4.0.h,
+                          padding: EdgeInsets.all(2.0.w),
+                          decoration: new BoxDecoration(
+                              color: Colors.black.withOpacity(0.6),
+                              borderRadius:
+                              new BorderRadius.all(Radius.circular(10.0.w))),
+                          child: Center(
+                            child: Text(
+                                LocaleKeys.search_product_out_of_stock.tr(),
+                                style: FunctionHelper.fontTheme(
+                                    fontSize: SizeUtil.detailFontSize().sp,
+                                    color: Colors.white)),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ):SizedBox()
               ],
             ),
             SizedBox(
