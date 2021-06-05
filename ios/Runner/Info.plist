@@ -72,7 +72,7 @@
 	<key>NSMotionUsageDescription</key>
 	<string>This app needs to be able to access your motion use</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow access to photos to upload photos from your library</string>
+	<string>NaiFarm, get permission to use the photo gallery. and your video for upload or change the image within the app</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>recognize speech</string>
 	<key>OneSignal_app_groups_key</key>
