@@ -15,6 +15,7 @@ class ProductMyShopRequest {
   List<Attributes> attributes;
   int active;
 
+
   ProductMyShopRequest(
       {this.inventoriesid,
       this.name,

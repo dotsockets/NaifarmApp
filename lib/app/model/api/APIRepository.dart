@@ -5,6 +5,7 @@ import 'package:naifarm/app/model/api/APIProvider.dart';
 import 'package:naifarm/app/model/db/DBNaiFarmRepository.dart';
 import 'package:naifarm/app/model/pojo/request/AddressCreaterequest.dart';
 import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
+import 'package:naifarm/app/model/pojo/request/InventoriesAttrRequest.dart';
 import 'package:naifarm/app/model/pojo/request/InventoriesRequest.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
@@ -629,6 +630,17 @@ class APIRepository {
     int page,
   }) {
     return _apiProvider.getFeedback(context, id: id, limit: limit, page: page);
+  }
+  Future<ApiResult> updateInventoriesAttr(BuildContext context,
+      {InventoriesAttrRequest inventoriesRequest,
+        int productId,
+        int inventoriesId,
+        String token}) {
+    return _apiProvider.updateInventoriesAttr(context,
+        productId: productId,
+        token: token,
+        inventoriesId: inventoriesId,
+        inventoriesRequest: inventoriesRequest);
   }
 
 //  Observable<List<AppContent>> getTop100FreeApp(){

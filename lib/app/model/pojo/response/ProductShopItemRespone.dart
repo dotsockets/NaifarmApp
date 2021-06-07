@@ -1,40 +1,16 @@
-import 'package:naifarm/app/model/pojo/response/ProductShopItemRespone.dart';
-import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
+import 'ProductMyShopRespone.dart';
 
-class ProductMyShopCombine {
-  List<ProductShopItemRespone> item;
-
-  ProductMyShopCombine(this.item);
-
-  ProductMyShopCombine.fromJson(Map<String, dynamic> json) {
-    if (json['item'] != null) {
-      item = <ProductShopItemRespone>[];
-      json['item'].forEach((v) {
-        item.add(new ProductShopItemRespone.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.item != null) {
-      data['item'] = this.item.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class ProductMyShopRespone {
+class ProductShopItemRespone {
   int id;
   int shopId;
   int manufacturerId;
   String brand;
   String name;
   String description;
-  int minPrice;
-  int maxPrice;
+  int  minPrice;
+  int  maxPrice;
   int salePrice;
-  int offerPrice;
+  int  offerPrice;
   int originCountry;
   int hasVariant;
   int requiresShipping;
@@ -48,33 +24,39 @@ class ProductMyShopRespone {
   int discountPercent;
   double rating;
   double reviewCount;
+  int stockQuantity;
+  int active;
+  int banned;
 
-  ProductMyShopRespone(
+  ProductShopItemRespone(
       {this.id,
-      this.shopId,
-      this.manufacturerId,
-      this.brand,
-      this.name,
-      this.description,
-      this.minPrice,
-      this.maxPrice,
-      this.salePrice,
-      this.offerPrice,
-      this.originCountry,
-      this.hasVariant,
-      this.requiresShipping,
-      this.downloadable,
-      this.slug,
-      this.saleCount,
-      this.inventories,
-      this.shop,
-      this.categories,
-      this.image,
-      this.discountPercent,
-      this.rating,
-      this.reviewCount});
+        this.shopId,
+        this.manufacturerId,
+        this.brand,
+        this.name,
+        this.description,
+        this.minPrice,
+        this.maxPrice,
+        this.salePrice,
+        this.offerPrice,
+        this.originCountry,
+        this.hasVariant,
+        this.requiresShipping,
+        this.downloadable,
+        this.slug,
+        this.saleCount,
+        this.inventories,
+        this.shop,
+        this.categories,
+        this.image,
+        this.discountPercent,
+        this.rating,
+        this.reviewCount,
+        this.stockQuantity,
+        this.active,
+        this.banned});
 
-  ProductMyShopRespone.fromJson(Map<String, dynamic> json) {
+  ProductShopItemRespone.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     shopId = json['shopId'];
     manufacturerId = json['manufacturerId'];
@@ -92,20 +74,20 @@ class ProductMyShopRespone {
     slug = json['slug'];
     saleCount = json['saleCount'];
     if (json['inventories'] != null) {
-      inventories = <Inventories>[];
+      inventories = new List<Inventories>();
       json['inventories'].forEach((v) {
         inventories.add(new Inventories.fromJson(v));
       });
     }
     shop = json['shop'] != null ? new Shop.fromJson(json['shop']) : null;
     if (json['categories'] != null) {
-      categories = <Categories>[];
+      categories = new List<Categories>();
       json['categories'].forEach((v) {
         categories.add(new Categories.fromJson(v));
       });
     }
     if (json['image'] != null) {
-      image = <ImageProductShop>[];
+      image = new List<ImageProductShop>();
       json['image'].forEach((v) {
         image.add(new ImageProductShop.fromJson(v));
       });
@@ -118,7 +100,6 @@ class ProductMyShopRespone {
     } else {
       rating = double.parse(json['rating'].toString());
     }
-
     if (json['reviewCount'] == null) {
       reviewCount = 0.0;
     } else if (json['reviewCount'] is double) {
@@ -126,7 +107,9 @@ class ProductMyShopRespone {
     } else {
       reviewCount = double.parse(json['reviewCount'].toString());
     }
-
+    stockQuantity = json['stockQuantity'];
+    active = json['active'];
+    banned = json['banned'];
   }
 
   Map<String, dynamic> toJson() {
@@ -162,6 +145,9 @@ class ProductMyShopRespone {
     data['discountPercent'] = this.discountPercent;
     data['rating'] = this.rating;
     data['reviewCount'] = this.reviewCount;
+    data['stockQuantity'] = this.stockQuantity;
+    data['active'] = this.active;
+    data['banned'] = this.banned;
     return data;
   }
 }
@@ -169,15 +155,14 @@ class ProductMyShopRespone {
 class Inventories {
   int id;
   String title;
-  int warehouseId;
+  int  warehouseId;
   String brand;
   String sku;
   String condition;
   String description;
-  String keyFeatures;
+  int  keyFeatures;
   int stockQuantity;
-  int damagedQuantity;
-  int minPrice;
+  int  damagedQuantity;
   int salePrice;
   int offerPrice;
   String offerStart;
@@ -189,44 +174,37 @@ class Inventories {
   double shippingWeight;
   int freeShipping;
   int minOrderQuantity;
-  String linkedItems;
-  List<ImageProductShop> image;
+  int  linkedItems;
+  List<ImageProductShopItem> image;
   List<Feedbacks> feedbacks;
-  int discountPercent;
-  List<AttributesItemShop> attributes;
-  int rating;
-  int reviewCount;
+  List<AttributesList> attributes;
 
   Inventories(
       {this.id,
-      this.title,
-      this.warehouseId,
-      this.brand,
-      this.sku,
-      this.condition,
-      this.description,
-      this.keyFeatures,
-      this.stockQuantity,
-      this.damagedQuantity,
-      this.minPrice,
-      this.salePrice,
-      this.offerPrice,
-      this.offerStart,
-      this.offerEnd,
-      this.preorder,
-      this.preorderMsg,
-      this.preorderStart,
-      this.preorderEnd,
-      this.shippingWeight,
-      this.freeShipping,
-      this.minOrderQuantity,
-      this.linkedItems,
-      this.image,
-      this.feedbacks,
-      this.attributes,
-      this.discountPercent,
-      this.rating,
-      this.reviewCount});
+        this.title,
+        this.warehouseId,
+        this.brand,
+        this.sku,
+        this.condition,
+        this.description,
+        this.keyFeatures,
+        this.stockQuantity,
+        this.damagedQuantity,
+        this.salePrice,
+        this.offerPrice,
+        this.offerStart,
+        this.offerEnd,
+        this.preorder,
+        this.preorderMsg,
+        this.preorderStart,
+        this.preorderEnd,
+        this.shippingWeight,
+        this.freeShipping,
+        this.minOrderQuantity,
+        this.linkedItems,
+        this.image,
+        this.feedbacks,
+        this.attributes});
 
   Inventories.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -239,7 +217,6 @@ class Inventories {
     keyFeatures = json['keyFeatures'];
     stockQuantity = json['stockQuantity'];
     damagedQuantity = json['damagedQuantity'];
-    minPrice = json['minPrice'];
     salePrice = json['salePrice'];
     offerPrice = json['offerPrice'];
     offerStart = json['offerStart'];
@@ -249,31 +226,28 @@ class Inventories {
     preorderStart = json['preorderStart'];
     preorderEnd = json['preorderEnd'];
     shippingWeight =
-        json['shippingWeight'] != null ? json['shippingWeight'] * 1.0 : 0.0;
+    json['shippingWeight'] != null ? json['shippingWeight'] * 1.0 : 0.0;
     freeShipping = json['freeShipping'];
     minOrderQuantity = json['minOrderQuantity'];
     linkedItems = json['linkedItems'];
     if (json['image'] != null) {
-      image = <ImageProductShop>[];
+      image = new List<Null>();
       json['image'].forEach((v) {
-        image.add(new ImageProductShop.fromJson(v));
+        image.add(new ImageProductShopItem.fromJson(v));
       });
     }
     if (json['feedbacks'] != null) {
-      feedbacks = <Feedbacks>[];
+      feedbacks = new List<Feedbacks>();
       json['feedbacks'].forEach((v) {
         feedbacks.add(new Feedbacks.fromJson(v));
       });
     }
     if (json['attributes'] != null) {
-      attributes = <AttributesItemShop>[];
+      attributes = new List<AttributesList>();
       json['attributes'].forEach((v) {
-        attributes.add(new AttributesItemShop.fromJson(v));
+        attributes.add(new AttributesList.fromJson(v));
       });
     }
-    discountPercent = json['discountPercent'];
-    rating = json['rating'];
-    reviewCount = json['reviewCount'];
   }
 
   Map<String, dynamic> toJson() {
@@ -288,7 +262,6 @@ class Inventories {
     data['keyFeatures'] = this.keyFeatures;
     data['stockQuantity'] = this.stockQuantity;
     data['damagedQuantity'] = this.damagedQuantity;
-    data['minPrice'] = this.minPrice;
     data['salePrice'] = this.salePrice;
     data['offerPrice'] = this.offerPrice;
     data['offerStart'] = this.offerStart;
@@ -310,132 +283,125 @@ class Inventories {
     if (this.attributes != null) {
       data['attributes'] = this.attributes.map((v) => v.toJson()).toList();
     }
-    data['discountPercent'] = this.discountPercent;
-    data['rating'] = this.rating;
-    data['reviewCount'] = this.reviewCount;
-    return data;
-  }
-}
-
-class ImageProductShop {
-  int id;
-  String path;
-  String name;
-  String extension;
-  String size;
-  int imageableId;
-  String imageableType;
-  int featured;
-  int order;
-
-  ImageProductShop(
-      {this.id,
-      this.path,
-      this.name,
-      this.extension,
-      this.size,
-      this.imageableId,
-      this.imageableType,
-      this.featured,
-      this.order});
-
-  ImageProductShop.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    path = json['path'];
-    name = json['name'];
-    extension = json['extension'];
-    size = json['size'];
-    imageableId = json['imageableId'];
-    imageableType = json['imageableType'];
-    featured = json['featured'];
-    order = json['order'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['path'] = this.path;
-    data['name'] = this.name;
-    data['extension'] = this.extension;
-    data['size'] = this.size;
-    data['imageableId'] = this.imageableId;
-    data['imageableType'] = this.imageableType;
-    data['featured'] = this.featured;
-    data['order'] = this.order;
     return data;
   }
 }
 
 class Feedbacks {
   int id;
-  int customerId;
+  Customer customer;
   int rating;
   String comment;
-  String feedbackableId;
-  String feedbackableType;
 
-  Feedbacks(
-      {this.id,
-      this.customerId,
-      this.rating,
-      this.comment,
-      this.feedbackableId,
-      this.feedbackableType});
+  Feedbacks({this.id, this.customer, this.rating, this.comment});
 
   Feedbacks.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    customerId = json['customerId'];
+    customer = json['customer'] != null
+        ? new Customer.fromJson(json['customer'])
+        : null;
     rating = json['rating'];
     comment = json['comment'];
-    feedbackableId = json['feedbackableId'];
-    feedbackableType = json['feedbackableType'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['customerId'] = this.customerId;
+    if (this.customer != null) {
+      data['customer'] = this.customer.toJson();
+    }
     data['rating'] = this.rating;
     data['comment'] = this.comment;
-    data['feedbackableId'] = this.feedbackableId;
-    data['feedbackableType'] = this.feedbackableType;
     return data;
   }
 }
 
-class AttributesItemShop {
-  Attributes attributes;
-  Values values;
+class Customer {
+  String name;
+  Null niceName;
+  String email;
+  Image image;
 
-  AttributesItemShop({this.attributes, this.values});
+  Customer({this.name, this.niceName, this.email, this.image});
 
-  AttributesItemShop.fromJson(Map<String, dynamic> json) {
-    attributes = json['attributes'] != null
-        ? new Attributes.fromJson(json['attributes'])
-        : null;
-    values =
-        json['values'] != null ? new Values.fromJson(json['values']) : null;
+  Customer.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    niceName = json['niceName'];
+    email = json['email'];
+    image = json['image'] != null ? new Image.fromJson(json['image']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['name'] = this.name;
+    data['niceName'] = this.niceName;
+    data['email'] = this.email;
+    if (this.image != null) {
+      data['image'] = this.image.toJson();
+    }
+    return data;
+  }
+}
+
+class Image {
+  String name;
+  String path;
+
+  Image({this.name, this.path});
+
+  Image.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    path = json['path'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['name'] = this.name;
+    data['path'] = this.path;
+    return data;
+  }
+}
+
+class AttributesList {
+  List<AttributesItem> attributes;
+  List<Values> values;
+
+  AttributesList({this.attributes, this.values});
+
+  AttributesList.fromJson(Map<String, dynamic> json) {
+    if (json['attributes'] != null) {
+      attributes = new List<AttributesItem>();
+      json['attributes'].forEach((v) {
+        attributes.add(new AttributesItem.fromJson(v));
+      });
+    }
+    if (json['values'] != null) {
+      values = new List<Values>();
+      json['values'].forEach((v) {
+        values.add(new Values.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.attributes != null) {
-      data['attributes'] = this.attributes.toJson();
+      data['attributes'] = this.attributes.map((v) => v.toJson()).toList();
     }
     if (this.values != null) {
-      data['values'] = this.values.toJson();
+      data['values'] = this.values.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Attributes {
+class AttributesItem {
   int id;
   String name;
 
-  Attributes({this.id, this.name});
+  AttributesItem({this.id, this.name});
 
-  Attributes.fromJson(Map<String, dynamic> json) {
+  AttributesItem.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
   }
@@ -472,58 +438,145 @@ class Values {
 
 class Shop {
   int id;
+  int ownerId;
   String name;
+  String legalName;
   String slug;
-  DataStates state;
+  String email;
+  String description;
+  String externalUrl;
+  int timezoneId;
+  String currentBillingPlan;
+  Null stripeId;
+  Null cardHolderName;
+  Null cardBrand;
+  Null cardLastFour;
+  Null paymentVerified;
+  Null idVerified;
+  Null phoneVerified;
+  Null addressVerified;
+  String createdAt;
   String updatedAt;
-  List<ImageProductShop> image;
+  List<Image> image;
+  DataStatesItem state;
   int countProduct;
   int rating;
+  int active;
 
   Shop(
       {this.id,
-      this.name,
-      this.slug,
-      this.state,
-      this.updatedAt,
-      this.image,
-      this.countProduct,
-      int rating});
+        this.ownerId,
+        this.name,
+        this.legalName,
+        this.slug,
+        this.email,
+        this.description,
+        this.externalUrl,
+        this.timezoneId,
+        this.currentBillingPlan,
+        this.stripeId,
+        this.cardHolderName,
+        this.cardBrand,
+        this.cardLastFour,
+        this.paymentVerified,
+        this.idVerified,
+        this.phoneVerified,
+        this.addressVerified,
+        this.createdAt,
+        this.updatedAt,
+        this.image,
+        this.state,
+        this.countProduct,
+        this.rating,
+        this.active});
 
   Shop.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    ownerId = json['ownerId'];
     name = json['name'];
+    legalName = json['legalName'];
     slug = json['slug'];
-    countProduct = json['countProduct'];
-    rating = json['rating'];
-    state =
-        json['state'] != null ? new DataStates.fromJson(json['state']) : null;
+    email = json['email'];
+    description = json['description'];
+    externalUrl = json['externalUrl'];
+    timezoneId = json['timezoneId'];
+    currentBillingPlan = json['currentBillingPlan'];
+    stripeId = json['stripeId'];
+    cardHolderName = json['cardHolderName'];
+    cardBrand = json['cardBrand'];
+    cardLastFour = json['cardLastFour'];
+    paymentVerified = json['paymentVerified'];
+    idVerified = json['idVerified'];
+    phoneVerified = json['phoneVerified'];
+    addressVerified = json['addressVerified'];
+    createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     if (json['image'] != null) {
-      image = <ImageProductShop>[];
+      image = new List<Image>();
       json['image'].forEach((v) {
-        image.add(new ImageProductShop.fromJson(v));
+        image.add(new Image.fromJson(v));
       });
     }
+    state =
+    json['state'] != null ? new DataStatesItem.fromJson(json['state']) : null;
+    countProduct = json['countProduct'];
+    rating = json['rating'];
+    active = json['active'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['ownerId'] = this.ownerId;
+    data['name'] = this.name;
+    data['legalName'] = this.legalName;
+    data['slug'] = this.slug;
+    data['email'] = this.email;
+    data['description'] = this.description;
+    data['externalUrl'] = this.externalUrl;
+    data['timezoneId'] = this.timezoneId;
+    data['currentBillingPlan'] = this.currentBillingPlan;
+    data['stripeId'] = this.stripeId;
+    data['cardHolderName'] = this.cardHolderName;
+    data['cardBrand'] = this.cardBrand;
+    data['cardLastFour'] = this.cardLastFour;
+    data['paymentVerified'] = this.paymentVerified;
+    data['idVerified'] = this.idVerified;
+    data['phoneVerified'] = this.phoneVerified;
+    data['addressVerified'] = this.addressVerified;
+    data['createdAt'] = this.createdAt;
+    data['updatedAt'] = this.updatedAt;
+    if (this.image != null) {
+      data['image'] = this.image.map((v) => v.toJson()).toList();
+    }
+    if (this.state != null) {
+      data['state'] = this.state.toJson();
+    }
+    data['countProduct'] = this.countProduct;
+    data['rating'] = this.rating;
+    data['active'] = this.active;
+    return data;
+  }
+}
+
+class DataStatesItem {
+  int id;
+  String name;
+
+  DataStatesItem({this.id, this.name});
+
+  DataStatesItem.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
-    data['slug'] = this.slug;
-    data['countProduct'] = this.countProduct;
-    if (this.state != null) {
-      data['state'] = this.state.toJson();
-    }
-    data['updatedAt'] = this.updatedAt;
-    if (this.image != null) {
-      data['image'] = this.image.map((v) => v.toJson()).toList();
-    }
     return data;
   }
 }
-
 class Categories {
   Category category;
 
@@ -620,6 +673,56 @@ class CategoryGroup {
     data['id'] = this.id;
     data['name'] = this.name;
     data['slug'] = this.slug;
+    return data;
+  }
+
+}
+
+class ImageProductShopItem {
+  int id;
+  String path;
+  String name;
+  String extension;
+  String size;
+  int imageableId;
+  String imageableType;
+  int featured;
+  int order;
+
+  ImageProductShopItem(
+      {this.id,
+        this.path,
+        this.name,
+        this.extension,
+        this.size,
+        this.imageableId,
+        this.imageableType,
+        this.featured,
+        this.order});
+
+  ImageProductShopItem.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    path = json['path'];
+    name = json['name'];
+    extension = json['extension'];
+    size = json['size'];
+    imageableId = json['imageableId'];
+    imageableType = json['imageableType'];
+    featured = json['featured'];
+    order = json['order'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['path'] = this.path;
+    data['name'] = this.name;
+    data['extension'] = this.extension;
+    data['size'] = this.size;
+    data['imageableId'] = this.imageableId;
+    data['imageableType'] = this.imageableType;
+    data['featured'] = this.featured;
+    data['order'] = this.order;
     return data;
   }
 }
