@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_switch/flutter_switch.dart';
@@ -39,7 +40,8 @@ class _ReviewViewState extends State<ReviewView> {
   bool selectSwitch = false;
   List<Asset> images = <Asset>[];
   OrdersBloc bloc;
-  final rateValue = BehaviorSubject<int>();
+  final onRate = BehaviorSubject<int>();
+  final onAddImg = BehaviorSubject<bool>();
   List<int> rating = [];
   int selectIndex;
 
@@ -49,6 +51,7 @@ class _ReviewViewState extends State<ReviewView> {
   void initState() {
     // _iconHide.add(false);
     //  _controller = ExpandedTileController();
+    onAddImg.add(false);
     initialValue();
     super.initState();
   }
@@ -75,6 +78,11 @@ class _ReviewViewState extends State<ReviewView> {
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event);
       });
+      bloc.onUpdateFeedback.stream.listen((event) {
+        if (event != -1) {
+          selectIndex = event + 1;
+        } else if (event == widget.orderData.items.length - 1) selectIndex = 0;
+      });
     }
   }
 
@@ -93,27 +101,37 @@ class _ReviewViewState extends State<ReviewView> {
             isEnableSearch: false,
             icon: '',
           ),
-          body: ListView.builder(
-              itemCount: widget.orderData.items.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ExpansionPanelList(
-                  expansionCallback: (int i, bool status) {
-                    setState(() {
-                      selectIndex = selectIndex == index ? null : index;
+          body: StreamBuilder(
+              stream: bloc.onUpdateFeedback.stream,
+              builder: (context, snapshot) {
+                return ListView.builder(
+                    itemCount: widget.orderData.items.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ExpansionPanelList(
+                        expansionCallback: (int i, bool status) {
+                          // setState(() {
+                          //   selectIndex = selectIndex == index ? null : index;
+                          // });
+                          images.clear();
+                          selectIndex = selectIndex == index ? null : index;
+                          bloc.onUpdateFeedback.add(-1);
+                        },
+                        children: [
+                          new ExpansionPanel(
+                            canTapOnHeader: true,
+                            isExpanded: selectIndex == index,
+                            headerBuilder: (BuildContext context,
+                                    bool isExpanded) =>
+                                new Container(
+                                    padding: EdgeInsets.only(
+                                        left: 2.5.w, top: 1.0.h, bottom: 1.0.h),
+                                    child:
+                                        header(index: index, context: context)),
+                            body: ratingChild(index),
+                          ),
+                        ],
+                      );
                     });
-                  },
-                  children: [
-                    new ExpansionPanel(canTapOnHeader: true,
-                      isExpanded: selectIndex == index,
-                      headerBuilder: (BuildContext context,
-                          bool isExpanded) =>
-                      new Container(
-                          padding: EdgeInsets.only(left: 2.5.w,top: 1.0.h,bottom: 1.0.h),
-                          child: header(index: index, context: context
-                          )),
-                      body: ratingChild(index),),
-                  ],
-                );
               }),
 
           // body: ListView(
@@ -142,18 +160,16 @@ class _ReviewViewState extends State<ReviewView> {
         alignment: Alignment.centerRight,
         margin: EdgeInsets.only(right: 0.5.w),
         width: SizeUtil.iconLargeSize().w,
-
         child: StreamBuilder(
-            stream: rateValue.stream,
+            stream: onRate.stream,
             builder: (context, snapshot) {
               return Icon(
                 //isShowItem[index]
-                selectIndex ==index
+                selectIndex == index
                     ? Icons.keyboard_arrow_down_outlined
                     : Icons.keyboard_arrow_right,
                 color: Colors.grey.withOpacity(0.7),
                 size: SizeUtil.iconLargeSize().w,
-
               );
             }),
       ),
@@ -166,16 +182,14 @@ class _ReviewViewState extends State<ReviewView> {
         } else {
           selectIndex = -1;
         }
-        rateValue.add(index);
+        onRate.add(index);
       }),
       title: header(index: index, context: context),
-      children: <Widget>[
-        ratingChild(index)
-      ],
+      children: <Widget>[ratingChild(index)],
     );
   }
 
-  Widget ratingChild(int index){
+  Widget ratingChild(int index) {
     return Column(
       children: [
         Divider(
@@ -183,12 +197,12 @@ class _ReviewViewState extends State<ReviewView> {
           thickness: 0.2.h,
         ),
         StreamBuilder(
-            stream: bloc.isUpdateFeedback.stream,
+            stream: bloc.onUpdateFeedback.stream,
             builder: (context, snapshot) {
               if (snapshot.hasData ||
                   widget.orderData.items[index].feedbackId == null) {
                 return bloc.feedbackMap[index] == null &&
-                    widget.orderData.items[index].feedbackId == null
+                        widget.orderData.items[index].feedbackId == null
                     ? _buildInputForm(index)
                     : SizedBox();
               }
@@ -283,7 +297,9 @@ class _ReviewViewState extends State<ReviewView> {
           selectCircleStrokeColor: "#000000",
         ),
       );
+      images.clear();
       images.addAll(resultList);
+      onAddImg.add(true);
     } on Exception catch (e) {
       error = e.toString();
     }
@@ -421,7 +437,7 @@ class _ReviewViewState extends State<ReviewView> {
                       ),
                       SizedBox(height: 0.5.h),
                       StreamBuilder(
-                          stream: bloc.isUpdateFeedback.stream,
+                          stream: bloc.onUpdateFeedback.stream,
                           builder: (context, snapshot) {
                             if (snapshot.hasData ||
                                 widget.orderData.items[index].feedbackId !=
@@ -507,7 +523,7 @@ class _ReviewViewState extends State<ReviewView> {
               allowHalfRating: false,
               onRated: (v) {
                 rating[index] = v.toInt();
-                rateValue.add(index);
+                onRate.add(index);
               },
               starCount: 5,
               rating: rating[index].toDouble(),
@@ -532,34 +548,33 @@ class _ReviewViewState extends State<ReviewView> {
           Container(
             child: Row(
               children: [
-                Expanded(
-                    child: InkWell(
-                  child: Container(
-                    margin: EdgeInsets.only(left: 5.0.w, right: 5.0.w),
-                    padding: EdgeInsets.all(2.0.w),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.0),
-                        border: Border.all(
-                            color: ThemeColor.secondaryColor(), width: 1)),
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.camera_alt,
-                          color: ThemeColor.secondaryColor(),
-                          size: SizeUtil.iconSmallSize().w,
+                StreamBuilder(
+                    stream: onAddImg.stream,
+                    builder: (context, snapshot) {
+                      return images.length == 0
+                          ? Expanded(child: buildAddImgBtn())
+                          : Container(
+                        margin: EdgeInsets.only(left: 2.0.w,right: 2.0.w),
+                            width: MediaQuery.of(context).size.width-4.0.w,
+                            child: GridView.count(
+                            crossAxisCount: 5,
+                      controller: new ScrollController(keepScrollOffset: false),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      children: List.generate(
+                        images.length<10? images.length+1:images.length, (index) => index==images.length?buildAddImgItemBtn():buildImgCard(index:index),
+                            ),
                         ),
-                        Text(LocaleKeys.btn_add_image.tr(),
-                            style: FunctionHelper.fontTheme(
-                                fontSize: SizeUtil.titleFontSize().sp,
-                                fontWeight: FontWeight.w500,
-                                color: ThemeColor.secondaryColor())),
-                      ],
-                    ),
-                  ),
-                  onTap: () {
-                    loadAssets(maxImages: 10);
-                  },
-                )),
+                            // child: Row(
+                            //     children: List.generate(
+                            //         images.length+1, (index) => Row(
+                            //           children: [
+                            //             index==images.length?buildAddImgItemBtn():buildImgCard(index:index),
+                            //           ],
+                            //         )),
+                            //   ),
+                          );
+                    }),
                 // Expanded(
                 //     child: InkWell(
                 //   child: Container(
@@ -624,23 +639,22 @@ class _ReviewViewState extends State<ReviewView> {
             //
             // ),
             child: StreamBuilder(
-              stream: rateValue.stream,
-              builder: (context, snapshot) {
-                return BuildEditText(
-                  head: "",
-                  maxLength: 5000,
-                  hint: selectIndex == index
-                      ? LocaleKeys.review_tell.tr() + ratingValue(selectIndex)
-                      : LocaleKeys.review_tell.tr() + ratingValue(index),
-                  maxLine: 5,
-                  controller: reviewController[index],
-                  inputType: TextInputType.text,
-                  onChanged: (String char) {
-                    setState(() {});
-                  },
-                );
-              }
-            ),
+                stream: onRate.stream,
+                builder: (context, snapshot) {
+                  return BuildEditText(
+                    head: "",
+                    maxLength: 5000,
+                    hint: selectIndex == index
+                        ? LocaleKeys.review_tell.tr() + ratingValue(selectIndex)
+                        : LocaleKeys.review_tell.tr() + ratingValue(index),
+                    maxLine: 5,
+                    controller: reviewController[index],
+                    inputType: TextInputType.text,
+                    onChanged: (String char) {
+                      setState(() {});
+                    },
+                  );
+                }),
           ),
 
           SizedBox(
@@ -686,6 +700,116 @@ class _ReviewViewState extends State<ReviewView> {
     );
   }
 
+  Widget buildAddImgBtn() {
+    return InkWell(
+      child: Container(
+        margin: EdgeInsets.only(left: 5.0.w, right: 5.0.w),
+        padding: EdgeInsets.all(2.0.w),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.0),
+            border: Border.all(color: ThemeColor.secondaryColor(), width: 1)),
+        child: Column(
+          children: [
+            Icon(
+              Icons.camera_alt,
+              color: ThemeColor.secondaryColor(),
+              size: SizeUtil.iconSmallSize().w,
+            ),
+            Text(LocaleKeys.btn_add_image.tr(),
+                style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleFontSize().sp,
+                    fontWeight: FontWeight.w500,
+                    color: ThemeColor.secondaryColor())),
+          ],
+        ),
+      ),
+      onTap: () {
+        loadAssets(maxImages: 10);
+      },
+    );
+  }
+
+
+  Widget buildImgCard({int index}) {
+    return InkWell(
+      onTap: (){
+      loadAssets(maxImages: 10);
+      },
+      child: Container(
+       margin: EdgeInsets.only(right: index!=images.length?1.0.w:0),
+        decoration: BoxDecoration(
+            color: Colors.grey.withOpacity(0.1),
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        child: DottedBorder(
+            strokeWidth: 1.5,
+            dashPattern: [10, 2],
+            borderType: BorderType.RRect,
+            radius: Radius.circular(10),
+            color: ThemeColor.primaryColor(),
+            child:
+            Center(
+                child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              // child: Image.file(bloc.listImage[index].file)
+              child: Stack(
+                children: [
+                  AssetThumb(
+                    asset: Asset(images[index].identifier, images[index].name,
+                        images[index].originalWidth, images[index].originalHeight),
+                    width: 80,
+                    height: 80,
+                  ),
+                ],
+              ),
+            ))),
+      ),
+    );
+  }
+
+
+  Widget buildAddImgItemBtn() {
+    return InkWell(
+      onTap: (){
+        loadAssets(maxImages: 10);},
+      child: Container(
+          //margin: EdgeInsets.only(top: 10, bottom: 10),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          child: DottedBorder(
+              strokeWidth: 1.5,
+              dashPattern: [10, 2],
+              borderType: BorderType.RRect,
+              radius: Radius.circular(10),
+              color: ThemeColor.primaryColor(),
+              child:
+              Center(
+                child: Container(
+     //             width: 80,
+                  height: 80,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.camera_alt,
+                        color: ThemeColor.secondaryColor(),
+                        size: SizeUtil.iconSmallSize().w-1.0.w,
+                      ),
+                      Text(LocaleKeys.btn_add_image.tr(),
+                          style: FunctionHelper.fontTheme(
+                              fontSize: SizeUtil.detailSmallFontSize().sp,
+                              fontWeight: FontWeight.w500,
+                              color: ThemeColor.secondaryColor())),
+                    ],
+                  ),
+                ),
+              )),
+      ),
+    );
+  }
+
+
+
   Widget buildButtonreview({String title = "", Function() onClick, int index}) {
     return TextButton(
       style: ButtonStyle(
@@ -705,7 +829,7 @@ class _ReviewViewState extends State<ReviewView> {
         //onClick();
       },
       child: StreamBuilder(
-          stream: rateValue.stream,
+          stream: onRate.stream,
           builder: (context, snapshot) {
             return Text(
               snapshot.data == index
@@ -724,7 +848,7 @@ class _ReviewViewState extends State<ReviewView> {
     return Container(
       height: 5.0.h,
       child: StreamBuilder(
-          stream: rateValue.stream,
+          stream: onRate.stream,
           builder: (context, snapshot) {
             return TextButton(
               style: ButtonStyle(
