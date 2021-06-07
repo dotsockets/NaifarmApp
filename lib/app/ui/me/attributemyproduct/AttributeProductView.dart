@@ -79,9 +79,9 @@ class _AttributeProductViewState extends State<AttributeProductView> {
                 key: _scaffoldKey,
                 backgroundColor: Colors.grey.shade300,
                 appBar: PreferredSize(
-                  preferredSize: Size.fromHeight(6.5.h),
+                  preferredSize: Size.fromHeight(7.0.h),
                   child: PreferredSize(
-                    preferredSize: Size.fromHeight(6.5.h),
+                    preferredSize: Size.fromHeight(7.0.h),
                     child: AppToobar(
                       title: LocaleKeys.attributes_set.tr(),
                       icon: "",

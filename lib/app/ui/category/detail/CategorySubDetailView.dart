@@ -59,7 +59,7 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
       top: false,
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(6.5.h),
+          preferredSize: Size.fromHeight(7.0.h),
           child: AppToobar(
             title: widget.title,
             headerType: Header_Type.barcartShop,

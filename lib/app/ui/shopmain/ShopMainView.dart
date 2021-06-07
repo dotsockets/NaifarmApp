@@ -124,7 +124,7 @@ class _ShopMainViewState extends State<ShopMainView>
       child: SafeArea(
         child: Scaffold(
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(6.5.h),
+              preferredSize: Size.fromHeight(7.0.h),
               child: AppToobar(
                 title: LocaleKeys.shop_title.tr(),
                 headerType: Header_Type.barcartShop,

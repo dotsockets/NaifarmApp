@@ -82,7 +82,7 @@ class ConfirmPaymentView extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.grey.shade200,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(6.5.h),
+            preferredSize: Size.fromHeight(7.0.h),
             child: AppToobar(
               title: LocaleKeys.order_detail_confirm_pay.tr(),
               headerType: Header_Type.barcartShop,

@@ -108,7 +108,7 @@ class _HeaderDetailState extends State<HeaderDetail> {
             return Wrap(
               children: [
                 Container(
-                  // height: 8.0.h,
+                   height: 12.0.h,
                   decoration: BoxDecoration(
                     color: _backgroundColor,
                     boxShadow: [
@@ -125,7 +125,7 @@ class _HeaderDetailState extends State<HeaderDetail> {
                   padding: EdgeInsets.only(
                       top: 2.0.w, left: 1.5.w, right: 1.5.w, bottom: 1.0.h),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -49,14 +49,17 @@ class _SettingProfileViewState extends State<SettingProfileView>
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
-          appBar: AppToobar(
-            title: LocaleKeys.setting_account_toobar.tr(),
-            icon: "",
-            headerType: Header_Type.barNormal,
-            isEnableSearch: false,
-            onClick: () {
-              Navigator.pop(context);
-            },
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(7.0.h),
+            child: AppToobar(
+              title: LocaleKeys.setting_account_toobar.tr(),
+              icon: "",
+              headerType: Header_Type.barNormal,
+              isEnableSearch: false,
+              onClick: () {
+                Navigator.pop(context);
+              },
+            ),
           ),
           body: Column(
             children: [

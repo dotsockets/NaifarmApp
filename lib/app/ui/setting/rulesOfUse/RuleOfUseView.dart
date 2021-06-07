@@ -58,7 +58,7 @@ class _RulesOfUseViewState extends State<RulesOfUseView> {
       child: SafeArea(
         child: Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(6.5.h),
+            preferredSize: Size.fromHeight(7.0.h),
             child: AppToobar(
               title: LocaleKeys.setting_account_title_rule.tr(),
               icon: "",

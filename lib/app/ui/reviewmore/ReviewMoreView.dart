@@ -168,7 +168,7 @@ class _ReviewMoreViewState extends State<ReviewMoreView> {
       child: SafeArea(
         child: Scaffold(
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(6.5.h),
+              preferredSize: Size.fromHeight(7.0.h),
               child: AppToobar(
                 title: LocaleKeys.my_product_review_score.tr(),
                 headerType: Header_Type.barcartShop,

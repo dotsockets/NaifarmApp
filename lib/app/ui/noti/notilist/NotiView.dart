@@ -138,7 +138,7 @@ class _NotiViewState extends State<NotiView>
       child: Scaffold(
         key: _scaffoldKey,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(6.5.h),
+          preferredSize: Size.fromHeight(7.0.h),
           child: AppToobar(
             showBackBtn: widget.btnBack,
             headerType: Header_Type.barcartShop,

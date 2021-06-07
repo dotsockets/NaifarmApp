@@ -69,7 +69,7 @@ class RegisterNameOtpViewState extends State<RegisterNameOtpView> {
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade200,
           appBar: PreferredSize(
-              preferredSize: Size.fromHeight(6.5.h),
+              preferredSize: Size.fromHeight(7.0.h),
               child: AppToobar(
                 title: LocaleKeys.my_profile_username.tr(),
                 headerType: Header_Type.barNormal,

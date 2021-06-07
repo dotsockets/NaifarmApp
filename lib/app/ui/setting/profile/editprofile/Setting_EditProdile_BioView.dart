@@ -47,7 +47,7 @@ class SettingEditProdileBioViewState extends State<SettingEditProdileBioView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade200,
           appBar: PreferredSize(
-              preferredSize: Size.fromHeight(6.5.h),
+              preferredSize: Size.fromHeight(7.0.h),
               child: AppToobar(
                 title: LocaleKeys.my_profile_about_me.tr(),
                 headerType: Header_Type.barNormal,

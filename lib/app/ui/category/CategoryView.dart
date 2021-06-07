@@ -48,7 +48,7 @@ class _CategoryViewState extends State<CategoryView> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(6.5.h),
+          preferredSize: Size.fromHeight(7.0.h),
           child: AppToobar(
               showBackBtn: false,
               headerType: Header_Type.barcartShop,

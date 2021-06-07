@@ -321,6 +321,7 @@ class HistoryProductCard extends StatelessWidget {
           onTap: () {
             ProductData product = ProductData();
             product = item.inventory.product;
+            product.stockQuantity = item.inventory.stockQuantity;
             product.shop = ProductShop(id: shopId);
             AppRoute.productDetail(
               context,

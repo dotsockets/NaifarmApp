@@ -63,7 +63,7 @@ class _ImageProductViewState extends State<ImageProductView> {
         child: Scaffold(
           key: _scaffoldKey,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(6.5.h),
+            preferredSize: Size.fromHeight(7.0.h),
             child: AppToobar(
               title: LocaleKeys.my_product_data.tr(),
               icon: "",

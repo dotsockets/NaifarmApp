@@ -60,7 +60,7 @@ class AppToobar extends PreferredSize {
 
   Widget barNormal(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 0, right: 0.3.w),
+      padding: EdgeInsets.only(left: 0, right: 0.3.w,bottom: 1.0.h),
       decoration: new BoxDecoration(
         color: ThemeColor.primaryColor(),
         // borderRadius:  IsborderRadius?BorderRadius.only(
@@ -69,7 +69,7 @@ class AppToobar extends PreferredSize {
         // ):BorderRadius.all(Radius.circular(0.0)),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,

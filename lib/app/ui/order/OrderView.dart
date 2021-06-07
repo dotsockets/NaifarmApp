@@ -129,7 +129,7 @@ class _OrderViewState extends State<OrderView> {
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(6.5.h),
+            preferredSize: Size.fromHeight(7.0.h),
             child: AppToobar(
               title: widget.typeView == OrderViewType.Shop
                   ? LocaleKeys.order_detail_sell.tr()

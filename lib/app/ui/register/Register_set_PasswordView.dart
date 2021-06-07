@@ -117,7 +117,7 @@ class RegisterSetPasswordViewState extends State<RegisterSetPasswordView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade200,
           appBar: PreferredSize(
-              preferredSize: Size.fromHeight(6.5.h),
+              preferredSize: Size.fromHeight(7.0.h),
               child: AppToobar(
                 title: LocaleKeys.edit_password_set.tr(),
                 headerType: Header_Type.barNormal,

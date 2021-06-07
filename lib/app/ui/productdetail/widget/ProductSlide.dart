@@ -57,10 +57,10 @@ class _ProductSlideState extends State<ProductSlide> {
         Container(
           color: Colors.white,
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.only(top: 3, bottom: 30),
+          padding: EdgeInsets.only(top: 0, bottom: 30),
           child: CarouselSlider(
             options: CarouselOptions(
-              height: 40.0.h,
+              height: 50.0.h,
               viewportFraction: 0.999,
               autoPlay: true,
               initialPage: widget.indexImg,

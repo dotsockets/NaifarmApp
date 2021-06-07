@@ -254,9 +254,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
         ? androidRefreshIndicator()
         : Container(
             color: ThemeColor.primaryColor(),
-            child: SafeArea(
-              child: iosRefreshIndicator(),
-            ));
+            child: iosRefreshIndicator());
   }
 
   Widget androidRefreshIndicator() {
@@ -320,97 +318,101 @@ class _ProductDetailViewState extends State<ProductDetailView>
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.dark
             .copyWith(statusBarColor: ThemeColor.primaryColor()),
-        child: SafeArea(
-            child: Container(
-          color: Colors.white,
-          child: Column(
-            children: [
-              Expanded(
-                child: Stack(
-                  children: [
-                    SingleChildScrollView(
-                      physics: ClampingScrollPhysics(),
-                      controller: trackingScrollController,
-                      child: Column(
-                        children: [
-                          _content,
-                        ],
+        child: Container(
+          color: ThemeColor.primaryColor(),
+          child: SafeArea(
+            top: false,
+              child: Container(
+            color: Colors.white,
+            child: Column(
+              children: [
+                Expanded(
+                  child: Stack(
+                    children: [
+                      SingleChildScrollView(
+                        physics: ClampingScrollPhysics(),
+                        controller: trackingScrollController,
+                        child: Column(
+                          children: [
+                            _content,
+                          ],
+                        ),
                       ),
-                    ),
-                    Container(
-                      child: HeaderDetail(
-                        title: widget.productItem.name,
-                        scrollController: trackingScrollController,
-                        onClick: () {
-                          NaiFarmLocalStorage.getNowPage().then((value) {
-                            if (value > 0) {
-                              value = value - 1;
-                            }
-                            NaiFarmLocalStorage.saveNowPage(value)
-                                .then((value) => Navigator.of(context).pop());
-                          });
-                        },
+                      Container(
+                        child: HeaderDetail(
+                          title: widget.productItem.name,
+                          scrollController: trackingScrollController,
+                          onClick: () {
+                            NaiFarmLocalStorage.getNowPage().then((value) {
+                              if (value > 0) {
+                                value = value - 1;
+                              }
+                              NaiFarmLocalStorage.saveNowPage(value)
+                                  .then((value) => Navigator.of(context).pop());
+                            });
+                          },
+                        ),
                       ),
-                    ),
-                    StreamBuilder<Object>(
-                        stream: checkScrollControl.stream,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            return snapshot.data
-                                ? Positioned(
-                                    bottom: 0.0,
-                                    right: 0.0,
-                                    left: 0.0,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            spreadRadius: 1,
-                                            blurRadius: 1,
-                                            offset: Offset(5,
-                                                0), // changes position of shadow
-                                          ),
-                                        ],
-                                      ),
-                                      child: StreamBuilder(
-                                        stream: bloc.wishlists.stream,
-                                        builder: (BuildContext context,
-                                            AsyncSnapshot snapshot) {
-                                          if (snapshot.hasData &&
-                                              (snapshot.data
-                                                      as WishlistsRespone) !=
-                                                  null) {
-                                            if ((snapshot.data
-                                                        as WishlistsRespone)
-                                                    .total >
-                                                0) {
-                                              return buildFooterTotal(
-                                                  item: snapshot.data);
+                      StreamBuilder<Object>(
+                          stream: checkScrollControl.stream,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return snapshot.data
+                                  ? Positioned(
+                                      bottom: 0.0,
+                                      right: 0.0,
+                                      left: 0.0,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey.withOpacity(0.5),
+                                              spreadRadius: 1,
+                                              blurRadius: 1,
+                                              offset: Offset(5,
+                                                  0), // changes position of shadow
+                                            ),
+                                          ],
+                                        ),
+                                        child: StreamBuilder(
+                                          stream: bloc.wishlists.stream,
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot snapshot) {
+                                            if (snapshot.hasData &&
+                                                (snapshot.data
+                                                        as WishlistsRespone) !=
+                                                    null) {
+                                              if ((snapshot.data
+                                                          as WishlistsRespone)
+                                                      .total >
+                                                  0) {
+                                                return buildFooterTotal(
+                                                    item: snapshot.data);
+                                              } else {
+                                                return buildFooterTotal(
+                                                    item: snapshot.data);
+                                              }
                                             } else {
                                               return buildFooterTotal(
-                                                  item: snapshot.data);
+                                                  item: WishlistsRespone());
                                             }
-                                          } else {
-                                            return buildFooterTotal(
-                                                item: WishlistsRespone());
-                                          }
-                                        },
+                                          },
+                                        ),
                                       ),
-                                    ),
-                                  )
-                                : SizedBox();
-                          } else {
-                            return SizedBox();
-                          }
-                        }),
-                  ],
-                ),
-              )
-            ],
-          ),
-        )),
+                                    )
+                                  : SizedBox();
+                            } else {
+                              return SizedBox();
+                            }
+                          }),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )),
+        ),
       ));
 
   Widget get _content => Column(
@@ -495,6 +497,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                           LocaleKeys.recommend_you_like.tr());
                                 },
                                 onTapItem: (ProductData item, int index) {
+                                  item.stockQuantity = 1;
                                   AppRoute.productDetail(context,
                                       productImage:
                                           "product_detail_${item.id}$subFixId",

@@ -84,7 +84,7 @@ class _OrderCancleViewState extends State<OrderCancleView> {
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(6.5.h),
+            preferredSize: Size.fromHeight(7.0.h),
             child: AppToobar(
               title: LocaleKeys.order_detail_cancelled_buyer.tr(),
               headerType: Header_Type.barcartShop,

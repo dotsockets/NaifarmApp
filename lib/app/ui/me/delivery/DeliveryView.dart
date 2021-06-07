@@ -47,7 +47,7 @@ class _DeliveryViewState extends State<DeliveryView> {
       child: SafeArea(
         child: Scaffold(
           appBar: PreferredSize(
-              preferredSize: Size.fromHeight(6.5.h),
+              preferredSize: Size.fromHeight(7.0.h),
               child: AppToobar(
                 title: LocaleKeys.shipping_toobar.tr(),
                 icon: "",

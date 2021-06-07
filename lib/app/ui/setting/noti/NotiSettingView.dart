@@ -33,7 +33,7 @@ class _NotiSettingViewState extends State<NotiSettingView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(6.5.h),
+            preferredSize: Size.fromHeight(7.0.h),
             child: AppToobar(
               title: LocaleKeys.setting_account_title_noti.tr(),
               icon: "",

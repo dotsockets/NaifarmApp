@@ -93,7 +93,7 @@ class _AttributeEditViewState extends State<AttributeEditView> {
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade300,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(6.5.h),
+            preferredSize: Size.fromHeight(7.0.h),
             child: AppToobar(
               title: LocaleKeys.add.tr() + LocaleKeys.attributes_list.tr(),
               icon: "",

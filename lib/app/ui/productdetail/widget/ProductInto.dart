@@ -87,7 +87,7 @@ class ProductInto extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              data.name.toString(),
+              data.name ?? "",
               textAlign: TextAlign.left,
               style: FunctionHelper.fontTheme(
                   fontSize: (SizeUtil.titleFontSize() + 2).sp,

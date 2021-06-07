@@ -35,7 +35,7 @@ class _CreditAddViewState extends State<CreditAddView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(6.5.h),
+            preferredSize: Size.fromHeight(7.0.h),
             child: AppToobar(
               title: LocaleKeys.card_add_toobar.tr(),
               icon: "",

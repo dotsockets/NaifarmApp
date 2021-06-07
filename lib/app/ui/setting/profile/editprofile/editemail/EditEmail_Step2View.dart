@@ -84,7 +84,7 @@ class EditEmailStep2ViewState extends State<EditEmailStep2View> {
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade300,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(6.5.h),
+            preferredSize: Size.fromHeight(7.0.h),
             child: AppToobar(
               title: LocaleKeys.edit_email_toobar.tr(),
               headerType: Header_Type.barNormal,
