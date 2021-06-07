@@ -24,7 +24,7 @@ class OrdersBloc {
   final onSuccess = BehaviorSubject<Object>();
   final orderList = BehaviorSubject<OrderData>();
   final systemRespone = BehaviorSubject<SystemRespone>();
-  final isUpdateFeedback = BehaviorSubject<bool>();
+  final onUpdateFeedback = BehaviorSubject<int>();
   Stream<Object> get feedList => onSuccess.stream;
   List<OrderData> orderDataList = <OrderData>[];
   HashMap feedbackMap = new HashMap<int, int>();
@@ -202,7 +202,7 @@ class OrdersBloc {
       String imageableType,
       int imageableId,
       String token,
-      bool requestPayments=false}) async {
+      bool requestPayments=false,int index=0}) async {
     if(requestPayments){
       onLoad.add(true);
     }
@@ -220,6 +220,7 @@ class OrdersBloc {
         if (requestPayments) {
           requestPayment(context, orderId: imageableId, token: token);
         } else {
+          onUpdateFeedback.add(index);
           onLoad.add(false);
         }
       } else {
@@ -375,7 +376,7 @@ class OrdersBloc {
         // indexRate.add(index);
         // List<File> fileList = <File>[];
         if (imageList.length == 0) {
-          isUpdateFeedback.add(true);
+          onUpdateFeedback.add(index);
           onLoad.add(false);
         } else
           for (var item in imageList) {
@@ -385,7 +386,7 @@ class OrdersBloc {
                 context,
                 token: token,
                 imageableId: int.parse((respone.respone as FeedbackData).id),
-                imageFile: file,
+                imageFile: file,index:index,
                 imageableType: "feedback"
               );
             });
