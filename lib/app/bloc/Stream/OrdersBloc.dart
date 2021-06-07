@@ -202,8 +202,11 @@ class OrdersBloc {
       String imageableType,
       int imageableId,
       String token,
-      bool requestPayments}) async {
-    onLoad.add(true);
+      bool requestPayments=false}) async {
+    if(requestPayments){
+      onLoad.add(true);
+    }
+
     StreamSubscription subscription = Observable.fromFuture(
             _application.appStoreAPIRepository.uploadImage(context,
                 imageFile: imageFile,

@@ -722,7 +722,6 @@ class _ReviewViewState extends State<ReviewView> {
 
   Widget _buildBtnSend(int index) {
     return Container(
-      width: 50.0.w,
       height: 5.0.h,
       child: StreamBuilder(
           stream: rateValue.stream,
@@ -760,7 +759,7 @@ class _ReviewViewState extends State<ReviewView> {
                       comment: reviewController[index].text,
                       rating: rating[index],
                       token: value.token,
-                      orderId: widget.orderData.items[index].orderId,
+                      orderId: widget.orderData.id,
                       imageList: convertImg,
                       index: index,
                       inventoryId: widget.orderData.items[index].inventoryId));

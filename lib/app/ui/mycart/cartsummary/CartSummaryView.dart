@@ -605,7 +605,30 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                     }
                     return Container(
                         color: Colors.white,
-                        child: ListMenuItem(
+                        child: EasyLocalization.of(context).locale ==
+                            EasyLocalization.of(context).supportedLocales[0]? FutureBuilder(
+                            future: FunctionHelper.translatorText(name: data.name,from: 'th',to: 'en'),
+                            builder:
+                                (BuildContext context, AsyncSnapshot<String> text) {
+
+                              return ListMenuItem(
+                                icon: 'assets/images/png/payment.png',
+                                title: LocaleKeys.select.tr() +
+                                    LocaleKeys.me_title_pay.tr(),
+                                message: "${text.data ?? "${data.name}"}",
+                                iconSize: 7.0.w,
+                                fontWeight: FontWeight.w500,
+                                onClick: () async {
+
+                                  final result = await AppRoute.cartBank(context,
+                                      paymentRespone: bloc.paymentList.value,
+                                      allShopID: bloc.getAllShopID());
+                                  if (result != null) {
+                                    bloc.paymentList.add(result);
+                                  }
+                                },
+                              );
+                            }):ListMenuItem(
                           icon: 'assets/images/png/payment.png',
                           title: LocaleKeys.select.tr() +
                               LocaleKeys.me_title_pay.tr(),

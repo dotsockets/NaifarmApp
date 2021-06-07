@@ -476,6 +476,9 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                                   productItem: ProducItemRespone(
                                       id: item.items[indexShopItem].inventory
                                           .product.id,
+                                      image: item.items[indexShopItem].inventory
+                                          .product.image.isNotEmpty?item.items[indexShopItem].inventory
+                                          .product.image:[ProductImage(path: "",name: "")],
                                       shop: ShopItem(
                                           id: item.shop.id,
                                           name: item.shop.name,

@@ -33,6 +33,12 @@ class _CategoryViewState extends State<CategoryView> {
     if (bloc == null) {
       bloc = ProductBloc(AppProvider.of(context).application);
       bloc.loadCategoryGroup(context);
+
+
+      FunctionHelper.translatorText(name: "หมา",from: 'th',to: 'en').then((value){
+        print("wsefcer  ${value}");
+      });
+
     }
   }
 
@@ -189,7 +195,7 @@ class _CategoryViewState extends State<CategoryView> {
                             (BuildContext context, AsyncSnapshot<String> text) {
 
                           return Text(
-                            "${text.data ?? "${LocaleKeys.dialog_message_loading.tr()}"}",
+                            "${text.data ?? "${item.name}"}",
                             maxLines: 2,
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,

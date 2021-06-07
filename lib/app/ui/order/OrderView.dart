@@ -267,7 +267,20 @@ class _OrderViewState extends State<OrderView> {
           padding: EdgeInsets.only(right: 13, left: 10, top: 5, bottom: 5),
           color: ThemeColor.primaryColor(),
           child: Center(
-              child: Text(
+              child: EasyLocalization.of(context).locale ==
+                  EasyLocalization.of(context).supportedLocales[0]? FutureBuilder(
+                  future: FunctionHelper.translatorText(name: orderData.orderStatusName,from: 'th',to: 'en'),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<String> text) {
+
+                    return Text(
+                      "${text.data ?? "${orderData.orderStatusName}"}",
+                      style: FunctionHelper.fontTheme(
+                          fontSize: SizeUtil.titleFontSize().sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    );
+                  }):Text(
             orderData.orderStatusName,
             style: FunctionHelper.fontTheme(
                 fontSize: SizeUtil.titleFontSize().sp,
@@ -850,7 +863,18 @@ class _OrderViewState extends State<OrderView> {
           SizedBox(
             width: 10,
           ),
-          Text(orderData.paymentMethod.name,
+          EasyLocalization.of(context).locale ==
+              EasyLocalization.of(context).supportedLocales[0] ? FutureBuilder(
+              future: FunctionHelper.translatorText(name: orderData.paymentMethod.name,from: 'th',to: 'en'),
+              builder:
+                  (BuildContext context, AsyncSnapshot<String> text) {
+
+                return Text("${text.data ?? "${orderData.paymentMethod.name}"}",
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500));
+              }):Text(orderData.paymentMethod.name,
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleSmallFontSize().sp,
                   color: Colors.black,

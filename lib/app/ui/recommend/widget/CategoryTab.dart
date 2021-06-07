@@ -122,7 +122,20 @@ class CategoryTab extends StatelessWidget {
                   )),
             ),
             SizedBox(height: 2.0.h),
-            Text(
+            EasyLocalization.of(context).locale ==
+                EasyLocalization.of(context).supportedLocales[0]?FutureBuilder(
+                future: FunctionHelper.translatorText(name: item.name,from: 'th',to: 'en'),
+                builder:
+                    (BuildContext context, AsyncSnapshot<String> text) {
+
+                  return Text(
+                    "${text.data ?? "${item.name}"}",
+                    style: FunctionHelper.fontTheme(
+                        color: Colors.black,
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        fontWeight: FontWeight.bold),
+                  );
+                }):Text(
               item.name,
               style: FunctionHelper.fontTheme(
                   color: Colors.black,

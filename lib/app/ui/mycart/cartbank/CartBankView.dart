@@ -177,7 +177,16 @@ class _CartBankViewState extends State<CartBankView> {
                           SizedBox(
                             width: 2.0.w,
                           ),
-                          Text(item.name,
+                          EasyLocalization.of(context).locale ==
+                              EasyLocalization.of(context).supportedLocales[0]? FutureBuilder(
+                              future: FunctionHelper.translatorText(name: item.name,from: 'th',to: 'en'),
+                              builder:
+                                  (BuildContext context, AsyncSnapshot<String> text) {
+
+                                return Text("${text.data ?? "${item.name}"}",
+                                    style: FunctionHelper.fontTheme(
+                                        fontSize: SizeUtil.titleFontSize().sp));
+                              }):Text(item.name,
                               style: FunctionHelper.fontTheme(
                                   fontSize: SizeUtil.titleFontSize().sp)),
                         ],

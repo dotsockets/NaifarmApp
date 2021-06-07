@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
 
@@ -61,7 +63,20 @@ class CategoryMenu extends StatelessWidget {
                             //   ),
                             // ):SizedBox(),
                             SizedBox(width: 2.0.w),
-                            Text(featuredRespone.data[index].name,
+                            EasyLocalization.of(context).locale ==
+                                EasyLocalization.of(context).supportedLocales[0]?FutureBuilder(
+                                future: FunctionHelper.translatorText(name: featuredRespone.data[index].name,from: 'th',to: 'en'),
+                                builder:
+                                    (BuildContext context, AsyncSnapshot<String> text) {
+
+                                  return Text("${text.data ?? "${featuredRespone.data[index].name}"}",
+                                      style: FunctionHelper.fontTheme(
+                                          color: selectedIndex == index
+                                              ? Colors.white
+                                              : Colors.white,
+                                          fontSize: SizeUtil.titleFontSize().sp,
+                                          fontWeight: FontWeight.bold));
+                                }):Text(featuredRespone.data[index].name,
                                 style: FunctionHelper.fontTheme(
                                     color: selectedIndex == index
                                         ? Colors.white

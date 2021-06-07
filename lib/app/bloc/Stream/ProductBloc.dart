@@ -1085,7 +1085,9 @@ class ProductBloc {
   }
 
   static ProducItemRespone convertDataToProduct({ProductData data}) {
+
     return ProducItemRespone(
+      inventories: [InventoriesProduct(stockQuantity: data.stockQuantity)],
         name: data.name,
         salePrice: data.salePrice,
         hasVariant: data.hasVariant,

@@ -521,6 +521,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
               maxPrice: item.product.maxPrice,
               slug: item.product.slug,
               offerPrice: item.product.offerPrice,
+              inventories: [InventoriesProduct(stockQuantity: item.product.stockQuantity)],
               id: item.product.id,
               saleCount: item.product.saleCount,
               discountPercent: item.product.discountPercent,

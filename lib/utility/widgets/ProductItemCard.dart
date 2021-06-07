@@ -47,31 +47,28 @@ class ProductItemCard extends StatelessWidget {
       ),
       child: Stack(
         children: [
-          Hero(
-            tag: "${tagHero}_${item.id}1",
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(1.3.h),
-              child: CachedNetworkImage(
-                width: tagHero != "flash"
-                    ? 30.0.w
-                    : (MediaQuery.of(context).size.width / 2) - 4.0.w,
-                height: tagHero != "flash" ? 30.0.w : 40.0.w,
-                placeholder: (context, url) => Container(
-                  color: Colors.white,
-                  child: Lottie.asset(
-                    'assets/json/loading.json',
-                    width: 30.0.w,
-                    height: 30.0.w,
-                  ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(1.3.h),
+            child: CachedNetworkImage(
+              width: tagHero != "flash"
+                  ? 30.0.w
+                  : (MediaQuery.of(context).size.width / 2) - 4.0.w,
+              height: tagHero != "flash" ? 30.0.w : 40.0.w,
+              placeholder: (context, url) => Container(
+                color: Colors.white,
+                child: Lottie.asset(
+                  'assets/json/loading.json',
+                  width: 30.0.w,
+                  height: 30.0.w,
                 ),
-                imageUrl: covertUrlImage(item.image),
-                errorWidget: (context, url, error) => Container(
-                    width: 30.0.w,
-                    height: 30.0.w,
-                    //child:
-                    //   Image.network(Env.value.noItemUrl, fit: BoxFit.cover)),
-                    child: NaifarmErrorWidget()),
               ),
+              imageUrl: covertUrlImage(item.image),
+              errorWidget: (context, url, error) => Container(
+                  width: 30.0.w,
+                  height: 30.0.w,
+                  //child:
+                  //   Image.network(Env.value.noItemUrl, fit: BoxFit.cover)),
+                  child: NaifarmErrorWidget()),
             ),
           ),
           Visibility(

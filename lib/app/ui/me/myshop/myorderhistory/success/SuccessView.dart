@@ -7,6 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
+import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -26,11 +27,12 @@ class SuccessView extends StatefulWidget {
   final OrderViewType typeView;
 
   const SuccessView({Key key, this.typeView}) : super(key: key);
+
   @override
   _SuccessViewState createState() => _SuccessViewState();
 }
 
-class _SuccessViewState extends State<SuccessView> {
+class _SuccessViewState extends State<SuccessView> with  RouteAware  {
   OrdersBloc bloc;
   ScrollController _scrollController = ScrollController();
   int page = 1;
@@ -101,10 +103,10 @@ class _SuccessViewState extends State<SuccessView> {
         FunctionHelper.alertDialogRetry(context,
             cancalMessage: LocaleKeys.btn_exit.tr(),
             callCancle: () {
-              if((msg as ThrowIfNoSuccess).status==406){
+              if ((msg as ThrowIfNoSuccess).status == 406) {
                 Navigator.of(context).pop();
-              }else{
-                AppRoute.poppageCount(context: context, countpage:2);
+              } else {
+                AppRoute.poppageCount(context: context, countpage: 2);
               }
             },
             title: LocaleKeys.btn_error.tr(),
@@ -133,6 +135,32 @@ class _SuccessViewState extends State<SuccessView> {
         }
       }
     });
+  }
+
+  @override
+  void dispose() {
+
+    super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    print("Change dependencies!!!!");
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context));
+  }
+
+  @override
+  void didPopNext() {
+    Usermanager().getUser().then((value) => bloc.loadOrder(context,
+        orderType: widget.typeView == OrderViewType.Shop
+            ? "myshop/orders"
+            : "order",
+        statusId: "6",
+        sort: "orders.updatedAt:desc",
+        limit: limit,
+        page: 1,
+        token: value.token));
   }
 
   Widget androidRefreshIndicator() {
@@ -237,11 +265,11 @@ class _SuccessViewState extends State<SuccessView> {
                                               : SizedBox(),
                                           widget.typeView ==
                                                   OrderViewType.Purchase
-                                              ? buildButtonBayItem(
+                                              ? value.items[0].feedbackId!=null?buildButtonBayItem(
                                                   btnTxt: LocaleKeys
                                                       .me_title_again
                                                       .tr(),
-                                                  item: value)
+                                                  item: value): buildButtonRate(item: value)
                                               : SizedBox()
                                         ],
                                       ),
@@ -389,6 +417,43 @@ class _SuccessViewState extends State<SuccessView> {
       },
       child: Text(
         btnTxt,
+        style: FunctionHelper.fontTheme(
+            color: Colors.white,
+            fontSize: SizeUtil.titleSmallFontSize().sp,
+            fontWeight: FontWeight.w500),
+      ),
+    );
+  }
+
+
+  Widget buildButtonRate({ OrderData item}) {
+    return TextButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(40.0),
+          ),
+        ),
+        padding: MaterialStateProperty.all(EdgeInsets.only(
+            right: SizeUtil.iconSize().w,
+            left: SizeUtil.iconSize().w,
+            bottom: SizeUtil.paddingItem().h,
+            top: SizeUtil.paddingItem().h)),
+        backgroundColor: MaterialStateProperty.all(
+          ThemeColor.colorSale(),
+        ),
+        overlayColor: MaterialStateProperty.all(
+          Colors.white.withOpacity(0.3),
+        ),
+      ),
+      onPressed: () async {
+
+        AppRoute.review(context, item);
+      },
+      child: Text(
+        "${LocaleKeys
+            .btn_review
+            .tr()}",
         style: FunctionHelper.fontTheme(
             color: Colors.white,
             fontSize: SizeUtil.titleSmallFontSize().sp,

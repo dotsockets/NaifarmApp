@@ -102,7 +102,26 @@ class HistoryProductCard extends StatelessWidget {
                                   )
                                 ],
                               ),
-                        Text(
+                        EasyLocalization.of(context).locale ==
+                            EasyLocalization.of(context).supportedLocales[0]?FutureBuilder(
+                            future: FunctionHelper.translatorText(name: this.order.image != null &&
+                                this.order.image.isNotEmpty
+                                ? this.order.orderStatusName
+                                : this.order.orderStatusName,from: 'th',to: 'en'),
+                            builder:
+                                (BuildContext context, AsyncSnapshot<String> text) {
+
+                              return Text(
+                                "${text.data ?? "${this.order.image != null &&
+                                    this.order.image.isNotEmpty
+                                    ? this.order.orderStatusName
+                                    : this.order.orderStatusName}"}",
+                                style: FunctionHelper.fontTheme(
+                                    color: ThemeColor.primaryColor(),
+                                    fontSize: SizeUtil.titleSmallFontSize().sp,
+                                    fontWeight: FontWeight.w500),
+                              );
+                            }):Text(
                           this.order.image != null &&
                                   this.order.image.isNotEmpty
                               ? this.order.orderStatusName

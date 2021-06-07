@@ -127,6 +127,9 @@ class _ProductDetailViewState extends State<ProductDetailView>
 
       bloc = ProductBloc(AppProvider.getApplication(context));
       bloc.productItem.add(widget.productItem);
+
+      bloc.zipProductDetail.add(ProductObjectCombine(producItemRespone: widget.productItem));
+
       bloc.onError.stream.listen((event) {
         checkScrollControl.add(true);
         if (event != null) {
@@ -184,6 +187,8 @@ class _ProductDetailViewState extends State<ProductDetailView>
           // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
         }
       });
+
+
 
       NaiFarmLocalStorage.getProductDetailCache().then((value) {
         if (value != null) {
@@ -424,7 +429,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                             imgList: item.producItemRespone.image.length!=0?item.producItemRespone.image
                                 .map((e) =>
                                     "${Env.value.baseUrl}/storage/images/${e.path}")
-                                .toList():[""],stockQuantity: item.producItemRespone.inventories[0].stockQuantity,),
+                                .toList():[""],stockQuantity: item.producItemRespone.inventories!=null?item.producItemRespone.inventories[0].stockQuantity:1,),
                       ),
                     ),
                   );
@@ -537,23 +542,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                     ],
                   );
                 } else {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height - 30.0.h,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height:
-                              widget.productItem.shop != null ? 10.0.h : 30.0.h,
-                        ),
-                        Platform.isAndroid
-                            ? CircularProgressIndicator()
-                            : CupertinoActivityIndicator(),
-                      ],
-                    ),
-                  );
+                  return SizedBox();
                 }
               })
         ],
