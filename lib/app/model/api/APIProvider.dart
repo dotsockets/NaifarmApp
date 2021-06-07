@@ -6,6 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/pojo/request/AddressCreaterequest.dart';
 import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
+import 'package:naifarm/app/model/pojo/request/InventoriesAttrRequest.dart';
 import 'package:naifarm/app/model/pojo/request/InventoriesRequest.dart';
 import 'package:naifarm/app/model/pojo/request/LoginRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ModifyPasswordrequest.dart';
@@ -40,6 +41,7 @@ import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductShopItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShppingMyShopRequest.dart';
@@ -475,6 +477,12 @@ abstract class APIProvider {
   @GET("/v1/products/85/feedbacks")
   Future<ApiResult> getFeedback(BuildContext context, {int id,int limit,int page,});
 
+  @PATCH("/v1/myshop/products")
+  Future<ApiResult>  updateInventoriesAttr(BuildContext context,
+      {InventoriesAttrRequest inventoriesRequest,
+        int productId,
+        int inventoriesId,
+        String token});
 }
 
 // @JsonSerializable()

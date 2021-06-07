@@ -17,10 +17,10 @@ import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
 
 class AttributeEditView extends StatefulWidget {
-  final int idAttr;
+  final int attrId;
   final String nameAttr;
 
-  const AttributeEditView({Key key, this.idAttr, this.nameAttr})
+  const AttributeEditView({Key key, this.attrId, this.nameAttr})
       : super(key: key);
 
   @override
@@ -79,7 +79,7 @@ class _AttributeEditViewState extends State<AttributeEditView> {
             title: LocaleKeys.btn_error.tr(), message: event);
       });
       Usermanager().getUser().then((value) => bloc.getSubAttribute(context,
-          token: value.token, id: widget.idAttr));
+          token: value.token, id: widget.attrId));
     }
   }
 
@@ -376,12 +376,12 @@ class _AttributeEditViewState extends State<AttributeEditView> {
 
   _updateNameAttr() {
     Usermanager().getUser().then((value) => bloc.updateAttribute(context,
-        id: widget.idAttr, token: value.token, name: attrController.text));
+        id: widget.attrId, token: value.token, name: attrController.text));
   }
 
   _delSubAttr({int index, MyShopAttributeRespone item}) {
     Usermanager().getUser().then((value) => bloc.deleteSubAttribute(context,
-        id: widget.idAttr, token: value.token, vid: item.data[index].id));
+        id: widget.attrId, token: value.token, vid: item.data[index].id));
   }
 
   _updateSubAttr({HashMap<int,String> valueList,}) {
@@ -390,7 +390,7 @@ class _AttributeEditViewState extends State<AttributeEditView> {
 
       Usermanager().getUser().then((value) => bloc.updateSubAttribute(context,
           value: valueList.values.elementAt(index),
-          id: widget.idAttr,
+          id: widget.attrId,
           token: value.token,
           total: valueList.length,
           index: widget.nameAttr.trim() == attrController.text.trim() &&
@@ -411,7 +411,7 @@ class _AttributeEditViewState extends State<AttributeEditView> {
             ? Usermanager().getUser().then((value) => bloc.addSubAttribute(
                 context,
                 value: subAttrController[i].text,
-                id: widget.idAttr,
+                id: widget.attrId,
                 token: value.token,
                 length: widget.nameAttr.trim() == attrController.text.trim()?subAttrController.length - total:-1,
                 color: ""))

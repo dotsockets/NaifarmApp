@@ -17,6 +17,7 @@ import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductShopItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShppingMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
@@ -975,7 +976,7 @@ class AppRoute {
     Navigator.of(context).push(SwipeablePageRoute(
         canOnlySwipeFromEdge: true,
         builder: (context) {
-          return AttributeEditView(idAttr: idAttr,nameAttr: nameAttr,);
+          return AttributeEditView(attrId: idAttr,nameAttr: nameAttr,);
         }));
   }
 
@@ -1107,18 +1108,18 @@ class AppRoute {
         }));
   }
 
-  static attributeProduct({BuildContext context,List<AttributesItemShop> attributeList}) {
+  static attributeProduct({BuildContext context,List<AttributesList> attributeList,ProductShopItemRespone productMyShopRespone}) {
     Navigator.of(context).push(SwipeablePageRoute(
         canOnlySwipeFromEdge: true,
         builder: (context) {
-          return AttributeProductView(attributeList: attributeList,);
+          return AttributeProductView(attributeList: attributeList,productMyShopRespone: productMyShopRespone,);
         }));
   }
-  static attributeSubProduct({BuildContext context,}) {
+  static attributeSubProduct({BuildContext context,int attrId,ProductShopItemRespone productMyShopRespone}) {
     Navigator.of(context).push(SwipeablePageRoute(
         canOnlySwipeFromEdge: true,
         builder: (context) {
-          return AttributeSubProductView();
+          return AttributeSubProductView(attrId: attrId,productMyShopRespone: productMyShopRespone,);
         }));
   }
 }

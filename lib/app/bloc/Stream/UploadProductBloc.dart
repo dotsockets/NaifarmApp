@@ -7,6 +7,7 @@ import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/AssetImages.dart';
+import 'package:naifarm/app/model/pojo/request/InventoriesAttrRequest.dart';
 import 'package:naifarm/app/model/pojo/request/InventoriesRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
@@ -14,6 +15,7 @@ import 'package:naifarm/app/model/pojo/response/CategoryCombin.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopAttributeRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductShopItemRespone.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -28,14 +30,14 @@ class UploadProductBloc {
   final productMyShopRes = BehaviorSubject<ProductMyShopListRespone>();
   final attributeMyShop = BehaviorSubject<MyShopAttributeRespone>();
   final uploadProductStorage = BehaviorSubject<UploadProductStorage>();
-  final productRes = BehaviorSubject<ProductMyShopRespone>();
+  final productRes = BehaviorSubject<ProductShopItemRespone>();
 
   CategoryCombin categoriesAllRespone = CategoryCombin();
   ProductMyShopRequest productDetail = ProductMyShopRequest();
   List<OnSelectItem> itemImage = <OnSelectItem>[];
   List<ProductMyShop> productList = <ProductMyShop>[];
   List<ImageProductShop> productImageList = <ImageProductShop>[];
-  List<AttributesItemShop> productAttributeList = <AttributesItemShop>[];
+  List<AttributesList> productAttributeList = <AttributesList>[];
 
   int inventoriesId = 0;
   var checkloop = 0;
@@ -251,6 +253,31 @@ class UploadProductBloc {
     });
     _compositeSubscription.add(subscription);
   }
+  updateInventoriesAttr(BuildContext context,
+      {InventoriesAttrRequest inventoriesRequest,
+        int productId,
+        int inventoriesId,
+        String token,}) {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(
+        _application.appStoreAPIRepository.updateInventoriesAttr(context,
+            inventoriesRequest: inventoriesRequest,
+            inventoriesId: inventoriesId,
+            productId: productId,
+            token: token))
+        .listen((respone) {
+
+      //  onLoad.add(false);
+      if (respone.httpCallBack.status == 200) {
+        onLoad.add(false);
+        onSuccess.add((respone.respone as ProductShopItemRespone));
+      } else {
+        onLoad.add(false);
+        onError.add(respone.httpCallBack.message);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
 
   getProductMyShop(BuildContext context,
       {String page, int limit, String token, String filter}) {
@@ -348,7 +375,7 @@ class UploadProductBloc {
         .listen((respone) {
       onLoad.add(false);
       if (respone.httpCallBack.status == 200) {
-        var item = (respone.respone as ProductMyShopRespone);
+        var item = (respone.respone as ProductShopItemRespone);
         uploadProductStorage.value.onSelectItem.clear();
         for (var value in item.image) {
           uploadProductStorage.value.onSelectItem
@@ -367,6 +394,7 @@ class UploadProductBloc {
             description: item.description);
         productAttributeList.addAll(item.inventories[0].attributes);
         uploadProductStorage.add(uploadProductStorage.value);
+        productRes.add(item);
       } else {
         onError.add(respone.httpCallBack.message);
       }
@@ -384,7 +412,7 @@ class UploadProductBloc {
       onLoad.add(false);
       if (respone.httpCallBack.status == 200) {
         NaiFarmLocalStorage.getProductMyShopCache().then((value) {
-          var res = (respone.respone as ProductMyShopRespone);
+          var res = (respone.respone as ProductShopItemRespone);
           productImageList.addAll(res.image);
           res.image = productImageList;
           if (value != null) {
@@ -411,7 +439,7 @@ class UploadProductBloc {
             .addAll((respone.respone as ProductMyShopRespone).image);
         productRes.add(ProductMyShopRespone(image: productImageList));*/
 
-        onSuccess.add((respone.respone as ProductMyShopRespone));
+        onSuccess.add((respone.respone as ProductShopItemRespone));
       } else {
         onError.add(respone.httpCallBack.message);
       }

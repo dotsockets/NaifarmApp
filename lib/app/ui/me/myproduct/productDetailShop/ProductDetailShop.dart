@@ -15,6 +15,7 @@ import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductShopItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
 import 'package:naifarm/app/ui/productdetail/widget/ProductDetail.dart';
 import 'package:naifarm/app/ui/productdetail/widget/ProductInto.dart';
@@ -122,10 +123,10 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                           children: [
                                             buildTitle(
                                                 img: (snapshot.data
-                                                        as ProductMyShopRespone)
+                                                        as ProductShopItemRespone)
                                                     .image),
                                             buildProductDetail(snapshot.data
-                                                as ProductMyShopRespone),
+                                                as ProductShopItemRespone),
                                           ],
                                         );
                                       } else
@@ -142,7 +143,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                                   imgList:convertImageProduct()),color: Colors.white,
                                             ),
                                             buildProductDetail(
-                                                ProductMyShopRespone(
+                                                ProductShopItemRespone(
                                                     rating: widget
                                                         .productItem.rating,
                                                     name: widget
@@ -166,7 +167,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                         AsyncSnapshot snapshot) {
                                       if (snapshot.hasData) {
                                         var item = (snapshot.data
-                                            as ProductMyShopRespone);
+                                            as ProductShopItemRespone);
                                         return Column(
                                           children: [
                                             InkWell(
@@ -241,8 +242,9 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                                                 item: item),
                                                         shop: ShopItem(
                                                             id: item.shop.id,
-                                                            state: item
-                                                                .shop.state),
+                                                            state: DataStates(id: item
+                                                                .shop.state.id,name: item
+                                                                .shop.state.name)),
                                                         description:
                                                             item.description !=
                                                                     null
@@ -280,7 +282,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
     );
   }
 
-  Widget buildProductDetail(ProductMyShopRespone item) {
+  Widget buildProductDetail(ProductShopItemRespone item) {
     return Column(
       children: [
         Container(
@@ -348,7 +350,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
   }
 
 
-  List inventoryList({ProductMyShopRespone item}) {
+  List inventoryList({ ProductShopItemRespone item}) {
     List<InventoriesProduct> inventory = <InventoriesProduct>[];
     for (int i = 0; i < item.inventories.length; i++)
       inventory.add(
@@ -357,7 +359,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
   }
 
 
-  List imgShopList({ProductMyShopRespone item}) {
+  List imgShopList({  ProductShopItemRespone item}) {
     List<ProductImage> img = <ProductImage>[];
 
     if (item.shop.image != null || item.shop.image.length != 0) {
