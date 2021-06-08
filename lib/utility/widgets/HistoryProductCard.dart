@@ -218,7 +218,6 @@ class HistoryProductCard extends StatelessWidget {
             ),
           ),
           onTap: ()  async {
-            print(pageVeiw+"55855555645545656");
             final result = await AppRoute.orderDetail(context,
                 orderData: this.order, typeView: this.type);
             if (result) {
