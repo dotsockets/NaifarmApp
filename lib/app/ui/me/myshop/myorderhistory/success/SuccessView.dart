@@ -32,7 +32,7 @@ class SuccessView extends StatefulWidget {
   _SuccessViewState createState() => _SuccessViewState();
 }
 
-class _SuccessViewState extends State<SuccessView> with  RouteAware  {
+class _SuccessViewState extends State<SuccessView>   {
   OrdersBloc bloc;
   ScrollController _scrollController = ScrollController();
   int page = 1;
@@ -94,6 +94,7 @@ class _SuccessViewState extends State<SuccessView> with  RouteAware  {
     productBloc.onSuccess.stream.listen((event) {
       //onUpload = true;
       if (event is CartResponse) {
+
         AppRoute.myCart(context, true, cartNowId: productBloc.bayNow);
         // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
       }
@@ -124,6 +125,28 @@ class _SuccessViewState extends State<SuccessView> with  RouteAware  {
             });
       });
     });
+
+    bloc.orderList.stream.listen((event) {
+      if(event is OrderData){
+        List<Items> items = <Items>[];
+        for (var value in event.items) {
+          items.add(Items(
+              inventoryId: value.inventoryId, quantity: value.quantity));
+        }
+
+        Usermanager()
+            .getUser()
+            .then((value) => productBloc.addCartlists(context,
+            cartRequest: CartRequest(
+              shopId: event.shop.id,
+              items: items,
+            ),
+            token: value.token));
+      }
+
+    });
+
+
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
               _scrollController.position.pixels <=
@@ -137,30 +160,21 @@ class _SuccessViewState extends State<SuccessView> with  RouteAware  {
     });
   }
 
-  @override
-  void dispose() {
 
-    super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    print("Change dependencies!!!!");
-    super.didChangeDependencies();
-    routeObserver.subscribe(this, ModalRoute.of(context));
-  }
 
   @override
   void didPopNext() {
-    Usermanager().getUser().then((value) => bloc.loadOrder(context,
-        orderType: widget.typeView == OrderViewType.Shop
-            ? "myshop/orders"
-            : "order",
-        statusId: "6",
-        sort: "orders.updatedAt:desc",
-        limit: limit,
-        page: 1,
-        token: value.token));
+    if(mounted){
+      Usermanager().getUser().then((value) => bloc.loadOrder(context,
+          orderType: widget.typeView == OrderViewType.Shop
+              ? "myshop/orders"
+              : "order",
+          statusId: "6",
+          sort: "orders.updatedAt:desc",
+          limit: limit,
+          page: 1,
+          token: value.token));
+    }
   }
 
   Widget androidRefreshIndicator() {
@@ -397,20 +411,13 @@ class _SuccessViewState extends State<SuccessView> with  RouteAware  {
       ),
       onPressed: () async {
         if (widget.typeView == OrderViewType.Purchase) {
-          List<Items> items = <Items>[];
-          for (var value in item.items) {
-            items.add(Items(
-                inventoryId: value.inventoryId, quantity: value.quantity));
-          }
+      
+          Usermanager().getUser().then((value) => bloc.getOrderById(context,
+              orderType:
+              widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+              id: item.id,
+              token: value.token));
 
-          Usermanager()
-              .getUser()
-              .then((value) => productBloc.addCartlists(context,
-                  cartRequest: CartRequest(
-                    shopId: item.shop.id,
-                    items: items,
-                  ),
-                  token: value.token));
         } else {
           // AppRoute.TransferPayMentView(context: context,orderData: item);
         }

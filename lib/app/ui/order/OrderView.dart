@@ -1302,6 +1302,8 @@ class _OrderViewState extends State<OrderView> {
                           quantity: value.quantity));
                     }
 
+
+
                     Usermanager()
                         .getUser()
                         .then((value) => productBloc.addCartlists(context,
