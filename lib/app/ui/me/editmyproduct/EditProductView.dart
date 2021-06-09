@@ -310,7 +310,7 @@ class _EditProductViewState extends State<EditProductView> {
                                 Divider(
                                   height: 0.5.h,
                                 ),
-                                _buildAttributeTab(bloc.productAttributeList),
+                                _buildAttributeTab(),
                                 Divider(
                                   height: 0.5.h,
                                 ),
@@ -545,7 +545,7 @@ class _EditProductViewState extends State<EditProductView> {
     );
   }
 
-  Widget _buildAttributeTab(List<AttributesList> attributeList) {
+  Widget _buildAttributeTab() {
     return InkWell(
       child: Container(
           color: Colors.white,
@@ -567,7 +567,7 @@ class _EditProductViewState extends State<EditProductView> {
               ))),
       onTap: () async {
 
-        var result = await AppRoute.attributeProduct(context: context,attributeList: attributeList,productMyShopRespone: bloc.productRes.value);
+        var result = await AppRoute.attributeProduct(context: context,productMyShopRespone: bloc.productRes.value);
 
         // if (result) {
         //   onUpdate = true;
