@@ -486,6 +486,10 @@ petitparser
 2.7
 file:///Users/dotsocket/flutter/.pub-cache/hosted/pub.dartlang.org/petitparser-3.1.0/
 file:///Users/dotsocket/flutter/.pub-cache/hosted/pub.dartlang.org/petitparser-3.1.0/lib/
+pin_input_text_field
+2.12
+file:///Users/dotsocket/flutter/.pub-cache/hosted/pub.dartlang.org/pin_input_text_field-4.0.0/
+file:///Users/dotsocket/flutter/.pub-cache/hosted/pub.dartlang.org/pin_input_text_field-4.0.0/lib/
 platform
 2.12
 file:///Users/dotsocket/flutter/.pub-cache/hosted/pub.dartlang.org/platform-3.0.0/
@@ -602,6 +606,10 @@ smooth_star_rating
 2.7
 file:///Users/dotsocket/flutter/.pub-cache/hosted/pub.dartlang.org/smooth_star_rating-1.1.1/
 file:///Users/dotsocket/flutter/.pub-cache/hosted/pub.dartlang.org/smooth_star_rating-1.1.1/lib/
+sms_autofill
+2.12
+file:///Users/dotsocket/flutter/.pub-cache/hosted/pub.dartlang.org/sms_autofill-2.0.0/
+file:///Users/dotsocket/flutter/.pub-cache/hosted/pub.dartlang.org/sms_autofill-2.0.0/lib/
 source_span
 2.12
 file:///Users/dotsocket/flutter/.pub-cache/hosted/pub.dartlang.org/source_span-1.8.0/
