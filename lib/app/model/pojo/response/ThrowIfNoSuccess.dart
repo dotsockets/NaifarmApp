@@ -45,12 +45,16 @@ class ThrowIfNoSuccess {
 
 class Result {
  // Error error;
-  String error;
+  Object error;
   Result({this.error});
 
   Result.fromJson(Map<String, dynamic> json) {
    // error = json['error'] != null ? new Error.fromJson(json['error']) : null;
-    error = json['error'];
+    if(json['error'] is String){
+      error = json['error'];
+    }else{
+      error = json['error'] != null ? new Error.fromJson(json['error']) : null;
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -81,3 +85,4 @@ class Error {
     return data;
   }
 }
+

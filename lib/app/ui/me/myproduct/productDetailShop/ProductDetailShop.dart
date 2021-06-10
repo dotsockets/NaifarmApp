@@ -140,7 +140,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                             Container(
 
                                               child: ProductSlide(
-                                                  imgList:convertImageProduct()),color: Colors.white,
+                                                  imgList:convertImageProduct(),stockQuantity: widget.productItem.stockQuantity),color: Colors.white,
                                             ),
                                             buildProductDetail(
                                                 ProductShopItemRespone(
