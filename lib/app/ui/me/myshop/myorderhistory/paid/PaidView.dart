@@ -143,7 +143,7 @@ class _PaidViewState extends State<PaidView> {
                   return Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
-                      bloc.onSuccess.value != null
+                      bloc.onSuccess.hasValue
                           ? Positioned(
                               top: 25 * controller.value,
                               child: Container(

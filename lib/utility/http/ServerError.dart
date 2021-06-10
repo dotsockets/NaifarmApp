@@ -9,19 +9,19 @@ class ServerError {
     String message = LocaleKeys.server_error_again.tr();
 
     switch (error.type) {
-      case DioErrorType.CANCEL:
+      case DioErrorType.cancel:
         message = LocaleKeys.server_error_cancel.tr();
         break;
-      case DioErrorType.CONNECT_TIMEOUT:
+      case DioErrorType.connectTimeout:
         message = LocaleKeys.server_error_timeout_connect.tr();
         break;
-      case DioErrorType.DEFAULT:
+      case DioErrorType.other:
         message = LocaleKeys.server_error_default.tr();
         break;
-      case DioErrorType.RECEIVE_TIMEOUT:
+      case DioErrorType.receiveTimeout:
         message = LocaleKeys.server_error_timeout_receive.tr();
         break;
-      case DioErrorType.RESPONSE:
+      case DioErrorType.response:
         if (error.response.statusCode == 406 ||
             error.response.statusCode == 400) {
           return ApiResult(
@@ -31,7 +31,7 @@ class ServerError {
               "${LocaleKeys.server_error_status.tr()}: ${error.response.statusCode}";
         }
         break;
-      case DioErrorType.SEND_TIMEOUT:
+      case DioErrorType.sendTimeout:
         message = LocaleKeys.server_error_timeout_send.tr();
         break;
     }

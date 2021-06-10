@@ -52,6 +52,7 @@ class ProductDetailView extends StatefulWidget {
 
 class _ProductDetailViewState extends State<ProductDetailView>
     with TickerProviderStateMixin, RouteAware {
+
   TrackingScrollController trackingScrollController;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   int indexTypes1 = 1;

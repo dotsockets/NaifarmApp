@@ -27,7 +27,7 @@ class NotiBloc {
       String sort,
       int limit,
       String token}) async {
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.getNotificationByGroup(context,
                 group: group,
                 limit: limit,
@@ -61,15 +61,15 @@ class NotiBloc {
       String sort,
       int limit,
       String token}) async {
-    StreamSubscription subscription = Observable.combineLatest2(
-        Observable.fromFuture(_application.appStoreAPIRepository
+    StreamSubscription subscription = Rx.combineLatest2(
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getNotificationByGroup(context,
                 group: "customer",
                 limit: limit,
                 page: page,
                 sort: sort,
                 token: token)),
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getNotificationByGroup(context,
                 group: "shop",
                 limit: limit,
@@ -89,7 +89,7 @@ class NotiBloc {
   }
 
   markAsReadNotifications(BuildContext context, {String token}) async {
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .markAsReadNotifications(context, token: token))
         .listen((respone) {

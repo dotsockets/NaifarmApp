@@ -4,7 +4,6 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -143,7 +142,7 @@ class _DeliveryViewState extends State<DeliveryView> {
                   return Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
-                      bloc.onSuccess.value != null
+                      bloc.onSuccess.hasValue
                           ? Positioned(
                               top: 25 * controller.value,
                               child: Container(
@@ -236,8 +235,8 @@ class _DeliveryViewState extends State<DeliveryView> {
                                             flex: widget.typeView ==
                                                     OrderViewType.Shop
                                                 ? 1
-                                                : Device.get().isPhone
-                                                    ? 4
+                                                : SizerUtil.deviceType == DeviceType.mobile
+                                                ? 4
                                                     : 2,
                                             child: widget.typeView ==
                                                     OrderViewType.Purchase

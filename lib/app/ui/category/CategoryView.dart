@@ -161,6 +161,7 @@ class _CategoryViewState extends State<CategoryView> {
                 child: Container(
                   padding: EdgeInsets.all(0.7.w),
                   child: CachedNetworkImage(
+                   filterQuality: FilterQuality.high,
                     width: SizeUtil.categoryTabSize().w,
                     height: SizeUtil.categoryTabSize().w,
                     placeholder: (context, url) => Container(

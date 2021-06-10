@@ -7,38 +7,7 @@ class _APIProvider implements APIProvider {
 
   final Dio _dio;
   String baseUrl;
-
-  @override
-  Future<ApiResult> getProFileFacebook(
-      BuildContext context, String accessToken) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      "fields": "name,first_name,last_name,email,photos",
-      "access_token": accessToken
-    };
-    final _data = <String, dynamic>{};
-    try {
-      final _result = await _dio.request<dynamic>('/me',
-          queryParameters: queryParameters,
-          options: RequestOptions(
-              method: 'GET',
-              headers: <String, dynamic>{},
-              extra: _extra,
-              baseUrl: "https://graph.facebook.com/v2.12"),
-          data: _data);
-      //  var value = Fb_Profile.fromJson(jsonDecode(_result.data));
-      return ApiResult(
-          respone: FbProfile.fromJson(jsonDecode(_result.data)),
-          httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
-    } on DioError catch (e) {
-      // FbError item = FbError.fromJson(jsonDecode(e.response.data));
-      return ApiResult(
-          httpCallBack: ThrowIfNoSuccess(
-              status: e.response.statusCode,
-              message:
-                  FbError.fromJson(jsonDecode(e.response.data)).error.message));
-    }
-  }
+  
 
   @override
   Future<ApiResult> customersLogin(
@@ -54,14 +23,14 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/customers/login',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: LoginRespone.fromJson(_result.data),
@@ -86,14 +55,14 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/customers/login-social/$provider',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: LoginRespone.fromJson(_result.data),
@@ -114,14 +83,14 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/otp/request',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: OTPRespone.fromJson(_result.data),
@@ -141,14 +110,14 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/otp/verify',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: true,
@@ -174,14 +143,14 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/customers/register',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: RegisterRespone.fromJson(_result.data),
@@ -207,14 +176,14 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/customers/forgot-password-phone',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       // ForgotRespone
       return ApiResult(
@@ -236,14 +205,14 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/customers/reset-password/$token',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: RegisterRespone.fromJson(_result.data),
@@ -263,7 +232,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/customers/info',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 "token": accessToken,
@@ -271,7 +240,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: CustomerInfoRespone.fromJson(_result.data),
@@ -291,7 +260,7 @@ class _APIProvider implements APIProvider {
       final _result =
           await _dio.request<dynamic>('/v1/customers/modify-profile',
               queryParameters: queryParameters,
-              options: RequestOptions(
+              options: Options(
                   method: 'PATCH',
                   headers: <String, dynamic>{
                     "token": accessToken,
@@ -299,7 +268,7 @@ class _APIProvider implements APIProvider {
                         EasyLocalization.of(context).locale.languageCode
                   },
                   extra: _extra,
-                  baseUrl: baseUrl),
+                  ),
               data: data);
       return ApiResult(
           respone: CustomerInfoRespone.fromJson(_result.data),
@@ -319,7 +288,7 @@ class _APIProvider implements APIProvider {
       final _result =
           await _dio.request<dynamic>('/v1/customers/modify-password',
               queryParameters: queryParameters,
-              options: RequestOptions(
+              options: Options(
                   method: 'PATCH',
                   headers: <String, dynamic>{
                     "token": accessToken,
@@ -327,7 +296,7 @@ class _APIProvider implements APIProvider {
                         EasyLocalization.of(context).locale.languageCode
                   },
                   extra: _extra,
-                  baseUrl: baseUrl),
+                  ),
               data: data);
       return ApiResult(
           respone: CustomerInfoRespone.fromJson(_result.data),
@@ -347,7 +316,7 @@ class _APIProvider implements APIProvider {
       final _result =
           await _dio.request<dynamic>('/v1/customers/first-password',
               queryParameters: queryParameters,
-              options: RequestOptions(
+              options: Options(
                   method: 'PATCH',
                   headers: <String, dynamic>{
                     "token": accessToken,
@@ -355,7 +324,7 @@ class _APIProvider implements APIProvider {
                         EasyLocalization.of(context).locale.languageCode
                   },
                   extra: _extra,
-                  baseUrl: baseUrl),
+                  ),
               data: data);
       return ApiResult(
           respone: CustomerInfoRespone.fromJson(_result.data),
@@ -376,7 +345,7 @@ class _APIProvider implements APIProvider {
       final _result =
           await _dio.request<dynamic>('/v1/customers/verify-password',
               queryParameters: queryParameters,
-              options: RequestOptions(
+              options: Options(
                   method: 'POST',
                   headers: <String, dynamic>{
                     "token": token,
@@ -384,7 +353,7 @@ class _APIProvider implements APIProvider {
                         EasyLocalization.of(context).locale.languageCode
                   },
                   extra: _extra,
-                  baseUrl: baseUrl),
+                  ),
               data: _data);
 
       return ApiResult(
@@ -403,7 +372,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/addresses',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 "token": token,
@@ -411,7 +380,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: AddressesListRespone.fromJson(_result.data),
@@ -430,14 +399,14 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/countries/1/states',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: StatesRespone.fromJson(_result.data),
@@ -457,14 +426,14 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/countries/$countries/states/$statesId/cities',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: StatesRespone.fromJson(_result.data),
@@ -484,14 +453,14 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/countries/$countries/states/$statesId/cities/$cityId/zipCode',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: ZipCodeRespone.fromJson(_result.data[0]),
@@ -510,7 +479,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/addresses',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 "token": token,
@@ -518,7 +487,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: addressCreaterequest);
 
       return ApiResult(
@@ -539,7 +508,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/addresses/$id',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'DELETE',
               headers: <String, dynamic>{
                 "token": token,
@@ -547,7 +516,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
 
       return ApiResult(
@@ -567,7 +536,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/addresses/${data.id}',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'PATCH',
               headers: <String, dynamic>{
                 "token": token,
@@ -575,7 +544,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: data);
 
       return ApiResult(
@@ -596,14 +565,14 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/sliders',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: SliderRespone.fromJson(_result.data),
@@ -623,14 +592,14 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/products/types/popular?limit=$limit&page=$page',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: ProductRespone.fromJson(_result.data),
@@ -653,14 +622,14 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/category-group',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: CategoryGroupRespone.fromJson(_result.data),
@@ -680,14 +649,14 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/categories/featured',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: CategoryGroupRespone.fromJson(_result.data),
@@ -707,14 +676,14 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/products/types/trending?limit=$limit&page=$page',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: ProductRespone.fromJson(_result.data),
@@ -734,14 +703,14 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/shop/$shopId/products?limit=$limit&page=$page',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: ProductRespone.fromJson(_result.data),
@@ -761,14 +730,14 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/search/products?q=$query&limit=$limit&page=$page',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: SearchRespone.fromJson(_result.data),
@@ -793,14 +762,14 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/customers/myshop?token=$token',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
 
       return ApiResult(
@@ -820,7 +789,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/myshop/shop',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 "token": accessToken,
@@ -828,7 +797,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: MyShopRespone.fromJson(_result.data),
@@ -847,7 +816,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/myshop/shop',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'PATCH',
               headers: <String, dynamic>{
                 "token": accessToken,
@@ -855,7 +824,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: data);
       return ApiResult(
           respone: MyShopRespone.fromJson(_result.data),
@@ -874,7 +843,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/myshop/shop',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'PATCH',
               headers: <String, dynamic>{
                 "token": accessToken,
@@ -882,7 +851,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: MyShopRespone.fromJson(_result.data),
@@ -902,14 +871,14 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/shop/slug/farm-market',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: MyShopRespone.fromJson(_result.data),
@@ -929,14 +898,14 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/$link?limit=$limit&page=$page',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: ProductRespone.fromJson(_result.data),
@@ -956,14 +925,14 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/flashsale?limit=$limit&page=$page',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: FlashsaleRespone.fromJson(_result.data),
@@ -989,7 +958,7 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/image?imageableType=$imageableType&imageableId=$imageableId',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 "token": token,
@@ -997,7 +966,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: formData);
       return ApiResult(
           respone: ImageUploadRespone.fromJson(_result.data),
@@ -1028,7 +997,7 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/image?imageableType=$imageableType&imageableId=$imageableId',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 "token": token,
@@ -1036,7 +1005,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: formData);
       return ApiResult(
           respone: ImageUploadRespone.fromJson(_result.data),
@@ -1054,14 +1023,14 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/products/$id',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: ProducItemRespone.fromJson(_result.data),
@@ -1079,14 +1048,14 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/shop/$id',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: MyShopRespone.fromJson(_result.data),
@@ -1106,14 +1075,14 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/products/types/trending?limit=$limit&page=$page&categoryGroupId=$groupId',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: ProductRespone.fromJson(_result.data),
@@ -1133,14 +1102,14 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/category-subgroup/$groupId',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: CategoryGroupRespone.fromJson(_result.data),
@@ -1158,14 +1127,14 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/banners',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: BannersRespone.fromJson(_result.data),
@@ -1185,14 +1154,14 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/payments?shopIds=$shopIds',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: PaymentRespone.fromJson(_result.data),
@@ -1211,7 +1180,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/myshop/payment',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 "token": token,
@@ -1219,7 +1188,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: PaymenMyshopRespone.fromJson(_result.data),
@@ -1238,7 +1207,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/myshop/payment',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 "token": token,
@@ -1246,7 +1215,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: true,
@@ -1266,7 +1235,7 @@ class _APIProvider implements APIProvider {
       final _result =
           await _dio.request<dynamic>('/v1/myshop/payment/$paymentMethodId',
               queryParameters: queryParameters,
-              options: RequestOptions(
+              options: Options(
                   method: 'DELETE',
                   headers: <String, dynamic>{
                     "token": token,
@@ -1274,7 +1243,7 @@ class _APIProvider implements APIProvider {
                         EasyLocalization.of(context).locale.languageCode
                   },
                   extra: _extra,
-                  baseUrl: baseUrl),
+                  ),
               data: _data);
       return ApiResult(
           respone: true,
@@ -1294,14 +1263,14 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/carriers',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: CarriersRespone.fromJson(_result.data),
@@ -1320,7 +1289,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/myshop/shipping',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 "token": token,
@@ -1328,7 +1297,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: ShppingMyShopRespone.fromJson(_result.data),
@@ -1348,7 +1317,7 @@ class _APIProvider implements APIProvider {
       final _result =
           await _dio.request<dynamic>('/v1/myshop/shipping/$ratesId',
               queryParameters: queryParameters,
-              options: RequestOptions(
+              options: Options(
                   method: 'DELETE',
                   headers: <String, dynamic>{
                     "token": token,
@@ -1356,7 +1325,7 @@ class _APIProvider implements APIProvider {
                         EasyLocalization.of(context).locale.languageCode
                   },
                   extra: _extra,
-                  baseUrl: baseUrl),
+                  ),
               data: _data);
       return ApiResult(
           respone: true,
@@ -1375,7 +1344,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/myshop/shipping',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 "token": token,
@@ -1383,7 +1352,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: shopRequest);
       return ApiResult(
           respone: true,
@@ -1402,7 +1371,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/myshop/shipping/$rateID',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'PATCH',
               headers: <String, dynamic>{
                 "token": token,
@@ -1410,7 +1379,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: shopRequest);
       return ApiResult(
           respone: true,
@@ -1430,7 +1399,7 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/myshop/products?limit=$limit&page=$page&filter=$filter',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 "token": token,
@@ -1438,7 +1407,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: ProductMyShopListRespone.fromJson(_result.data),
@@ -1457,7 +1426,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/myshop/products',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 "token": token,
@@ -1465,7 +1434,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: shopRequest);
       return ApiResult(
           respone: ProductMyShopRespone.fromJson(_result.data),
@@ -1485,7 +1454,7 @@ class _APIProvider implements APIProvider {
       final _result =
           await _dio.request<dynamic>('/v1/wishlists/product/$productID',
               queryParameters: queryParameters,
-              options: RequestOptions(
+              options: Options(
                   method: 'GET',
                   headers: <String, dynamic>{
                     "token": token,
@@ -1493,7 +1462,7 @@ class _APIProvider implements APIProvider {
                         EasyLocalization.of(context).locale.languageCode
                   },
                   extra: _extra,
-                  baseUrl: baseUrl),
+                  ),
               data: _data);
       return ApiResult(
           respone: DataWishlists.fromJson(_result.data),
@@ -1512,7 +1481,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/wishlists/$wishId',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'DELETE',
               headers: <String, dynamic>{
                 "token": token,
@@ -1520,7 +1489,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: true,
@@ -1542,7 +1511,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/wishlists',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 "token": token,
@@ -1550,7 +1519,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: DataWishlists.fromJson(_result.data),
@@ -1568,7 +1537,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/wishlists',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 "token": token,
@@ -1576,7 +1545,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: WishlistsRespone.fromJson(_result.data),
@@ -1595,7 +1564,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/customers/count',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 "token": token,
@@ -1603,7 +1572,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: CustomerCountRespone.fromJson(_result.data),
@@ -1623,14 +1592,14 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/all-categories',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: CategoriesAllRespone.fromJson(_result.data),
@@ -1650,14 +1619,14 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/categories',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: CategoriesRespone.fromJson(_result.data),
@@ -1679,7 +1648,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/cart',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 "token": token,
@@ -1687,7 +1656,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: cartRequest);
       return ApiResult(
           respone: CartResponse.fromJson(_result.data),
@@ -1707,7 +1676,7 @@ class _APIProvider implements APIProvider {
       final _result =
           await _dio.request<dynamic>('/v1/myshop/products/$productId',
               queryParameters: queryParameters,
-              options: RequestOptions(
+              options: Options(
                   method: 'GET',
                   headers: <String, dynamic>{
                     "token": token,
@@ -1715,7 +1684,7 @@ class _APIProvider implements APIProvider {
                         EasyLocalization.of(context).locale.languageCode
                   },
                   extra: _extra,
-                  baseUrl: baseUrl),
+                  ),
               data: _data);
       return ApiResult(
           respone: ProductShopItemRespone.fromJson(_result.data),
@@ -1735,7 +1704,7 @@ class _APIProvider implements APIProvider {
       final _result =
           await _dio.request<dynamic>('/v1/myshop/products/$productId',
               queryParameters: queryParameters,
-              options: RequestOptions(
+              options: Options(
                   method: 'PATCH',
                   headers: <String, dynamic>{
                     "token": token,
@@ -1743,7 +1712,7 @@ class _APIProvider implements APIProvider {
                         EasyLocalization.of(context).locale.languageCode
                   },
                   extra: _extra,
-                  baseUrl: baseUrl),
+                  ),
               data: shopRequest);
       return ApiResult(
           respone: ProductMyShopRespone.fromJson(_result.data),
@@ -1761,7 +1730,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/cart',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 "token": token,
@@ -1769,7 +1738,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: CartResponse.fromJson(_result.data),
@@ -1789,7 +1758,7 @@ class _APIProvider implements APIProvider {
       final _result =
           await _dio.request<dynamic>('/v1/myshop/products/$productId',
               queryParameters: queryParameters,
-              options: RequestOptions(
+              options: Options(
                   method: 'DELETE',
                   headers: <String, dynamic>{
                     "token": token,
@@ -1797,7 +1766,7 @@ class _APIProvider implements APIProvider {
                         EasyLocalization.of(context).locale.languageCode
                   },
                   extra: _extra,
-                  baseUrl: baseUrl),
+                  ),
               data: _data);
       return ApiResult(
           respone: true,
@@ -1819,7 +1788,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/cart',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'DELETE',
               headers: <String, dynamic>{
                 "token": token,
@@ -1827,7 +1796,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: true,
@@ -1846,7 +1815,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/cart/$cartId',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'PATCH',
               headers: <String, dynamic>{
                 "token": token,
@@ -1854,7 +1823,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: data);
 
       return ApiResult(
@@ -1878,7 +1847,7 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/myshop/products/$productId/inventories/$inventoriesId',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'PATCH',
               headers: <String, dynamic>{
                 "token": token,
@@ -1886,7 +1855,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: inventoriesRequest);
       return ApiResult(
           respone: ProductMyShopRespone.fromJson(_result.data),
@@ -1912,7 +1881,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/image',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'DELETE',
               headers: <String, dynamic>{
                 "token": token,
@@ -1920,7 +1889,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: true,
@@ -1945,7 +1914,7 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/$orderType?limit=$limit&page=$page&sort=$sort&orderStatusIds=$statusId',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 "token": token,
@@ -1953,7 +1922,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: OrderRespone.fromJson(_result.data),
@@ -1972,7 +1941,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/$orderType/$id',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 "token": token,
@@ -1980,7 +1949,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: OrderData.fromJson(_result.data),
@@ -2000,7 +1969,7 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/products/types/$type?shopId=$shopId&limit=$limit&page=$page',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 "token": token,
@@ -2008,7 +1977,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: ProductRespone.fromJson(_result.data),
@@ -2036,7 +2005,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/notifications',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 "token": token,
@@ -2044,7 +2013,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: NotiRespone.fromJson(_result.data),
@@ -2063,7 +2032,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/order',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 "token": token,
@@ -2071,7 +2040,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: orderRequest);
       return ApiResult(
           respone: OrderData.fromJson(_result.data),
@@ -2089,14 +2058,14 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/shop/$shopId/shippings',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: ShippingsRespone.fromJson(_result.data),
@@ -2119,7 +2088,7 @@ class _APIProvider implements APIProvider {
       final _result =
           await _dio.request<dynamic>('/v1/notifications/markAsRead',
               queryParameters: queryParameters,
-              options: RequestOptions(
+              options: Options(
                   method: 'POST',
                   headers: <String, dynamic>{
                     "token": token,
@@ -2127,7 +2096,7 @@ class _APIProvider implements APIProvider {
                         EasyLocalization.of(context).locale.languageCode
                   },
                   extra: _extra,
-                  baseUrl: baseUrl),
+                  ),
               data: _data);
       return ApiResult(
           respone: true,
@@ -2147,14 +2116,14 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/search/products?q=$query&limit=$limit&page=$page&shopId=$shopId',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: SearchRespone.fromJson(_result.data),
@@ -2173,7 +2142,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/myshop/attributes',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 "token": token,
@@ -2181,7 +2150,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: AttributeRespone.fromJson(_result.data),
@@ -2202,7 +2171,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/myshop/attributes',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 "token": token,
@@ -2210,7 +2179,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: AttributeData.fromJson(_result.data),
@@ -2230,7 +2199,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/myshop/attributes/$id',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'DELETE',
               headers: <String, dynamic>{
                 "token": token,
@@ -2238,7 +2207,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
 
       return ApiResult(
@@ -2259,7 +2228,7 @@ class _APIProvider implements APIProvider {
       final _result =
           await _dio.request<dynamic>('/v1/myshop/attributes/$id/values',
               queryParameters: queryParameters,
-              options: RequestOptions(
+              options: Options(
                   method: 'GET',
                   headers: <String, dynamic>{
                     "token": token,
@@ -2267,7 +2236,7 @@ class _APIProvider implements APIProvider {
                         EasyLocalization.of(context).locale.languageCode
                   },
                   extra: _extra,
-                  baseUrl: baseUrl),
+                  ),
               data: _data);
       return ApiResult(
           respone: SubAttributeRespone.fromJson(_result.data),
@@ -2288,7 +2257,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/myshop/attributes/$id',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'PATCH',
               headers: <String, dynamic>{
                 "token": token,
@@ -2296,7 +2265,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: data);
       return ApiResult(
           respone: AttributeData.fromJson(_result.data),
@@ -2316,7 +2285,7 @@ class _APIProvider implements APIProvider {
       final _result =
           await _dio.request<dynamic>('/v1/myshop/attributes/$id/values',
               queryParameters: queryParameters,
-              options: RequestOptions(
+              options: Options(
                   method: 'POST',
                   headers: <String, dynamic>{
                     "token": token,
@@ -2324,7 +2293,7 @@ class _APIProvider implements APIProvider {
                         EasyLocalization.of(context).locale.languageCode
                   },
                   extra: _extra,
-                  baseUrl: baseUrl),
+                  ),
               data: _data);
       return ApiResult(
           respone: SubAttributeData.fromJson(_result.data),
@@ -2344,7 +2313,7 @@ class _APIProvider implements APIProvider {
       final _result =
           await _dio.request<dynamic>('/v1/myshop/attributes/$id/values/$vid',
               queryParameters: queryParameters,
-              options: RequestOptions(
+              options: Options(
                   method: 'PATCH',
                   headers: <String, dynamic>{
                     "token": token,
@@ -2352,7 +2321,7 @@ class _APIProvider implements APIProvider {
                         EasyLocalization.of(context).locale.languageCode
                   },
                   extra: _extra,
-                  baseUrl: baseUrl),
+                  ),
               data: data);
       return ApiResult(
           respone: SubAttributeData.fromJson(_result.data),
@@ -2372,7 +2341,7 @@ class _APIProvider implements APIProvider {
       final _result =
           await _dio.request<dynamic>('/v1/myshop/attributes/$id/values/$vid',
               queryParameters: queryParameters,
-              options: RequestOptions(
+              options: Options(
                   method: 'DELETE',
                   headers: <String, dynamic>{
                     "token": token,
@@ -2380,7 +2349,7 @@ class _APIProvider implements APIProvider {
                         EasyLocalization.of(context).locale.languageCode
                   },
                   extra: _extra,
-                  baseUrl: baseUrl),
+                  ),
               data: _data);
 
       return ApiResult(
@@ -2401,7 +2370,7 @@ class _APIProvider implements APIProvider {
       final _result =
           await _dio.request<dynamic>('/v1/shop/$categoryId/category',
               queryParameters: queryParameters,
-              options: RequestOptions(
+              options: Options(
                   method: 'GET',
                   headers: <String, dynamic>{
                     "token": token,
@@ -2409,7 +2378,7 @@ class _APIProvider implements APIProvider {
                         EasyLocalization.of(context).locale.languageCode
                   },
                   extra: _extra,
-                  baseUrl: baseUrl),
+                  ),
               data: _data);
       return ApiResult(
           respone: CategoryGroupRespone.fromJson(_result.data),
@@ -2428,14 +2397,14 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/page?slug=$slug',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: InformationRespone.fromJson(_result.data),
@@ -2455,7 +2424,7 @@ class _APIProvider implements APIProvider {
       final _result =
           await _dio.request<dynamic>('/v1/customers/request-change-email',
               queryParameters: queryParameters,
-              options: RequestOptions(
+              options: Options(
                   method: 'POST',
                   headers: <String, dynamic>{
                     "token": token,
@@ -2463,7 +2432,7 @@ class _APIProvider implements APIProvider {
                         EasyLocalization.of(context).locale.languageCode
                   },
                   extra: _extra,
-                  baseUrl: baseUrl),
+                  ),
               data: _data);
       return ApiResult(
           respone: true,
@@ -2486,7 +2455,7 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/myshop/products/$productsId/inventories/$inventoriesId',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'PATCH',
               headers: <String, dynamic>{
                 "token": token,
@@ -2494,7 +2463,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: data);
       return ApiResult(
           respone: ProductMyShopRespone.fromJson(_result.data),
@@ -2514,7 +2483,7 @@ class _APIProvider implements APIProvider {
       final _result =
           await _dio.request<dynamic>('/v1/order/$orderId/mark-paid',
               queryParameters: queryParameters,
-              options: RequestOptions(
+              options: Options(
                   method: 'PATCH',
                   headers: <String, dynamic>{
                     "token": token,
@@ -2522,7 +2491,7 @@ class _APIProvider implements APIProvider {
                         EasyLocalization.of(context).locale.languageCode
                   },
                   extra: _extra,
-                  baseUrl: baseUrl),
+                  ),
               data: data);
       return ApiResult(
           respone: OrderRespone.fromJson(_result.data),
@@ -2542,14 +2511,14 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/customers/check-phone',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: true,
@@ -2571,14 +2540,14 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/customers/check-existing-phone',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: true,
@@ -2599,7 +2568,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/order/$orderId/fulfill',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 "token": token,
@@ -2607,7 +2576,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: true,
@@ -2627,7 +2596,7 @@ class _APIProvider implements APIProvider {
       final _result =
           await _dio.request<dynamic>('/v1/order/$orderId/goods-received',
               queryParameters: queryParameters,
-              options: RequestOptions(
+              options: Options(
                   method: 'PATCH',
                   headers: <String, dynamic>{
                     "token": token,
@@ -2635,7 +2604,7 @@ class _APIProvider implements APIProvider {
                         EasyLocalization.of(context).locale.languageCode
                   },
                   extra: _extra,
-                  baseUrl: baseUrl),
+                  ),
               data: _data);
       return ApiResult(
           respone: OrderData.fromJson(_result.data),
@@ -2654,7 +2623,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/order/$orderId/cancel',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'PATCH',
               headers: <String, dynamic>{
                 "token": token,
@@ -2662,7 +2631,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: OrderData.fromJson(_result.data),
@@ -2682,14 +2651,14 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/customers/check-email',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: true,
@@ -2715,7 +2684,7 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/myshop/search/products?limit=$limit&page=$page&shopId=$shopId&filter=$filter&q=$query&sort=product.createdAt',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 "token": token,
@@ -2723,7 +2692,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: SearchRespone.fromJson(_result.data),
@@ -2743,7 +2712,7 @@ class _APIProvider implements APIProvider {
       final _result =
           await _dio.request<dynamic>('/v1/myshop/products/$productId',
               queryParameters: queryParameters,
-              options: RequestOptions(
+              options: Options(
                   method: 'PATCH',
                   headers: <String, dynamic>{
                     "token": token,
@@ -2751,7 +2720,7 @@ class _APIProvider implements APIProvider {
                         EasyLocalization.of(context).locale.languageCode
                   },
                   extra: _extra,
-                  baseUrl: baseUrl),
+                  ),
               data: _data);
       return ApiResult(
           respone: ProductMyShopRespone.fromJson(_result.data),
@@ -2771,7 +2740,7 @@ class _APIProvider implements APIProvider {
       final _result =
           await _dio.request<dynamic>('/v1/order/$orderId/request-payment',
               queryParameters: queryParameters,
-              options: RequestOptions(
+              options: Options(
                   method: 'PATCH',
                   headers: <String, dynamic>{
                     "token": token,
@@ -2779,7 +2748,7 @@ class _APIProvider implements APIProvider {
                         EasyLocalization.of(context).locale.languageCode
                   },
                   extra: _extra,
-                  baseUrl: baseUrl),
+                  ),
               data: _data);
       return ApiResult(
           respone: true,
@@ -2797,14 +2766,14 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/system',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: SystemRespone.fromJson(_result.data),
@@ -2823,14 +2792,14 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/customers/login-apple',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: LoginRespone.fromJson(_result.data),
@@ -2858,7 +2827,7 @@ class _APIProvider implements APIProvider {
     try {
       final _result = await _dio.request<dynamic>('/v1/feedback',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'POST',
               headers: <String, dynamic>{
                 "token": token,
@@ -2866,7 +2835,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: FeedbackData.fromJson(_result.data),
@@ -2886,14 +2855,14 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/products/$id/feedbacks?limit=$limit&page=$page',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: _data);
       return ApiResult(
           respone: FeedbackRespone.fromJson(_result.data),
@@ -2916,7 +2885,7 @@ class _APIProvider implements APIProvider {
       final _result = await _dio.request<dynamic>(
           '/v1/myshop/products/$productId/inventories/$inventoriesId',
           queryParameters: queryParameters,
-          options: RequestOptions(
+          options: Options(
               method: 'PATCH',
               headers: <String, dynamic>{
                 "token": token,
@@ -2924,7 +2893,7 @@ class _APIProvider implements APIProvider {
                     EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
-              baseUrl: baseUrl),
+              ),
           data: inventoriesRequest);
       return ApiResult(
           respone: ProductShopItemRespone.fromJson(_result.data),
@@ -2933,4 +2902,6 @@ class _APIProvider implements APIProvider {
       return ServerError.dioErrorExpction(e);
     }
   }
+
+
 }

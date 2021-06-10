@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
@@ -92,7 +91,7 @@ class _MyProductViewState extends State<MyProductView> {
                 actions: [
                   IconButton(
                       padding: EdgeInsets.only(
-                          right: Device.get().isPhone ? 0 : 3.0.w),
+                          right: SizerUtil.deviceType == DeviceType.mobile  ? 0 : 3.0.w),
                       icon: Icon(
                         Icons.search,
                         size: SizeUtil.mediumIconSize().w,

@@ -96,35 +96,35 @@ class ProductBloc {
   loadHomeData(
       {BuildContext context, String token, bool callback = false}) async {
     //  onLoad.add(true);
-    StreamSubscription subscription = Observable.combineLatest8(
-        Observable.fromFuture(_application.appStoreAPIRepository.getSliderImage(
+    StreamSubscription subscription = Rx.combineLatest8(
+        Stream.fromFuture(_application.appStoreAPIRepository.getSliderImage(
           context,
         ))
         // สไลด์ภาพ
         ,
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getProductPopular(context, "1", 10)),
         // สินค้าขายดี
-        Observable.fromFuture(
+        Stream.fromFuture(
             _application.appStoreAPIRepository.getCategoryGroup(
           context,
         )),
         // หมวดหมู่ทั่วไป
-        Observable.fromFuture(
+        Stream.fromFuture(
             _application.appStoreAPIRepository.getCategoriesFeatured(
           context,
         )),
         // หมวดหมู่แนะนำ
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getProductTrending(context, "1", 6)),
         // สินค้าแนะนำ
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getShopProduct(context, shopId: 1, page: "1", limit: 10)),
         // สินค้าของ NaiFarm
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .flashsale(context, page: "1", limit: 5)),
         //  Flashsale
-        Observable.fromFuture(_application.appStoreAPIRepository.moreProduct(
+        Stream.fromFuture(_application.appStoreAPIRepository.moreProduct(
             context,
             page: "1",
             limit: 10,
@@ -163,7 +163,7 @@ class ProductBloc {
 
   loadProductPopular(BuildContext context, String page) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .getProductPopular(context, page, 10))
         .listen((respone) {
@@ -177,7 +177,7 @@ class ProductBloc {
 
   getMyWishlists(BuildContext context, {String token}) {
     //onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .getMyWishlists(context, token: token))
         .listen((respone) {
@@ -201,7 +201,7 @@ class ProductBloc {
 
   loadProductTrending(BuildContext context,
       {String page, int limit = 10}) async {
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .getProductTrending(context, page, limit))
         .listen((respone) {
@@ -214,7 +214,7 @@ class ProductBloc {
 
   loadProductSearch(BuildContext context,
       {String page, String query, int limit}) async {
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .getSearch(context, page: page, query: query, limit: limit))
         .listen((respone) {
@@ -228,7 +228,7 @@ class ProductBloc {
   loadCategoryGroup(
     BuildContext context,
   ) {
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
         _application.appStoreAPIRepository.getCategoryGroup(
       context,
     )).listen((respone) {
@@ -240,13 +240,13 @@ class ProductBloc {
   }
 
   loadMartket(BuildContext context, String page) {
-    StreamSubscription subscription = Observable.combineLatest3(
-        Observable.fromFuture(_application.appStoreAPIRepository.farmMarket(
+    StreamSubscription subscription = Rx.combineLatest3(
+        Stream.fromFuture(_application.appStoreAPIRepository.farmMarket(
           context,
         )),
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getProductTrending(context, "1", 5)),
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getShopProduct(context, shopId: 1, page: "1", limit: 5)),
         (a, b, c) {
       final _market = (a as ApiResult).respone;
@@ -263,7 +263,7 @@ class ProductBloc {
   loadMoreData(BuildContext context,
       {String page, int limit, String link, int typeMore = 0}) {
     if (typeMore == 1) {
-      StreamSubscription subscription = Observable.fromFuture(
+      StreamSubscription subscription = Stream.fromFuture(
               _application.appStoreAPIRepository.getSearch(context,
                   query: "&categoryGroupId=$link", limit: limit, page: page))
           .listen((respone) {
@@ -306,7 +306,7 @@ class ProductBloc {
       _compositeSubscription.add(subscription);
       // https://stg-api-test.naifarm.com/v1/products/types/popular?limit=10&page=1
     } else {
-      StreamSubscription subscription = Observable.fromFuture(_application
+      StreamSubscription subscription = Stream.fromFuture(_application
               .appStoreAPIRepository
               .moreProduct(context, page: page, link: link, limit: limit))
           .listen((respone) {
@@ -362,7 +362,7 @@ class ProductBloc {
   }
 
   loadFlashsaleData(BuildContext context, {String page, int limit}) {
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .flashsale(context, page: page, limit: limit))
         .listen((respone) {
@@ -393,7 +393,7 @@ class ProductBloc {
   }
 
   getWishlistsByProduct(BuildContext context, {int productID, String token}) {
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .getWishlistsByProduct(context, productID: productID, token: token))
         .listen((respone) {
@@ -407,7 +407,7 @@ class ProductBloc {
 
   deleteWishlists(BuildContext context,
       {int productId, int wishId, String token}) {
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .deleteWishlists(context, wishId: wishId, token: token))
         .listen((respone) {
@@ -452,7 +452,7 @@ class ProductBloc {
 
   addWishlists(BuildContext context,
       {int inventoryId, int productId, String token}) {
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.addWishlists(context,
                 inventoryId: inventoryId, productId: productId, token: token))
         .listen((respone) {
@@ -501,10 +501,10 @@ class ProductBloc {
     //  onLoad.add(true);
     onError.add(null);
 
-    Observable.combineLatest2(
-        Observable.fromFuture(
+    Rx.combineLatest2(
+        Stream.fromFuture(
             _application.appStoreAPIRepository.productsById(context, id: id)),
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getWishlistsByProduct(context, productID: id, token: token)),
         (a, b) {
       final _product = (a as ApiResult).respone;
@@ -563,7 +563,7 @@ class ProductBloc {
 
   getProductsById(BuildContext context, {int id, bool onload}) {
     onLoad.add(true);
-    Observable.fromFuture(
+    Stream.fromFuture(
             _application.appStoreAPIRepository.productsById(context, id: id))
         .listen((event) {
       //  onLoad.add(false);
@@ -579,7 +579,7 @@ class ProductBloc {
 
   getProductsByIdApplink(BuildContext context, {int id, bool onload}) {
     onLoad.add(true);
-    Observable.fromFuture(
+    Stream.fromFuture(
             _application.appStoreAPIRepository.productsById(context, id: id))
         .listen((event) {
       onLoad.add(false);
@@ -595,9 +595,9 @@ class ProductBloc {
   // loadProductsPage({int id,String token}){
   // //  onLoad.add(true);
   //   onError.add(null);
-  //   StreamSubscription subscription = Observable.combineLatest2(
-  //       Observable.fromFuture(_application.appStoreAPIRepository.ProductsById(id: id)),
-  //       Observable.fromFuture(_application.appStoreAPIRepository.GetWishlistsByProduct(productID: id,token: token)),(a, b){
+  //   StreamSubscription subscription = Stream.combineLatest2(
+  //       Stream.fromFuture(_application.appStoreAPIRepository.ProductsById(id: id)),
+  //       Stream.fromFuture(_application.appStoreAPIRepository.GetWishlistsByProduct(productID: id,token: token)),(a, b){
   //     final producItemRespone = (a as ApiResult).respone;
   //     final wishlistsRespone  =(b as ApiResult).respone;
   //
@@ -626,7 +626,7 @@ class ProductBloc {
   //   onError.add(null);
   //
   //   StreamSubscription subscription =
-  //   Observable.fromFuture(_application.appStoreAPIRepository.ProductsById(id: id)).listen((respone) {
+  //   Stream.fromFuture(_application.appStoreAPIRepository.ProductsById(id: id)).listen((respone) {
   //
   //     if(respone.httpCallBack.status==200){
   //      // GetMyWishlists(token: token);
@@ -642,7 +642,7 @@ class ProductBloc {
   // }
 
   shopById(BuildContext context, {int shopid, String token}) {
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.shopById(context, id: shopid))
         .listen((respone) {
       if (respone.httpCallBack.status == 200) {
@@ -657,24 +657,24 @@ class ProductBloc {
 
   loadShop(BuildContext context, {int shopid, String token}) {
     onError.add(null);
-    StreamSubscription subscription = Observable.combineLatest4(
-        Observable.fromFuture(_application.appStoreAPIRepository
+    StreamSubscription subscription = Rx.combineLatest4(
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getProductTypeShop(context,
                 type: "popular",
                 shopId: shopid,
                 limit: 10,
                 page: "1",
                 token: token)),
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getProductTypeShop(context,
                 type: "trending",
                 shopId: shopid,
                 limit: 10,
                 page: "1",
                 token: token)),
-        Observable.fromFuture(
+        Stream.fromFuture(
             _application.appStoreAPIRepository.shopById(context, id: shopid)),
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getCategoryByShop(context, token: token, categoryId: shopid)),
         (a, b, c, d) {
       final productmyshop = (a as ApiResult).respone;
@@ -722,14 +722,14 @@ class ProductBloc {
 
   loadCategoryPage(BuildContext context, {int groupId}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.combineLatest4(
-        Observable.fromFuture(_application.appStoreAPIRepository
+    StreamSubscription subscription = Rx.combineLatest4(
+        Stream.fromFuture(_application.appStoreAPIRepository
             .categorySubgroup(context, groupId: groupId)),
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .categoryGroupId(context, groupId: groupId, limit: 10, page: "1")),
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getBanners(context, group: "home_middle")),
-        Observable.fromFuture(_application.appStoreAPIRepository.moreProduct(
+        Stream.fromFuture(_application.appStoreAPIRepository.moreProduct(
             context,
             limit: 10,
             page: "1",
@@ -758,7 +758,7 @@ class ProductBloc {
       int groupId,
       int limit = 5,
       String page = "1"}) {
-    Observable.fromFuture(_application.appStoreAPIRepository.getSearch(context,
+    Stream.fromFuture(_application.appStoreAPIRepository.getSearch(context,
             query: "&categoryGroupId=$groupId", limit: limit, page: page))
         .listen((respone) {
       if (respone.httpCallBack.status == 200 ||
@@ -791,7 +791,7 @@ class ProductBloc {
 
   getProductMyShop(BuildContext context,
       {String page, int limit, String token, String filter}) {
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.getProductMyShop(context,
                 page: page, limit: limit, token: token, filter: filter))
         .listen((respone) {
@@ -820,7 +820,7 @@ class ProductBloc {
       int limit,
       String filter,
       String token}) async {
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.getSearchShop(context,
                 shopId: shopId,
                 page: page,
@@ -861,7 +861,7 @@ class ProductBloc {
 
   getProductCategoryGroupId(BuildContext context,
       {int groupId, int limit = 5, String page = "1"}) {
-    Observable.fromFuture(_application.appStoreAPIRepository.moreProduct(
+    Stream.fromFuture(_application.appStoreAPIRepository.moreProduct(
             context,
             link: "products/types/trending?categorySubGroupId=$groupId",
             limit: limit,
@@ -882,7 +882,7 @@ class ProductBloc {
       String token,
       IsActive isActive}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.updateProductMyShop(context,
                 shopRequest: shopRequest, productId: productId, token: token))
         .listen((respone) {
@@ -906,7 +906,7 @@ class ProductBloc {
       int inventoriesId,
       String token,
       bool isload}) {
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.updateProductInventories(context,
                 inventoriesRequest: inventoriesRequest,
                 inventoriesId: inventoriesId,
@@ -932,7 +932,7 @@ class ProductBloc {
       String token,
       IsActive isActive}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.activeProduct(context,
                 active: shopRequest.active, productId: productId, token: token))
         .listen((respone) {
@@ -964,15 +964,15 @@ class ProductBloc {
   getCategoriesAll(
     BuildContext context,
   ) {
-    StreamSubscription subscription = Observable.combineLatest3(
-        Observable.fromFuture(
+    StreamSubscription subscription = Rx.combineLatest3(
+        Stream.fromFuture(
             _application.appStoreAPIRepository.getCategoriesAll(
           context,
         )),
-        Observable.fromFuture(_application.appStoreAPIRepository.getCategories(
+        Stream.fromFuture(_application.appStoreAPIRepository.getCategories(
           context,
         )),
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .statesProvice(context, countries: "1")), (a, b, c) {
       final _categorteAll = (a as ApiResult).respone;
       final _categortes = (b as ApiResult).respone;
@@ -990,7 +990,7 @@ class ProductBloc {
   }
 
   void loadCustomerCount(BuildContext context, {String token}) {
-    Observable.fromFuture(_application.appStoreAPIRepository
+    Stream.fromFuture(_application.appStoreAPIRepository
             .getCustomerCount(context, token: token))
         .listen((respone) {
       // print("esfwcersfc ${respone.http_call_back.status}");
@@ -1016,7 +1016,7 @@ class ProductBloc {
       onLoad.add(true);
     }
 
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .addCartlists(context, cartRequest: cartRequest, token: token))
         .listen((respone) {
@@ -1044,7 +1044,7 @@ class ProductBloc {
 
   deleteProductMyShop(BuildContext context, {int productId, String token}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .deleteProductMyShop(context, productId: productId, token: token))
         .listen((respone) {
@@ -1070,7 +1070,7 @@ class ProductBloc {
   }
 
   loadFeedback(BuildContext context, { int id, int limit, int page}) {
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
         .appStoreAPIRepository
         .getFeedback(context,page: page,limit: limit,id: id))
         .listen((respone) {

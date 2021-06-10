@@ -45,28 +45,24 @@ class AppComponentState extends State<AppComponent> {
     ]);
 //flutter pub run easy_localization:generate
 // flutter pub run easy_localization:generate -f keys -o locale_keys.g.dart
-    final app = new LayoutBuilder(
-      builder: (context, constraints) {
-        return OrientationBuilder(
-          builder: (context, orientation) {
-            SizerUtil().init(constraints, orientation);
-            return MaterialApp(
-              localizationsDelegates: context.localizationDelegates,
-              supportedLocales: context.supportedLocales,
-              locale: context.locale,
-              title: Env.value.appName,
-              debugShowCheckedModeBanner: false,
-              theme: new ThemeData(
-                primarySwatch: ThemeColor.primarySwatch(context),
-                snackBarTheme: ThemeColor.snackBarThemeColor(context),
-                primaryColor: Colors.white,
-              ),
-              home: SplashView(),
-              navigatorObservers: [routeObserver],
-              routes: <String, WidgetBuilder>{
-                '/home': (BuildContext context) => HomeView()
-              },
-            );
+    final app = Sizer(
+      builder: (context, orientation, deviceType) {
+        //  SizerUtil().init(constraints, orientation);
+        return MaterialApp(
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          title: Env.value.appName,
+          debugShowCheckedModeBanner: false,
+          theme: new ThemeData(
+            primarySwatch: ThemeColor.primarySwatch(context),
+            snackBarTheme: ThemeColor.snackBarThemeColor(context),
+            primaryColor: Colors.white,
+          ),
+          home: SplashView(),
+          navigatorObservers: [routeObserver],
+          routes: <String, WidgetBuilder>{
+            '/home': (BuildContext context) => HomeView()
           },
         );
       },

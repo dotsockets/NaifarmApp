@@ -18,26 +18,26 @@ class HomeDataBloc extends Cubit<HomeDataState> {
       emit(HomeDataLoaded(value));
     });
 
-    Observable.combineLatest7(
-        Observable.fromFuture(_application.appStoreAPIRepository
+    Rx.combineLatest7(
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getBanners(context,group: "home_top")) // สไลด์ภาพ
         ,
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getProductPopular(context, "1", 10)), // สินค้าขายดี
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getCategoryGroup(context)), // หมวดหมู่ทั่วไป
         // Observable.fromFuture(_application.appStoreAPIRepository
         //     .getCategoriesFeatured(context)), // หมวดหมู่แนะนำ
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getProductTrending(context, "1", 6)), // สินค้าแนะนำ
-        Observable.fromFuture(_application.appStoreAPIRepository.getShopProduct(
+        Stream.fromFuture(_application.appStoreAPIRepository.getShopProduct(
             context,
             shopId: 1,
             page: "1",
             limit: 10)), // สินค้าของ NaiFarm
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .flashsale(context, page: "1", limit: 5)), //  Flashsale
-        Observable.fromFuture(_application.appStoreAPIRepository.moreProduct(context, page: "1", limit: 10, link: "products/types/trending")), // สินค้าสำหรับคุน
+        Stream.fromFuture(_application.appStoreAPIRepository.moreProduct(context, page: "1", limit: 10, link: "products/types/trending")), // สินค้าสำหรับคุน
         (a, b, c, e, f, g, h) {
       final _slider = (a as ApiResult).respone;
       final _product = (b as ApiResult).respone;

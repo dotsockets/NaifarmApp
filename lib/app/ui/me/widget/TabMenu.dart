@@ -1,6 +1,5 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
@@ -31,7 +30,7 @@ class TabMenu extends StatelessWidget {
                       badgeContent: Container(
                         padding: EdgeInsets.all(notification < 10
                             ? 0.7.w
-                            : (Device.get().isPhone ? 0 : 0.1.w)),
+                            : (SizerUtil.deviceType == DeviceType.mobile  ? 0 : 0.1.w)),
                         child: Center(
                           child: Text(
                             "$notification",

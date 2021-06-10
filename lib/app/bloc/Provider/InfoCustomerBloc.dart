@@ -20,12 +20,12 @@ class InfoCustomerBloc extends Cubit<InfoCustomerState> {
       }
     });
 
-    Observable.combineLatest3(
-        Observable.fromFuture(_application.appStoreAPIRepository
+    Rx.combineLatest3(
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getCustomerInfo(context, token: token)),
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getMyShopInfo(context, accessToken: token)),
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getShippingMyShop(context, token: token)), (a, b, c) {
       final _customInfo = (a as ApiResult).respone;
       final _myshopInfo = (b as ApiResult).respone;

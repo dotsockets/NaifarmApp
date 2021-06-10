@@ -35,7 +35,7 @@ class AddressBloc {
   }
 
   statesProvice(BuildContext context, {String countries}) async {
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .statesProvice(context, countries: countries))
         .listen((respone) {
@@ -50,7 +50,7 @@ class AddressBloc {
 
   statesCity(BuildContext context,
       {String countriesid, String statesId}) async {
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .statesCity(context, countriesid: countriesid, statesId: statesId))
         .listen((respone) {
@@ -65,7 +65,7 @@ class AddressBloc {
 
   statesZipCode(BuildContext context,
       {String countries, String statesId, String cityId}) async {
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.statesZipCode(context,
                 statesId: statesId, countries: countries, cityId: cityId))
         .listen((respone) {
@@ -81,7 +81,7 @@ class AddressBloc {
   createAddress(BuildContext context,
       {AddressCreaterequest addressCreaterequest, String token}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.createAddress(context,
                 addressCreaterequest: addressCreaterequest, token: token))
         .listen((respone) {
@@ -97,7 +97,7 @@ class AddressBloc {
 
   addressesList(BuildContext context, {String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .addressesList(context, token: token))
         .listen((respone) {
@@ -131,7 +131,7 @@ class AddressBloc {
   }
 
   deleteAddress(BuildContext context, {String id, String token}) async {
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .deleteAddress(context, id: id, token: token))
         .listen((respone) {
@@ -147,7 +147,7 @@ class AddressBloc {
   updateAddress(BuildContext context,
       {AddressCreaterequest data, String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .updateAddress(context, data: data, token: token))
         .listen((respone) {

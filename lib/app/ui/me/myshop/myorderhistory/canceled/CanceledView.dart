@@ -130,19 +130,21 @@ class _CanceledViewState extends State<CanceledView> {
               AnimatedBuilder(
                 animation: controller,
                 builder: (BuildContext context, Widget _) {
-                  return Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: [
-                      bloc.onSuccess.value != null
-                          ? Positioned(
-                              top: 25 * controller.value,
-                              child: Container(
-                                  margin: EdgeInsets.only(
-                                      top: 1.5.h, bottom: 1.0.h),
-                                  child: CupertinoActivityIndicator()),
-                            )
-                          : SizedBox()
-                    ],
+                  return Center(
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        bloc.onSuccess.hasValue
+                            ? Positioned(
+                                top: 25 * controller.value,
+                                child: Container(
+                                    margin: EdgeInsets.only(
+                                        top: 1.5.h, bottom: 1.0.h),
+                                    child: CupertinoActivityIndicator()),
+                              )
+                            : SizedBox()
+                      ],
+                    ),
                   );
                 },
               ),

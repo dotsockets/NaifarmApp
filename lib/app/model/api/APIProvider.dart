@@ -61,9 +61,6 @@ part '_APIProvider.dart';
 abstract class APIProvider {
   factory APIProvider(Dio dio, {String baseUrl}) = _APIProvider;
 
-  @GET("/tasks/{id}")
-  Future<ApiResult> getProFileFacebook(
-      BuildContext context, @Query("accessToken") String accessToken);
 
   @POST("/v1/customers/login")
   Future<ApiResult> customersLogin(
