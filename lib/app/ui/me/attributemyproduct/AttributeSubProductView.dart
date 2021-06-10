@@ -9,7 +9,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/request/InventoriesAttrRequest.dart';
-import 'package:naifarm/app/model/pojo/response/MyShopAttributeRespone.dart';
+import 'package:naifarm/app/model/pojo/response/AttributeRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductShopItemRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -102,10 +102,10 @@ class _AttributeSubProductViewState extends State<AttributeSubProductView> {
 
   Widget _buildAttrCard() {
     return StreamBuilder(
-        stream: bloc.attributeMyShop.stream,
+        stream: bloc.subAttributeMyShop.stream,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            var item = snapshot.data as MyShopAttributeRespone;
+            var item = snapshot.data as SubAttributeRespone;
             return ListView.builder(
                 itemCount: item.data.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -138,7 +138,7 @@ class _AttributeSubProductViewState extends State<AttributeSubProductView> {
         });
   }
 
-  Widget _buildHeaderAttr(int index, MyShopAttributeRespone item) {
+  Widget _buildHeaderAttr(int index, SubAttributeRespone item) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.only(
@@ -154,7 +154,7 @@ class _AttributeSubProductViewState extends State<AttributeSubProductView> {
     );
   }
 
-  Widget _buildChildAttr(int index, MyShopAttributeRespone item) {
+  Widget _buildChildAttr(int index, SubAttributeRespone item) {
     return Column(
       children: [
         _buildImgBtn(),
@@ -226,7 +226,7 @@ class _AttributeSubProductViewState extends State<AttributeSubProductView> {
     );
   }
 
-  Widget _buildAttrAddBtn(int index, MyShopAttributeRespone itemRes) {
+  Widget _buildAttrAddBtn(int index, SubAttributeRespone itemRes) {
     return Container(
         width: 50.0.w,
         height: 5.0.h,

@@ -5,7 +5,7 @@ import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
-import 'package:naifarm/app/model/pojo/response/MyShopAttributeRespone.dart';
+import 'package:naifarm/app/model/pojo/response/AttributeRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -211,7 +211,7 @@ class _AttributeAddViewState extends State<AttributeAddView> {
     );
   }
 
-  Widget _buildEdittext({double sizeTxt = 83.0}) {
+  Widget _buildEdittext() {
     return Container(
       padding: EdgeInsets.only(top: 4.0.h, bottom: 4.0.h, right: 10, left: 10),
       color: Colors.white,
@@ -226,11 +226,13 @@ class _AttributeAddViewState extends State<AttributeAddView> {
           SizedBox(
             width: 3.0.w,
           ),
-          Container(
-            width: sizeTxt.w,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.black.withOpacity(0.5))),
+    Expanded(
+    child: Container(
+    margin: EdgeInsets.all(1.0.h),
+    decoration: BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(12),
+    border: Border.all(color: Colors.black.withOpacity(0.5))),
             child: TextFormField(
               style: FunctionHelper.fontTheme(
                   fontSize: SizeUtil.titleFontSize().sp),
@@ -245,7 +247,7 @@ class _AttributeAddViewState extends State<AttributeAddView> {
               controller: attrController,
             ),
           ),
-        ],
+    )],
       ),
     );
   }

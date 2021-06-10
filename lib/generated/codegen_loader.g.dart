@@ -318,7 +318,8 @@ class CodegenLoader extends AssetLoader{
     "color": "Color code",
     "edit": "Edit Attributes",
     "list": "Attributes List",
-    "label": "Attributes"
+    "label": "Attributes",
+    "index": "Attributes "
   },
   "my_product": {
     "sell": "Open sales",
@@ -569,7 +570,8 @@ class CodegenLoader extends AssetLoader{
     "show": "Show more",
     "hide": "Hide",
     "not_found": "Data not found",
-    "product_not_found": "Product not found"
+    "product_not_found": "Product not found",
+    "out_of_stock": "out of stock"
   },
   "server_error": {
     "cancel": "Request was cancelled",
@@ -949,12 +951,13 @@ static const Map<String,dynamic> th_TH = {
   },
   "attributes": {
     "set": "จัดการตัวเลือกสินค้า",
-    "add": "เพิ่มตัวเลือกสินค้า",
+    "add": "เพิ่มตัวเลือก",
     "empty": "ไม่พบรายการ",
     "color": "โค้ดสี",
     "edit": "แก้ไขตัวเลือกสินค้า",
-    "list": "รายการตัวเลือกสินค้า",
-    "label": "ตัวเลือก"
+    "list": "ตัวเลือกสินค้า",
+    "label": "ตัวเลือก",
+    "index": "ตัวเลือกที่"
   },
   "recommend": {
     "title": "แนะนำ",
@@ -1135,7 +1138,8 @@ static const Map<String,dynamic> th_TH = {
     "show": "แสดงเพิ่ม",
     "hide": "ย่อ",
     "not_found": "ไม่พบข้อมูล",
-    "product_not_found": "ไม่พบรายการสินค้า"
+    "product_not_found": "ไม่พบรายการสินค้า",
+    "out_of_stock": "สินค้าหมด"
   },
   "server_error": {
     "cancel": "คำขอถูกยกเลิก",

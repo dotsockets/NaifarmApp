@@ -29,7 +29,7 @@ import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ImageUploadRespone.dart';
 import 'package:naifarm/app/model/pojo/response/InformationResponce.dart';
 import 'package:naifarm/app/model/pojo/response/LoginRespone.dart';
-import 'package:naifarm/app/model/pojo/response/MyShopAttributeRespone.dart';
+import 'package:naifarm/app/model/pojo/response/AttributeRespone.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/NotiRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';

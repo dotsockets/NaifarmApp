@@ -117,6 +117,8 @@ import 'package:page_transition/page_transition.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 import 'package:naifarm/app/ui/me/attributemyproduct/AttributeProductView.dart';
 import 'package:naifarm/app/ui/me/attributemyproduct/AttributeSubProductView.dart';
+import 'package:naifarm/app/ui/me/attributemyproduct/AttributeProductAddView.dart';
+import 'package:naifarm/app/ui/me/attributemyproduct/AttributeProductEditView.dart';
 class AppRoute {
   // static  home(BuildContext context){
   //   Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.rightToLeftWithFade, child: HomeView()));
@@ -1108,11 +1110,11 @@ class AppRoute {
         }));
   }
 
-  static attributeProduct({BuildContext context,List<AttributesList> attributeList,ProductShopItemRespone productMyShopRespone}) {
+  static attributeProduct({BuildContext context,ProductShopItemRespone productMyShopRespone}) {
     Navigator.of(context).push(SwipeablePageRoute(
         canOnlySwipeFromEdge: true,
         builder: (context) {
-          return AttributeProductView(attributeList: attributeList,productMyShopRespone: productMyShopRespone,);
+          return AttributeProductView(productMyShopRespone: productMyShopRespone,);
         }));
   }
   static attributeSubProduct({BuildContext context,int attrId,ProductShopItemRespone productMyShopRespone}) {
@@ -1120,6 +1122,21 @@ class AppRoute {
         canOnlySwipeFromEdge: true,
         builder: (context) {
           return AttributeSubProductView(attrId: attrId,productMyShopRespone: productMyShopRespone,);
+        }));
+  }
+  static attributeProductAdd({BuildContext context,ProductShopItemRespone productMyShopRespone}) {
+    Navigator.of(context).push(SwipeablePageRoute(
+        canOnlySwipeFromEdge: true,
+        builder: (context) {
+          return AttributeProductAddView(productMyShopRespone: productMyShopRespone,);
+        }));
+  }
+
+  static attributeProductEdit({BuildContext context,int nameId,String value,String name}) {
+    Navigator.of(context).push(SwipeablePageRoute(
+        canOnlySwipeFromEdge: true,
+        builder: (context) {
+          return AttributeProductEditView(nameId: nameId,value: value,name: name,);
         }));
   }
 }

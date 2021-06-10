@@ -176,7 +176,7 @@ class FunctionHelper {
                               bottom: 2.0.h,
                               top: index == 0 ? 15 : 2.0.h),
                           child: Text(
-                            dataList[index],
+                            "${dataList[index]}",
                             style: FunctionHelper.fontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.w500),

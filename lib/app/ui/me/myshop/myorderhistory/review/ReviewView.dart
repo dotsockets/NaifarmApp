@@ -37,7 +37,8 @@ class ReviewView extends StatefulWidget {
 class _ReviewViewState extends State<ReviewView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   List<TextEditingController> reviewController = [];
-  bool selectSwitch = false;
+
+  // bool selectSwitch = false;
   List<Asset> images = <Asset>[];
   OrdersBloc bloc;
   final onRate = BehaviorSubject<int>();
@@ -52,13 +53,16 @@ class _ReviewViewState extends State<ReviewView> {
     // _iconHide.add(false);
     //  _controller = ExpandedTileController();
     onAddImg.add(false);
-    initialValue();
     super.initState();
   }
 
   init() {
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
+      if (widget.orderData != null) {
+        bloc.orderList.add(widget.orderData);
+      }
+    //  initialValue();
       bloc.onLoad.stream.listen((event) {
         if (event) {
           FunctionHelper.showDialogProcess(context);
@@ -81,8 +85,13 @@ class _ReviewViewState extends State<ReviewView> {
       bloc.onUpdateFeedback.stream.listen((event) {
         if (event != -1) {
           selectIndex = event + 1;
-        } else if (event == widget.orderData.items.length - 1) selectIndex = 0;
+          images.clear();
+        } else if (event == bloc.orderList.value.items.length - 1)
+          selectIndex = 0;
       });
+
+      Usermanager().getUser().then((value) => bloc.getOrderById(context,
+          orderType: "order", id: widget.orderData.id, token: value.token));
     }
   }
 
@@ -102,36 +111,52 @@ class _ReviewViewState extends State<ReviewView> {
             icon: '',
           ),
           body: StreamBuilder(
-              stream: bloc.onUpdateFeedback.stream,
+              stream: bloc.orderList.stream,
               builder: (context, snapshot) {
-                return ListView.builder(
-                    itemCount: widget.orderData.items.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ExpansionPanelList(
-                        expansionCallback: (int i, bool status) {
-                          // setState(() {
-                          //   selectIndex = selectIndex == index ? null : index;
-                          // });
-                          images.clear();
-                          selectIndex = selectIndex == index ? null : index;
-                          bloc.onUpdateFeedback.add(-1);
-                        },
-                        children: [
-                          new ExpansionPanel(
-                            canTapOnHeader: true,
-                            isExpanded: selectIndex == index,
-                            headerBuilder: (BuildContext context,
-                                    bool isExpanded) =>
-                                new Container(
-                                    padding: EdgeInsets.only(
-                                        left: 2.5.w, top: 1.0.h, bottom: 1.0.h),
-                                    child:
-                                        header(index: index, context: context)),
-                            body: ratingChild(index),
-                          ),
-                        ],
-                      );
-                    });
+
+                if (snapshot.hasData) {
+                  var item = (snapshot.data as OrderData);
+                  return ListView.builder(
+                      itemCount: item.items.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        reviewController.add(TextEditingController());
+                        rating.add(0);
+                        return StreamBuilder(
+                            stream: bloc.onUpdateFeedback.stream,
+                            builder: (context, snapshot) {
+                              return ExpansionPanelList(
+                                expansionCallback: (int i, bool status) {
+                                  // setState(() {
+                                  //   selectIndex = selectIndex == index ? null : index;
+                                  // });
+                                  images.clear();
+                                  selectIndex =
+                                      selectIndex == index ? null : index;
+                                  bloc.orderList.add(item);
+                                },
+                                children: [
+                                  new ExpansionPanel(
+                                    canTapOnHeader: true,
+                                    isExpanded: selectIndex == index,
+                                    headerBuilder: (BuildContext context,
+                                            bool isExpanded) =>
+                                        new Container(
+                                            padding: EdgeInsets.only(
+                                                left: 2.5.w,
+                                                top: 1.0.h,
+                                                bottom: 1.0.h),
+                                            child: header(
+                                                index: index,
+                                                context: context,
+                                                item: item)),
+                                    body: ratingChild(index, item),
+                                  ),
+                                ],
+                              );
+                            });
+                      });
+                } else
+                  return SizedBox();
               }),
 
           // body: ListView(
@@ -149,68 +174,63 @@ class _ReviewViewState extends State<ReviewView> {
     );
   }
 
-  Widget ratingTile(int index) {
-    return ExpansionTile(
-      initiallyExpanded: selectIndex == index && selectIndex != -1,
-      backgroundColor: Colors.white,
-      //  initiallyExpanded: isShowItem[0],
-      // trailing: SizedBox.shrink(),
+//change drop List tile
+  // Widget ratingTile(int index) {
+  //   return ExpansionTile(
+  //     initiallyExpanded: selectIndex == index && selectIndex != -1,
+  //     backgroundColor: Colors.white,
+  //     //  initiallyExpanded: isShowItem[0],
+  //     // trailing: SizedBox.shrink(),
+  //
+  //     trailing: Container(
+  //       alignment: Alignment.centerRight,
+  //       margin: EdgeInsets.only(right: 0.5.w),
+  //       width: SizeUtil.iconLargeSize().w,
+  //       child: StreamBuilder(
+  //           stream: onRate.stream,
+  //           builder: (context, snapshot) {
+  //             return Icon(
+  //               //isShowItem[index]
+  //               selectIndex == index
+  //                   ? Icons.keyboard_arrow_down_outlined
+  //                   : Icons.keyboard_arrow_right,
+  //               color: Colors.grey.withOpacity(0.7),
+  //               size: SizeUtil.iconLargeSize().w,
+  //             );
+  //           }),
+  //     ),
+  //     onExpansionChanged: ((c) {
+  //       // _iconHide.add(c);
+  //       //rating[index] = 0;
+  //       // isShowItem[index] = c;
+  //       if (c) {
+  //         selectIndex = index;
+  //       } else {
+  //         selectIndex = -1;
+  //       }
+  //       onRate.add(index);
+  //     }),
+  //     title: header(index: index, context: context),
+  //     children: <Widget>[ratingChild(index)],
+  //   );
+  // }
 
-      trailing: Container(
-        alignment: Alignment.centerRight,
-        margin: EdgeInsets.only(right: 0.5.w),
-        width: SizeUtil.iconLargeSize().w,
-        child: StreamBuilder(
-            stream: onRate.stream,
-            builder: (context, snapshot) {
-              return Icon(
-                //isShowItem[index]
-                selectIndex == index
-                    ? Icons.keyboard_arrow_down_outlined
-                    : Icons.keyboard_arrow_right,
-                color: Colors.grey.withOpacity(0.7),
-                size: SizeUtil.iconLargeSize().w,
-              );
-            }),
-      ),
-      onExpansionChanged: ((c) {
-        // _iconHide.add(c);
-        //rating[index] = 0;
-        // isShowItem[index] = c;
-        if (c) {
-          selectIndex = index;
-        } else {
-          selectIndex = -1;
-        }
-        onRate.add(index);
-      }),
-      title: header(index: index, context: context),
-      children: <Widget>[ratingChild(index)],
-    );
-  }
-
-  Widget ratingChild(int index) {
+  Widget ratingChild(int index, OrderData item) {
     return Column(
       children: [
         Divider(
           color: Colors.grey.shade300,
           thickness: 0.2.h,
         ),
-        StreamBuilder(
-            stream: bloc.onUpdateFeedback.stream,
-            builder: (context, snapshot) {
-              if (snapshot.hasData ||
-                  widget.orderData.items[index].feedbackId == null) {
-                return bloc.feedbackMap[index] == null &&
-                        widget.orderData.items[index].feedbackId == null
-                    ? _buildInputForm(index)
-                    : SizedBox();
-              }
-              return Text("-",
-                  style: FunctionHelper.fontTheme(
-                      fontSize: SizeUtil.titleFontSize().sp,
-                      fontWeight: FontWeight.w500));
-            }),
+        item.items[index].feedbackId == null
+            ? bloc.feedbackMap[index] == null &&
+                    item.items[index].feedbackId == null
+                ? _buildInputForm(index, item)
+                : SizedBox()
+            : Text("-",
+                style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleFontSize().sp,
+                    fontWeight: FontWeight.w500)),
         SizedBox(
           height: 1.5.h,
         ),
@@ -222,60 +242,60 @@ class _ReviewViewState extends State<ReviewView> {
     );
   }
 
-  Widget _buildInputForm(int index) {
+  Widget _buildInputForm(int index, OrderData item) {
     return Column(
       children: [
         buildForm(context, index),
         //hideNameRate(),
-        _buildBtnSend(index),
+        _buildBtnSend(index, item),
       ],
     );
   }
 
-  Widget hideNameRate() {
-    return Container(
-      padding: EdgeInsets.only(right: 2.0.w, left: 2.0.w),
-      color: Colors.white,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 3.0.w),
-              Text(LocaleKeys.review_anonymous.tr(),
-                  style: FunctionHelper.fontTheme(
-                      fontSize: SizeUtil.titleFontSize().sp,
-                      fontWeight: FontWeight.w500)),
-              SizedBox(height: 1.0.w),
-              Text("${LocaleKeys.review_username.tr()}: farnmarket@mail.com",
-                  style: FunctionHelper.fontTheme(
-                      fontSize: SizeUtil.titleSmallFontSize().sp,
-                      color: Colors.black.withOpacity(0.5))),
-              SizedBox(
-                height: 20,
-              )
-            ],
-          ),
-          FlutterSwitch(
-            height: SizeUtil.switchHeight(),
-            width: SizeUtil.switchWidth(),
-            toggleSize: SizeUtil.switchToggleSize(),
-            activeColor: Colors.grey.shade200,
-            inactiveColor: Colors.grey.shade200,
-            toggleColor:
-                selectSwitch ? ThemeColor.primaryColor() : Colors.grey.shade400,
-            value: selectSwitch ? true : false,
-            onToggle: (val) {
-              setState(() {
-                selectSwitch = !selectSwitch;
-              });
-            },
-          )
-        ],
-      ),
-    );
-  }
+  // Widget hideNameRate() {
+  //   return Container(
+  //     padding: EdgeInsets.only(right: 2.0.w, left: 2.0.w),
+  //     color: Colors.white,
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: [
+  //         Column(
+  //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           children: [
+  //             SizedBox(height: 3.0.w),
+  //             Text(LocaleKeys.review_anonymous.tr(),
+  //                 style: FunctionHelper.fontTheme(
+  //                     fontSize: SizeUtil.titleFontSize().sp,
+  //                     fontWeight: FontWeight.w500)),
+  //             SizedBox(height: 1.0.w),
+  //             Text("${LocaleKeys.review_username.tr()}: farnmarket@mail.com",
+  //                 style: FunctionHelper.fontTheme(
+  //                     fontSize: SizeUtil.titleSmallFontSize().sp,
+  //                     color: Colors.black.withOpacity(0.5))),
+  //             SizedBox(
+  //               height: 20,
+  //             )
+  //           ],
+  //         ),
+  //         FlutterSwitch(
+  //           height: SizeUtil.switchHeight(),
+  //           width: SizeUtil.switchWidth(),
+  //           toggleSize: SizeUtil.switchToggleSize(),
+  //           activeColor: Colors.grey.shade200,
+  //           inactiveColor: Colors.grey.shade200,
+  //           toggleColor:
+  //               selectSwitch ? ThemeColor.primaryColor() : Colors.grey.shade400,
+  //           value: selectSwitch ? true : false,
+  //           onToggle: (val) {
+  //             setState(() {
+  //               selectSwitch = !selectSwitch;
+  //             });
+  //           },
+  //         )
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Future<void> loadAssets({int maxImages}) async {
     // ignore: unused_local_variable
@@ -310,22 +330,22 @@ class _ReviewViewState extends State<ReviewView> {
     if (!mounted) return;
   }
 
-  Future captureFile(ImageSource imageSource) async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.getVideo(source: imageSource);
+  // Future captureFile(ImageSource imageSource) async {
+  //   final picker = ImagePicker();
+  //   final pickedFile = await picker.getVideo(source: imageSource);
+  //
+  //   setState(() {
+  //     if (pickedFile != null) {
+  //       // fileImage = File(pickedFile.path);
+  //       print("${File(pickedFile.path)}");
+  //       // Usermanager().getUser().then((value) => bloc.UploadImage(context: context,imageFile: fileImage,imageableType: "customer",imageableId: itemInfo.id,token: value.token));
+  //     } else {
+  //       print('No file selected.');
+  //     }
+  //   });
+  // }
 
-    setState(() {
-      if (pickedFile != null) {
-        // fileImage = File(pickedFile.path);
-        print("${File(pickedFile.path)}");
-        // Usermanager().getUser().then((value) => bloc.UploadImage(context: context,imageFile: fileImage,imageableType: "customer",imageableId: itemInfo.id,token: value.token));
-      } else {
-        print('No file selected.');
-      }
-    });
-  }
-
-  Widget header({int index, BuildContext context}) {
+  Widget header({int index, BuildContext context, OrderData item}) {
     return Container(
       //padding: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 15),
       color: Colors.white,
@@ -406,10 +426,8 @@ class _ReviewViewState extends State<ReviewView> {
                             ),
                           ),
                           fit: BoxFit.contain,
-                          imageUrl: widget
-                                      .orderData.items[index].itemImagePath !=
-                                  null
-                              ? "${Env.value.baseUrl}/storage/images/${widget.orderData.items[index].itemImagePath}"
+                          imageUrl: item.items[index].itemImagePath != null
+                              ? "${Env.value.baseUrl}/storage/images/${item.items[index].itemImagePath}"
                               : Env.value.noItemUrl,
                           errorWidget: (context, url, error) => Container(
                               height: 30,
@@ -427,7 +445,7 @@ class _ReviewViewState extends State<ReviewView> {
                     children: [
                       Container(
                         width: 48.0.w,
-                        child: Text(widget.orderData.items[index].itemTitle,
+                        child: Text(item.items[index].itemTitle,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             style: FunctionHelper.fontTheme(
@@ -436,21 +454,25 @@ class _ReviewViewState extends State<ReviewView> {
                                 fontWeight: FontWeight.w500)),
                       ),
                       SizedBox(height: 0.5.h),
-                      StreamBuilder(
-                          stream: bloc.onUpdateFeedback.stream,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData ||
-                                widget.orderData.items[index].feedbackId !=
-                                    null) {
-                              return bloc.feedbackMap[index] != null
-                                  ? starRate(rate: bloc.feedbackMap[index])
-                                  : widget.orderData.items[index].feedbackId ==
-                                          null
-                                      ? reviewTxt()
-                                      : starRate(rate: 4);
-                            } else
-                              return reviewTxt();
-                          })
+                      // StreamBuilder(
+                      //     stream: bloc.onUpdateFeedback.stream,
+                      //     builder: (context, snapshot) {
+                      //       if (snapshot.hasData ||
+                      //           item.items[index].feedbackId != null) {
+                      //         return bloc.feedbackMap[index] != null
+                      //             ? starRate(rate: bloc.feedbackMap[index])
+                      //             : item.items[index].feedbackId == null
+                      //                 ? reviewTxt()
+                      //                 : starRate(rate: 4);
+                      //       } else
+                      //         return reviewTxt();
+                      //     })
+
+                      item.items[index].feedbackId != null
+                          ? bloc.feedbackMap[index] != null
+                              ? starRate(rate: bloc.feedbackMap[index])
+                              : starRate(rate: 4)
+                          : reviewTxt()
                       // Text("ตัวเลือกสินค้า: ดำ, XL",
                       //     style: FunctionHelper.fontTheme(
                       //         fontSize: SizeUtil.titleSmallFontSize().sp,
@@ -554,26 +576,32 @@ class _ReviewViewState extends State<ReviewView> {
                       return images.length == 0
                           ? Expanded(child: buildAddImgBtn())
                           : Container(
-                        margin: EdgeInsets.only(left: 2.0.w,right: 2.0.w),
-                            width: MediaQuery.of(context).size.width-4.0.w,
-                            child: GridView.count(
-                            crossAxisCount: 5,
-                      controller: new ScrollController(keepScrollOffset: false),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      children: List.generate(
-                        images.length<10? images.length+1:images.length, (index) => index==images.length?buildAddImgItemBtn():buildImgCard(index:index),
-                            ),
-                        ),
-                            // child: Row(
-                            //     children: List.generate(
-                            //         images.length+1, (index) => Row(
-                            //           children: [
-                            //             index==images.length?buildAddImgItemBtn():buildImgCard(index:index),
-                            //           ],
-                            //         )),
-                            //   ),
-                          );
+                              margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                              width: MediaQuery.of(context).size.width - 4.0.w,
+                              child: GridView.count(
+                                crossAxisCount: 5,
+                                controller: new ScrollController(
+                                    keepScrollOffset: false),
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                children: List.generate(
+                                  images.length < 10
+                                      ? images.length + 1
+                                      : images.length,
+                                  (index) => index == images.length
+                                      ? buildAddImgItemBtn()
+                                      : buildImgCard(index: index),
+                                ),
+                              ),
+                              // child: Row(
+                              //     children: List.generate(
+                              //         images.length+1, (index) => Row(
+                              //           children: [
+                              //             index==images.length?buildAddImgItemBtn():buildImgCard(index:index),
+                              //           ],
+                              //         )),
+                              //   ),
+                            );
                     }),
                 // Expanded(
                 //     child: InkWell(
@@ -729,14 +757,13 @@ class _ReviewViewState extends State<ReviewView> {
     );
   }
 
-
   Widget buildImgCard({int index}) {
     return InkWell(
-      onTap: (){
-      loadAssets(maxImages: 10);
+      onTap: () {
+        loadAssets(maxImages: 10);
       },
       child: Container(
-       margin: EdgeInsets.only(right: index!=images.length?1.0.w:0),
+        margin: EdgeInsets.only(right: index != images.length ? 1.0.w : 0),
         decoration: BoxDecoration(
             color: Colors.grey.withOpacity(0.1),
             borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -746,16 +773,18 @@ class _ReviewViewState extends State<ReviewView> {
             borderType: BorderType.RRect,
             radius: Radius.circular(10),
             color: ThemeColor.primaryColor(),
-            child:
-            Center(
+            child: Center(
                 child: ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(8)),
               // child: Image.file(bloc.listImage[index].file)
               child: Stack(
                 children: [
                   AssetThumb(
-                    asset: Asset(images[index].identifier, images[index].name,
-                        images[index].originalWidth, images[index].originalHeight),
+                    asset: Asset(
+                        images[index].identifier,
+                        images[index].name,
+                        images[index].originalWidth,
+                        images[index].originalHeight),
                     width: 80,
                     height: 80,
                   ),
@@ -766,49 +795,46 @@ class _ReviewViewState extends State<ReviewView> {
     );
   }
 
-
   Widget buildAddImgItemBtn() {
     return InkWell(
-      onTap: (){
-        loadAssets(maxImages: 10);},
+      onTap: () {
+        loadAssets(maxImages: 10);
+      },
       child: Container(
-          //margin: EdgeInsets.only(top: 10, bottom: 10),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(10))),
-          child: DottedBorder(
-              strokeWidth: 1.5,
-              dashPattern: [10, 2],
-              borderType: BorderType.RRect,
-              radius: Radius.circular(10),
-              color: ThemeColor.primaryColor(),
-              child:
-              Center(
-                child: Container(
-     //             width: 80,
-                  height: 80,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.camera_alt,
-                        color: ThemeColor.secondaryColor(),
-                        size: SizeUtil.iconSmallSize().w-1.0.w,
-                      ),
-                      Text(LocaleKeys.btn_add_image.tr(),
-                          style: FunctionHelper.fontTheme(
-                              fontSize: SizeUtil.detailSmallFontSize().sp,
-                              fontWeight: FontWeight.w500,
-                              color: ThemeColor.secondaryColor())),
-                    ],
-                  ),
+        //margin: EdgeInsets.only(top: 10, bottom: 10),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        child: DottedBorder(
+            strokeWidth: 1.5,
+            dashPattern: [10, 2],
+            borderType: BorderType.RRect,
+            radius: Radius.circular(10),
+            color: ThemeColor.primaryColor(),
+            child: Center(
+              child: Container(
+                //             width: 80,
+                height: 80,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.camera_alt,
+                      color: ThemeColor.secondaryColor(),
+                      size: SizeUtil.iconSmallSize().w - 1.0.w,
+                    ),
+                    Text(LocaleKeys.btn_add_image.tr(),
+                        style: FunctionHelper.fontTheme(
+                            fontSize: SizeUtil.detailSmallFontSize().sp,
+                            fontWeight: FontWeight.w500,
+                            color: ThemeColor.secondaryColor())),
+                  ],
                 ),
-              )),
+              ),
+            )),
       ),
     );
   }
-
-
 
   Widget buildButtonreview({String title = "", Function() onClick, int index}) {
     return TextButton(
@@ -844,7 +870,7 @@ class _ReviewViewState extends State<ReviewView> {
     );
   }
 
-  Widget _buildBtnSend(int index) {
+  Widget _buildBtnSend(int index, OrderData item) {
     return Container(
       height: 5.0.h,
       child: StreamBuilder(
@@ -886,7 +912,7 @@ class _ReviewViewState extends State<ReviewView> {
                       orderId: widget.orderData.id,
                       imageList: convertImg,
                       index: index,
-                      inventoryId: widget.orderData.items[index].inventoryId));
+                      inventoryId: item.items[index].inventoryId));
                 }
               },
               child: Text(
@@ -899,14 +925,6 @@ class _ReviewViewState extends State<ReviewView> {
             );
           }),
     );
-  }
-
-  initialValue() {
-    for (var i = 0; i < widget.orderData.items.length; i++) {
-      reviewController.add(TextEditingController());
-      rating.add(0);
-      //isShowItem.add(false);
-    }
   }
 
   bool _checkReview(int index) {
@@ -940,4 +958,6 @@ class _ReviewViewState extends State<ReviewView> {
         break;
     }
   }
+
+
 }

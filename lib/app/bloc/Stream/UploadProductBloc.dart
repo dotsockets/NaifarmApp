@@ -12,7 +12,7 @@ import 'package:naifarm/app/model/pojo/request/InventoriesRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryCombin.dart';
-import 'package:naifarm/app/model/pojo/response/MyShopAttributeRespone.dart';
+import 'package:naifarm/app/model/pojo/response/AttributeRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductShopItemRespone.dart';
@@ -28,7 +28,8 @@ class UploadProductBloc {
   final onSuccess = BehaviorSubject<Object>();
   final onChang = BehaviorSubject<Object>();
   final productMyShopRes = BehaviorSubject<ProductMyShopListRespone>();
-  final attributeMyShop = BehaviorSubject<MyShopAttributeRespone>();
+  final subAttributeMyShop = BehaviorSubject<SubAttributeRespone>();
+  final attributeMyShop = BehaviorSubject<AttributeRespone>();
   final uploadProductStorage = BehaviorSubject<UploadProductStorage>();
   final productRes = BehaviorSubject<ProductShopItemRespone>();
 
@@ -37,7 +38,6 @@ class UploadProductBloc {
   List<OnSelectItem> itemImage = <OnSelectItem>[];
   List<ProductMyShop> productList = <ProductMyShop>[];
   List<ImageProductShop> productImageList = <ImageProductShop>[];
-  List<AttributesList> productAttributeList = <AttributesList>[];
 
   int inventoriesId = 0;
   var checkloop = 0;
@@ -376,11 +376,12 @@ class UploadProductBloc {
       onLoad.add(false);
       if (respone.httpCallBack.status == 200) {
         var item = (respone.respone as ProductShopItemRespone);
-        uploadProductStorage.value.onSelectItem.clear();
+        if(uploadProductStorage.value!=null){uploadProductStorage.value.onSelectItem.clear();
         for (var value in item.image) {
           uploadProductStorage.value.onSelectItem
               .add(OnSelectItem(url: value.path, onEdit: false));
         }
+
         inventoriesId = item.inventories[0].id;
         uploadProductStorage.value.productMyShopRequest = ProductMyShopRequest(
             inventoriesid: item.inventories[0].id,
@@ -392,8 +393,8 @@ class UploadProductBloc {
             category: item.categories[0].category.id,
             weight: item.inventories[0].shippingWeight,
             description: item.description);
-        productAttributeList.addAll(item.inventories[0].attributes);
         uploadProductStorage.add(uploadProductStorage.value);
+        }
         productRes.add(item);
       } else {
         onError.add(respone.httpCallBack.message);
@@ -500,7 +501,7 @@ class UploadProductBloc {
       if (respone.httpCallBack.status == 200) {
         onLoad.add(false);
         onSuccess.add(true);
-        attributeMyShop.add(respone.respone as MyShopAttributeRespone);
+        attributeMyShop.add(respone.respone as AttributeRespone);
       } else {
         onLoad.add(false);
         onError.add(respone.httpCallBack.message);
@@ -557,16 +558,15 @@ class UploadProductBloc {
   }
 
   getSubAttribute(BuildContext context, {String token, int id}) {
-    onLoad.add(true);
+   // onLoad.add(true);
     StreamSubscription subscription = Observable.fromFuture(_application
             .appStoreAPIRepository
             .getSubAttribute(context, id: id, token: token))
         .listen((respone) {
       if (respone.httpCallBack.status == 200) {
-        onLoad.add(false);
-        attributeMyShop.add((respone.respone as MyShopAttributeRespone));
+        subAttributeMyShop.add((respone.respone as SubAttributeRespone));
       } else {
-        onLoad.add(false);
+      //  onLoad.add(false);
         onError.add(respone.httpCallBack.message);
       }
     });

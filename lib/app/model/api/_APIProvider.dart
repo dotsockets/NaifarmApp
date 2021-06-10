@@ -2184,7 +2184,7 @@ class _APIProvider implements APIProvider {
               baseUrl: baseUrl),
           data: _data);
       return ApiResult(
-          respone: MyShopAttributeRespone.fromJson(_result.data),
+          respone: AttributeRespone.fromJson(_result.data),
           httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
     } on DioError catch (e) {
       return ServerError.dioErrorExpction(e);
@@ -2270,7 +2270,7 @@ class _APIProvider implements APIProvider {
                   baseUrl: baseUrl),
               data: _data);
       return ApiResult(
-          respone: MyShopAttributeRespone.fromJson(_result.data),
+          respone: SubAttributeRespone.fromJson(_result.data),
           httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
     } on DioError catch (e) {
       return ServerError.dioErrorExpction(e);

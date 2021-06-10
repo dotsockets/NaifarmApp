@@ -220,7 +220,7 @@ class HistoryProductCard extends StatelessWidget {
           onTap: ()  async {
             final result = await AppRoute.orderDetail(context,
                 orderData: this.order, typeView: this.type);
-            if (result) {
+            if (result!=null&&result) {
               if(pageVeiw=="delivery"&&this.type == OrderViewType.Purchase) {
                 Navigator.of(context).pop();
                 AppRoute.myShophistory(context, 3);

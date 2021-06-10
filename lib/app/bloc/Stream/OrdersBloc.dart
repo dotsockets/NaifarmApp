@@ -28,7 +28,7 @@ class OrdersBloc {
   Stream<Object> get feedList => onSuccess.stream;
   List<OrderData> orderDataList = <OrderData>[];
   HashMap feedbackMap = new HashMap<int, int>();
-
+  int checkLoop = 0;
   OrdersBloc(this._application);
 
   loadOrder(BuildContext context,
@@ -201,12 +201,11 @@ class OrdersBloc {
       {File imageFile,
       String imageableType,
       int imageableId,
-      String token,
+      String token,int length,
       bool requestPayments=false,int index=0}) async {
     if(requestPayments){
       onLoad.add(true);
     }
-
     StreamSubscription subscription = Observable.fromFuture(
             _application.appStoreAPIRepository.uploadImage(context,
                 imageFile: imageFile,
@@ -216,12 +215,13 @@ class OrdersBloc {
         .listen((respone) {
       if (respone.httpCallBack.status == 200 ||
           respone.httpCallBack.status == 201) {
+        checkLoop++;
         //context.read<InfoCustomerBloc>().loadCustomInfo(token:token);
         if (requestPayments) {
           requestPayment(context, orderId: imageableId, token: token);
         } else {
           onUpdateFeedback.add(index);
-          onLoad.add(false);
+          if(checkLoop==length)onLoad.add(false);
         }
       } else {
         onLoad.add(false);
@@ -375,22 +375,29 @@ class OrdersBloc {
         //  onSuccess.add(true);
         // indexRate.add(index);
         // List<File> fileList = <File>[];
+
         if (imageList.length == 0) {
           onUpdateFeedback.add(index);
           onLoad.add(false);
+
         } else
-          for (var item in imageList) {
-            writeToFile(await item.getByteData(quality: 100)).then((file) {
+         // for(var item in imageList) {
+          checkLoop=0;
+          for(int i=0;i< imageList.length;i++) {
+         //   writeToFile(await item.getByteData(quality: 100)).then((file) {
+            writeToFile(await imageList[i].getByteData(quality: 100)).then((file) {
               //fileList.add(file);
               uploadImage(
                 context,
                 token: token,
                 imageableId: int.parse((respone.respone as FeedbackData).id),
-                imageFile: file,index:index,
+                imageFile: file
+                  ,index:index,length: imageList.length,
                 imageableType: "feedback"
               );
             });
           }
+          getOrderById(context, orderType: "order", id: orderId, token: token);
         //feedbackData.add(respone.respone as FeedbackData);
         // uploadImages(
         //   context,

@@ -7,7 +7,7 @@ import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
-import 'package:naifarm/app/model/pojo/response/MyShopAttributeRespone.dart';
+import 'package:naifarm/app/model/pojo/response/AttributeRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -61,7 +61,7 @@ class _AttributeEditViewState extends State<AttributeEditView> {
           Navigator.pop(context, true);
         }
       });
-      bloc.attributeMyShop.stream.listen((event) {
+      bloc.subAttributeMyShop.stream.listen((event) {
         subAttrController.clear();
         total = event.total;
         event.total != 0
@@ -136,10 +136,10 @@ class _AttributeEditViewState extends State<AttributeEditView> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     StreamBuilder(
-                                        stream: bloc.attributeMyShop.stream,
+                                        stream: bloc.subAttributeMyShop.stream,
                                         builder: (context, snapshot) {
                                           var item = (snapshot.data
-                                              as MyShopAttributeRespone);
+                                              as SubAttributeRespone);
                                           // _check();
                                           return Column(
                                             children: List.generate(
@@ -208,7 +208,7 @@ class _AttributeEditViewState extends State<AttributeEditView> {
     );
   }
 
-  Widget _buildEdittextDel({int index, MyShopAttributeRespone item}) {
+  Widget _buildEdittextDel({int index, SubAttributeRespone item}) {
     return Container(
       margin: EdgeInsets.only(bottom: 1.0.h),
       color: Colors.white,
@@ -334,7 +334,7 @@ class _AttributeEditViewState extends State<AttributeEditView> {
                       HashMap<int,String> valueUpdateList = new HashMap<int, String>();
                       List.generate(
                           total,
-                          (index) => subAttrController[index].text.isNotEmpty && subAttrController[index].text.trim() != bloc.attributeMyShop.value.data[index].value.trim()
+                          (index) => subAttrController[index].text.isNotEmpty && subAttrController[index].text.trim() != bloc.subAttributeMyShop.value.data[index].value.trim()
                               ? valueUpdateList[index] = subAttrController[index].text:null);
 
                       if (valueUpdateList.isNotEmpty) {
@@ -379,7 +379,7 @@ class _AttributeEditViewState extends State<AttributeEditView> {
         id: widget.attrId, token: value.token, name: attrController.text));
   }
 
-  _delSubAttr({int index, MyShopAttributeRespone item}) {
+  _delSubAttr({int index, SubAttributeRespone item}) {
     Usermanager().getUser().then((value) => bloc.deleteSubAttribute(context,
         id: widget.attrId, token: value.token, vid: item.data[index].id));
   }
@@ -398,7 +398,7 @@ class _AttributeEditViewState extends State<AttributeEditView> {
               ? index
               : -1,
           color: "",
-          vid:  bloc.attributeMyShop.value.data[valueList.keys.elementAt(index)].id));
+          vid:  bloc.subAttributeMyShop.value.data[valueList.keys.elementAt(index)].id));
     });
 
   }

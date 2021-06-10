@@ -10,7 +10,7 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
-import 'package:naifarm/app/model/pojo/response/MyShopAttributeRespone.dart';
+import 'package:naifarm/app/model/pojo/response/AttributeRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -124,7 +124,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                 stream: bloc.attributeMyShop.stream,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    var item = (snapshot.data as MyShopAttributeRespone);
+                    var item = (snapshot.data as AttributeRespone);
                     return item.data.length != 0
                         ? Column(
                             children: [
