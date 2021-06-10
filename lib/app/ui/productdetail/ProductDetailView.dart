@@ -428,7 +428,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                       tag: "customTag",
                       child: Center(
                         child: ProductSlide(
-                            imgList: item.producItemRespone.image.length!=0?item.producItemRespone.image
+                            imgList: item.producItemRespone !=null && item.producItemRespone.image.length!=0?item.producItemRespone.image
                                 .map((e) =>
                                     "${Env.value.baseUrl}/storage/images/${e.path}")
                                 .toList():[""],stockQuantity: item.producItemRespone.inventories!=null?item.producItemRespone.inventories[0].stockQuantity:1,),

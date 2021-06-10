@@ -2841,20 +2841,29 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> createFeedback(BuildContext context, {int rating, String comment, int inventoryId,String token,int orderId}) async {
+  Future<ApiResult> createFeedback(BuildContext context,
+      {int rating,
+      String comment,
+      int inventoryId,
+      String token,
+      int orderId}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{"rating": rating, "comment": comment,"inventoryId":inventoryId,"orderId":orderId};
+    final _data = <String, dynamic>{
+      "rating": rating,
+      "comment": comment,
+      "inventoryId": inventoryId,
+      "orderId": orderId
+    };
     try {
-      final _result =
-      await _dio.request<dynamic>('/v1/feedback',
+      final _result = await _dio.request<dynamic>('/v1/feedback',
           queryParameters: queryParameters,
           options: RequestOptions(
               method: 'POST',
               headers: <String, dynamic>{
                 "token": token,
                 'Accept-Language':
-                EasyLocalization.of(context).locale.languageCode
+                    EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -2868,7 +2877,8 @@ class _APIProvider implements APIProvider {
   }
 
   @override
-  Future<ApiResult> getFeedback(BuildContext context, {int id, int limit, int page}) async {
+  Future<ApiResult> getFeedback(BuildContext context,
+      {int id, int limit, int page}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -2880,7 +2890,7 @@ class _APIProvider implements APIProvider {
               method: 'GET',
               headers: <String, dynamic>{
                 'Accept-Language':
-                EasyLocalization.of(context).locale.languageCode
+                    EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),
@@ -2892,12 +2902,13 @@ class _APIProvider implements APIProvider {
       return ServerError.dioErrorExpction(e);
     }
   }
+
   @override
   Future<ApiResult> updateInventoriesAttr(BuildContext context,
       {InventoriesAttrRequest inventoriesRequest,
-        int productId,
-        int inventoriesId,
-        String token}) async {
+      int productId,
+      int inventoriesId,
+      String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     // final _data = <String, dynamic>{};
@@ -2910,10 +2921,7 @@ class _APIProvider implements APIProvider {
               headers: <String, dynamic>{
                 "token": token,
                 'Accept-Language':
-                EasyLocalization
-                    .of(context)
-                    .locale
-                    .languageCode
+                    EasyLocalization.of(context).locale.languageCode
               },
               extra: _extra,
               baseUrl: baseUrl),

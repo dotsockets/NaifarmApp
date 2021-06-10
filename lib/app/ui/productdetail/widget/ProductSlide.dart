@@ -9,6 +9,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
 
 class ProductSlide extends StatefulWidget {
@@ -24,11 +25,12 @@ class ProductSlide extends StatefulWidget {
 class _ProductSlideState extends State<ProductSlide> {
   //final List<String> _imgList = <String>[];
 
-  int _current;
+
+  final current = BehaviorSubject<int>();
 
   @override
   void initState() {
-    _current = widget.indexImg;
+    current.add( widget.indexImg);
     super.initState();
     // for (var item in widget.imgList) {
     //   _imgList.add("${Env.value.baseUrl}/storage/images/${item.path}");
@@ -67,9 +69,7 @@ class _ProductSlideState extends State<ProductSlide> {
               enableInfiniteScroll: widget.imgList.length > 1 ? true : false,
               autoPlayInterval: Duration(seconds: 7),
               onPageChanged: (index, reason) {
-                setState(() {
-                  _current = index;
-                });
+                current.add(index);
               },
             ),
             items: widget.imgList
@@ -129,11 +129,14 @@ class _ProductSlideState extends State<ProductSlide> {
         //  left: MediaQuery.of(context).size.width/2*0.86,
         child: Container(
           width: MediaQuery.of(context).size.width,
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: widget.imgList
-                  .asMap()
-                  .map((key, value) {
+          child: StreamBuilder(
+            stream: current.stream,
+            builder: (_,snapShot){
+              return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: widget.imgList
+                      .asMap()
+                      .map((key, value) {
                     return MapEntry(
                         key,
                         Container(
@@ -144,14 +147,16 @@ class _ProductSlideState extends State<ProductSlide> {
                             border: Border.all(
                                 color: Colors.black.withOpacity(0.6)),
                             shape: BoxShape.circle,
-                            color: _current == key
+                            color: snapShot.hasData && snapShot.data == key
                                 ? Colors.black
                                 : Colors.transparent,
                           ),
                         ));
                   })
-                  .values
-                  .toList()),
+                      .values
+                      .toList());
+            },
+          ),
         ),
       );
 }
