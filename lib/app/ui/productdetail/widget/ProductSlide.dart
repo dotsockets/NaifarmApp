@@ -16,7 +16,7 @@ class ProductSlide extends StatefulWidget {
   final int indexImg;
   final int stockQuantity;
 
-  const ProductSlide({Key key, this.imgList,this.indexImg=0,this.stockQuantity=0}) : super(key: key);
+  const ProductSlide({Key key, this.imgList,this.indexImg=0,this.stockQuantity=1}) : super(key: key);
   @override
   _ProductSlideState createState() => _ProductSlideState();
 }
