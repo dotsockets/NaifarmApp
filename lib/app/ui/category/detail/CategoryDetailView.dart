@@ -31,8 +31,6 @@ class CategoryDetailView extends StatefulWidget {
 
 class _CategoryDetailViewState extends State<CategoryDetailView> {
   final _scrollController = TrackingScrollController();
-  // final _indicatorController = IndicatorController();
-  // int _categoryselectedIndex = 0;
   ProductBloc bloc;
 
   @override

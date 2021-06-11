@@ -12,13 +12,12 @@ import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
-import 'ProductLandscape.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 // ignore: must_be_immutable
 class ProductVertical extends StatelessWidget {
@@ -224,7 +223,7 @@ class ProductVertical extends StatelessWidget {
                               ),
                               imageUrl:
                               item.image.length != 0?
-                              "${Env.value.baseUrl}/storage/images/${item.image[0].path}":"",
+                              "${item.image[0].path.imgUrl()}":"",
                               errorWidget: (context, url, error) => Container(
                                   width: 28.0.w,
                                   height: 35.0.w,
@@ -337,7 +336,7 @@ class ProductVertical extends StatelessWidget {
             children: [
               item.offerPrice != null
                   ? Text(
-                      "฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
+                      "฿${item.salePrice.priceFormat()}",
                       style: FunctionHelper.fontTheme(
                           color: Colors.grey,
                           fontSize: SizeUtil.priceFontSize().sp - 2,
@@ -346,7 +345,7 @@ class ProductVertical extends StatelessWidget {
               SizedBox(width: item.offerPrice != null ? 1.0.w : 0),
               Text(
                 item.offerPrice != null
-                    ? "฿${NumberFormat("#,##0", "en_US").format(item.offerPrice)}"
+                    ? "฿${item.offerPrice.priceFormat()}"
                     : "฿${NumberFormat("#,##0", "en_US").format(item.salePrice!=null?item.salePrice:0)}",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

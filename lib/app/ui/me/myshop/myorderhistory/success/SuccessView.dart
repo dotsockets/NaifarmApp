@@ -7,7 +7,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
-import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -22,6 +21,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/widgets/HistoryProductCard.dart';
 import 'package:sizer/sizer.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class SuccessView extends StatefulWidget {
   final OrderViewType typeView;
@@ -268,7 +268,7 @@ class _SuccessViewState extends State<SuccessView>   {
                                               ? Text(
                                                   LocaleKeys.history_order_time
                                                           .tr() +
-                                                      " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(value.createdAt))}",
+                                                      " ${value.createdAt.dateFormat()}",
                                                   style: FunctionHelper.fontTheme(
                                                       fontSize: SizeUtil
                                                               .titleSmallFontSize()

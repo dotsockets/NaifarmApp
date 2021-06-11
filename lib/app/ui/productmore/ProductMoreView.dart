@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +19,10 @@ import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
-import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class ProductMoreView extends StatefulWidget {
   final String barTxt;
@@ -425,7 +424,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
           children: [
             item.offerPrice != null
                 ? Text(
-                    "฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
+                    "฿${item.salePrice.priceFormat()}",
                     style: FunctionHelper.fontTheme(
                         color: Colors.grey,
                         fontSize: SizeUtil.priceFontSize().sp - 2,
@@ -434,8 +433,8 @@ class _ProductMoreViewState extends State<ProductMoreView> {
             SizedBox(width: item.offerPrice != null ? 1.0.w : 0),
             Text(
               item.offerPrice != null
-                  ? "฿${NumberFormat("#,##0", "en_US").format(item.offerPrice)}"
-                  : "฿${NumberFormat("#,##0", "en_US").format(item.salePrice!=null?item.salePrice:0)}",
+                  ? "฿${item.offerPrice.priceFormat()}"
+                  : "฿${item.salePrice!=null?item.salePrice.priceFormat():0}",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: FunctionHelper.fontTheme(
@@ -514,13 +513,10 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                         ),
                       ),
                       imageUrl:  item.image.length != 0?
-                      "${Env.value.baseUrl}/storage/images/${item.image[0].path}":"",
+                      "${item.image[0].path.imgUrl()}":"",
                       errorWidget: (context, url, error) => Container(
                           width: 30.0.w,
                           height: 40.0.w,
-
-//child: Image.network(Env.value.noItemUrl,
-                          //    fit: BoxFit.cover)),
                           child: NaifarmErrorWidget()),
                     ),
                   ),

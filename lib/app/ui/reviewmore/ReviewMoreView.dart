@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,16 +12,15 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/FeedbackRespone.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:naifarm/app/ui/productdetail/widget/RatingProduct.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
-import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class ReviewMoreView extends StatefulWidget {
 
@@ -341,7 +339,7 @@ class _ReviewMoreViewState extends State<ReviewMoreView> {
                               height: SizeUtil.tabBarHeight().w,),
                           ),
                           fit: BoxFit.cover,
-                          imageUrl: "${Env.value.baseUrl}/storage/images/${feedItem.customer.image.isNotEmpty ? feedItem.customer.image[0].path : ''}",
+                          imageUrl: "${feedItem.customer.image.isNotEmpty ? feedItem.customer.image[0].path.imgUrl() : ''}",
                           errorWidget: (context, url, error) => Container(
                               color: Colors.grey.shade300,
                               width: SizeUtil.tabBarHeight().w,
@@ -412,7 +410,7 @@ class _ReviewMoreViewState extends State<ReviewMoreView> {
                                   height: 22.0.w,),
                               ),
                               fit: BoxFit.cover,
-                              imageUrl: "${Env.value.baseUrl}/storage/images/${feedItem.image.isNotEmpty ? feedItem.image[index].path : ''}",
+                              imageUrl: "${feedItem.image.isNotEmpty ? feedItem.image[index].path.imgUrl() : ''}",
                               errorWidget: (context, url, error) =>  Container(
                                   width: 22.0.w,
                                   height: 22.0.w,
@@ -428,7 +426,7 @@ class _ReviewMoreViewState extends State<ReviewMoreView> {
                             heroTag: "image_${feedItem.image[index].path}",
                             context: context,indexImg: index,
                             //  image: convertImage(index: index,feedItem: feedItem)
-                            imgList:  feedItem.image.length!=0?feedItem.image.map((e) => "${Env.value.baseUrl}/storage/images/${e.path}").toList():[""]
+                            imgList:  feedItem.image.length!=0?feedItem.image.map((e) => "${e.path.imgUrl()}").toList():[""]
                         );
                       },
                     );
@@ -438,7 +436,7 @@ class _ReviewMoreViewState extends State<ReviewMoreView> {
               SizedBox(height: 1.0.h),
               Row(
                 children: [
-                  Text(feedItem.createdAt!=null?"${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(feedItem.createdAt))}":"",
+                  Text(feedItem.createdAt!=null?"${feedItem.createdAt.dateTimeFormat()}":"",
                       style: FunctionHelper.fontTheme(
                           color: Colors.black.withOpacity(0.75),
                           fontSize: SizeUtil.detailFontSize().sp,

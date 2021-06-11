@@ -9,6 +9,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sizer/sizer.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 // ignore: must_be_immutable
 class DeliverySelectView extends StatefulWidget {
@@ -149,7 +150,7 @@ class _DeliverySelectViewState extends State<DeliverySelectView> {
                   ),
                   Container(
                     child: Text(
-                        "฿${NumberFormat("#,##0", "en_US").format(item.rate)}",
+                        "฿${item.rate.priceFormat()}",
                         style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleFontSize().sp,
                             color: ThemeColor.colorSale())),

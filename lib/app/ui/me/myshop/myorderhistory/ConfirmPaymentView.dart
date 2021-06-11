@@ -11,12 +11,11 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
-import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:sizer/sizer.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 // ignore: must_be_immutable
 class ConfirmPaymentView extends StatelessWidget {
@@ -203,7 +202,7 @@ class ConfirmPaymentView extends StatelessWidget {
                                                         //   child: Lottie.asset('assets/json/loading.json', ),
                                                         // ),
                                                         imageUrl:item.image.length != 0?
-                                                        "${Env.value.baseUrl}/storage/images/${item.image[0].path}":""
+                                                        "${item.image[0].path.imgUrl()}":""
                                                         //  errorWidget: (context, url, error) => Container(child: Image.network(Env.value.noItemUrl,fit: BoxFit.cover)),
                                                       ),
                                                     ))) //)

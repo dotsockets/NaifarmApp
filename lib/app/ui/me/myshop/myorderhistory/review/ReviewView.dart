@@ -1,11 +1,6 @@
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-
-import 'package:flutter_switch/flutter_switch.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:naifarm/app/bloc/Stream/OrdersBloc.dart';
@@ -24,6 +19,7 @@ import 'package:naifarm/utility/widgets/CustomStarRating.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class ReviewView extends StatefulWidget {
   final OrderData orderData;
@@ -427,7 +423,7 @@ class _ReviewViewState extends State<ReviewView> {
                           ),
                           fit: BoxFit.contain,
                           imageUrl: item.items[index].itemImagePath != null
-                              ? "${Env.value.baseUrl}/storage/images/${item.items[index].itemImagePath}"
+                              ? "${item.items[index].itemImagePath.imgUrl()}"
                               : Env.value.noItemUrl,
                           errorWidget: (context, url, error) => Container(
                               height: 30,

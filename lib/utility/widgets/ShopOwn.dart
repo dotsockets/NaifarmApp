@@ -7,13 +7,12 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
 import '../SizeUtil.dart';
-import 'ProductLandscape.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 import 'package:timeago/timeago.dart' as timeago;
 
 // ignore: must_be_immutable
@@ -60,7 +59,7 @@ class ShopOwn extends StatelessWidget {
                       fit: BoxFit.cover,
                       imageUrl: shopItem.image!=null?shopItem.image.length != 0
                           ?
-                      "${Env.value.baseUrl}/storage/images/${shopItem.image[0].path}"
+                      "${shopItem.image[0].path.imgUrl()}"
                           : "":"",
                       // errorWidget: (context, url, error) => Container(
                       //     width: SizeUtil.imgItemSize().w,
@@ -92,7 +91,7 @@ class ShopOwn extends StatelessWidget {
                         shopItem.image.length!=0?
                         shopItem.image
                             .map((e) =>
-                                "${Env.value.baseUrl}/storage/images/${e.path}")
+                                "${e.path.imgUrl()}")
                             .toList(): [""]);
                   },
                 ),
@@ -109,14 +108,14 @@ class ShopOwn extends StatelessWidget {
                     SizedBox(height: 5),
                     Text(
                         shopItem.updatedAt != null
-                            ? "Active ${timeago.format(DateTime.parse(DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.parse(shopItem.updatedAt))), locale: 'th')} "
+                            ? "Active ${timeago.format(DateTime.parse(shopItem.updatedAt.dateTimeSecFormat()), locale: 'th')}"
                             : "-",
                         style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             color: Colors.black.withOpacity(0.8))),
                     SizedBox(height: 2),
                     Text(
-                        "${shopItem.state != null ? "จังหวัด ${shopItem.state.name}" : '-'}",
+                        "${shopItem.state != null ? "จังหวัด${shopItem.state.name}" : ' -'}",
                         style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             color: Colors.black.withOpacity(0.8),

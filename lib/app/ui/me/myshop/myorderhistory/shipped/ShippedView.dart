@@ -18,6 +18,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/HistoryProductCard.dart';
 import 'package:sizer/sizer.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class ShippedView extends StatefulWidget {
   final OrderViewType typeView;
@@ -211,11 +212,11 @@ class _ShippedViewState extends State<ShippedView> {
                                                         LocaleKeys
                                                             .order_detail_by_date
                                                             .tr() +
-                                                        " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(value.createdAt))}"
+                                                        " ${value.createdAt.dateFormat()}"
                                                     : LocaleKeys
                                                             .history_order_time
                                                             .tr() +
-                                                        "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(value.createdAt))}",
+                                                        "  ${value.createdAt.dateFormat()}",
                                                 style: FunctionHelper.fontTheme(
                                                     fontSize: SizeUtil
                                                             .titleSmallFontSize()

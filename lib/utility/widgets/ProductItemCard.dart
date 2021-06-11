@@ -11,6 +11,8 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
+
 
 class ProductItemCard extends StatelessWidget {
   final String tagHero;
@@ -241,7 +243,7 @@ class ProductItemCard extends StatelessWidget {
         children: [
           item.offerPrice != null
               ? Text(
-                  "฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
+                  "฿${item.salePrice.priceFormat()}",
                   style: FunctionHelper.fontTheme(
                       color: Colors.grey,
                       fontSize: SizeUtil.priceFontSize().sp - 2,
@@ -250,8 +252,8 @@ class ProductItemCard extends StatelessWidget {
           SizedBox(width: item.offerPrice != null ? 1.0.w : 0),
           Text(
             item.offerPrice != null
-                ? "฿${NumberFormat("#,##0", "en_US").format(item.offerPrice)}"
-                : "฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
+                ? "฿${item.offerPrice.priceFormat()}"
+                : "฿${item.salePrice.priceFormat()}",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: FunctionHelper.fontTheme(
@@ -268,7 +270,7 @@ class ProductItemCard extends StatelessWidget {
         children: [
           Text(
             item.minPrice != null
-                ? "฿${NumberFormat("#,##0", "en_US").format(item.minPrice)}"
+                ? "฿${item.minPrice.priceFormat()}"
                 : "฿0",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,

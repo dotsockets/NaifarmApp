@@ -539,7 +539,8 @@ class CodegenLoader extends AssetLoader{
     "seller": "Seller",
     "buyer": "Buyer",
     "sell": "Sale Product Detail",
-    "pay_qr": "QR Payment"
+    "pay_qr": "QR Payment",
+    "success": "You have placed an order and must pay"
   },
   "login": {
     "forgot_password": "Forgot Password",
@@ -1107,7 +1108,8 @@ static const Map<String,dynamic> th_TH = {
     "seller": "ผู้ขาย",
     "buyer": "ผู้ซื้อ",
     "sell": "รายการขายสินค้า",
-    "pay_qr": "ชำระผ่าน QR Code"
+    "pay_qr": "ชำระผ่าน QR Code",
+    "success": "คุณได้ทำรายการสั่งซื้อสินค้าและต้องชำระเงิน"
   },
   "login": {
     "forgot_password": "ลืมรหัสผ่าน",

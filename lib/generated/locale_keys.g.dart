@@ -497,6 +497,7 @@ abstract class  LocaleKeys {
   static const order_detail_buyer = 'order_detail.buyer';
   static const order_detail_sell = 'order_detail.sell';
   static const order_detail_pay_qr = 'order_detail.pay_qr';
+  static const order_detail_success = 'order_detail.success';
   static const order_detail = 'order_detail';
   static const login_forgot_password = 'login.forgot_password';
   static const login_not_member = 'login.not_member';

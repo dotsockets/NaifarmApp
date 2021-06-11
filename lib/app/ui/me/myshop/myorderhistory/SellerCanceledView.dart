@@ -15,6 +15,7 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:sizer/sizer.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class SellerCanceledView extends StatefulWidget {
   final OrderData orderData;
@@ -122,7 +123,7 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
                                       .order_detail_seller_cancelled_time
                                       .tr(),
                                   trailing:
-                                      "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(DateTime.now().toString()))} "),
+                                      "${DateTime.now().toString().dateTimeFormat()} "),
                               ListMenuItem(
                                 icon: "",
                                 fontWeight: FontWeight.normal,

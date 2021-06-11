@@ -12,11 +12,11 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sizer/sizer.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class EditImageProductView extends StatefulWidget {
   final int productId;
@@ -301,7 +301,7 @@ class _EditImageProductViewState extends State<EditImageProductView> {
                                   ),
                                   fit: BoxFit.cover,
                                   imageUrl: item.url.isNotEmpty
-                                      ? "${Env.value.baseUrl}/storage/images/${item.url}"
+                                      ? "${item.url.imgUrl()}"
                                       : '',
                                   errorWidget: (context, url, error) =>
                                       Container(

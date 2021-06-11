@@ -18,6 +18,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/utility/widgets/HistoryProductCard.dart';
 import 'package:sizer/sizer.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class PaidView extends StatefulWidget {
   final OrderViewType typeView;
@@ -206,12 +207,10 @@ class _PaidViewState extends State<PaidView> {
                                             widget.typeView ==
                                                     OrderViewType.Purchase
                                                 ? value.paymentStatus == 1
-                                                    ? "${LocaleKeys.order_detail_pay_date.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(value.requirePaymentAt))}"
-                                                    : "${LocaleKeys.order_detail_upload_slip.tr()} ${DateFormat('dd-MM-yyyy').format(DateTime.parse(value.requestPaymentAt ?? DateTime.now().toString()))}"
-                                                : LocaleKeys.history_order_time
-                                                        .tr() +
+                                                    ? "${LocaleKeys.order_detail_pay_date.tr()} ${value.requirePaymentAt.dateFormat()}"
+                                                    : "${LocaleKeys.order_detail_upload_slip.tr()} ${value.requestPaymentAt!=null ? value.requestPaymentAt.dateFormat():DateTime.now().toString().dateFormat()}" : LocaleKeys.history_order_time.tr() +
                                                     " " +
-                                                    " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(value.createdAt))}",
+                                                    " ${value.createdAt.dateFormat()}",
                                             style: FunctionHelper.fontTheme(
                                                 fontSize: SizeUtil
                                                         .titleSmallFontSize()

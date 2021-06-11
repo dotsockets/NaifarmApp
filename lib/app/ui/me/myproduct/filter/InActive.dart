@@ -19,13 +19,13 @@ import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/Skeleton.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class InActive extends StatefulWidget {
   final int shopId;
@@ -252,7 +252,7 @@ class _InActiveState extends State<InActive> {
                               ),
                             ),
                             imageUrl: item.image.isNotEmpty
-                                ? "${Env.value.baseUrl}/storage/images/${item.image[0].path}"
+                                ? "${item.image[0].path.imgUrl()}"
                                 : '',
                             errorWidget: (context, url, error) => Container(
                                 width: 30.0.w,
@@ -314,7 +314,7 @@ class _InActiveState extends State<InActive> {
                             children: [
                               item.offerPrice != null
                                   ? Text(
-                                      "฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
+                                      "฿${item.salePrice.priceFormat()}",
                                       style: FunctionHelper.fontTheme(
                                           color: Colors.grey,
                                           fontSize:
@@ -326,8 +326,8 @@ class _InActiveState extends State<InActive> {
                                   width: item.offerPrice != null ? 1.0.w : 0),
                               Text(
                                 item.offerPrice != null
-                                    ? "฿${NumberFormat("#,##0", "en_US").format(item.offerPrice)}"
-                                    : "฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
+                                    ? "฿${item.offerPrice.priceFormat()}"
+                                    : "฿${item.salePrice.priceFormat()}",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: FunctionHelper.fontTheme(

@@ -17,6 +17,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class NotiShop extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -498,10 +499,10 @@ class _NotiShopState extends State<NotiShop>
                   ),
                 ),
                 new TextSpan(
-                  text: DateFormat('dd-MM-yyyy').format(DateTime.parse(
+                  text:
                       item.meta.requirePaymentAt != null
-                          ? item.meta.requirePaymentAt
-                          : DateTime.now().toString())),
+                          ? item.meta.requirePaymentAt.dateFormat()
+                          : DateTime.now().toString().dateFormat(),
                   style: FunctionHelper.fontTheme(
                     fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.bold,
@@ -734,10 +735,10 @@ class _NotiShopState extends State<NotiShop>
                   ),
                 ),
                 new TextSpan(
-                  text: DateFormat('dd-MM-yyyy').format(DateTime.parse(
+                  text:
                       item.meta.requirePaymentAt != null
-                          ? item.meta.requirePaymentAt
-                          : DateTime.now().toString())),
+                          ? item.meta.requirePaymentAt.dateFormat()
+                          : DateTime.now().toString().dateFormat(),
                   style: FunctionHelper.fontTheme(
                     fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                     fontWeight: FontWeight.bold,

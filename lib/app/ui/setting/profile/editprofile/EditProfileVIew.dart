@@ -20,6 +20,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class EditProfileVIew extends StatefulWidget {
   @override
@@ -187,7 +188,7 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                                 fit: BoxFit.cover,
                                 imageUrl: itemInfo != null &&
                                         itemInfo.image.length != 0
-                                    ? "${Env.value.baseUrl}/storage/images/${itemInfo.image[0].path}"
+                                    ? "${itemInfo.image[0].path.imgUrl()}"
                                     : "",
                                 errorWidget: (context, url, error) => Container(
                                     color: Colors.grey.shade300,
@@ -320,25 +321,23 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                               context,
                               DateTime.parse(itemInfo.dob != null
                                   ? itemInfo.dob
-                                  : DateFormat('yyyy-MM-dd')
-                                      .format(DateTime.now())),
+                                  : DateTime.now().toString().dateFormat(isReverse: true)),
                               onDateTime: (DateTime date) {
                               onUpdate = true;
                               if (date != null)
                                 setState(() => itemInfo.dob =
-                                    DateFormat('yyyy-MM-dd').format(date));
+                                    date.toString().dateFormat(isReverse:true));
                             })
                           : FunctionHelper.showPickerDateIOS(
                               context,
                               DateTime.parse(itemInfo.dob != null
                                   ? itemInfo.dob
-                                  : DateFormat('yyyy-MM-dd')
-                                      .format(DateTime.now())),
+                                  : DateTime.now().toString().dateFormat(isReverse: true)),
                               onTap: (DateTime date) {
                               onUpdate = true;
                               if (date != null)
                                 setState(() => itemInfo.dob =
-                                    DateFormat('yyyy-MM-dd').format(date));
+                                    date.toString().dateFormat(isReverse:true));
                             });
                     },
                   ),
@@ -380,7 +379,6 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                     message: "********",
                     title: LocaleKeys.my_profile_change_password.tr(),
                     onClick: () {
-                      // print("ewfvref ${itemInfo.socialSignup}");
                       if (itemInfo.socialSignup != null &&
                           itemInfo.socialSignup == 1) {
                         AppRoute.editpasswordStep2(context, "");

@@ -26,6 +26,7 @@ import 'package:naifarm/utility/widgets/Skeleton.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class Banned extends StatefulWidget {
   final int shopId;
@@ -251,7 +252,7 @@ class _BannedState extends State<Banned> {
                               ),
                             ),
                             imageUrl: item.image.isNotEmpty
-                                ? "${Env.value.baseUrl}/storage/images/${item.image[0].path}"
+                                ? "${item.image[0].path.imgUrl()}"
                                 : '',
                             errorWidget: (context, url, error) => Container(
                                 width: 30.0.w,
@@ -313,7 +314,7 @@ class _BannedState extends State<Banned> {
                             children: [
                               item.offerPrice != null
                                   ? Text(
-                                      "฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
+                                      "฿${item.salePrice.priceFormat()}",
                                       style: FunctionHelper.fontTheme(
                                           color: Colors.grey,
                                           fontSize:
@@ -325,8 +326,8 @@ class _BannedState extends State<Banned> {
                                   width: item.offerPrice != null ? 1.0.w : 0),
                               Text(
                                 item.offerPrice != null
-                                    ? "฿${NumberFormat("#,##0", "en_US").format(item.offerPrice)}"
-                                    : "฿${NumberFormat("#,##0", "en_US").format(item.salePrice)}",
+                                    ? "฿${item.offerPrice.priceFormat()}"
+                                    : "฿${item.salePrice.priceFormat()}",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: FunctionHelper.fontTheme(

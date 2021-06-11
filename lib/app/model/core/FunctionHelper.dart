@@ -21,7 +21,7 @@ class FunctionHelper {
   static String reportDateTwo({String date}) {
     return DateFormat.E().format(DateTime.parse(date)) +
         ", " +
-        DateFormat("dd/MM/yyyy").format(DateTime.parse(date));
+        date.dateFormat(symbol: "/");
   }
 
   Future<ProgressDialog> progressDiolog(

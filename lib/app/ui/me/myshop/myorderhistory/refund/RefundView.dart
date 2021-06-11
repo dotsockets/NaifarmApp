@@ -21,6 +21,8 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
+
 
 class RefundView extends StatefulWidget {
   final OrderViewType typeView;
@@ -269,7 +271,7 @@ class _RefundViewState extends State<RefundView> {
               ),
               fit: BoxFit.cover,
               imageUrl: item.itemImagePath != null
-                  ? "${Env.value.baseUrl}/storage/images/${item.itemImagePath}"
+                  ? "${item.itemImagePath.imgUrl()}"
                   : Env.value.noItemUrl,
               errorWidget: (context, url, error) => Container(
                   height: 22.0.w,
@@ -398,7 +400,7 @@ class _RefundViewState extends State<RefundView> {
                       new TextSpan(
                           text:
                               //  "฿${NumberFormat("#,##0", "en_US").format(bloc.sumTotal(item.items, item.shipping != null ? item.shipping : 0))}",
-                              "฿${NumberFormat("#,##0", "en_US").format(item.grandTotal != null ? item.grandTotal : 0)}",
+                              "฿${item.grandTotal != null ? item.grandTotal.priceFormat() : 0}",
                           style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.spanTitleFontSize().sp,
                               color: ThemeColor.colorSale())),
@@ -427,9 +429,9 @@ class _RefundViewState extends State<RefundView> {
                   Text(
                     widget.typeView == OrderViewType.Purchase
                         ? LocaleKeys.order_detail_pay_date.tr() +
-                            "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.createdAt))}"
+                            " ${item.createdAt.dateFormat()}"
                         : LocaleKeys.history_order_time.tr() +
-                            "  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.requirePaymentAt))}",
+                            " ${item.requirePaymentAt.dateFormat()}",
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleSmallFontSize().sp,
                         color: Colors.black.withOpacity(0.6)),
@@ -484,7 +486,7 @@ class _RefundViewState extends State<RefundView> {
                           ),
                           fit: BoxFit.cover,
                           imageUrl:
-                              "${Env.value.baseUrl}/storage/images/${item.shop.image.isNotEmpty ? item.shop.image[0].path : ''}",
+                              "${item.shop.image.isNotEmpty ? item.shop.image[0].path.imgUrl() : ''}",
                           errorWidget: (context, url, error) => Container(
                               color: Colors.grey.shade400,
                               width: 7.0.w,

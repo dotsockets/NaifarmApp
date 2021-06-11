@@ -21,6 +21,7 @@ import 'package:naifarm/utility/widgets/ExpandedSection.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class MyshopView extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -311,7 +312,7 @@ class _MyshopViewState extends State<MyshopView> {
             //   icon: 'assets/images/svg/work.svg',
             title: LocaleKeys.setting_account_title_shop.tr(),
             isPhoto:
-                "${item != null ? item.image != null ? item.image.isNotEmpty ? "${Env.value.baseUrl}/storage/images/${item.image[0].path}" : '' : '' : ''}",
+                "${item != null ? item.image != null ? item.image.isNotEmpty ? "${item.image[0].path.imgUrl()}" : '' : '' : ''}",
             message: item.name,
             onClick: () async {
               final result = await AppRoute.shopProfile(context);

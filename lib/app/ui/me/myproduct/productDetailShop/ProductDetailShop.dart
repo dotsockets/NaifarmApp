@@ -25,7 +25,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/utility/widgets/ShopOwn.dart';
-
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 import 'package:sizer/sizer.dart';
 
 class ProductDetailShopView extends StatefulWidget {
@@ -333,7 +333,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
     List<String> image = <String>[];
     if (imgRes.isNotEmpty) {
       for (var item in imgRes) {
-        image.add("${Env.value.baseUrl}/storage/images/${item.path}");
+        image.add("${item.path.imgUrl()}");
       }
     }else{
       image.add("");
@@ -376,7 +376,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
     List<String> image = <String>[];
     if (widget.productItem.image.isNotEmpty) {
       for (var item in widget.productItem.image) {
-        image.add("${Env.value.baseUrl}/storage/images/${item.path}");
+        image.add("${item.path.imgUrl()}");
       }
     }else{
       image.add("");

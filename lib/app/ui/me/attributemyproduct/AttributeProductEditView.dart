@@ -7,7 +7,6 @@ import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
-import 'package:naifarm/app/model/pojo/request/InventoriesAttrRequest.dart';
 import 'package:naifarm/app/model/pojo/response/AttributeRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductShopItemRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';

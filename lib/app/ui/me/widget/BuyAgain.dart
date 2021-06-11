@@ -8,7 +8,7 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:naifarm/utility/widgets/ProductLandscape.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 import 'package:sizer/sizer.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 
@@ -130,7 +130,7 @@ class BuyAgain extends StatelessWidget {
                 child: Lottie.asset('assets/json/loading.json', height: 28),
               ),
               imageUrl: item.image.length != 0?
-              "${Env.value.baseUrl}/storage/images/${item.image[0].path}":"",
+              "$${item.image[0].path.imgUrl()}":"",
               errorWidget: (context, url, error) => Container(
                   width: 28.0.w,
                   height: 28.0.w,

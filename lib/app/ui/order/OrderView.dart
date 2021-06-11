@@ -25,6 +25,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sizer/sizer.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class OrderView extends StatefulWidget {
   final OrderData orderData;
@@ -343,13 +344,11 @@ class _OrderViewState extends State<OrderView> {
                                   color: Colors.black.withOpacity(0.8))),
                           new TextSpan(
                               text:
-                                  "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.requirePaymentAt != null ? orderData.requirePaymentAt : DateTime.now().toString()))} ",
+                                  "${orderData.requirePaymentAt != null ? orderData.requirePaymentAt.dateTimeFormat() : DateTime.now().toString().dateTimeFormat()} ",
                               style: FunctionHelper.fontTheme(
                                   fontSize:
                                       SizeUtil.spanTitleSmallFontSize().sp,
                                   color: Colors.black.withOpacity(0.5))),
-                          //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
-                          //     style: FunctionHelper.FontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
                           new TextSpan(
                               text: " ${LocaleKeys.order_detail_cancel.tr()}",
                               style: FunctionHelper.fontTheme(
@@ -374,7 +373,7 @@ class _OrderViewState extends State<OrderView> {
                                   color: Colors.black.withOpacity(0.8))),
                           new TextSpan(
                               text:
-                                  "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.paymentAt != null ? orderData.paymentAt : DateTime.now().toString()))} ",
+                                  "${orderData.paymentAt != null ? orderData.paymentAt.dateTimeFormat() : DateTime.now().toString().dateTimeFormat()} ",
                               style: FunctionHelper.fontTheme(
                                   fontSize:
                                       SizeUtil.spanTitleSmallFontSize().sp,
@@ -479,7 +478,7 @@ class _OrderViewState extends State<OrderView> {
           orderData.deliveryDate != null ? SizedBox(height: 1.0.w) : SizedBox(),
           orderData.deliveryDate != null
               ? Text(
-                  "${LocaleKeys.history_receipt_time.tr()} ${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.deliveryDate.toString()))} ",
+                  "${LocaleKeys.history_receipt_time.tr()} ${orderData.deliveryDate.toString().dateTimeFormat()} ",
                   style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleSmallFontSize().sp,
                       color: Colors.black.withOpacity(0.6),
@@ -544,7 +543,7 @@ class _OrderViewState extends State<OrderView> {
                         ),
                         fit: BoxFit.cover,
                         imageUrl:
-                            "${Env.value.baseUrl}/storage/images/${orderData.shop.image.isNotEmpty ? orderData.shop.image[0].path : ''}",
+                            "${orderData.shop.image.isNotEmpty ? orderData.shop.image[0].path.imgUrl() : ''}",
                         // errorWidget: (context, url, error) => Container(
                         //     width: 30,
                         //     height: 30,
@@ -746,7 +745,7 @@ class _OrderViewState extends State<OrderView> {
               ),
               fit: BoxFit.cover,
               imageUrl: orderItems.itemImagePath != null
-                  ? "${Env.value.baseUrl}/storage/images/${orderItems.itemImagePath}"
+                  ? "${orderItems.itemImagePath.imgUrl()}"
                   : Env.value.noItemUrl,
               errorWidget: (context, url, error) => Container(
                   width: 22.0.w,
@@ -927,7 +926,7 @@ class _OrderViewState extends State<OrderView> {
                     height: 1.5),
               ),
               Text(
-                "${orderData.createdAt != null ? DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.createdAt)) : '-'}",
+                "${orderData.createdAt != null ? orderData.createdAt.dateTimeFormat() : '-'}",
                 style: FunctionHelper.fontTheme(
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     color: Colors.black.withOpacity(0.5),
@@ -951,7 +950,7 @@ class _OrderViewState extends State<OrderView> {
                     height: 1.5),
               ),
               Text(
-                "${orderData.paymentAt != null ? DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.paymentAt)) : '-'}",
+                "${orderData.paymentAt != null ? orderData.paymentAt.dateTimeFormat() : '-'}",
                 style: FunctionHelper.fontTheme(
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     color: Colors.black.withOpacity(0.5),
@@ -975,7 +974,7 @@ class _OrderViewState extends State<OrderView> {
                     height: 1.5),
               ),
               Text(
-                "${orderData.shippingDate != null ? DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.shippingDate)) : '-'}",
+                "${orderData.shippingDate != null ? orderData.shippingDate.dateTimeFormat() : '-'}",
                 style: FunctionHelper.fontTheme(
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     color: Colors.black.withOpacity(0.5),
@@ -999,7 +998,7 @@ class _OrderViewState extends State<OrderView> {
                     height: 1.5),
               ),
               Text(
-                "${orderData.deliveryDate != null ? DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.deliveryDate)) : '-'}",
+                "${orderData.deliveryDate != null ? orderData.deliveryDate.dateTimeFormat() : '-'}",
                 style: FunctionHelper.fontTheme(
                     fontSize: SizeUtil.titleSmallFontSize().sp,
                     color: Colors.black.withOpacity(0.5),

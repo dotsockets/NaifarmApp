@@ -24,8 +24,8 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
-import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:sizer/sizer.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class CartSummaryView extends StatefulWidget {
   final CartResponse item;
@@ -237,7 +237,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
             ),
             fit: BoxFit.cover,
             imageUrl: item.shop.image.length != 0?
-            "${Env.value.baseUrl}/storage/images/${item.shop.image[0].path}":"",
+            "${item.shop.image[0].path.imgUrl()}":"",
             errorWidget: (context, url, error) => Container(
                 width: 7.0.w,
                 height: 7.0.w,
@@ -278,7 +278,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 ),
                 fit: BoxFit.cover,
                 imageUrl: item.inventory.product.image.length != 0?
-    "${Env.value.baseUrl}/storage/images/${item.inventory.product.image[0].path}":"",
+    "${item.inventory.product.image[0].path.imgUrl()}":"",
                 // errorWidget: (context, url, error) => Container(
                 //     height: 30,
                 //     child: Icon(

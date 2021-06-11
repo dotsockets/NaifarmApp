@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,12 +16,12 @@ import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/MyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/response/ImageUploadRespone.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:sizer/sizer.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class ShopProfileView extends StatefulWidget {
   @override
@@ -211,7 +210,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
                               fit: BoxFit.cover,
                               imageUrl: itemInfo != null
                                   ? itemInfo.image != null
-                                      ? "${Env.value.baseUrl}/storage/images/${itemInfo.image.isNotEmpty ? itemInfo.image[0].path : ''}"
+                                      ? "${itemInfo.image.isNotEmpty ? itemInfo.image[0].path.imgUrl() : ''}"
                                       : ''
                                   : '',
                               errorWidget: (context, url, error) => Container(

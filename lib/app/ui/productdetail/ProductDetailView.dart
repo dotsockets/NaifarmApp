@@ -37,6 +37,7 @@ import 'widget/ProductInto.dart';
 import 'widget/ProductSlide.dart';
 import '../../../utility/widgets/ShopOwn.dart';
 import 'package:sizer/sizer.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 // ignore: must_be_immutable
 class ProductDetailView extends StatefulWidget {
@@ -430,7 +431,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                         child: ProductSlide(
                             imgList: item.producItemRespone !=null && item.producItemRespone.image.length!=0?item.producItemRespone.image
                                 .map((e) =>
-                                    "${Env.value.baseUrl}/storage/images/${e.path}")
+                                    "${e.path.imgUrl()}")
                                 .toList():[""],stockQuantity: item.producItemRespone.inventories!=null?item.producItemRespone.inventories[0].stockQuantity:1,),
                       ),
                     ),
@@ -440,7 +441,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                       ? ProductSlide(
                           imgList: widget.productItem.image.length!=0?widget.productItem.image
                               .map((e) =>
-                                  "${Env.value.baseUrl}/storage/images/${e.path}")
+                                  "${e.path.imgUrl()}")
                               .toList():[""],stockQuantity: 1,)
                       // ? Hero(
                       //     tag: widget.productImage,

@@ -19,6 +19,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/HistoryProductCard.dart';
 import 'package:sizer/sizer.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class DeliveryView extends StatefulWidget {
   final OrderViewType typeView;
@@ -213,11 +214,11 @@ class _DeliveryViewState extends State<DeliveryView> {
                                                       LocaleKeys
                                                           .order_detail_by_date
                                                           .tr() +
-                                                      " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(value.createdAt))}"
+                                                      " ${value.createdAt.dateFormat()}"
                                                   : LocaleKeys.order_detail_wait
                                                           .tr() +
                                                       " " +
-                                                      " ${DateFormat('dd-MM-yyyy').format(DateTime.parse(value.createdAt))}",
+                                                      " ${value.createdAt.dateFormat()}",
                                               style: FunctionHelper.fontTheme(
                                                   fontSize: SizeUtil
                                                           .titleSmallFontSize()

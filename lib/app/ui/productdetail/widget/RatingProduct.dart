@@ -1,11 +1,8 @@
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:full_screen_image/full_screen_image.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -15,11 +12,9 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
-import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
-
-import 'ProductSlide.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class RatingProduct extends StatefulWidget {
   final FeedbackRespone feedbackRespone;
@@ -198,7 +193,7 @@ class _RatingProductState extends State<RatingProduct> {
                           ),
                           fit: BoxFit.cover,
                           imageUrl:
-                              "${Env.value.baseUrl}/storage/images/${feedItem.customer.image.isNotEmpty ? feedItem.customer.image[0].path : ''}",
+                              "${feedItem.customer.image.isNotEmpty ? feedItem.customer.image[0].path.imgUrl() : ''}",
                           errorWidget: (context, url, error) => Container(
                               color: Colors.grey.shade300,
                               width: SizeUtil.tabBarHeight().w,
@@ -276,7 +271,7 @@ class _RatingProductState extends State<RatingProduct> {
                                   ),
                                   fit: BoxFit.cover,
                                   imageUrl:
-                                      "${Env.value.baseUrl}/storage/images/${feedItem.image.isNotEmpty ? feedItem.image[index].path : ''}",
+                                      "${feedItem.image.isNotEmpty ? feedItem.image[index].path.imgUrl() : ''}",
                                   errorWidget: (context, url, error) =>
                                       Container(
                                           width: 22.0.w,
@@ -296,7 +291,7 @@ class _RatingProductState extends State<RatingProduct> {
                                 imgList: feedItem.image.length != 0
                                     ? feedItem.image
                                         .map((e) =>
-                                            "${Env.value.baseUrl}/storage/images/${e.path}")
+                                            "${e.path.imgUrl()}")
                                         .toList()
                                     : [""]);
                           },
@@ -311,7 +306,7 @@ class _RatingProductState extends State<RatingProduct> {
                 children: [
                   Text(
                       feedItem.createdAt != null
-                          ? "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(feedItem.createdAt))}"
+                          ? "${feedItem.createdAt.dateTimeFormat()}"
                           : "",
                       style: FunctionHelper.fontTheme(
                           color: Colors.black.withOpacity(0.75),

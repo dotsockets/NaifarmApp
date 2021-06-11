@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,9 +29,9 @@ import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
-import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:sizer/sizer.dart';
 import '../widget/ModalFitBottom_Sheet.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 // ignore: must_be_immutable
 class MyCartView extends StatefulWidget {
@@ -414,7 +413,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
               ),
               fit: BoxFit.cover,
               imageUrl: item.image.length != 0?
-              "${Env.value.baseUrl}/storage/images/${item.image[0].path}":"",
+              "${item.image[0].path.imgUrl()}":"",
               errorWidget: (context, url, error) => Container(
                   width: 7.0.w,
                   height: 7.0.w,
@@ -499,7 +498,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                               fit: BoxFit.cover,
                               imageUrl: item.items[indexShopItem].inventory
                                       .product.image.isNotEmpty
-                                  ? "${Env.value.baseUrl}/storage/images/${item.items[indexShopItem].inventory.product.image[0].path}"
+                                  ? "${item.items[indexShopItem].inventory.product.image[0].path.imgUrl()}"
                                   : '',
                               // errorWidget: (context, url, error) => Container(
                               //     width: 20.0.w,

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,6 +15,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sizer/sizer.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class OrderCancleView extends StatefulWidget {
   final OrderData orderData;
@@ -135,7 +135,7 @@ class _OrderCancleViewState extends State<OrderCancleView> {
                                         .order_detail_cancelled_time
                                         .tr(),
                                     trailing:
-                                        "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(DateTime.now().toString()))} "),
+                                        "${DateTime.now().toString().dateTimeFormat()} "),
 
                                 itemInfo(
                                     pricecolorText: Colors.grey.shade500,
@@ -307,7 +307,7 @@ class _OrderCancleViewState extends State<OrderCancleView> {
             ),
             fit: BoxFit.cover,
             imageUrl:
-                "${Env.value.baseUrl}/storage/images/${orderItems.inventory.product.image.isNotEmpty ? orderItems.inventory.product.image[0].path : ''}",
+                "${orderItems.inventory.product.image.isNotEmpty ? orderItems.inventory.product.image[0].path.imgUrl() : ''}",
             errorWidget: (context, url, error) => Container(
                 width: 22.0.w,
                 height: 22.0.w,
@@ -418,7 +418,7 @@ class _OrderCancleViewState extends State<OrderCancleView> {
                           color: Colors.black.withOpacity(0.8))),
                   new TextSpan(
                       text:
-                          "${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.parse(orderData.requirePaymentAt != null ? orderData.requirePaymentAt : DateTime.now().toString()))} ",
+                          "${orderData.requirePaymentAt != null ? orderData.requirePaymentAt.dateTimeFormat() : DateTime.now().toString().dateTimeFormat()} ",
                       style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleSmallFontSize().sp,
                           color: Colors.black.withOpacity(0.5))),

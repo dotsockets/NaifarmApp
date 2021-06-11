@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,12 +20,12 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildIconShop.dart';
-import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:rxdart/subjects.dart';
 import 'myshop/MyshopView.dart';
 import 'purchase/PurchaseView.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class MeView extends StatefulWidget {
   @override
@@ -406,7 +405,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                         fit: BoxFit.cover,
                         imageUrl: info != null
                             ? info.image.length > 0
-                                ? "${Env.value.baseUrl}/storage/images/${info.image[0].path}"
+                                ? "${info.image[0].path.imgUrl()}"
                                 : ''
                             : '',
                         errorWidget: (context, url, error) => Container(
@@ -563,7 +562,7 @@ class _MeViewState extends State<MeView> with RouteAware {
   List<String> covertImgShop(List<ImageShop> image) {
     List<String> imageList = <String>[];
     if (image.length != 0) {
-      imageList.add("${Env.value.baseUrl}/storage/images/${image[0].path}");
+      imageList.add("${image[0].path.imgUrl()}");
     }else{
       imageList.add("");
     }

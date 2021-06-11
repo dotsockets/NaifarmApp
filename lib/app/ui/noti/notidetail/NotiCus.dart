@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,12 +13,12 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/NotiRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class NotiCus extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -299,14 +298,10 @@ class _NotiCusState extends State<NotiCus>
                                   ),
                                 ),
                                 imageUrl:
-                                    "${Env.value.baseUrl}/storage/images/${item.meta.image}",
+                                    "${item.meta.image.imgUrl()}",
                                 errorWidget: (context, url, error) => Container(
                                     width: 12.0.w,
                                     height: 12.0.w,
-
-
-//child: Image.network(Env.value.noItemUrl,
-                            //    fit: BoxFit.cover)),
                             child: NaifarmErrorWidget()),
                               ),
                             ),
@@ -606,9 +601,7 @@ class _NotiCusState extends State<NotiCus>
                         fontSize: SizeUtil.spanTitleSmallFontSize().sp,
                         fontWeight: FontWeight.bold,
                         color: ThemeColor.secondaryColor())),
-                //new TextSpan(text: " จัดส่งแล้วเมื่อ ${DateFormat('dd-MM-yyyy').format(DateTime.parse(item.meta.requirePaymentAt!=null?item.meta.requirePaymentAt:DateTime.now().toString()))}",
-                //     style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleSmallFontSize().sp,color: Colors.black.withOpacity(0.8))),
-                new TextSpan(
+                 new TextSpan(
                     text: LocaleKeys.noti_cus_order_failed_detail2.tr(),
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.spanTitleSmallFontSize().sp,

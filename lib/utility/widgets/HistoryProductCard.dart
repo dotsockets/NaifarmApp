@@ -14,7 +14,7 @@ import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
-
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 import '../SizeUtil.dart';
 import 'NaifarmErrorWidget.dart';
 
@@ -76,7 +76,7 @@ class HistoryProductCard extends StatelessWidget {
                                       ),
                                       fit: BoxFit.cover,
                                       imageUrl:
-                                          "${Env.value.baseUrl}/storage/images/${this.order.shop.image.isNotEmpty ? this.order.shop.image[0].path : ''}",
+                                          "${this.order.shop.image.isNotEmpty ? this.order.shop.image[0].path.imgUrl() : ''}",
                                       errorWidget: (context, url, error) =>
                                           Container(
                                         color: Colors.grey.shade400,
@@ -307,7 +307,7 @@ class HistoryProductCard extends StatelessWidget {
               ),
               fit: BoxFit.cover,
               imageUrl: item.itemImagePath != null
-                  ? "${Env.value.baseUrl}/storage/images/${item.itemImagePath}"
+                  ? "${item.itemImagePath.imgUrl()}"
                   : Env.value.noItemUrl,
               errorWidget: (context, url, error) => Container(
                 height: 22.0.w,

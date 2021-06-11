@@ -12,7 +12,6 @@ import 'package:naifarm/app/model/pojo/request/InventoriesRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ProductShopItemRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -264,7 +263,6 @@ class _EditProductViewState extends State<EditProductView> {
                                           //  }
                                           bloc.uploadProductStorage.add(
                                               bloc.uploadProductStorage.value);
-
                                         },
                                       ),
                                       SizedBox(

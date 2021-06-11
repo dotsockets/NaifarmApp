@@ -12,6 +12,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class SearchHot extends StatelessWidget {
   final Function() onSelectChang;
@@ -139,7 +140,7 @@ class SearchHot extends StatelessWidget {
                 child: Lottie.asset('assets/json/loading.json', height: 20.0.w),
               ),
               imageUrl: item.image.length != 0
-                  ? "${Env.value.baseUrl}/storage/images/${item.image[0].path}"
+                  ? "${item.image[0].path.imgUrl()}"
                   : Env.value.noItemUrl,
               errorWidget: (context, url, error) => Container(
                   width: 20.0.w,
