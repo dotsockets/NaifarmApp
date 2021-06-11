@@ -28,17 +28,15 @@ class CategoryView extends StatefulWidget {
 class _CategoryViewState extends State<CategoryView> {
   ProductBloc bloc;
 
-
   Future<void> _init(BuildContext context) async {
     if (bloc == null) {
       bloc = ProductBloc(AppProvider.of(context).application);
       bloc.loadCategoryGroup(context);
 
-
-      FunctionHelper.translatorText(name: "หมา",from: 'th',to: 'en').then((value){
+      FunctionHelper.translatorText(name: "หมา", from: 'th', to: 'en')
+          .then((value) {
         print("wsefcer  ${value}");
       });
-
     }
   }
 
@@ -161,24 +159,30 @@ class _CategoryViewState extends State<CategoryView> {
                 child: Container(
                   padding: EdgeInsets.all(0.7.w),
                   child: CachedNetworkImage(
-                   filterQuality: FilterQuality.high,
                     width: SizeUtil.categoryTabSize().w,
                     height: SizeUtil.categoryTabSize().w,
-                    placeholder: (context, url) => Container(
-                      color: Colors.white,
-                      child: Lottie.asset('assets/json/loading.json',
-                          height: SizeUtil.categoryTabSize().w,
-                          width: SizeUtil.categoryTabSize().w),
-                    ),
-                    fit: BoxFit.cover,
                     imageUrl:
                         "${Env.value.baseUrlWeb}/category-icon/${item.icon}.png",
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover),
+                      ),
+                    ),
+                    placeholder: (context, url) => Container(
+                      width: SizeUtil.categoryTabSize().w,
+                      height: SizeUtil.categoryTabSize().w,
+                      color: Colors.white,
+                      child: Lottie.asset('assets/json/loading.json'),
+                    ),
                     errorWidget: (context, url, error) => Container(
-                        height: SizeUtil.categoryTabSize().w,
                         width: SizeUtil.categoryTabSize().w,
+                        height: SizeUtil.categoryTabSize().w,
+                        color: Colors.white,
                         child: Icon(
                           Icons.error,
-                          size: 6.0.w,
+                          size: 6.0.h,
                         )),
                   ),
                 ),
@@ -191,10 +195,10 @@ class _CategoryViewState extends State<CategoryView> {
                 child: EasyLocalization.of(context).locale ==
                         EasyLocalization.of(context).supportedLocales[0]
                     ? FutureBuilder(
-                        future: FunctionHelper.translatorText(name: item.name,from: 'th',to: 'en'),
+                        future: FunctionHelper.translatorText(
+                            name: item.name, from: 'th', to: 'en'),
                         builder:
                             (BuildContext context, AsyncSnapshot<String> text) {
-
                           return Text(
                             "${text.data ?? "${item.name}"}",
                             maxLines: 2,
@@ -233,7 +237,4 @@ class _CategoryViewState extends State<CategoryView> {
       },
     );
   }
-
-
 }
-

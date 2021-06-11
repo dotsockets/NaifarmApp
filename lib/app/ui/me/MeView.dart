@@ -387,12 +387,24 @@ class _MeViewState extends State<MeView> with RouteAware {
                     tag: "image_profile_me",
                     child:*/
                       Hero(
-                        tag: "image_profile_me",
-                        child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0.w)),
-                    child: CachedNetworkImage(
+                    tag: "image_profile_me",
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0.w)),
+                      child: CachedNetworkImage(
                         width: SizeUtil.imgProfileSize().w,
                         height: SizeUtil.imgProfileSize().w,
+                        imageUrl: info != null
+                            ? info.image.length > 0
+                                ? "${Env.value.baseUrl}/storage/images/${info.image[0].path}"
+                                : ''
+                            : '',
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover),
+                          ),
+                        ),
                         placeholder: (context, url) => Container(
                           width: SizeUtil.imgProfileSize().w,
                           height: SizeUtil.imgProfileSize().w,
@@ -403,12 +415,6 @@ class _MeViewState extends State<MeView> with RouteAware {
                             width: SizeUtil.imgProfileSize().w,
                           ),
                         ),
-                        fit: BoxFit.cover,
-                        imageUrl: info != null
-                            ? info.image.length > 0
-                                ? "${Env.value.baseUrl}/storage/images/${info.image[0].path}"
-                                : ''
-                            : '',
                         errorWidget: (context, url, error) => Container(
                             color: Colors.grey.shade300,
                             width: SizeUtil.imgProfileSize().w,
@@ -418,16 +424,15 @@ class _MeViewState extends State<MeView> with RouteAware {
                               size: SizeUtil.iconSize().w,
                               color: Colors.white,
                             )),
+                      ),
                     ),
                   ),
-                      ),
                   //),
                   onTap: () {
                     AppRoute.imageFullScreenView(
                         heroTag: "image_profile_me",
                         context: context,
                         imgList: covertImgShop(info.image));
-
                   }),
               SizedBox(height: 2.0.h),
               Text(info != null ? info.name : "ฟาร์มมาร์เก็ต",
@@ -560,11 +565,12 @@ class _MeViewState extends State<MeView> with RouteAware {
       ),
     );
   }
+
   List<String> covertImgShop(List<ImageShop> image) {
     List<String> imageList = <String>[];
     if (image.length != 0) {
       imageList.add("${Env.value.baseUrl}/storage/images/${image[0].path}");
-    }else{
+    } else {
       imageList.add("");
     }
     return imageList;

@@ -54,21 +54,34 @@ class ProductItemCard extends StatelessWidget {
                   ? 30.0.w
                   : (MediaQuery.of(context).size.width / 2) - 4.0.w,
               height: tagHero != "flash" ? 30.0.w : 40.0.w,
+              imageUrl: covertUrlImage(item.image),
+              imageBuilder: (context, imageProvider) => Container(
+                decoration: BoxDecoration(
+                  image:
+                      DecorationImage(image: imageProvider, fit: BoxFit.cover),
+                ),
+              ),
               placeholder: (context, url) => Container(
+                width: tagHero != "flash"
+                    ? 30.0.w
+                    : (MediaQuery.of(context).size.width / 2) - 4.0.w,
+                height: tagHero != "flash" ? 30.0.w : 40.0.w,
                 color: Colors.white,
                 child: Lottie.asset(
                   'assets/json/loading.json',
-                  width: 30.0.w,
-                  height: 30.0.w,
+                  width: 18.0.w,
+                  height: 18.0.w,
                 ),
               ),
-              imageUrl: covertUrlImage(item.image),
               errorWidget: (context, url, error) => Container(
-                  width: 30.0.w,
-                  height: 30.0.w,
-                  //child:
-                  //   Image.network(Env.value.noItemUrl, fit: BoxFit.cover)),
-                  child: NaifarmErrorWidget()),
+                  width: tagHero != "flash"
+                      ? 30.0.w
+                      : (MediaQuery.of(context).size.width / 2) - 4.0.w,
+                  height: tagHero != "flash" ? 30.0.w : 40.0.w,
+                  child: Image.network(
+                      Env.value.noItemUrl,
+                      fit: BoxFit
+                          .cover)),
             ),
           ),
           Visibility(
@@ -91,33 +104,36 @@ class ProductItemCard extends StatelessWidget {
             ),
             visible: item.discountPercent > 0 ? true : false,
           ),
-          item.stockQuantity!=null?
-            item.stockQuantity==0?Positioned.fill(
-            child: IgnorePointer(
-              ignoring: true,
-              child: Container(
-                color: Colors.white.withOpacity(0.7),
-                child: Center(
-                  child: Container(
-                    width: 20.0.w,
-                    height: 4.0.h,
-                    padding: EdgeInsets.all(2.0.w),
-                    decoration: new BoxDecoration(
-                        color: Colors.black.withOpacity(0.6),
-                        borderRadius:
-                        new BorderRadius.all(Radius.circular(10.0.w))),
-                    child: Center(
-                      child: Text(
-                          LocaleKeys.search_product_out_of_stock.tr(),
-                          style: FunctionHelper.fontTheme(
-                              fontSize: SizeUtil.detailFontSize().sp,
-                              color: Colors.white)),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ):SizedBox():SizedBox()
+          item.stockQuantity != null
+              ? item.stockQuantity == 0
+                  ? Positioned.fill(
+                      child: IgnorePointer(
+                        ignoring: true,
+                        child: Container(
+                          color: Colors.white.withOpacity(0.7),
+                          child: Center(
+                            child: Container(
+                              width: 20.0.w,
+                              height: 4.0.h,
+                              padding: EdgeInsets.all(2.0.w),
+                              decoration: new BoxDecoration(
+                                  color: Colors.black.withOpacity(0.6),
+                                  borderRadius: new BorderRadius.all(
+                                      Radius.circular(10.0.w))),
+                              child: Center(
+                                child: Text(
+                                    LocaleKeys.search_product_out_of_stock.tr(),
+                                    style: FunctionHelper.fontTheme(
+                                        fontSize: SizeUtil.detailFontSize().sp,
+                                        color: Colors.white)),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  : SizedBox()
+              : SizedBox()
         ],
       ),
     );

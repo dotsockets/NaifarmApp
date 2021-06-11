@@ -136,29 +136,30 @@ class _SearchViewState extends State<SearchView> {
                                                   CachedNetworkImage(
                                                     width: 13.0.w,
                                                     height: 15.0.w,
-                                                    placeholder:
-                                                        (context, url) =>
-                                                            Container(
+                                                    imageUrl: "${Env.value.baseUrl}/storage/images/${(snapshot.data as SearchRespone).hits[key].image.length != 0 ? (snapshot.data as SearchRespone).hits[key].image[0].path : ""}",
+                                                    imageBuilder: (context, imageProvider) => Container(
+                                                      decoration: BoxDecoration(
+                                                        image: DecorationImage(
+                                                            image: imageProvider),
+                                                      ),
+                                                    ),
+                                                    placeholder: (context, url) =>Container(
                                                       width: 13.0.w,
                                                       height: 15.0.w,
                                                       color: Colors.white,
                                                       child: Lottie.asset(
                                                         'assets/json/loading.json',
                                                         width: 13.0.w,
-                                                        height: 13.5.w,
+                                                        height: 15.0.w,
                                                       ),
                                                     ),
-                                                    imageUrl:
-                                                        "${Env.value.baseUrl}/storage/images/${(snapshot.data as SearchRespone).hits[key].image.length != 0 ? (snapshot.data as SearchRespone).hits[key].image[0].path : ""}",
-                                                    errorWidget: (context, url,
-                                                            error) =>
-                                                        Container(
-                                                            width: 13.0.w,
-                                                            height: 15.0.w,
-                                                            child: Image.network(
-                                                                "https://via.placeholder.com/94x94/ffffff/cccccc?text=naifarm.com",
-                                                                fit: BoxFit
-                                                                    .cover)),
+                                                    errorWidget: (context, url, error) => Container(
+                                                        width: 13.0.w,
+                                                        height: 15.0.w,
+                                                        child: Image.network(
+                                                            Env.value.noItemUrl,
+                                                            fit: BoxFit
+                                                                .cover)),
                                                   ),
                                                   //)
                                                 ],

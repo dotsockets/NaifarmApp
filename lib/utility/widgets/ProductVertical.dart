@@ -212,26 +212,35 @@ class ProductVertical extends StatelessWidget {
                               ClipRRect(
                             borderRadius: BorderRadius.circular(1.3.h),
                             child: CachedNetworkImage(
-                              width: 28.0.w,
-                              height: 35.0.w,
-                              placeholder: (context, url) => Container(
-                                color: Colors.white,
-                                child: Lottie.asset(
-                                  'assets/json/loading.json',
-                                  width: 28.0.w,
-                                  height: 35.0.w,
+                                width: 28.0.w,
+                                height: 35.0.w,
+                                imageUrl: item.image.length != 0?
+                                "${Env.value.baseUrl}/storage/images/${item.image[0].path}":"",
+                                imageBuilder: (context, imageProvider) => Container(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover),
+                                  ),
                                 ),
-                              ),
-                              imageUrl:
-                              item.image.length != 0?
-                              "${Env.value.baseUrl}/storage/images/${item.image[0].path}":"",
-                              errorWidget: (context, url, error) => Container(
+                                placeholder: (context, url) =>Container(
                                   width: 28.0.w,
                                   height: 35.0.w,
-                                  child: NaifarmErrorWidget()),
-                              //  child: Image.network(Env.value.noItemUrl,
-                              //  fit: BoxFit.cover)),
-                            ),
+                                  color: Colors.white,
+                                  child: Lottie.asset(
+                                    'assets/json/loading.json',
+                                    width: 18.0.w,
+                                    height: 18.0.w,
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) => Container(
+                                    width: 28.0.w,
+                                    height: 35.0.w,
+                                    child: Image.network(
+                                        Env.value.noItemUrl,
+                                        fit: BoxFit
+                                            .cover)),
+                              ),
                           ),
                         ),
                       ),

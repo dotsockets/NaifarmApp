@@ -7,6 +7,7 @@ import 'package:sizer/sizer.dart';
 
 class BannerSlide extends StatelessWidget {
   final List<String> image;
+
   BannerSlide({Key key, this.image}) : super(key: key);
 
   final List<String> _imgList = [
@@ -14,6 +15,7 @@ class BannerSlide extends StatelessWidget {
   ];
 
   final _current = BehaviorSubject<int>();
+
   List<String> convertSliderImage() {
     return image.isNotEmpty ? image : _imgList;
   }
@@ -41,13 +43,19 @@ class BannerSlide extends StatelessWidget {
               items: convertSliderImage()
                   .map(
                     (item) => CachedNetworkImage(
+                      imageUrl: item,
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover),
+                        ),
+                      ),
                       placeholder: (context, url) => Container(
                         width: MediaQuery.of(context).size.width,
                         color: Colors.white,
                         child: Lottie.asset('assets/json/loading.json'),
                       ),
-                      imageUrl: item,
-                      fit: BoxFit.cover,
                       errorWidget: (context, url, error) => Container(
                           color: Colors.white,
                           child: Icon(
