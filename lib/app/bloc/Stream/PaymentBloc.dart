@@ -29,10 +29,10 @@ class PaymentBloc {
   }
 
   loadPaymentPage(BuildContext context, {String token}) {
-    StreamSubscription subscription = Observable.combineLatest2(
-        Observable.fromFuture(_application.appStoreAPIRepository
+    StreamSubscription subscription = Rx.combineLatest2(
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getPaymentList(context, shopIds: "")),
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getPaymentMyShop(context, token: token)), (a, b) {
       final _paymentlist = (a as ApiResult).respone;
       final _paymentmyshop = (b as ApiResult).respone;
@@ -57,7 +57,7 @@ class PaymentBloc {
   }
 
   deletePayment(BuildContext context, {int paymentMethodId, String token}) {
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.deletePaymentMyShop(context,
                 paymentMethodId: paymentMethodId, token: token))
         .listen((respone) {
@@ -71,7 +71,7 @@ class PaymentBloc {
   }
 
   addPayment(BuildContext context, {int paymentMethodId, String token}) {
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.addPaymentMyShop(context,
                 paymentMethodId: paymentMethodId, token: token))
         .listen((respone) {

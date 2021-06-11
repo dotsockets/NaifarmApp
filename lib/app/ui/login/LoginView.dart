@@ -599,7 +599,7 @@ class _LoginViewState extends State<LoginView> {
         // DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
         // AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
         // ignore: unused_local_variable
-        var status = await OneSignal.shared.getPermissionSubscriptionState();
+     //   var status = await OneSignal.shared.getPermissionSubscriptionState();
         bloc.customerLogin(
             context: context,
             loginRequest: LoginRequest(

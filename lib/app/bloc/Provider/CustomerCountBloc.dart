@@ -17,10 +17,11 @@ class CustomerCountBloc extends Cubit<CustomerCountState> {
       emit(CustomerCountLoading(value));
     });
 
-    Observable.combineLatest2(
-        Observable.fromFuture(_application.appStoreAPIRepository
+
+    Rx.combineLatest2(
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getCustomerCount(context, token: token)),
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getCartlists(context, token: token)), (a, b) {
       final customerCount = (a as ApiResult).respone;
       final cartCout = (b as ApiResult).respone;

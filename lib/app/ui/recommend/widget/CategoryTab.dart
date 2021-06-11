@@ -102,7 +102,17 @@ class CategoryTab extends StatelessWidget {
             CachedNetworkImage(
               width: 18.0.w,
               height: 18.0.w,
-              placeholder: (context, url) => Container(
+              imageUrl: "${Env.value.baseUrlWeb}/category-icon/${item.icon}.png",
+              imageBuilder: (context, imageProvider) => Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover),
+                ),
+              ),
+              placeholder: (context, url) =>Container(
+                width: 18.0.w,
+                height: 18.0.w,
                 color: Colors.white,
                 child: Lottie.asset(
                   'assets/json/loading.json',
@@ -110,9 +120,6 @@ class CategoryTab extends StatelessWidget {
                   height: 18.0.w,
                 ),
               ),
-              fit: BoxFit.cover,
-              imageUrl:
-                  "${Env.value.baseUrlWeb}/category-icon/${item.icon}.png",
               errorWidget: (context, url, error) => Container(
                   width: 18.0.w,
                   height: 18.0.w,

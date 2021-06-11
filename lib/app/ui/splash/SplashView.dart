@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:get_version/get_version.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
@@ -105,7 +104,7 @@ class _SplashViewState extends State<SplashView>
 
   void versionName() async {
     try {
-      platformVersion = await GetVersion.projectVersion;
+      //platformVersion = await GetVersion.projectVersion;
     } on Exception {
       platformVersion = '0.0.1';
     }

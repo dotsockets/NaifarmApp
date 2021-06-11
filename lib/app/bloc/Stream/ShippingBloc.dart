@@ -31,12 +31,12 @@ class ShippingBloc {
   }
 
   loadShppingPage({BuildContext context, String token}) {
-    StreamSubscription subscription = Observable.combineLatest2(
-        Observable.fromFuture(
+    StreamSubscription subscription = Rx.combineLatest2(
+        Stream.fromFuture(
             _application.appStoreAPIRepository.getCarriersList(
           context,
         )),
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getShippingMyShop(context, token: token)), (a, b) {
       final _shppinglist = (a as ApiResult).respone;
       final _shppingmyshop = (b as ApiResult).respone;
@@ -64,7 +64,7 @@ class ShippingBloc {
 
   deleteShoppingMyShop(BuildContext context, {int ratesId, String token}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .deleteShoppingMyShop(context, ratesId: ratesId, token: token))
         .listen((respone) {
@@ -82,7 +82,7 @@ class ShippingBloc {
   addShoppingMyShop(BuildContext context,
       {ShppingMyShopRequest shopRequest, String token}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .addShoppingMyShop(context, shopRequest: shopRequest, token: token))
         .listen((respone) {
@@ -100,7 +100,7 @@ class ShippingBloc {
   editShoppingMyShop(BuildContext context,
       {ShppingMyShopRequest shopRequest, int rateID, String token}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.editShoppingMyShop(context,
                 rateID: rateID, shopRequest: shopRequest, token: token))
         .listen((respone) {

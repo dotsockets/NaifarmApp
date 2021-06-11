@@ -115,7 +115,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
                   return Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
-                      bloc.wishlists.value != null &&
+                      bloc.wishlists.hasValue &&
                               bloc.wishlists.value.data.length > 0
                           ? Positioned(
                               top: 25 * controller.value,

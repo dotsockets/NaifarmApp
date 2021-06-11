@@ -55,7 +55,7 @@ class CartBloc {
       CartActive cartActive,
       List<ProductData> cartNowId}) {
     if (cartActive == CartActive.CartList) onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .getCartlists(context, token: token))
         .listen((respone) {
@@ -92,7 +92,7 @@ class CartBloc {
   deleteCart(
       {BuildContext context, int cartid, int inventoryId, String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.deleteCart(context,
                 inventoryid: inventoryId, cartid: cartid, token: token))
         .listen((respone) {
@@ -112,7 +112,7 @@ class CartBloc {
   updateCart(BuildContext context,
       {CartRequest data, int cartid, String token}) async {
     // onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .updateCart(context, data: data, cartid: cartid, token: token))
         .listen((respone) {
@@ -133,7 +133,7 @@ class CartBloc {
 
   getPaymentList(BuildContext context, {String shopIds}) async {
     // onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .getPaymentList(context, shopIds: shopIds ?? ""))
         .listen((respone) {
@@ -190,7 +190,7 @@ class CartBloc {
 
   getShippingsList(BuildContext context, {int shopId}) async {
     // onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .getShippings(context, shopId: shopId))
         .listen((respone) {
@@ -202,7 +202,7 @@ class CartBloc {
 
   addressesList(BuildContext context, {String token, bool type = false}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .addressesList(context, token: token))
         .listen((respone) {
@@ -323,7 +323,7 @@ class CartBloc {
   }
 
   deleteAddress(BuildContext context, {String id, String token}) async {
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .deleteAddress(context, id: id, token: token))
         .listen((respone) {
@@ -339,7 +339,7 @@ class CartBloc {
   updateAddress(BuildContext context,
       {AddressCreaterequest data, String token}) async {
     // onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .updateAddress(context, data: data, token: token))
         .listen((respone) {
@@ -356,7 +356,7 @@ class CartBloc {
   createOrder(BuildContext context,
       {OrderRequest orderRequest, String token}) async {
     // onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .createOrder(context, orderRequest: orderRequest, token: token))
         .listen((respone) {

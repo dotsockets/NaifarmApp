@@ -12,6 +12,7 @@ import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
@@ -211,26 +212,35 @@ class ProductVertical extends StatelessWidget {
                               ClipRRect(
                             borderRadius: BorderRadius.circular(1.3.h),
                             child: CachedNetworkImage(
-                              width: 28.0.w,
-                              height: 35.0.w,
-                              placeholder: (context, url) => Container(
-                                color: Colors.white,
-                                child: Lottie.asset(
-                                  'assets/json/loading.json',
-                                  width: 28.0.w,
-                                  height: 35.0.w,
+                                width: 28.0.w,
+                                height: 35.0.w,
+                                imageUrl: item.image.length != 0?
+                                "${Env.value.baseUrl}/storage/images/${item.image[0].path}":"",
+                                imageBuilder: (context, imageProvider) => Container(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover),
+                                  ),
                                 ),
-                              ),
-                              imageUrl:
-                              item.image.length != 0?
-                              "${item.image[0].path.imgUrl()}":"",
-                              errorWidget: (context, url, error) => Container(
+                                placeholder: (context, url) =>Container(
                                   width: 28.0.w,
                                   height: 35.0.w,
-                                  child: NaifarmErrorWidget()),
-                              //  child: Image.network(Env.value.noItemUrl,
-                              //  fit: BoxFit.cover)),
-                            ),
+                                  color: Colors.white,
+                                  child: Lottie.asset(
+                                    'assets/json/loading.json',
+                                    width: 18.0.w,
+                                    height: 18.0.w,
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) => Container(
+                                    width: 28.0.w,
+                                    height: 35.0.w,
+                                    child: Image.network(
+                                        Env.value.noItemUrl,
+                                        fit: BoxFit
+                                            .cover)),
+                              ),
                           ),
                         ),
                       ),

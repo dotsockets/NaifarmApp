@@ -25,9 +25,7 @@ class APIRepository {
 
   APIRepository(this._apiProvider, this.dbAppStoreRepository);
 
-  Future<ApiResult> getFBProfile(BuildContext context, {String accessToken}) {
-    return _apiProvider.getProFileFacebook(context, accessToken);
-  }
+
 
   Future<ApiResult> customersLogin(BuildContext context,
       {LoginRequest loginRequest}) {

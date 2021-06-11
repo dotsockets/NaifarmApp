@@ -9,9 +9,9 @@ class NaiFarmBlocObserver extends BlocObserver {
   }
 
   @override
-  void onChange(Cubit cubit, Change change) {
+  void onChange(BlocBase bloc, Change change) {
     print(change);
-    super.onChange(cubit, change);
+    super.onChange(bloc, change);
   }
 
   @override
@@ -21,8 +21,8 @@ class NaiFarmBlocObserver extends BlocObserver {
   }
 
   @override
-  void onError(Cubit cubit, Object error, StackTrace stackTrace) {
+  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
     print(error);
-    super.onError(cubit, error, stackTrace);
+    super.onError(bloc, error, stackTrace);
   }
 }

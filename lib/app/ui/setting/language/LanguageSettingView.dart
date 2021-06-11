@@ -89,7 +89,7 @@ class _LanguageSettingViewState extends State<LanguageSettingView> {
         ),
       ),
       onTap: () {
-        EasyLocalization.of(context).locale = locale;
+        context.setLocale(locale);
         context.read<SettingReloadCubit>().reload(true);
         //Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
         print(EasyLocalization.of(context).locale.toString());

@@ -49,7 +49,7 @@ class MemberBloc {
 
   customerLogin({BuildContext context, LoginRequest loginRequest}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.customersLogin(context,
                 loginRequest: LoginRequest(
                     username: loginRequest.username,
@@ -79,7 +79,7 @@ class MemberBloc {
 
   customerLoginApple({BuildContext context, String accessToken}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .loginApple(context, accessToken: accessToken))
         .listen((respone) {
@@ -109,7 +109,7 @@ class MemberBloc {
       FbProfile loginRequest,
       String provider,
       bool isLoad}) async {
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.customersLoginSocial(context,
                 loginRequest: LoginRequest(
                     name: loginRequest.name,
@@ -146,7 +146,7 @@ class MemberBloc {
 
   checkEmail(BuildContext context, {FbProfile fbProfile}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .checkEmail(context, email: fbProfile.email))
         .listen((respone) {
@@ -160,32 +160,7 @@ class MemberBloc {
     _compositeSubscription.add(subscription);
   }
 
-  getFBProfile({BuildContext context, String accessToken, bool isLoad}) {
-    onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
-            .appStoreAPIRepository
-            .getFBProfile(context, accessToken: accessToken))
-        .listen((respone) {
-      // onLoad.add(false);
-      if (respone.httpCallBack.status == 200) {
-        var item = (respone.respone as FbProfile);
-        item.token = accessToken;
 
-        customersLoginSocial(
-            context: context,
-            loginRequest: item,
-            provider: "facebook",
-            isLoad: isLoad);
-        //CheckEmail(fb_profile: item);
-        //onSuccess.add(true);
-      } else {
-        Usermanager().logout();
-        onLoad.add(false);
-        onError.add(respone.httpCallBack);
-      }
-    });
-    _compositeSubscription.add(subscription);
-  }
 
   loginFacebook({BuildContext context, bool isLoad}) async {
     // onLoad.add(true);
@@ -198,8 +173,7 @@ class MemberBloc {
         //  {"name":"Apisit Kaewsasan","first_name":"Apisit","last_name":"Kaewsasan","email":"apisitkaewsasan\u0040hotmail.com","id":"3899261036761384"}
         final FacebookAccessToken accessToken = result.accessToken;
 
-        getFBProfile(
-            context: context, accessToken: accessToken.token, isLoad: isLoad);
+
         break;
       case FacebookLoginStatus.cancelledByUser:
         //  onLoad.add(false);
@@ -214,7 +188,7 @@ class MemberBloc {
 
   otpRequest(BuildContext context, {String numberphone}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .otpRequest(context, numberphone: numberphone))
         .listen((respone) {
@@ -231,7 +205,7 @@ class MemberBloc {
   otpVerify(BuildContext context,
       {String phone, String code, String ref}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .otpVerify(context, phone: phone, ref: ref, code: code))
         .listen((respone) {
@@ -248,7 +222,7 @@ class MemberBloc {
   customersRegister(
       {BuildContext context, RegisterRequest registerRequest}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .customersRegister(context, registerRequest: registerRequest))
         .listen((respone) {
@@ -273,7 +247,7 @@ class MemberBloc {
   forgotPassword(BuildContext context,
       {String phone, String code, String ref, String password}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.forgotPassword(context,
                 code: code, ref: ref, phone: phone, password: password))
         .listen((respone) {
@@ -290,7 +264,7 @@ class MemberBloc {
   resetPasswordRequest(BuildContext context,
       {String email, String password, String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.resetPasswordRequest(context,
                 email: email, password: password, token: token))
         .listen((respone) {
@@ -305,10 +279,10 @@ class MemberBloc {
   }
 
   loadMyProfile(BuildContext context, {String token}) {
-    StreamSubscription subscription = Observable.combineLatest2(
-        Observable.fromFuture(_application.appStoreAPIRepository
+    StreamSubscription subscription = Rx.combineLatest2(
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getCustomerInfo(context, token: token)),
-        Observable.fromFuture(_application.appStoreAPIRepository
+        Stream.fromFuture(_application.appStoreAPIRepository
             .getMyShopInfo(context, accessToken: token)), (a, b) {
       final _customInfo = (a as ApiResult).respone;
       final _myshopInfo = (b as ApiResult).respone;
@@ -323,7 +297,7 @@ class MemberBloc {
 
   getCustomerInfo(BuildContext context, {String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .getCustomerInfo(context, token: token))
         .listen((respone) {
@@ -346,7 +320,7 @@ class MemberBloc {
     if (onload) {
       onLoad.add(true);
     }
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .modifyProfile(context, data: data, token: token))
         .listen((respone) {
@@ -364,7 +338,7 @@ class MemberBloc {
   modifyPassword(BuildContext context,
       {ModifyPasswordrequest data, String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .modifyPassword(context, data: data, token: token))
         .listen((respone) {
@@ -381,7 +355,7 @@ class MemberBloc {
   firstPassword(BuildContext context,
       {ModifyPasswordrequest data, String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .firstPassword(context, data: data, token: token))
         .listen((respone) {
@@ -397,7 +371,7 @@ class MemberBloc {
 
   verifyPassword(BuildContext context, {String password, String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .verifyPassword(context, password: password, token: token))
         .listen((respone) {
@@ -414,7 +388,7 @@ class MemberBloc {
   createMyShop(BuildContext context,
       {String name, String slug, String description, String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.createMyShop(context,
                 name: name, slug: slug, description: description, token: token))
         .listen((respone) {
@@ -430,7 +404,7 @@ class MemberBloc {
 
   getMyShopInfo(BuildContext context, {String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .getMyShopInfo(context, accessToken: token))
         .listen((respone) {
@@ -447,7 +421,7 @@ class MemberBloc {
   myShopUpdate(
       {BuildContext context, MyShopRequest data, String accessToken}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.myShopUpdate(
                 context: context, data: data, accessToken: accessToken))
         .listen((respone) {
@@ -464,7 +438,7 @@ class MemberBloc {
 
   myShopActive({BuildContext context, int data, String accessToken}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.myShopActive(
                 context: context, data: data, accessToken: accessToken))
         .listen((respone) {
@@ -486,7 +460,7 @@ class MemberBloc {
       int imageableId,
       String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.uploadImage(context,
                 imageFile: imageFile,
                 imageableType: imageableType,
@@ -506,7 +480,7 @@ class MemberBloc {
 
   getInfoRules(BuildContext context, {String slug}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .getInformationRules(context, slug))
         .listen((respone) {
@@ -522,7 +496,7 @@ class MemberBloc {
 
   requestChangEmail(BuildContext context, {String email, String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .requestChangEmail(context, email: email, token: token))
         .listen((respone) {
@@ -538,7 +512,7 @@ class MemberBloc {
 
   checkPhoneNumber(BuildContext context, {String phone}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .checkPhone(context, phone: phone))
         .listen((respone) {
@@ -554,7 +528,7 @@ class MemberBloc {
 
   checkExistingPhoneNumber(BuildContext context, {String phone}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .checkExistingPhone(context, phone: phone))
         .listen((respone) {

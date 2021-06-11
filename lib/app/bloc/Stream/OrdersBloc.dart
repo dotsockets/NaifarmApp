@@ -10,7 +10,6 @@ import 'package:naifarm/app/model/pojo/request/AssetImages.dart';
 import 'package:naifarm/app/model/pojo/response/FeedbackRespone.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductHistoryCache.dart';
-import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductOrderCache.dart';
 import 'package:naifarm/app/model/pojo/response/SystemRespone.dart';
 import 'package:path_provider/path_provider.dart';
@@ -42,7 +41,7 @@ class OrdersBloc {
     if (load) {
       onLoad.add(true);
     }
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.getOrder(context,
                 orderType: orderType,
                 page: page,
@@ -139,7 +138,7 @@ class OrdersBloc {
   }
 
   getOrderById(BuildContext context, {int id, String orderType, String token}) {
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .getOrderById(context, id: id, orderType: orderType, token: token))
         .listen((respone) {
@@ -183,7 +182,7 @@ class OrdersBloc {
 
   markPaid(BuildContext context, {int orderId, String token}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .markPaid(context, orderId: orderId, token: token))
         .listen((respone) {
@@ -206,7 +205,7 @@ class OrdersBloc {
     if(requestPayments){
       onLoad.add(true);
     }
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.uploadImage(context,
                 imageFile: imageFile,
                 imageableType: imageableType,
@@ -237,7 +236,7 @@ class OrdersBloc {
       String token,
       List<File> imageList}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.uploadImages(context,
                 imageFile: imageList,
                 imageableType: imageableType,
@@ -256,7 +255,7 @@ class OrdersBloc {
   }
 
   requestPayment(BuildContext context, {int orderId, String token}) async {
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .requestPayment(context, orderId: orderId, token: token))
         .listen((respone) {
@@ -274,7 +273,7 @@ class OrdersBloc {
   addTracking(BuildContext context,
       {String trackingId, String token, int orderId}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.addTracking(context,
                 trackingId: trackingId, token: token, orderId: orderId))
         .listen((respone) {
@@ -290,7 +289,7 @@ class OrdersBloc {
 
   goodsReceived(BuildContext context, {String token, int orderId}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .goodsReceived(context, token: token, orderId: orderId))
         .listen((respone) {
@@ -307,7 +306,7 @@ class OrdersBloc {
 
   orderCancel(BuildContext context, {String token, int orderId}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .orderCancel(context, token: token, orderId: orderId))
         .listen((respone) {
@@ -335,7 +334,7 @@ class OrdersBloc {
   }
 
   getSystem(BuildContext context) async {
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.getSystem(context))
         .listen((respone) {
       if (respone.httpCallBack.status == 200) {
@@ -361,7 +360,7 @@ class OrdersBloc {
       List<AssetImages> imageList,
       int index}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.createFeedback(context,
                 token: token,
                 inventoryId: inventoryId,

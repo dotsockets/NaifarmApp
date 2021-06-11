@@ -122,7 +122,7 @@ class UploadProductBloc {
   addProductMyShop(BuildContext context,
       {ProductMyShopRequest shopRequest, String token}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .addProductMyShop(context, shopRequest: shopRequest, token: token))
         .listen((respone) async {
@@ -180,7 +180,7 @@ class UploadProductBloc {
       String token,
       int index,
       IsActive isActive}) {
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.uploadImage(context,
                 imageFile: imageFile,
                 imageableId: imageableId,
@@ -204,7 +204,7 @@ class UploadProductBloc {
     if (isActive != IsActive.NewProduct) {
       onLoad.add(true);
     }
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.updateProductMyShop(context,
                 shopRequest: shopRequest, productId: productId, token: token))
         .listen((respone) {
@@ -234,7 +234,7 @@ class UploadProductBloc {
       int inventoriesId,
       String token,
       bool isload}) {
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.updateProductInventories(context,
                 inventoriesRequest: inventoriesRequest,
                 inventoriesId: inventoriesId,
@@ -259,7 +259,7 @@ class UploadProductBloc {
         int inventoriesId,
         String token,}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
         _application.appStoreAPIRepository.updateInventoriesAttr(context,
             inventoriesRequest: inventoriesRequest,
             inventoriesId: inventoriesId,
@@ -281,7 +281,7 @@ class UploadProductBloc {
 
   getProductMyShop(BuildContext context,
       {String page, int limit, String token, String filter}) {
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.getProductMyShop(context,
                 page: page, limit: limit, token: token, filter: filter))
         .listen((respone) {
@@ -300,7 +300,7 @@ class UploadProductBloc {
 
   deleteProductMyShop(BuildContext context, {int productId, String token}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .deleteProductMyShop(context, productId: productId, token: token))
         .listen((respone) {
@@ -316,7 +316,7 @@ class UploadProductBloc {
 
   deleteImageProduct(BuildContext context,
       {String imageableId, String imageableType, String path, String token}) {
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.deleteImageProduct(context,
                 imageableType: imageableType,
                 imageableId: imageableId,
@@ -369,7 +369,7 @@ class UploadProductBloc {
 
   getProductIDMyShop(BuildContext context, {int productId, String token}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .getProductIDMyShop(context, productId: productId, token: token))
         .listen((respone) {
@@ -406,7 +406,7 @@ class UploadProductBloc {
 
   getProductDetailShop(BuildContext context, {int productId, String token}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .getProductIDMyShop(context, productId: productId, token: token))
         .listen((respone) {
@@ -494,7 +494,7 @@ class UploadProductBloc {
 
   getAttributeMyShop(BuildContext context, {String token}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .getMyShopAttribute(context, token: token))
         .listen((respone) {
@@ -513,7 +513,7 @@ class UploadProductBloc {
   addAttributeMyShop(BuildContext context,
       {String name, String token, List<String> value, String color = ""}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .addMyShopAttribute(context, token: token, name: name))
         .listen((respone) async {
@@ -541,7 +541,7 @@ class UploadProductBloc {
 
   deleteAttributeMyShop(BuildContext context, {int id, String token}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .deleteMyShopAttribute(context, id: id, token: token))
         .listen((respone) {
@@ -559,7 +559,7 @@ class UploadProductBloc {
 
   getSubAttribute(BuildContext context, {String token, int id}) {
    // onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .getSubAttribute(context, id: id, token: token))
         .listen((respone) {
@@ -576,7 +576,7 @@ class UploadProductBloc {
   updateAttribute(BuildContext context,
       {String name, int id, String token}) async {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .updateAttribute(context, id: id, name: name, token: token))
         .listen((respone) {
@@ -594,7 +594,7 @@ class UploadProductBloc {
   addSubAttribute(BuildContext context,
       {String value, String color = "", int id, String token, int length}) {
     //   onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.addAttributeDetail(context,
                 token: token, value: value, color: color, id: id))
         .listen((respone) async {
@@ -613,7 +613,7 @@ class UploadProductBloc {
   updateSubAttribute(BuildContext context,
       {String value, String color, int id, int vid, String token,int total,int index}) async {
     if(index+1==total) onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.updateAttributeDetail(context,
                 value: value, id: id, color: color, vid: vid, token: token))
         .listen((respone) {
@@ -633,7 +633,7 @@ class UploadProductBloc {
 
   deleteSubAttribute(BuildContext context, {int id, String token, int vid}) {
    // onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(_application
+    StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .deleteAttributeDetail(context, id: id, token: token, vid: vid))
         .listen((respone) {
@@ -652,7 +652,7 @@ class UploadProductBloc {
   updateinventories(BuildContext context,
       {int productsId, int inventoriesId, int shippingWeight, String token}) {
     onLoad.add(true);
-    StreamSubscription subscription = Observable.fromFuture(
+    StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.updateinventories(context,
                 productsId: productsId,
                 inventoriesId: inventoriesId,

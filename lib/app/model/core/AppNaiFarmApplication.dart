@@ -45,6 +45,12 @@ class AppNaiFarmApplication implements Application {
   }
 
   void _initAPIRepository() {
+    var options = BaseOptions(
+      baseUrl: Env.value.baseUrl,
+      connectTimeout: 20000,
+      receiveTimeout: 20000,
+    );
+    _dio.options = options;
     APIProvider apiProvider = APIProvider(_dio, baseUrl: Env.value.baseUrl);
     appStoreAPIRepository = APIRepository(apiProvider, dbAppStoreRepository);
   }
@@ -72,17 +78,25 @@ class AppNaiFarmApplication implements Application {
     _dio = Dio();
     if (EnvType.PRODUCTION == Env.value.environmentType ||
         EnvType.STAGING == Env.value.environmentType) {
-      _dio.interceptors
-          .add(InterceptorsWrapper(onRequest: (RequestOptions options) async {
-        DioLogger.onSend(APIRepository.TAG, options);
-        return options;
-      }, onResponse: (Response response) {
-        DioLogger.onSuccess(APIRepository.TAG, response);
-        return response;
-      }, onError: (DioError error) {
-        DioLogger.onError(APIRepository.TAG, error);
-        return error;
-      }));
+
+      _dio.interceptors.add(InterceptorsWrapper(
+          onRequest:(options, handler){
+            DioLogger.onSend(APIRepository.TAG, options);
+            return handler.next(options);
+          },
+          onResponse:(response,handler) {
+            DioLogger.onSuccess(APIRepository.TAG, response);
+            return handler.next(response);
+          },
+          onError: (DioError e, handler) {
+            DioLogger.onError(APIRepository.TAG, e);
+            return  handler.next(e);
+          }
+      ));
+
+
+
+
     }
   }
 }

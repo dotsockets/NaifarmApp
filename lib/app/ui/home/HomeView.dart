@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
 import 'package:naifarm/app/bloc/Provider/HomeMenuIndex.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
@@ -185,6 +184,7 @@ class _HomeViewState extends State<HomeView>
   @override
   void dispose() {
     // _connectivitySubscription.cancel();
+    bloc.dispose();
     sub.cancel();
     super.dispose();
   }
@@ -256,7 +256,7 @@ class _HomeViewState extends State<HomeView>
                 builder: (_, indexSelect) {
                   return Container(
                     padding: EdgeInsets.symmetric(
-                        vertical: Device.get().isPhone ? 0 : 1.5.h),
+                        vertical: SizerUtil.deviceType == DeviceType.mobile ? 0 : 1.5.h),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                           topRight:

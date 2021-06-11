@@ -2,7 +2,6 @@ import 'package:badges/badges.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/HomeMenuIndex.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -221,10 +220,10 @@ class _CustomTabBarState extends State<CustomTabBar>
                   : false,
               badgeContent: Container(
                 padding: EdgeInsets.all(
-                    notification < 10 ? (Device.get().isPhone ? 0.7 : 3.0) : 0),
+                    notification < 10 ? (SizerUtil.deviceType == DeviceType.mobile ? 0.7 : 3.0) : 0),
                 child: Container(
                   margin:
-                      EdgeInsets.only(bottom: Device.get().isPhone ? 0.5.w : 0),
+                      EdgeInsets.only(bottom: SizerUtil.deviceType == DeviceType.mobile ? 0.5.w : 0),
                   child: Text(
                     "$notification",
                     style: FunctionHelper.fontTheme(

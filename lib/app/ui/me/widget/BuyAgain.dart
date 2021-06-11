@@ -130,7 +130,7 @@ class BuyAgain extends StatelessWidget {
                 child: Lottie.asset('assets/json/loading.json', height: 28),
               ),
               imageUrl: item.image.length != 0?
-              "$${item.image[0].path.imgUrl()}":"",
+              "${item.image[0].path.imgUrl()}":"",
               errorWidget: (context, url, error) => Container(
                   width: 28.0.w,
                   height: 28.0.w,

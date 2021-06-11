@@ -133,15 +133,21 @@ class SearchHot extends StatelessWidget {
             CachedNetworkImage(
               width: 20.0.w,
               height: 20.0.w,
-              placeholder: (context, url) => Container(
+              imageUrl: item.image.length != 0
+                  ? "${Env.value.baseUrl}/storage/images/${item.image[0].path}"
+                  : Env.value.noItemUrl,
+              imageBuilder: (context, imageProvider) => Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: imageProvider),
+                ),
+              ),
+              placeholder: (context, url) =>Container(
                 width: 20.0.w,
                 height: 20.0.w,
                 color: Colors.white,
                 child: Lottie.asset('assets/json/loading.json', height: 20.0.w),
               ),
-              imageUrl: item.image.length != 0
-                  ? "${item.image[0].path.imgUrl()}"
-                  : Env.value.noItemUrl,
               errorWidget: (context, url, error) => Container(
                   width: 20.0.w,
                   height: 20.0.w,

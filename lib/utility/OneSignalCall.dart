@@ -20,13 +20,10 @@ class OneSignalCall {
     //Remove this method to stop OneSignal Debugging
 
     OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
+    await OneSignal.shared
+        .setAppId(Env.value.onesignal);
 
-    OneSignal.shared.init(Env.value.onesignal, iOSSettings: {
-      OSiOSSettings.autoPrompt: false,
-      OSiOSSettings.inAppLaunchUrl: false
-    });
-    OneSignal.shared
-        .setInFocusDisplayType(OSNotificationDisplayType.notification);
+    OneSignal.shared.setRequiresUserPrivacyConsent(true);
 
 // The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
     await OneSignal.shared
@@ -37,13 +34,11 @@ class OneSignalCall {
       // (ie. user taps Allow on the permission prompt in iOS)
     });
 
+
+
     OneSignal.shared
         .setSubscriptionObserver((OSSubscriptionStateChanges changes) async {
-      var status = await OneSignal.shared.getPermissionSubscriptionState();
-      if (status.subscriptionStatus.subscribed) {
-        // String onesignalUserId = status.subscriptionStatus.userId;
-        print('Player ID: ' + status.subscriptionStatus.pushToken);
-      }
+
     });
 
     OneSignal.shared.setEmailSubscriptionObserver(
@@ -54,29 +49,33 @@ class OneSignalCall {
   }
 
   static oneSignalReceivedHandler(BuildContext context) async {
+
+
     OneSignal.shared
-        .setNotificationReceivedHandler((OSNotification notification) async {
-     // print("wefcerf ${notification.payload.rawPayload['custom']['a']}");
+        .setNotificationWillShowInForegroundHandler((OSNotificationReceivedEvent event) {
+      print('FOREGROUND HANDLER CALLED WITH: ${event}');
+      /// Display Notification, send null to not display
+      event.complete(null);
 
       Usermanager().getUser().then((value) => context.read<CustomerCountBloc>()
           .loadCustomerCount(context, token: value.token));
     });
 
-    OneSignal.shared
-        .setNotificationOpenedHandler((OSNotificationOpenedResult result) {
-      var item = NotificationOneSignal.fromJson(
-          jsonDecode(result.notification.payload.rawPayload['custom']));
-
-      if (item.item.type == "Shop") {
-        AppRoute.orderDetail(context,
-            orderData: OrderData(id: int.parse(item.item.id)),
-            typeView: OrderViewType.Shop);
-      } else if (item.item.type == "Customer") {
-        AppRoute.orderDetail(context,
-            orderData: OrderData(id: int.parse(item.item.id)),
-            typeView: OrderViewType.Purchase);
-      }
-    });
+    // OneSignal.shared
+    //     .setNotificationOpenedHandler((OSNotificationOpenedResult result) {
+    //   var item = NotificationOneSignal.fromJson(
+    //       jsonDecode(result.notification.payload.rawPayload['custom']));
+    //
+    //   if (item.item.type == "Shop") {
+    //     AppRoute.orderDetail(context,
+    //         orderData: OrderData(id: int.parse(item.item.id)),
+    //         typeView: OrderViewType.Shop);
+    //   } else if (item.item.type == "Customer") {
+    //     AppRoute.orderDetail(context,
+    //         orderData: OrderData(id: int.parse(item.item.id)),
+    //         typeView: OrderViewType.Purchase);
+    //   }
+    // });
   }
 
   static Future selectNotification(String payload) async {
