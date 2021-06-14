@@ -42,20 +42,11 @@ class _EditpasswordStep1ViewState extends State<EditpasswordStep1View> {
         }
       });
       bloc.onError.stream.listen((event) {
-        //Navigator.of(context).pop();
-       // FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
-
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
         AppRoute.editpasswordStep2(context, passController.text);
-        // if((event as VerifyRespone).success){
-        // AppRoute.EditpasswordStep2(context,PassController.text);
-
-        //AppRoute.EditEmail_Step2(context,widget.customerInfoRespone);
-        //}
-        //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
       });
     }
   }

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -25,7 +24,6 @@ class RegisterView extends StatefulWidget {
 class _RegisterViewState extends State<RegisterView> {
   TextEditingController phoneController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
   MemberBloc bloc;
   bool checkError = false;
   String errorTxt = "";
@@ -47,12 +45,8 @@ class _RegisterViewState extends State<RegisterView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        //Navigator.of(context).pop();
-        //if (event.error.status == 406) {
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event.message);
-        //}
-        //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         if (event is LoginRespone) {

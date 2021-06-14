@@ -18,11 +18,8 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:share/share.dart';
 import 'package:sizer/sizer.dart';
-import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import "package:naifarm/app/model/core/ExtensionCore.dart";
-import 'package:vibration/vibration.dart';
-
 
 class ProductItemCard extends StatelessWidget {
   final String tagHero;
@@ -247,7 +244,7 @@ class ProductItemCard extends StatelessWidget {
     if (image.length != 0) {
       // Random random = new Random();
       // int randomNumber = random.nextInt(image.length); // from
-      return "${Env.value.baseUrl}/storage/images/${image[0].path}";
+      return "${image[0].path.imgUrl()}";
     } else {
       return "";
     }

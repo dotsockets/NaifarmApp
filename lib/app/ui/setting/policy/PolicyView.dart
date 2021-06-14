@@ -44,10 +44,10 @@ class _PolicyViewState extends State<PolicyView> {
             title: LocaleKeys.btn_error.tr(),
             message: event.message,
             callBack: () {
-              bloc.getInfoRules(context, slug: "privacy-policy");
+              _getRule();
             });
       });
-      bloc.getInfoRules(context, slug: "privacy-policy");
+      _getRule();
     }
   }
 
@@ -104,5 +104,8 @@ HtmlWidget(
       webView: true,
     );
  */
+  }
+  _getRule(){
+    bloc.getInfoRules(context, slug: "privacy-policy");
   }
 }

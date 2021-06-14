@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
-import 'package:form_validator/form_validator.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
@@ -37,11 +34,6 @@ class RegisterOTPView extends StatefulWidget {
 class _RegisterOTPViewState extends State<RegisterOTPView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
    TextEditingController _input1 = new TextEditingController();
-  // TextEditingController _input2 = new TextEditingController();
-  // TextEditingController _input3 = new TextEditingController();
-  // TextEditingController _input4 = new TextEditingController();
-  // TextEditingController _input5 = new TextEditingController();
-  // TextEditingController _input6 = new TextEditingController();
   final checkBtn = BehaviorSubject<bool>();
 
   int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 60 * 1;
@@ -97,13 +89,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
     if (null == bloc) {
       bloc = MemberBloc(AppProvider.getApplication(context));
       checkBtn.add(false);
-      NaiFarmLocalStorage.getCustomerInfo().then((value) {
-        if (value.customerInfoRespone != null) {
-          itemInfo = value.customerInfoRespone;
-        }
-
-        itemInfo.phone = widget.phoneNumber;
-      });
+     _getCustomerInfo();
       bloc.onLoad.stream.listen((event) {
         if (event) {
           FunctionHelper.showDialogProcess(context);
@@ -112,40 +98,23 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        //Navigator.of(context).pop();
-        //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
         checkBtn.add(false);
         FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
         if (widget.requestOtp == RequestOtp.Register) {
-          // AppRoute.registerSetPassword(context, widget.phoneNumber);
           AppRoute.registerNameOtp(context, widget.phoneNumber, _input1.text);
         } else if (widget.requestOtp == RequestOtp.Forgotpassword) {
           AppRoute.forgotSetNewPassword(context,
               phone: widget.phoneNumber,
               ref: widget.refCode,
              code: _input1.text);
-             // code: "${_input1.text}${_input2.text}${_input3.text}${_input4.text}${_input5.text}${_input6.text}");
         } else if (widget.requestOtp == RequestOtp.ChangPassword) {
-          Usermanager().getUser().then((value) => bloc.modifyProfile(
-              context: context,
-              data: itemInfo,
-              token: value.token,
-              onload: false));
+         _modifyProfile();
         }
       });
     }
-
-    Future.delayed(const Duration(milliseconds: 500), () {
-      if (widget.refCode == null) {
-        FunctionHelper.alertDialogRetry(context,
-            title: "Error Otp",
-            message: "The transaction was incorrect. ", callBack: () {
-          requestOTPNEW();
-        });
-      }
-    });
+    _requestNewOtp();
   }
 
   @override
@@ -863,5 +832,34 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
             );
 
         });
+  }
+  _getCustomerInfo(){
+    NaiFarmLocalStorage.getCustomerInfo().then((value) {
+      if (value.customerInfoRespone != null) {
+        itemInfo = value.customerInfoRespone;
+      }
+
+      itemInfo.phone = widget.phoneNumber;
+    });
+  }
+
+  _modifyProfile(){
+    Usermanager().getUser().then((value) => bloc.modifyProfile(
+        context: context,
+        data: itemInfo,
+        token: value.token,
+        onload: false));
+  }
+
+  _requestNewOtp(){
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (widget.refCode == null) {
+        FunctionHelper.alertDialogRetry(context,
+            title: "Error Otp",
+            message: "The transaction was incorrect. ", callBack: () {
+              requestOTPNEW();
+            });
+      }
+    });
   }
 }

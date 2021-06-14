@@ -43,10 +43,6 @@ class BuildEditText extends StatelessWidget {
   bool flagTemp = true;
   init(BuildContext context) {
     _passwordHide.add(true);
-    // _passwordHide.stream.listen((event) {
-    //   flag_temp = true;
-    //   print("dsfdsf ${event}");
-    // });
   }
 
   @override

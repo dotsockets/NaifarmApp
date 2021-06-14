@@ -34,10 +34,7 @@ class _AddressAddViewState extends State<AddressAddView> {
   int proviceSelect = 0;
   int citySelect = 0;
   bool check = true;
-
   AddressBloc bloc;
-
-  //bool checkError = false;
 
   void _init() {
     if (null == bloc) {
@@ -50,9 +47,6 @@ class _AddressAddViewState extends State<AddressAddView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        // Navigator.of(context).pop();
-       // FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
-
         FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event);
       });
       bloc.onSuccess.stream.listen((event) {

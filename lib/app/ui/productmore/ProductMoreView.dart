@@ -16,9 +16,11 @@ import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
+import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -38,11 +40,11 @@ class ProductMoreView extends StatefulWidget {
 
   ProductMoreView(
       {Key key,
-      this.barTxt,
-      this.productList,
-      this.installData,
-      this.apiLink,
-      this.typeMore})
+        this.barTxt,
+        this.productList,
+        this.installData,
+        this.apiLink,
+        this.typeMore})
       : super(key: key);
 
   @override
@@ -61,15 +63,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
   void _init() {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-<<<<<<< HEAD
      _initialValue();
-     _getProductCache();
-=======
-
-      if (widget.installData != null) {
-        bloc.moreProduct.add(widget.installData);
-      }
-
       bloc.onLoad.stream.listen((event) {
         if (event) {
           FunctionHelper.showDialogProcess(context);
@@ -77,22 +71,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
           Navigator.of(context).pop();
         }
       });
-      NaiFarmLocalStorage.getProductMoreCache().then((value) {
-        if (value != null) {
-          for (var data in value.productRespone) {
-            if (data.slag == widget.apiLink) {
-              bloc.moreProduct.add(data.searchRespone);
-              break;
-            }
-          }
-        }
-        bloc.loadMoreData(context,
-            page: page.toString(),
-            limit: 10,
-            link: widget.apiLink,
-            typeMore: widget.typeMore);
-      });
->>>>>>> bc61649cd081c31c096ab79eb72efb2cf1106304
+      _getProductCache();
       bloc.onError.stream.listen((event) {
         if (event.status == 0 || event.status >= 500) {
           Future.delayed(const Duration(milliseconds: 300), () {
@@ -104,7 +83,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                 title: LocaleKeys.btn_error.tr(),
                 message: event.message,
                 callBack: () {
-                  _loadmoreData();
+                  _loadMoreData();
                 });
           });
         }else{
@@ -112,32 +91,15 @@ class _ProductMoreViewState extends State<ProductMoreView> {
               title: LocaleKeys.btn_error.tr(), message: event.message);
         }
       });
-
       bloc.productItem.stream.listen((event) {
-        List<Items> items = <Items>[];
-        items.add(Items(inventoryId: event.inventories[0].id, quantity: 1));
-
-        Usermanager()
-            .getUser()
-            .then((value) => bloc.addCartlists(context,
-            addNow: false,
-            onload: false,
-            cartRequest: CartRequest(
-              shopId: event.shopId,
-              items: items,
-            ),
-            token: value.token));
+       _addCart(event);
       });
-
       bloc.onSuccess.stream.listen((event) {
-        //onUpload = true;
         if (event is CartResponse) {
-          AppRoute.myCart(context, true, cartNowId: bloc.bayNow);
-          // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
-        }
+          AppRoute.myCart(context, true, cartNowId: bloc.bayNow);}
       });
     }
-    _controlScroll();
+   _controlScroll();
   }
 
   Widget androidRefreshIndicator() {
@@ -156,10 +118,10 @@ class _ProductMoreViewState extends State<ProductMoreView> {
         completeStateDuration: const Duration(seconds: 1),
         offsetToArmed: 50.0,
         builder: (
-          BuildContext context,
-          Widget child,
-          IndicatorController controller,
-        ) {
+            BuildContext context,
+            Widget child,
+            IndicatorController controller,
+            ) {
           return Stack(
             children: <Widget>[
               AnimatedBuilder(
@@ -198,18 +160,20 @@ class _ProductMoreViewState extends State<ProductMoreView> {
     }
     bloc.productMore.clear();
     page = 1;
-    _loadmoreData();
+
+    _loadMoreData();
 
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
-              _scrollController.position.pixels <=
+          _scrollController.position.pixels <=
           200) {
         if (stepPage) {
           stepPage = false;
           page++;
-          _loadmoreData();
+          _loadMoreData();
         }
       }
+
       if (_scrollController.position.pixels > 500) {
         positionScroll.add(true);
       } else {
@@ -272,60 +236,60 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                             children: [
                               item.data.length - (i) * 2 > 1
                                   ? Row(
-                                      children: [
-                                        Expanded(
-                                            child: _buildProduct(
-                                                item: item.data[(i * 2)],
-                                                index: (i * 2),
-                                                context: context)),
-                                        Expanded(
-                                            child: _buildProduct(
-                                                item: item.data[(i * 2) + 1],
-                                                index: ((i * 2) + 1),
-                                                context: context))
-                                      ],
-                                    )
+                                children: [
+                                  Expanded(
+                                      child: _buildProduct(
+                                          item: item.data[(i * 2)],
+                                          index: (i * 2),
+                                          context: context)),
+                                  Expanded(
+                                      child: _buildProduct(
+                                          item: item.data[(i * 2) + 1],
+                                          index: ((i * 2) + 1),
+                                          context: context))
+                                ],
+                              )
                                   : Row(
-                                      children: [
-                                        Expanded(
-                                            child: _buildProduct(
-                                                item: item.data[(i * 2)],
-                                                index: (i * 2),
-                                                context: context)),
-                                        Expanded(child: SizedBox()),
-                                      ],
-                                    ),
+                                children: [
+                                  Expanded(
+                                      child: _buildProduct(
+                                          item: item.data[(i * 2)],
+                                          index: (i * 2),
+                                          context: context)),
+                                  Expanded(child: SizedBox()),
+                                ],
+                              ),
                               if (item.data.length != item.total &&
                                   item.data.length >= limit)
                                 i + 1 == ((item.data.length) / 2).round()
                                     ? Container(
-                                        padding: EdgeInsets.all(20),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Platform.isAndroid
-                                                ? SizedBox(
-                                                    width: 5.0.w,
-                                                    height: 5.0.w,
-                                                    child:
-                                                        CircularProgressIndicator())
-                                                : CupertinoActivityIndicator(),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text(
-                                                LocaleKeys
-                                                    .dialog_message_loading
-                                                    .tr(),
-                                                style: FunctionHelper.fontTheme(
-                                                    color: Colors.grey,
-                                                    fontSize:
-                                                        SizeUtil.titleFontSize()
-                                                            .sp))
-                                          ],
-                                        ),
-                                      )
+                                  padding: EdgeInsets.all(20),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.center,
+                                    children: [
+                                      Platform.isAndroid
+                                          ? SizedBox(
+                                          width: 5.0.w,
+                                          height: 5.0.w,
+                                          child:
+                                          CircularProgressIndicator())
+                                          : CupertinoActivityIndicator(),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                          LocaleKeys
+                                              .dialog_message_loading
+                                              .tr(),
+                                          style: FunctionHelper.fontTheme(
+                                              color: Colors.grey,
+                                              fontSize:
+                                              SizeUtil.titleFontSize()
+                                                  .sp))
+                                    ],
+                                  ),
+                                )
                                     : SizedBox(),
                             ],
                           ),
@@ -372,31 +336,31 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                 if (snapshot.hasData) {
                   return snapshot.data
                       ? Container(
-                          margin: EdgeInsets.only(right: 5.0.w, bottom: 5.0.w),
-                          child: Align(
-                              alignment: Alignment.bottomRight,
-                              child: Container(
-                                width: SizeUtil.tabMenuSize().w,
-                                height: SizeUtil.tabMenuSize().w,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.black.withOpacity(0.4)),
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_up_outlined,
-                                    size: SizeUtil.largeIconSize().w,
-                                    color: Colors.white,
-                                  ),
-                                  onPressed: () {
-                                    _scrollController.animateTo(
-                                        _scrollController
-                                            .position.minScrollExtent,
-                                        duration: Duration(milliseconds: 1000),
-                                        curve: Curves.ease);
-                                  },
-                                ),
-                              )),
-                        )
+                    margin: EdgeInsets.only(right: 5.0.w, bottom: 5.0.w),
+                    child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: Container(
+                          width: SizeUtil.tabMenuSize().w,
+                          height: SizeUtil.tabMenuSize().w,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.black.withOpacity(0.4)),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.keyboard_arrow_up_outlined,
+                              size: SizeUtil.largeIconSize().w,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              _scrollController.animateTo(
+                                  _scrollController
+                                      .position.minScrollExtent,
+                                  duration: Duration(milliseconds: 1000),
+                                  curve: Curves.ease);
+                            },
+                          ),
+                        )),
+                  )
                       : SizedBox();
                 } else {
                   return SizedBox();
@@ -431,11 +395,11 @@ class _ProductMoreViewState extends State<ProductMoreView> {
           children: [
             item.offerPrice != null
                 ? Text(
-                    "฿${item.salePrice.priceFormat()}",
-                    style: FunctionHelper.fontTheme(
-                        color: Colors.grey,
-                        fontSize: SizeUtil.priceFontSize().sp - 2,
-                        decoration: TextDecoration.lineThrough))
+                "฿${item.salePrice.priceFormat()}",
+                style: FunctionHelper.fontTheme(
+                    color: Colors.grey,
+                    fontSize: SizeUtil.priceFontSize().sp - 2,
+                    decoration: TextDecoration.lineThrough))
                 : SizedBox(),
             SizedBox(width: item.offerPrice != null ? 1.0.w : 0),
             Text(
@@ -545,10 +509,10 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                       border: Border.all(width: 1, color: Colors.grey.shade400),
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child:
-                      /*Hero(
+                  /*Hero(
                     tag: "loadmore_${item.id}$index",
                     child:*/
-                      ClipRRect(
+                  ClipRRect(
                     borderRadius: BorderRadius.circular(1.0.h),
                     child: CachedNetworkImage(
                       width: 30.0.w,
@@ -658,11 +622,25 @@ class _ProductMoreViewState extends State<ProductMoreView> {
           }
         }
       }
-     _loadmoreData();
+    _loadMoreData();
     });
   }
 
-  _loadmoreData(){
+  _addCart(ProducItemRespone event){
+    List<Items> items = <Items>[];
+    items.add(Items(inventoryId: event.inventories[0].id, quantity: 1));
+    Usermanager().getUser()
+        .then((value) => bloc.addCartlists(context,
+        addNow: false,
+        onload: false,
+        cartRequest: CartRequest(
+          shopId: event.shopId,
+          items: items,
+        ),
+        token: value.token));
+  }
+
+  _loadMoreData(){
     bloc.loadMoreData(context,
         page: page.toString(),
         limit: 10,
@@ -678,7 +656,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
         if (stepPage) {
           stepPage = false;
           page++;
-          _loadmoreData();
+          _loadMoreData();
         }
       }
 

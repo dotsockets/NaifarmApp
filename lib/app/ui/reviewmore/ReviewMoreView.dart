@@ -12,7 +12,6 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/FeedbackRespone.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -36,7 +35,6 @@ class ReviewMoreView extends StatefulWidget {
 class _ReviewMoreViewState extends State<ReviewMoreView> {
   ProductBloc bloc;
   int page = 1;
-  int limit = 10;
   ScrollController _scrollController = ScrollController();
   bool stepPage = false;
   final _indicatorController = IndicatorController();
@@ -45,36 +43,10 @@ class _ReviewMoreViewState extends State<ReviewMoreView> {
   void _init() {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      if (widget.feedbackRespone != null) {
-        bloc.feedbackList.addAll(widget.feedbackRespone.data);
-        bloc.moreFeedback.add(widget.feedbackRespone);
-      }else{
-        _loadFeedback();
-      }
+     _initialValue();
     }
 
-    _scrollController.addListener(() {
-      if (_scrollController.position.maxScrollExtent -
-              _scrollController.position.pixels <=
-          200) {
-        if (stepPage) {
-          stepPage = false;
-          page++;
-          _loadFeedback();
-          // bloc.loadMoreData(context,
-          //     page: page.toString(),
-          //     limit: limit,
-          //     link: widget.apiLink,
-          //     typeMore: widget.typeMore);
-        }
-      }
-
-      if (_scrollController.position.pixels > 500) {
-        positionScroll.add(true);
-      } else {
-        positionScroll.add(false);
-      }
-    });
+    _controlScroll();
   }
 
   Widget androidRefreshIndicator() {
@@ -467,10 +439,39 @@ class _ReviewMoreViewState extends State<ReviewMoreView> {
   }
   _loadFeedback() {
     bloc.loadFeedback(context,
-        limit: limit,
+        limit: 10,
         id: widget.productId,
         page: page);
 
+  }
+
+  _initialValue(){
+    if (widget.feedbackRespone != null) {
+      bloc.feedbackList.addAll(widget.feedbackRespone.data);
+      bloc.moreFeedback.add(widget.feedbackRespone);
+    }else{
+      _loadFeedback();
+    }
+  }
+
+  _controlScroll(){
+    _scrollController.addListener(() {
+      if (_scrollController.position.maxScrollExtent -
+          _scrollController.position.pixels <=
+          200) {
+        if (stepPage) {
+          stepPage = false;
+          page++;
+          _loadFeedback();
+        }
+      }
+
+      if (_scrollController.position.pixels > 500) {
+        positionScroll.add(true);
+      } else {
+        positionScroll.add(false);
+      }
+    });
   }
 
 }

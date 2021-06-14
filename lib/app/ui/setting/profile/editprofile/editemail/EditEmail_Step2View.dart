@@ -26,7 +26,6 @@ class EditEmailStep2View extends StatefulWidget {
 class EditEmailStep2ViewState extends State<EditEmailStep2View> {
   TextEditingController emailController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
   String onError = "";
   MemberBloc bloc;
   bool onDialog = false;
@@ -56,9 +55,6 @@ class EditEmailStep2ViewState extends State<EditEmailStep2View> {
         }
       });
       bloc.onError.stream.listen((event) {
-        //Navigator.of(context).pop();
-        // FunctionHelper.snackBarShow(
-        //     scaffoldKey: _scaffoldKey, message: event.message,context: context);
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event.message);
       });

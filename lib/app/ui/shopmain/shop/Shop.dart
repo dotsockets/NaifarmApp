@@ -11,7 +11,6 @@ import 'package:sizer/sizer.dart';
 
 class Shop extends StatelessWidget {
   final ZipShopObjectCombin productRespone;
-
   const Shop({Key key, this.productRespone}) : super(key: key);
 
   @override

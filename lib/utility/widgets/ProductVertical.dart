@@ -270,7 +270,7 @@ class ProductVertical extends StatelessWidget {
                                     width: 28.0.w,
                                     height: 35.0.w,
                                     imageUrl: item.image.length != 0?
-                                    "${Env.value.baseUrl}/storage/images/${item.image[0].path}":"",
+                                    "${item.image[0].path.imgUrl()}":"",
                                     imageBuilder: (context, imageProvider) => Container(
                                       decoration: BoxDecoration(
                                         image: DecorationImage(

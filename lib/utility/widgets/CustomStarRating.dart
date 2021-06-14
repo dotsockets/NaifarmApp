@@ -1,7 +1,6 @@
 library smooth_star_rating;
 
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

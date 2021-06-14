@@ -277,7 +277,7 @@ class _AttributeProductAddViewState extends State<AttributeProductAddView> {
           //Expanded(
           //child: Container(
           Container(
-            width: 76.5.w,
+            width: 73.5.w,
             margin: EdgeInsets.only(top: 1.0.h, bottom: 1.0.h, right: 2.0.w),
             decoration: BoxDecoration(
                 color: Colors.white,

@@ -17,7 +17,6 @@ class RegisterFBView extends StatefulWidget {
 class RegisterFBViewState extends State<RegisterFBView> {
   TextEditingController _input1 = new TextEditingController();
   TextEditingController _input2 = new TextEditingController();
-
   bool successForm = false;
   String onError1 = "";
   String onError2 = "";

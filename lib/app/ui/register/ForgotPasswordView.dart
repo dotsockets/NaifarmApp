@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/bloc/Stream/MemberBloc.dart';
@@ -46,8 +45,6 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        //Navigator.of(context).pop();
-        // FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event.message);
       });

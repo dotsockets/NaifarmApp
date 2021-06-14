@@ -43,9 +43,6 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
         }
       });
       bloc.onError.stream.listen((event) {
-        //Navigator.of(context).pop();
-        //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
-
         FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {
@@ -56,9 +53,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
             Navigator.of(context).pop();
           }
         });
-        //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
       });
-
       verify();
     }
   }
@@ -220,7 +215,6 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
                           ),
                           onPressed: () {
                             if (formCheck()) {
-                              print("werfcre ${widget.passwordOld}");
                               if(widget.passwordOld==""){
                                 Usermanager().getUser().then((value) =>
                                     bloc.firstPassword(context,

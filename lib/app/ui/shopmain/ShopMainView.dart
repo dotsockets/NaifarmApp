@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
@@ -36,29 +35,12 @@ class _ShopMainViewState extends State<ShopMainView>
     with SingleTickerProviderStateMixin {
   TabController tabController;
   int selectedIndex = 0;
-
   ProductBloc bloc;
 
   void _init() {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      bloc.zipShopObject
-          .add(ZipShopObjectCombin(shopRespone: widget.myShopRespone));
-
-      NaiFarmLocalStorage.getNaiFarmShopCache().then((value) {
-        if (value != null) {
-          for (var data in value.item) {
-            if (data.shopRespone != null &&
-                data.shopRespone.id == widget.myShopRespone.id) {
-              bloc.zipShopObject.add(data);
-              break;
-            }
-          }
-        }
-        Usermanager().getUser().then((value) => bloc.loadShop(context,
-            shopid: widget.myShopRespone.id, token: value.token));
-      });
-
+    _zipShop();
       bloc.onError.stream.listen((event) {
         if (event.status == 0 || event.status >= 500) {
           Future.delayed(const Duration(milliseconds: 300), () {
@@ -70,14 +52,7 @@ class _ShopMainViewState extends State<ShopMainView>
                 title: LocaleKeys.btn_error.tr(),
                 message: event.message,
                 callBack: () {
-                  NaiFarmLocalStorage.getNaiFarmShopCache().then((value) {
-                    if (value != null) {
-                      Usermanager().getUser().then((value) => bloc.loadShop(
-                          context,
-                          shopid: widget.myShopRespone.id,
-                          token: value.token));
-                    }
-                  });
+                  _getShopCache();
                 });
           });
         }
@@ -250,5 +225,35 @@ class _ShopMainViewState extends State<ShopMainView>
                     : Colors.grey.shade700)),
       ),
     );
+  }
+  _zipShop(){
+    bloc.zipShopObject.add(ZipShopObjectCombin(shopRespone: widget.myShopRespone));
+    NaiFarmLocalStorage.getNaiFarmShopCache().then((value) {
+      if (value != null) {
+        for (var data in value.item) {
+          if (data.shopRespone != null &&
+              data.shopRespone.id == widget.myShopRespone.id) {
+            bloc.zipShopObject.add(data);
+            break;
+          }
+        }
+      }
+    _loadShop();
+    });
+  }
+  _loadShop(){
+    Usermanager().getUser().then((value) => bloc.loadShop(context,
+        shopid: widget.myShopRespone.id, token: value.token));
+  }
+
+  _getShopCache(){
+    NaiFarmLocalStorage.getNaiFarmShopCache().then((value) {
+      if (value != null) {
+        Usermanager().getUser().then((value) => bloc.loadShop(
+            context,
+            shopid: widget.myShopRespone.id,
+            token: value.token));
+      }
+    });
   }
 }

@@ -16,7 +16,6 @@ class LanguageSettingView extends StatefulWidget {
 }
 
 class _LanguageSettingViewState extends State<LanguageSettingView> {
-  int checkSelect = 0;
 
   @override
   void initState() {

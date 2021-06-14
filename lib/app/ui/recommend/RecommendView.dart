@@ -66,10 +66,7 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
           context.read<HomeDataBloc>().loadHomeData(context);
           // _refreshProducts();
         } else {
-          NaiFarmLocalStorage.getHomeDataCache().then((value) {
-            onReLoad = true;
-            bloc.zipHomeObject.add(value);
-          });
+         _getHomeCache();
         }
       });
       bloc.onLoad.stream.listen((event) {
@@ -418,6 +415,13 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
         // OneSignalCall.cancelNotification("", 0);
         // _refreshProducts();
       }
+    });
+  }
+  
+  _getHomeCache(){
+    NaiFarmLocalStorage.getHomeDataCache().then((value) {
+      onReLoad = true;
+      bloc.zipHomeObject.add(value);
     });
   }
 }

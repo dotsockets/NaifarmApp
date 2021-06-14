@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
-
 import '../SizeUtil.dart';
 import 'package:sizer/sizer.dart';
 

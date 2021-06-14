@@ -32,7 +32,6 @@ class _SettingProfileViewState extends State<SettingProfileView>
 
   @override
   void didChangeDependencies() {
-    print("Change dependencies!!!!");
     super.didChangeDependencies();
     routeObserver.subscribe(this, ModalRoute.of(context));
   }

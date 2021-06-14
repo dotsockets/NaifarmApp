@@ -11,7 +11,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:like_button/like_button.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
-import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -31,7 +30,6 @@ import "package:naifarm/app/model/core/ExtensionCore.dart";
 import 'package:share/share.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
-import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class WishlistsView extends StatefulWidget {
   @override
@@ -53,32 +51,17 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
           FunctionHelper.alertDialogRetry(context,
               title: LocaleKeys.btn_error.tr(),
               message: event.message,
-              callBack: () => Usermanager().getUser().then(
-                  (value) => bloc.getMyWishlists(context, token: value.token)));
+              callBack: () => _getWhistList());
         });
-        // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event.error);
       });
-      // bloc.onLoad.stream.listen((event) {
-      //   if (event) {
-      //     FunctionHelper.showDialogProcess(context);
-      //   } else {
-      //     Navigator.of(context).pop();
-      //   }
-      // });
       bloc.onSuccess.stream.listen((event) {
         if (event is bool) {
-          Usermanager().getUser().then(
-                  (value) => bloc.getMyWishlists(context, token: value.token));
-          Usermanager().getUser().then((value) => context
-              .read<CustomerCountBloc>()
-              .loadCustomerCount(context, token: value.token));
-          // Usermanager().getUser().then((value) =>
-          //     bloc.GetMyWishlists(token: value.token));
+         _getWhistList();
+         _getCusCount();
+
         }
       });
-      Usermanager()
-          .getUser()
-          .then((value) => bloc.getMyWishlists(context, token: value.token));
+      _getWhistList();
     }
   }
 
@@ -612,4 +595,15 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
   }
 
   int check(int i) => i != bloc.wishlists.value.data.length - 1 ? 2 : 1;
+
+  _getWhistList(){
+    Usermanager().getUser().then(
+            (value) => bloc.getMyWishlists(context, token: value.token));
+  }
+
+  _getCusCount(){
+    Usermanager().getUser().then((value) => context
+        .read<CustomerCountBloc>()
+        .loadCustomerCount(context, token: value.token));
+  }
 }

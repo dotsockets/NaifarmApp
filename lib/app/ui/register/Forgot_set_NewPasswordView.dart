@@ -43,7 +43,6 @@ class ForgotSetNewPasswordState extends State<ForgotSetNewPasswordView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
         FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event.message);
       });
       bloc.onSuccess.stream.listen((event) {

@@ -3,7 +3,6 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
-
 import '../SizeUtil.dart';
 
 class RadioWidget extends StatefulWidget {

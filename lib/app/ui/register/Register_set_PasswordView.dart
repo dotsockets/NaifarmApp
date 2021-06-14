@@ -24,7 +24,6 @@ class RegisterSetPasswordView extends StatefulWidget {
 class RegisterSetPasswordViewState extends State<RegisterSetPasswordView> {
   TextEditingController _input1 = new TextEditingController();
   TextEditingController _input2 = new TextEditingController();
-
   bool successForm = false;
   String onError1 = "";
   String onError2 = "";

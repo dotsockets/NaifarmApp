@@ -22,7 +22,6 @@ class SettingEditProdileBioView extends StatefulWidget {
 
 class SettingEditProdileBioViewState extends State<SettingEditProdileBioView> {
   TextEditingController _input1 = new TextEditingController();
-
   String onError1 = "";
 
   bool formCheck() {

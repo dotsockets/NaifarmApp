@@ -120,8 +120,6 @@ import 'package:naifarm/utility/widgets/ImageFullScreen.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 import 'package:naifarm/app/ui/me/attributemyproduct/AttributeProductView.dart';
-import 'package:naifarm/app/ui/me/attributemyproduct/AttributeProductAddView.dart';
-import 'package:naifarm/app/ui/me/attributemyproduct/AttributeProductEditView.dart';
 class AppRoute {
   // static  home(BuildContext context){
   //   Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.rightToLeftWithFade, child: HomeView()));

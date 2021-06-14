@@ -43,10 +43,10 @@ class _RulesOfUseViewState extends State<RulesOfUseView> {
             title: LocaleKeys.btn_error.tr(),
             message: event.message,
             callBack: () {
-              bloc.getInfoRules(context, slug: "terms-of-use-customer");
+              _getRule();
             });
       });
-      bloc.getInfoRules(context, slug: "terms-of-use-customer");
+     _getRule();
     }
   }
 
@@ -103,4 +103,8 @@ class _RulesOfUseViewState extends State<RulesOfUseView> {
       webView: true,
     );*/
   }
+  _getRule(){
+    bloc.getInfoRules(context, slug: "terms-of-use-customer");
+  }
+
 }

@@ -71,8 +71,6 @@ class _HomeViewState extends State<HomeView>
         } else {
           context.read<HomeMenuIndex>().onSelect(value);
         }
-
-        // NaiFarmLocalStorage.saveNowPage(0);
       });
     }
   }

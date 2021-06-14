@@ -134,7 +134,7 @@ class SearchHot extends StatelessWidget {
               width: 20.0.w,
               height: 20.0.w,
               imageUrl: item.image.length != 0
-                  ? "${Env.value.baseUrl}/storage/images/${item.image[0].path}"
+                  ? "${item.image[0].path.imgUrl()}"
                   : Env.value.noItemUrl,
               imageBuilder: (context, imageProvider) => Container(
                 decoration: BoxDecoration(

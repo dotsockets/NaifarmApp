@@ -18,7 +18,6 @@ class BankAddView extends StatefulWidget {
 class _BankAddViewState extends State<BankAddView> {
   TextEditingController nameController = TextEditingController();
   TextEditingController idController = TextEditingController();
-
   String errorIdTxt = "";
 
   @override

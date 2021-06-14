@@ -8,7 +8,6 @@ import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
-
 import 'package:sizer/sizer.dart';
 
 class CategoryTab extends StatelessWidget {
@@ -22,7 +21,6 @@ class CategoryTab extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       decoration: new BoxDecoration(
         color: Colors.white,
-
       ),
       child: Column(
         children: [

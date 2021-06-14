@@ -39,20 +39,12 @@ class _AddressEditViewState extends State<AddressEditView> {
   int proviceSelect = 0;
   int citySelect = 0;
   bool check = true;
-
   AddressBloc bloc;
 
-  //bool checkError = false;
   @override
   void initState() {
     super.initState();
-
-    nameController.text = widget.item.addressTitle;
-    phoneController.text = widget.item.phone;
-    detailAddrController.text = widget.item.addressLine1;
-    proviceSelect = widget.item.stateId;
-    citySelect = widget.item.cityId;
-    isSelect = widget.item.addressType == "Primary" ? true : false;
+   _initialValue();
   }
 
   void _init() {
@@ -66,9 +58,6 @@ class _AddressEditViewState extends State<AddressEditView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        // Navigator.of(context).pop();
-        //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
-
         FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event);
       });
       bloc.onSuccess.stream.listen((event) {
@@ -86,9 +75,7 @@ class _AddressEditViewState extends State<AddressEditView> {
       bloc.city.stream.listen((event) {
         _checkError();
       });
-      bloc.statesCity(context,
-          countriesid: "1", statesId: widget.item.stateId.toString());
-      postController.text = widget.item.zipCode;
+     _getState();
     }
   }
 
@@ -444,5 +431,19 @@ class _AddressEditViewState extends State<AddressEditView> {
         ],
       ),
     );
+  }
+  _initialValue(){
+    nameController.text = widget.item.addressTitle;
+    phoneController.text = widget.item.phone;
+    detailAddrController.text = widget.item.addressLine1;
+    proviceSelect = widget.item.stateId;
+    citySelect = widget.item.cityId;
+    isSelect = widget.item.addressType == "Primary" ? true : false;
+  }
+
+  _getState(){
+    bloc.statesCity(context,
+        countriesid: "1", statesId: widget.item.stateId.toString());
+    postController.text = widget.item.zipCode;
   }
 }

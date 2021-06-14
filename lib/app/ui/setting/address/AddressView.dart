@@ -22,7 +22,6 @@ class AddressView extends StatefulWidget {
 
 class _AddressViewState extends State<AddressView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
   bool onUpdate = false;
   CartBloc bloc;
 
@@ -45,19 +44,14 @@ class _AddressViewState extends State<AddressView> {
             title: LocaleKeys.btn_error.tr(),
             message: event.message,
             callBack: () {
-              Usermanager().getUser().then(
-                  (value) => bloc.addressesList(context, token: value.token));
+             _getAddrList();
             });
       });
 
       bloc.onSuccess.stream.listen((event) {
         onUpdate = true;
-        //  cartReq = event;
       });
-
-      Usermanager()
-          .getUser()
-          .then((value) => bloc.addressesList(context, token: value.token));
+      _getAddrList();
     }
   }
 
@@ -417,5 +411,12 @@ class _AddressViewState extends State<AddressView> {
     } else {
       Navigator.pop(context, AddressesListRespone());
     }
+  }
+
+  _getAddrList(){
+
+    Usermanager()
+        .getUser()
+        .then((value) => bloc.addressesList(context, token: value.token));
   }
 }

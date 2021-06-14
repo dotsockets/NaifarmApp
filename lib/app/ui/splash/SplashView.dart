@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
@@ -14,7 +13,6 @@ import 'package:naifarm/app/model/pojo/response/CategoryCombin.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:package_info/package_info.dart';
 import 'package:sizer/sizer.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SplashView extends StatefulWidget {
@@ -29,7 +27,6 @@ class _SplashViewState extends State<SplashView>
   AnimationController animationController;
   Animation<double> animation;
   ProductBloc bloc;
-
   String platformVersion;
 
   @override
@@ -38,7 +35,6 @@ class _SplashViewState extends State<SplashView>
         vsync: this, duration: new Duration(seconds: 1));
     animation =
         new CurvedAnimation(parent: animationController, curve: Curves.easeOut);
-
     animation.addListener(() => this.setState(() {}));
     animationController.forward();
     _initPackageInfo();
@@ -48,26 +44,10 @@ class _SplashViewState extends State<SplashView>
   void _init(BuildContext context) {
     versionName();
     if (null == bloc) {
-      // NaiFarmLocalStorage.Clean(keyStore: NaiFarmLocalStorage.NaiFarm_Storage);
-      NaiFarmLocalStorage.deleteCacheByItem(
-          key: NaiFarmLocalStorage.naiFarmNowPage);
-      NaiFarmLocalStorage.deleteCacheByItem(
-          key: NaiFarmLocalStorage.naiFarmCart);
-      NaiFarmLocalStorage.deleteCacheByItem(
-          key: NaiFarmLocalStorage.naiFarmProductDetail);
-      NaiFarmLocalStorage.deleteCacheByItem(
-          key: NaiFarmLocalStorage.naiFarmProductMore);
-      NaiFarmLocalStorage.deleteCacheByItem(
-          key: NaiFarmLocalStorage.naiFarmShop);
-      NaiFarmLocalStorage.deleteCacheByItem(
-          key: NaiFarmLocalStorage.naiFarmHiSTORY);
-
-      // NaiFarmLocalStorage.DeleteCacheByItem(key: NaiFarmLocalStorage.NaiFarm_ProductMore);
+      _delCache();
       bloc = ProductBloc(AppProvider.getApplication(context));
-      Usermanager().getUser().then((value) => bloc.loadCustomerCount(context, token: value.token));
-
+      _loadCusCount();
       bloc.onError.stream.listen((event) {
-
         Future.delayed(const Duration(milliseconds: 1000), () {
           AppRoute.connectError(
               context: context, result: event, showFull: true);
@@ -79,32 +59,14 @@ class _SplashViewState extends State<SplashView>
             startTimer();
           });
         } else {
-          bloc.getCategoriesAll(
-            context,
-          );
-          Usermanager().getUser().then((value) {
-            context.read<HomeDataBloc>().loadHomeData(
-                  context,
-                );
-            Usermanager().getUser().then((value) => context
-                .read<CustomerCountBloc>()
-                .loadCustomerCount(context, token: value.token));
-            Usermanager().getUser().then((value) => context
-                .read<InfoCustomerBloc>()
-                .loadCustomInfo(context, token: value.token));
-          });
+          _loadData();
         }
       });
-      // bloc.ZipHomeObject.stream.listen((event) {
-      //   startTimer();
-      // });
     }
-    // startTimer();
   }
 
   void versionName() async {
     try {
-      //platformVersion = await GetVersion.projectVersion;
     } on Exception {
       platformVersion = '0.0.1';
     }
@@ -166,7 +128,6 @@ class _SplashViewState extends State<SplashView>
     print("efverf ${info.packageName}");
   }
 
-
   startTimer() async {
     var duration = new Duration(seconds: 1);
     return new Timer(duration, navigatorPage);
@@ -179,5 +140,41 @@ class _SplashViewState extends State<SplashView>
     else
       AppRoute.splashLogin(context);
     //  Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.fade, child:  SplashLoginView(item: bloc.ZipHomeObject.value,)), (Route<dynamic> route) => false);
+  }
+
+  _delCache() {
+    NaiFarmLocalStorage.deleteCacheByItem(
+        key: NaiFarmLocalStorage.naiFarmNowPage);
+    NaiFarmLocalStorage.deleteCacheByItem(key: NaiFarmLocalStorage.naiFarmCart);
+    NaiFarmLocalStorage.deleteCacheByItem(
+        key: NaiFarmLocalStorage.naiFarmProductDetail);
+    NaiFarmLocalStorage.deleteCacheByItem(
+        key: NaiFarmLocalStorage.naiFarmProductMore);
+    NaiFarmLocalStorage.deleteCacheByItem(key: NaiFarmLocalStorage.naiFarmShop);
+    NaiFarmLocalStorage.deleteCacheByItem(
+        key: NaiFarmLocalStorage.naiFarmHiSTORY);
+  }
+
+  _loadCusCount() {
+    Usermanager()
+        .getUser()
+        .then((value) => bloc.loadCustomerCount(context, token: value.token));
+  }
+
+  _loadData(){
+    bloc.getCategoriesAll(
+      context,
+    );
+    Usermanager().getUser().then((value) {
+      context.read<HomeDataBloc>().loadHomeData(
+        context,
+      );
+      Usermanager().getUser().then((value) => context
+          .read<CustomerCountBloc>()
+          .loadCustomerCount(context, token: value.token));
+      Usermanager().getUser().then((value) => context
+          .read<InfoCustomerBloc>()
+          .loadCustomInfo(context, token: value.token));
+    });
   }
 }

@@ -14,7 +14,6 @@ import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ImageUploadRespone.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
@@ -39,26 +38,9 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
   void _init() {
     if (null == bloc) {
       bloc = MemberBloc(AppProvider.getApplication(context));
-
-      Usermanager().getUser().then((value) => context
-          .read<InfoCustomerBloc>()
-          .loadCustomInfo(context, token: value.token));
-
-      NaiFarmLocalStorage.getCustomerInfo().then((value) {
-        itemInfo = value.customerInfoRespone;
-      });
-
-      // bloc.onLoad.stream.listen((event) {
-      //   if(event){
-      //     FunctionHelper.showDialogProcess(context);
-      //   }else{
-      //     Navigator.of(context).pop();
-      //   }
-      // });
+      _loadCustomerInfo();
+      _getCustomerInfo();
       bloc.onError.stream.listen((event) {
-        //Navigator.of(context).pop();
-        //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
-
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event.message);
       });
@@ -74,7 +56,6 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
             itemInfo.image[0].path = event.path;
           });
         }
-        //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
       });
     }
   }
@@ -321,23 +302,29 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                               context,
                               DateTime.parse(itemInfo.dob != null
                                   ? itemInfo.dob
-                                  : DateTime.now().toString().dateFormat(isReverse: true)),
+                                  : DateTime.now()
+                                      .toString()
+                                      .dateFormat(isReverse: true)),
                               onDateTime: (DateTime date) {
                               onUpdate = true;
                               if (date != null)
-                                setState(() => itemInfo.dob =
-                                    date.toString().dateFormat(isReverse:true));
+                                setState(() => itemInfo.dob = date
+                                    .toString()
+                                    .dateFormat(isReverse: true));
                             })
                           : FunctionHelper.showPickerDateIOS(
                               context,
                               DateTime.parse(itemInfo.dob != null
                                   ? itemInfo.dob
-                                  : DateTime.now().toString().dateFormat(isReverse: true)),
+                                  : DateTime.now()
+                                      .toString()
+                                      .dateFormat(isReverse: true)),
                               onTap: (DateTime date) {
                               onUpdate = true;
                               if (date != null)
-                                setState(() => itemInfo.dob =
-                                    date.toString().dateFormat(isReverse:true));
+                                setState(() => itemInfo.dob = date
+                                    .toString()
+                                    .dateFormat(isReverse: true));
                             });
                     },
                   ),
@@ -419,6 +406,18 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
       } else {
         print('No image selected.');
       }
+    });
+  }
+
+  _loadCustomerInfo() {
+    Usermanager().getUser().then((value) => context
+        .read<InfoCustomerBloc>()
+        .loadCustomInfo(context, token: value.token));
+  }
+
+  _getCustomerInfo() {
+    NaiFarmLocalStorage.getCustomerInfo().then((value) {
+      itemInfo = value.customerInfoRespone;
     });
   }
 }

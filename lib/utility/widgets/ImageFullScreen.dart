@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/ui/productdetail/widget/ProductSlide.dart';
-import 'package:naifarm/utility/SizeUtil.dart';
-
 import 'NaifarmErrorWidget.dart';
 
 class ImageFullScreen extends StatelessWidget {

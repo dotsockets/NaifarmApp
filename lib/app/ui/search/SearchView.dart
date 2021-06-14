@@ -136,7 +136,7 @@ class _SearchViewState extends State<SearchView> {
                                                   CachedNetworkImage(
                                                     width: 13.0.w,
                                                     height: 15.0.w,
-                                                    imageUrl: "${Env.value.baseUrl}/storage/images/${(snapshot.data as SearchRespone).hits[key].image.length != 0 ? (snapshot.data as SearchRespone).hits[key].image[0].path : ""}",
+                                                    imageUrl: "${(snapshot.data as SearchRespone).hits[key].image.length != 0 ? (snapshot.data as SearchRespone).hits[key].image[0].path.imgUrl() : ""}",
                                                     imageBuilder: (context, imageProvider) => Container(
                                                       decoration: BoxDecoration(
                                                         image: DecorationImage(

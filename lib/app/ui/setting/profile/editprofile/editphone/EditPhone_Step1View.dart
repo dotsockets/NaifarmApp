@@ -55,10 +55,8 @@ class EditPhoneStep1ViewState extends State<EditPhoneStep1View> {
         }
       });
       bloc.onError.stream.listen((event) {
-        //Navigator.of(context).pop();
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event.message);
-        //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         AppRoute.registerOTP(context,
@@ -77,7 +75,7 @@ class EditPhoneStep1ViewState extends State<EditPhoneStep1View> {
 
       bloc.checkPhone.stream.listen((event) {
         if (event) {
-          bloc.otpRequest(context, numberphone: phoneController.text);
+          _requestOtp();
         }
       });
     }
@@ -208,5 +206,9 @@ class EditPhoneStep1ViewState extends State<EditPhoneStep1View> {
       //   Navigator.pop(context, widget.customerInfoRespone);
       // }
     } else {}
+  }
+
+  _requestOtp(){
+    bloc.otpRequest(context, numberphone: phoneController.text);
   }
 }

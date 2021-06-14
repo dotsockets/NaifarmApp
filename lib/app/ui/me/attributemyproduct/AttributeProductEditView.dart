@@ -264,7 +264,7 @@ class _AttributeProductEditViewState extends State<AttributeProductEditView> {
       padding: EdgeInsets.only(top: 1.0.h, bottom: 1.0.h, right: 5.0.w),
       color: Colors.white,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+       mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             txt,
@@ -278,7 +278,7 @@ class _AttributeProductEditViewState extends State<AttributeProductEditView> {
           //Expanded(
           //child: Container(
           Container(
-            width: 76.5.w,
+            width: 73.5.w,
             margin: EdgeInsets.only(top: 1.0.h, bottom: 1.0.h, right: 2.0.w),
             decoration: BoxDecoration(
                 color: Colors.white,
