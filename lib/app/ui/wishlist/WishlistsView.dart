@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
+import 'package:focused_menu/focused_menu.dart';
+import 'package:focused_menu/modals.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:like_button/like_button.dart';
 import 'package:lottie/lottie.dart';
@@ -18,6 +20,7 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
+import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -25,6 +28,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import "package:naifarm/app/model/core/ExtensionCore.dart";
+import 'package:share/share.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
 
@@ -62,6 +66,8 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
       // });
       bloc.onSuccess.stream.listen((event) {
         if (event is bool) {
+          Usermanager().getUser().then(
+                  (value) => bloc.getMyWishlists(context, token: value.token));
           Usermanager().getUser().then((value) => context
               .read<CustomerCountBloc>()
               .loadCustomerCount(context, token: value.token));
@@ -69,6 +75,9 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
           //     bloc.GetMyWishlists(token: value.token));
         }
       });
+      Usermanager()
+          .getUser()
+          .then((value) => bloc.getMyWishlists(context, token: value.token));
     }
   }
 
@@ -155,20 +164,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
   @override
   Widget build(BuildContext context) {
     _init();
-    return BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
-      builder: (_, count) {
-        if (count is InfoCustomerLoaded) {
-          Usermanager().getUser().then(
-              (value) => bloc.getMyWishlists(context, token: value.token));
-          return _content();
-        } else {
-          return Center(
-              child: Platform.isAndroid
-                  ? CircularProgressIndicator()
-                  : CupertinoActivityIndicator());
-        }
-      },
-    );
+    return _content();
   }
 
   Widget mainContent() {
@@ -375,8 +371,99 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
   }
 
   Widget _buildProduct({DataWishlists item, int index, BuildContext context}) {
-    return GestureDetector(
+    return FocusedMenuHolder(
+      menuWidth: MediaQuery.of(context).size.width*0.50,
+      blurSize: 5.0,
+      menuItemExtent: 45,
+      menuOffset: 5.0,
+      menuBoxDecoration: BoxDecoration(color: Colors.grey,borderRadius: BorderRadius.all(Radius.circular(15.0))),
+      duration: Duration(milliseconds: 100),
+      animateMenuItems: false,
+      blurBackgroundColor: Colors.black54,
+      bottomOffsetHeight: 100,
+      openWithTap: false,
+      menuItems: <FocusedMenuItem>[
+        FocusedMenuItem(title: Text("Open"),trailingIcon: Icon(Icons.open_in_new) ,onPressed: (){
+          // Navigator.push(context, MaterialPageRoute(builder: (context)=>ScreenTwo()));
+          if (item.product != null) {
+            var data = ProducItemRespone(
+                name: item.product.name,
+                salePrice: item.product.salePrice,
+                hasVariant: item.product.hasVariant,
+                brand: item.product.brand,
+                minPrice: item.product.minPrice,
+                maxPrice: item.product.maxPrice,
+                slug: item.product.slug,
+                offerPrice: item.product.offerPrice,
+                inventories: [InventoriesProduct(stockQuantity: item.product.stockQuantity)],
+                id: item.product.id,
+                saleCount: item.product.saleCount,
+                discountPercent: item.product.discountPercent,
+                rating: double.parse(item.product.rating.toString()),
+                reviewCount: item.product.reviewCount,
+                shop: ShopItem(id: item.product.shopId),
+                image: item.product.image);
+            AppRoute.productDetail(context,
+                productImage: "wishlist_${item.id}", productItem: data);
+          } else {
+            AppRoute.productDetail(context,
+                productImage: "wishlist_${item.id}",
+                productItem: ProducItemRespone(id: item.id));
+          }
+
+        }),
+        FocusedMenuItem(title: Text("Share"),trailingIcon: Icon(Icons.share) ,onPressed: (){
+          Share.share(
+              '${Env.value.baseUrlWeb}/${item.product.name}-i.${item.product.id}');
+        }),
+        // FocusedMenuItem(title: Text("Unlike"),trailingIcon: Icon(Icons.favorite,color: Colors.red,) ,onPressed: (){
+        //   onLikeButtonTapped(false, item.id, index);
+        // }),
+        FocusedMenuItem(title: Text("Buy Now"),trailingIcon: Icon(Icons.shopping_bag) ,onPressed: (){
+          Usermanager().isLogin().then((value) async {
+            if (!value) {
+              // ignore: unused_local_variable
+              final result = await AppRoute.login(
+                context,
+                isCallBack: true,
+                isHeader: true,
+                isSetting: false,
+              );
+            } else {
+              bloc.getProductsById(context, id: item.id);
+            }
+          });
+        }),
+      ],
+      onPressed: (){
+        if (item.product != null) {
+          var data = ProducItemRespone(
+              name: item.product.name,
+              salePrice: item.product.salePrice,
+              hasVariant: item.product.hasVariant,
+              brand: item.product.brand,
+              minPrice: item.product.minPrice,
+              maxPrice: item.product.maxPrice,
+              slug: item.product.slug,
+              offerPrice: item.product.offerPrice,
+              inventories: [InventoriesProduct(stockQuantity: item.product.stockQuantity)],
+              id: item.product.id,
+              saleCount: item.product.saleCount,
+              discountPercent: item.product.discountPercent,
+              rating: double.parse(item.product.rating.toString()),
+              reviewCount: item.product.reviewCount,
+              shop: ShopItem(id: item.product.shopId),
+              image: item.product.image);
+          AppRoute.productDetail(context,
+              productImage: "wishlist_${item.id}", productItem: data);
+        } else {
+          AppRoute.productDetail(context,
+              productImage: "wishlist_${item.id}",
+              productItem: ProducItemRespone(id: item.id));
+        }
+      },
       child: Container(
+        color: Colors.white,
         width: (MediaQuery.of(context).size.width / 2) - 15,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -509,33 +596,6 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
           ],
         ),
       ),
-      onTap: () {
-        if (item.product != null) {
-          var data = ProducItemRespone(
-              name: item.product.name,
-              salePrice: item.product.salePrice,
-              hasVariant: item.product.hasVariant,
-              brand: item.product.brand,
-              minPrice: item.product.minPrice,
-              maxPrice: item.product.maxPrice,
-              slug: item.product.slug,
-              offerPrice: item.product.offerPrice,
-              inventories: [InventoriesProduct(stockQuantity: item.product.stockQuantity)],
-              id: item.product.id,
-              saleCount: item.product.saleCount,
-              discountPercent: item.product.discountPercent,
-              rating: double.parse(item.product.rating.toString()),
-              reviewCount: item.product.reviewCount,
-              shop: ShopItem(id: item.product.shopId),
-              image: item.product.image);
-          AppRoute.productDetail(context,
-              productImage: "wishlist_${item.id}", productItem: data);
-        } else {
-          AppRoute.productDetail(context,
-              productImage: "wishlist_${item.id}",
-              productItem: ProducItemRespone(id: item.id));
-        }
-      },
     );
   }
 
@@ -544,7 +604,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
     bloc.wishlists.add(bloc.wishlists.value);
 
     Usermanager().getUser().then((value) {
-      bloc.deleteWishlists(context, wishId: id, token: value.token);
+      bloc.deleteWishlists(context, wishId: id, token: value.token,reload: false);
     });
 
     return !isLiked;

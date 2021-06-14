@@ -37,6 +37,7 @@ class Env {
 
   void _init() async {
     WidgetsFlutterBinding.ensureInitialized();
+    await EasyLocalization.ensureInitialized();
     var application = AppNaiFarmApplication();
     await application.onCreate();
     Bloc.observer = NaiFarmBlocObserver();
@@ -49,6 +50,8 @@ class Env {
           // <-- change patch to your
           fallbackLocale: Locale('th', 'TH'),
           startLocale: Locale('th', 'TH'),
+          saveLocale: true,
+         // useOnlyLangCode: true,
           child: MultiBlocProvider(
             providers: [
               BlocProvider(

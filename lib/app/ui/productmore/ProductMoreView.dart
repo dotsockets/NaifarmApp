@@ -4,13 +4,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
+import 'package:focused_menu/focused_menu.dart';
+import 'package:focused_menu/modals.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
+import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
+import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -20,6 +25,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:rxdart/subjects.dart';
+import 'package:share/share.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
 import "package:naifarm/app/model/core/ExtensionCore.dart";
@@ -61,6 +67,14 @@ class _ProductMoreViewState extends State<ProductMoreView> {
       if (widget.installData != null) {
         bloc.moreProduct.add(widget.installData);
       }
+
+      bloc.onLoad.stream.listen((event) {
+        if (event) {
+          FunctionHelper.showDialogProcess(context);
+        } else {
+          Navigator.of(context).pop();
+        }
+      });
       NaiFarmLocalStorage.getProductMoreCache().then((value) {
         if (value != null) {
           for (var data in value.productRespone) {
@@ -94,6 +108,33 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                       typeMore: widget.typeMore);
                 });
           });
+        }else{
+          FunctionHelper.alertDialogShop(context,
+              title: LocaleKeys.btn_error.tr(), message: event.message);
+        }
+      });
+
+      bloc.productItem.stream.listen((event) {
+        List<Items> items = <Items>[];
+        items.add(Items(inventoryId: event.inventories[0].id, quantity: 1));
+
+        Usermanager()
+            .getUser()
+            .then((value) => bloc.addCartlists(context,
+            addNow: false,
+            onload: false,
+            cartRequest: CartRequest(
+              shopId: event.shopId,
+              items: items,
+            ),
+            token: value.token));
+      });
+
+      bloc.onSuccess.stream.listen((event) {
+        //onUpload = true;
+        if (event is CartResponse) {
+          AppRoute.myCart(context, true, cartNowId: bloc.bayNow);
+          // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
         }
       });
     }
@@ -480,8 +521,52 @@ class _ProductMoreViewState extends State<ProductMoreView> {
   }
 
   Widget _buildProduct({ProductData item, int index, BuildContext context}) {
-    return GestureDetector(
+    return FocusedMenuHolder(
+      menuWidth: MediaQuery.of(context).size.width*0.50,
+      blurSize: 5.0,
+      menuItemExtent: 45,
+      menuOffset: 5.0,
+      menuBoxDecoration: BoxDecoration(color: Colors.grey,borderRadius: BorderRadius.all(Radius.circular(15.0))),
+      duration: Duration(milliseconds: 100),
+      animateMenuItems: false,
+      blurBackgroundColor: Colors.black54,
+      bottomOffsetHeight: 100,
+      openWithTap: false,
+      menuItems: <FocusedMenuItem>[
+        FocusedMenuItem(title: Text("Open"),trailingIcon: Icon(Icons.open_in_new) ,onPressed: (){
+          // Navigator.push(context, MaterialPageRoute(builder: (context)=>ScreenTwo()));
+          AppRoute.productDetail(context,
+              productImage: "loadmore_${item.id}$index",
+              productItem: ProductBloc.convertDataToProduct(data: item));
+
+        }),
+        FocusedMenuItem(title: Text("Share"),trailingIcon: Icon(Icons.share) ,onPressed: (){
+          Share.share(
+              '${Env.value.baseUrlWeb}/${item.name}-i.${item.id}');
+        }),
+        FocusedMenuItem(title: Text("Buy Now"),trailingIcon: Icon(Icons.shopping_bag) ,onPressed: (){
+          Usermanager().isLogin().then((value) async {
+            if (!value) {
+              // ignore: unused_local_variable
+              final result = await AppRoute.login(
+                context,
+                isCallBack: true,
+                isHeader: true,
+                isSetting: false,
+              );
+            } else {
+              bloc.getProductsById(context, id: item.id);
+            }
+          });
+        }),
+      ],
+      onPressed: (){
+        AppRoute.productDetail(context,
+            productImage: "product_hot_${item.id}1",
+            productItem: ProductBloc.convertDataToProduct(data: item));
+      },
       child: Container(
+        color: Colors.white,
         padding: EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -585,12 +670,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
           ],
         ),
       ),
-      onTap: () {
-        // widget.onTapItem(item,item.id)
-        AppRoute.productDetail(context,
-            productImage: "loadmore_${item.id}$index",
-            productItem: ProductBloc.convertDataToProduct(data: item));
-      },
+
     );
   }
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:focused_menu/focused_menu.dart';
+import 'package:focused_menu/modals.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -15,10 +17,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:share/share.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import "package:naifarm/app/model/core/ExtensionCore.dart";
+import 'package:vibration/vibration.dart';
 
 // ignore: must_be_immutable
 class ProductVertical extends StatelessWidget {
@@ -186,138 +190,183 @@ class ProductVertical extends StatelessWidget {
         onTapItem(item, index);
       },
       child: Container(
-        width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
-        child: Column(
-          children: [
-            Row(
+        padding: EdgeInsets.only(bottom: 0.8.h,top: 0.8.h),
+        decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0.3)),
+
+        ),
+        child: FocusedMenuHolder(
+          menuWidth: MediaQuery.of(context).size.width*0.50,
+          blurSize: 5.0,
+          menuOffset: 5.0,
+          menuItemExtent: 45,
+          menuBoxDecoration: BoxDecoration(color: Colors.grey,borderRadius: BorderRadius.all(Radius.circular(15.0))),
+          duration: Duration(milliseconds: 100),
+          animateMenuItems: false,
+          blurBackgroundColor: Colors.black54,
+          bottomOffsetHeight: 100,
+          openWithTap: false,
+          menuItems: <FocusedMenuItem>[
+            FocusedMenuItem(title: Text("Open"),trailingIcon: Icon(Icons.open_in_new) ,onPressed: (){
+              // Navigator.push(context, MaterialPageRoute(builder: (context)=>ScreenTwo()));
+              AppRoute.productDetail(context,
+                  productImage: "product_hot_${item.id}1",
+                  productItem: ProductBloc.convertDataToProduct(data: item));
+            }),
+            FocusedMenuItem(title: Text("Share"),trailingIcon: Icon(Icons.share) ,onPressed: (){
+              Share.share(
+                  '${Env.value.baseUrlWeb}/${item.name}-i.${item.id}');
+            }),
+            FocusedMenuItem(title: Text("Buy Now"),trailingIcon: Icon(Icons.shopping_bag) ,onPressed: (){
+
+              Usermanager().isLogin().then((value) async {
+                if (!value) {
+                  // ignore: unused_local_variable
+                  final result = await AppRoute.login(
+                    context,
+                    isCallBack: true,
+                    isHeader: true,
+                    isSetting: false,
+                  );
+                } else {
+                  productBloc.getProductsById(context, id: item.id);
+                }
+              });
+            }),
+          ],
+          onPressed: (){
+            AppRoute.productDetail(context,
+                productImage: "product_hot_${item.id}1",
+                productItem: ProductBloc.convertDataToProduct(data: item));
+          },
+          child: Container(
+            color: Colors.white,
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+            child: Column(
               children: [
-                Expanded(
-                  flex: 2,
-                  child: Stack(
-                    children: [
-                      Card(
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(color: Colors.grey, width: 0.1.w),
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(2.0.w)),
-                        ),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          child:
-                              /*Hero(
-                            tag: "${tagHero}_$index",
-                            child:*/
-                              ClipRRect(
-                            borderRadius: BorderRadius.circular(1.3.h),
-                            child: CachedNetworkImage(
-                                width: 28.0.w,
-                                height: 35.0.w,
-                                imageUrl: item.image.length != 0?
-                                "${Env.value.baseUrl}/storage/images/${item.image[0].path}":"",
-                                imageBuilder: (context, imageProvider) => Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.cover),
-                                  ),
-                                ),
-                                placeholder: (context, url) =>Container(
-                                  width: 28.0.w,
-                                  height: 35.0.w,
-                                  color: Colors.white,
-                                  child: Lottie.asset(
-                                    'assets/json/loading.json',
-                                    width: 18.0.w,
-                                    height: 18.0.w,
-                                  ),
-                                ),
-                                errorWidget: (context, url, error) => Container(
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: Stack(
+                        children: [
+                          Card(
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(color: Colors.grey, width: 0.1.w),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(2.0.w)),
+                            ),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              child:
+                                  /*Hero(
+                                tag: "${tagHero}_$index",
+                                child:*/
+                                  ClipRRect(
+                                borderRadius: BorderRadius.circular(1.3.h),
+                                child: CachedNetworkImage(
                                     width: 28.0.w,
                                     height: 35.0.w,
-                                    child: Image.network(
-                                        Env.value.noItemUrl,
-                                        fit: BoxFit
-                                            .cover)),
-                              ),
-                          ),
-                        ),
-                      ),
-                      // ),
-                      Visibility(
-                        child: Container(
-                          margin: EdgeInsets.all(1.5.w),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(1.0.w),
-                            child: Container(
-                              padding: EdgeInsets.only(
-                                  right: 1.5.w,
-                                  left: 1.5.w,
-                                  top: 1.0.w,
-                                  bottom: 1.0.w),
-                              color: ThemeColor.colorSale(),
-                              child: Text(
-                                "${item.discountPercent}%",
-                                style: FunctionHelper.fontTheme(
-                                    color: Colors.white,
-                                    fontSize: SizeUtil.titleSmallFontSize().sp),
+                                    imageUrl: item.image.length != 0?
+                                    "${Env.value.baseUrl}/storage/images/${item.image[0].path}":"",
+                                    imageBuilder: (context, imageProvider) => Container(
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover),
+                                      ),
+                                    ),
+                                    placeholder: (context, url) =>Container(
+                                      width: 28.0.w,
+                                      height: 35.0.w,
+                                      color: Colors.white,
+                                      child: Lottie.asset(
+                                        'assets/json/loading.json',
+                                        width: 18.0.w,
+                                        height: 18.0.w,
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) => Container(
+                                        width: 28.0.w,
+                                        height: 35.0.w,
+                                        child: Image.network(
+                                            Env.value.noItemUrl,
+                                            fit: BoxFit
+                                                .cover)),
+                                  ),
                               ),
                             ),
                           ),
-                        ),
-                        visible: item.discountPercent > 0 ? true : false,
-                      ),
-                      item.stockQuantity==null || item.stockQuantity==0?Positioned.fill(
-                        child: IgnorePointer(
-                          ignoring: true,
-                          child: Container(
-                            color: Colors.white.withOpacity(0.7),
-                            child: Center(
-                              child: Container(
-                                width: 20.0.w,
-                                height: 4.0.h,
-                                padding: EdgeInsets.all(2.0.w),
-                                decoration: new BoxDecoration(
-                                    color: Colors.black.withOpacity(0.6),
-                                    borderRadius:
-                                    new BorderRadius.all(Radius.circular(10.0.w))),
-                                child: Center(
+                          // ),
+                          Visibility(
+                            child: Container(
+                              margin: EdgeInsets.all(1.5.w),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(1.0.w),
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                      right: 1.5.w,
+                                      left: 1.5.w,
+                                      top: 1.0.w,
+                                      bottom: 1.0.w),
+                                  color: ThemeColor.colorSale(),
                                   child: Text(
-                                      LocaleKeys.search_product_out_of_stock.tr(),
-                                      style: FunctionHelper.fontTheme(
-                                          fontSize: SizeUtil.detailFontSize().sp,
-                                          color: Colors.white)),
+                                    "${item.discountPercent}%",
+                                    style: FunctionHelper.fontTheme(
+                                        color: Colors.white,
+                                        fontSize: SizeUtil.titleSmallFontSize().sp),
+                                  ),
                                 ),
                               ),
                             ),
+                            visible: item.discountPercent > 0 ? true : false,
                           ),
-                        ),
-                      ):SizedBox()
-                    ],
-                  ),
+                          item.stockQuantity==null || item.stockQuantity==0?Positioned.fill(
+                            child: IgnorePointer(
+                              ignoring: true,
+                              child: Container(
+                                color: Colors.white.withOpacity(0.7),
+                                child: Center(
+                                  child: Container(
+                                    width: 20.0.w,
+                                    height: 4.0.h,
+                                    padding: EdgeInsets.all(2.0.w),
+                                    decoration: new BoxDecoration(
+                                        color: Colors.black.withOpacity(0.6),
+                                        borderRadius:
+                                        new BorderRadius.all(Radius.circular(10.0.w))),
+                                    child: Center(
+                                      child: Text(
+                                          LocaleKeys.search_product_out_of_stock.tr(),
+                                          style: FunctionHelper.fontTheme(
+                                              fontSize: SizeUtil.detailFontSize().sp,
+                                              color: Colors.white)),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ):SizedBox()
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: _buildInfoProduct(item: item, context: context),
+                    )
+                  ],
                 ),
-                SizedBox(
-                  width: 15,
-                ),
-                Expanded(
-                  flex: 3,
-                  child: _buildInfoProduct(item: item, context: context),
-                )
+              
+
+
               ],
             ),
-            SizedBox(
-              height: 10,
-            ),
-            productRespone.data.length != index
-                ? Divider(color: Colors.black.withOpacity(0.3))
-                : SizedBox(
-                    height: 30,
-                  ),
-            SizedBox(
-              height: 10,
-            ),
-          ],
+          ),
         ),
       ),
     );

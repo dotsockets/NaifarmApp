@@ -62,7 +62,7 @@ class ProductBloc {
   final wishlists = BehaviorSubject<WishlistsRespone>();
   final bayNow = <ProductData>[];
 
-  final zipProductDetail = BehaviorSubject<ProductObjectCombine>();
+  final zipProductDetail = BehaviorSubject<ProducItemRespone>();
 
   final zipMarketProfile = BehaviorSubject<MarketObjectCombine>();
 
@@ -77,7 +77,11 @@ class ProductBloc {
   List<Hits> searchList = <Hits>[];
   List<ProductMyShop> productList = <ProductMyShop>[];
 
-  ProductBloc(this._application);
+
+
+  ProductBloc(this._application){
+
+  }
 
   void dispose() {
     _compositeSubscription.clear();
@@ -92,6 +96,8 @@ class ProductBloc {
     zipMarketProfile.close();
     zipHomeObject.close();
   }
+
+
 
   loadHomeData(
       {BuildContext context, String token, bool callback = false}) async {
@@ -406,7 +412,7 @@ class ProductBloc {
   }
 
   deleteWishlists(BuildContext context,
-      {int productId, int wishId, String token}) {
+      {int productId, int wishId, String token,bool reload=false}) {
     StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .deleteWishlists(context, wishId: wishId, token: token))
@@ -416,32 +422,37 @@ class ProductBloc {
       if (respone.httpCallBack.status == 200) {
         // GetMyWishlists(token: token);
         //Wishlists.add(WishlistsRespone(total: 0));
+        //
+        // ProducItemRespone tempProductItem = ProducItemRespone();
+        // SearchRespone tempSearch = SearchRespone();
+        // // DataWishlists tempWishlist = DataWishlists();
+        // NaiFarmLocalStorage.getProductDetailCache().then((value) {
+        //   if (value != null) {
+        //     for (var data in value.item) {
+        //       if (data.productObjectCombine.producItemRespone.id == productId) {
+        //         tempProductItem = data.productObjectCombine.producItemRespone;
+        //         tempSearch = data.searchRespone;
+        //
+        //         value.item.remove(data);
+        //         break;
+        //       }
+        //     }
+        //
+        //     value.item.add(ProductDetailData(
+        //         searchRespone: null,
+        //         productObjectCombine:
+        //             ProductObjectCombine(producItemRespone: tempProductItem)));
+        //
+        //     NaiFarmLocalStorage.saveProductDetailCache(value).then((data) {
+        //       onSuccess.add(true);
+        //     });
+        //   }
+        // });
+        if(reload){
+          wishlists.add(null);
+        }
 
-        ProducItemRespone tempProductItem = ProducItemRespone();
-        SearchRespone tempSearch = SearchRespone();
-        // DataWishlists tempWishlist = DataWishlists();
-        NaiFarmLocalStorage.getProductDetailCache().then((value) {
-          if (value != null) {
-            for (var data in value.item) {
-              if (data.productObjectCombine.producItemRespone.id == productId) {
-                tempProductItem = data.productObjectCombine.producItemRespone;
-                tempSearch = data.searchRespone;
-
-                value.item.remove(data);
-                break;
-              }
-            }
-
-            value.item.add(ProductDetailData(
-                searchRespone: null,
-                productObjectCombine:
-                    ProductObjectCombine(producItemRespone: tempProductItem)));
-
-            NaiFarmLocalStorage.saveProductDetailCache(value).then((data) {
-              onSuccess.add(true);
-            });
-          }
-        });
+        onSuccess.add(true);
         isStatus.add(false);
       } else {
         onError.add(respone.httpCallBack);
@@ -501,27 +512,15 @@ class ProductBloc {
     //  onLoad.add(true);
     onError.add(null);
 
-    Rx.combineLatest2(
-        Stream.fromFuture(
-            _application.appStoreAPIRepository.productsById(context, id: id)),
-        Stream.fromFuture(_application.appStoreAPIRepository
-            .getWishlistsByProduct(context, productID: id, token: token)),
-        (a, b) {
-      final _product = (a as ApiResult).respone;
-      final _dataWishlists = (b as ApiResult).respone;
-      return ApiResult(
-          respone: ProductObjectCombine(
-              producItemRespone: _product, dataWishlists: _dataWishlists),
-          httpCallBack: (a as ApiResult).httpCallBack);
-    }).listen((event) {
+    Stream.fromFuture(
+        _application.appStoreAPIRepository.productsById(context, id: id)).listen((event) {
       if (event.httpCallBack.status == 200) {
-        var item = (event.respone as ProductObjectCombine);
+        var item = (event.respone as ProducItemRespone);
         if (item != null) {
           getSearchCategoryGroupId(context,
-              productItem: item.producItemRespone,
-              dataWishlists: item.dataWishlists,
-              groupId: item.producItemRespone.categories[0].category != null
-                  ? item.producItemRespone.categories[0].category
+              productItem: item,
+              groupId: item.categories[0].category != null
+                  ? item.categories[0].category
                       .categorySubGroup.categoryGroup.id
                   : 0,
               limit: 10);
@@ -538,15 +537,14 @@ class ProductBloc {
 
             value.item.add(ProductDetailData(
                 productObjectCombine: ProductObjectCombine(
-                    producItemRespone: item.producItemRespone,
-                    dataWishlists: item.dataWishlists)));
+                    producItemRespone: item)));
 
             NaiFarmLocalStorage.saveProductDetailCache(value).then((data) {
               zipProductDetail.add(item);
             });
           } else {
             List<ProductDetailData> data = <ProductDetailData>[];
-            data.add(ProductDetailData(productObjectCombine: item));
+            data.add(ProductDetailData(productObjectCombine: ProductObjectCombine(producItemRespone: item)));
 
             NaiFarmLocalStorage.saveProductDetailCache(
                     ProductDetailCombin(data))
@@ -1066,6 +1064,17 @@ class ProductBloc {
       return (respone.respone as FeedbackRespone);
     } else {
       return FeedbackRespone();
+    }
+  }
+
+  Future<DataWishlists> getWishlistsByProductFuture(BuildContext context,{int id, String token}) async {
+
+    final respone = await _application.appStoreAPIRepository.
+    getWishlistsByProduct(context,productID: id,token: await Usermanager().isToken());
+    if (respone.httpCallBack.status == 200) {
+      return (respone.respone as DataWishlists);
+    } else {
+      return null;
     }
   }
 

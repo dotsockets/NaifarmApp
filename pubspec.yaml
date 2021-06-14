@@ -99,6 +99,7 @@ dependencies:
   package_info: ^2.0.2
   translator: ^0.1.7
   sms_autofill: ^2.0.0
+  focused_menu: ^1.0.5
 
 
 dev_dependencies:
