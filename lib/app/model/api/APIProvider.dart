@@ -21,6 +21,7 @@ import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/CategoriesAllRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoriesRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryGroupRespone.dart';
+import 'package:naifarm/app/model/pojo/response/CouponResponse.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/Fb_Profile.dart';
@@ -468,11 +469,17 @@ abstract class APIProvider {
   @GET("/v1/system")
   Future<ApiResult> getSystem(BuildContext context);
 
- @POST("/v1/feedback")
- Future<ApiResult> createFeedback(BuildContext context, {int rating,String comment,int inventoryId,String token,int orderId});
+  @POST("/v1/feedback")
+  Future<ApiResult> createFeedback(BuildContext context,
+      {int rating, String comment, int inventoryId, String token, int orderId});
 
   @GET("/v1/products/85/feedbacks")
-  Future<ApiResult> getFeedback(BuildContext context, {int id,int limit,int page,});
+  Future<ApiResult> getFeedback(
+    BuildContext context, {
+    int id,
+    int limit,
+    int page,
+  });
 
   @PATCH("/v1/myshop/products")
   Future<ApiResult>  updateInventoriesAttr(BuildContext context,
@@ -480,6 +487,20 @@ abstract class APIProvider {
         int productId,
         int inventoriesId,
         String token});
+  @GET("/v1/myshop/coupons")
+  Future<ApiResult> getCouponLists(BuildContext context, {String token});
+
+  @POST("/v1/myshop/coupons")
+  Future<ApiResult> addCoupon(BuildContext context,
+      {String token, CouponData addData});
+
+  @PATCH("/v1/myshop/coupons/id")
+  Future<ApiResult> updateCoupon(BuildContext context,
+      {String token, CouponData updateData});
+
+  @DELETE("/v1/myshop/coupons/id")
+  Future<ApiResult> deleteCoupon(BuildContext context,
+      {String token, int couponId});
 }
 
 // @JsonSerializable()

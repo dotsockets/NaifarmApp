@@ -2904,4 +2904,111 @@ class _APIProvider implements APIProvider {
   }
 
 
+
+  @override
+  Future<ApiResult> getCouponLists(BuildContext context, {String token}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+      final _result = await _dio.request<dynamic>('/v1/myshop/coupons',
+          queryParameters: queryParameters,
+          options: Options(
+              method: 'GET',
+              headers: <String, dynamic>{
+                "token": token,
+                'Accept-Language':
+                    EasyLocalization.of(context).locale.languageCode
+              },
+              extra: _extra),
+          data: _data);
+      return ApiResult(
+          respone: CouponResponse.fromJson(_result.data),
+          httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.dioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> addCoupon(BuildContext context,
+      {String token, CouponData addData}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    try {
+      final _result = await _dio.request<dynamic>('/v1/myshop/coupons',
+          queryParameters: queryParameters,
+          options: Options(
+              method: 'POST',
+              headers: <String, dynamic>{
+                "token": token,
+                'Accept-Language':
+                    EasyLocalization.of(context).locale.languageCode
+              },
+              extra: _extra),
+          data: addData.toJson());
+      return ApiResult(
+          respone: CouponResponse.fromJson({
+            "data": [_result.data]
+          }),
+          httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.dioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> updateCoupon(BuildContext context,
+      {String token, CouponData updateData}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    try {
+      final _result =
+          await _dio.request<dynamic>('/v1/myshop/coupons/${updateData.id}',
+              queryParameters: queryParameters,
+              options: Options(
+                  method: 'PATCH',
+                  headers: <String, dynamic>{
+                    "token": token,
+                    'Accept-Language':
+                        EasyLocalization.of(context).locale.languageCode
+                  },
+                  extra: _extra),
+              data: updateData.toJson());
+      return ApiResult(
+          respone: CouponResponse.fromJson({
+            "data": [_result.data]
+          }),
+          httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.dioErrorExpction(e);
+    }
+  }
+
+  @override
+  Future<ApiResult> deleteCoupon(BuildContext context,
+      {String token, int couponId}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    try {
+      final _result =
+          await _dio.request<dynamic>('/v1/myshop/coupons/$couponId',
+              queryParameters: queryParameters,
+              options: Options(
+                  method: 'DELETE',
+                  headers: <String, dynamic>{
+                    "token": token,
+                    'Accept-Language':
+                        EasyLocalization.of(context).locale.languageCode
+                  },
+                  extra: _extra),
+              data: _data);
+      return ApiResult(
+          respone: true,
+          httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
+    } on DioError catch (e) {
+      return ServerError.dioErrorExpction(e);
+    }
+  }
 }
