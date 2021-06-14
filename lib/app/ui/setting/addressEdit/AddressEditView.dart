@@ -75,7 +75,7 @@ class _AddressEditViewState extends State<AddressEditView> {
         Navigator.pop(context, true);
       });
       bloc.statesProvice(context, countries: "1");
-      bloc.provice.stream.listen((event) {
+      bloc.province.stream.listen((event) {
         _checkError();
       });
       bloc.zipCcde.stream.listen((event) {
@@ -167,7 +167,7 @@ class _AddressEditViewState extends State<AddressEditView> {
             height: 15,
           ),
           StreamBuilder(
-            stream: bloc.provice.stream,
+            stream: bloc.province.stream,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 return buildDropdown(

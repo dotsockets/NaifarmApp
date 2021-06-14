@@ -34,6 +34,7 @@ class EditProductView extends StatefulWidget {
       this.shopId,
       this.indexTab})
       : super(key: key);
+
   @override
   _EditProductViewState createState() => _EditProductViewState();
 }
@@ -50,6 +51,7 @@ class _EditProductViewState extends State<EditProductView> {
   bool onUpdate = false;
   bool slugInstall = true;
   int count = 0;
+
   @override
   void initState() {
     super.initState();
@@ -66,15 +68,7 @@ class _EditProductViewState extends State<EditProductView> {
     if (bloc == null) {
       bloc = UploadProductBloc(AppProvider.getApplication(context));
       bloc.uploadProductStorage.stream.listen((event) {
-        if (slugInstall) {
-          _installControllerInput(
-              productMyShopRequest: event.productMyShopRequest);
-          slugInstall = false;
-        }
-        count++;
-        if (count == 2) {
-          detailController.text = event.productMyShopRequest.description;
-        }
+        _initialValue(event);
       });
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -84,45 +78,17 @@ class _EditProductViewState extends State<EditProductView> {
         }
       });
       bloc.onError.stream.listen((event) {
-     //   FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
-        FunctionHelper.alertDialogShop(context,
-            title: LocaleKeys.btn_error.tr(), message: event);
+        FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         onUpdate = true;
         if (event is bool) {
-          var item = bloc.uploadProductStorage.value.productMyShopRequest;
-          var inventor = InventoriesRequest(
-              title: item.name,
-              offerPrice:
-                  offerPriceController.text.isNotEmpty ? item.offerPrice : 0,
-              stockQuantity: item.stockQuantity,
-              salePrice: item.salePrice,
-              active: item.active);
-          Usermanager().getUser().then((value) => bloc.updateProductInventories(
-              context,
-              isload: true,
-              inventoriesRequest: inventor,
-              productId: widget.productId,
-              inventoriesId: bloc.inventoriesId,
-              token: value.token));
-
-          //  AppRoute.MyProduct(context,widget.shopId,pushEvent: true,indexTab: widget.indexTab,countPage: 2);
-          // Navigator.pop(context,true);
-          // AppRoute.PoppageCount(context: context,countpage: 2);
+          _updateProduct();
         } else if (event is ProductMyShopRespone) {
           Navigator.pop(context, onUpdate);
-        } else if (event is IsActive) {
-          //  Navigator.pop(context, true);
-        }
+        } else if (event is IsActive) {}
       });
-      NaiFarmLocalStorage.getAllCategoriesCache().then((value) {
-        bloc.categoriesAllRespone = value;
-      });
-
-      Usermanager().getUser().then((value) => bloc.getProductIDMyShop(context,
-          token: value.token, productId: widget.productId));
-      bloc.uploadProductStorage.add(widget.uploadProductStorage);
+      _getProduct();
     }
   }
 
@@ -254,10 +220,13 @@ class _EditProductViewState extends State<EditProductView> {
                                         controller: priceController,
                                         onChanged: (String char) {
                                           bloc
-                                              .uploadProductStorage
-                                              .value
-                                              .productMyShopRequest
-                                              .salePrice = char.length>0?int.parse(char):0;
+                                                  .uploadProductStorage
+                                                  .value
+                                                  .productMyShopRequest
+                                                  .salePrice =
+                                              char.length > 0
+                                                  ? int.parse(char)
+                                                  : 0;
                                           // if(char.length>5000){
                                           //   bloc.uploadProductStorage.value.productMyShopRequest.description= detailController.text.replaceRange(5000, char.length, "");
                                           //  }
@@ -278,31 +247,33 @@ class _EditProductViewState extends State<EditProductView> {
                                         controller: offerPriceController,
                                         onChanged: (String char) {
                                           bloc
-                                              .uploadProductStorage
-                                              .value
-                                              .productMyShopRequest
-                                              .offerPrice = char.length>0?int.parse(char):0;
+                                                  .uploadProductStorage
+                                                  .value
+                                                  .productMyShopRequest
+                                                  .offerPrice =
+                                              char.length > 0
+                                                  ? int.parse(char)
+                                                  : 0;
                                           // if(char.length>5000){
                                           //   bloc.uploadProductStorage.value.productMyShopRequest.description= detailController.text.replaceRange(5000, char.length, "");
                                           //  }
                                           bloc.uploadProductStorage.add(
                                               bloc.uploadProductStorage.value);
-
                                         },
                                       ),
                                     ],
                                   ),
                                 ),
-                               Container(
-                                 color: Colors.white,height: 1.0.h,
-                               ),
+                                Container(
+                                  color: Colors.white,
+                                  height: 1.0.h,
+                                ),
                                 Divider(
                                   height: 0.5.h,
                                 ),
-
                                 _buildDeliveryTab(),
                                 Divider(
-                                  height:0.5.h,
+                                  height: 0.5.h,
                                 ),
                                 _buildImageTab(),
                                 Divider(
@@ -343,13 +314,17 @@ class _EditProductViewState extends State<EditProductView> {
 
   bool checkEnable() {
     var item = bloc.uploadProductStorage.value.productMyShopRequest;
-    int offerPrice  =  item.offerPrice!=null?item.offerPrice:0;
+    int offerPrice = item.offerPrice != null ? item.offerPrice : 0;
 
     if (item.name != "" &&
         item.category != 0 &&
         item.description != "" &&
-        item.salePrice != 0 &&amountController.text != "0"&&
-        detailController.text.length != 0 && priceController.text.length != 0 &&amountController.text.length != 0 && offerPrice<item.salePrice) {
+        item.salePrice != 0 &&
+        amountController.text != "0" &&
+        detailController.text.length != 0 &&
+        priceController.text.length != 0 &&
+        amountController.text.length != 0 &&
+        offerPrice < item.salePrice) {
       return true;
     } else {
       return false;
@@ -357,9 +332,8 @@ class _EditProductViewState extends State<EditProductView> {
   }
 
   Widget _buildDropdown(
-      {String head,
-      String hint,
-      String seletText /*, List<String> dataList*/}) {
+      {String head, String hint, String seletText /*, List<String> dataList*/
+      }) {
     for (var item in bloc.categoriesAllRespone.categoriesRespone.data) {
       if (item.id ==
           bloc.uploadProductStorage.value.productMyShopRequest.category) {
@@ -378,7 +352,6 @@ class _EditProductViewState extends State<EditProductView> {
                 fontSize: SizeUtil.titleSmallFontSize().sp),
           ),
           Container(
-
             margin: EdgeInsets.only(top: 10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
@@ -564,8 +537,8 @@ class _EditProductViewState extends State<EditProductView> {
                 ],
               ))),
       onTap: () async {
-
-        var result = await AppRoute.attributeProduct(context: context,productMyShopRespone: bloc.productRes.value);
+        var result = await AppRoute.attributeProduct(
+            context: context, productMyShopRespone: bloc.productRes.value);
 
         // if (result) {
         //   onUpdate = true;
@@ -608,7 +581,8 @@ class _EditProductViewState extends State<EditProductView> {
             int.parse(
                 priceController.text.length > 0 ? priceController.text : "0");
         bloc.uploadProductStorage.value.productMyShopRequest.offerPrice =
-            int.parse(offerPriceController.text.length > 0&&offerPriceController.text!=null
+            int.parse(offerPriceController.text.length > 0 &&
+                    offerPriceController.text != null
                 ? offerPriceController.text
                 : "0");
 
@@ -700,7 +674,9 @@ class _EditProductViewState extends State<EditProductView> {
     // detailController.text = productMyShopRequest.description;
     // detailController.selection = TextSelection.fromPosition(TextPosition(offset: productMyShopRequest.description!=null?productMyShopRequest.description.length:0));
 
-    amountController.text = productMyShopRequest.stockQuantity!=null?productMyShopRequest.stockQuantity.toString(): "";
+    amountController.text = productMyShopRequest.stockQuantity != null
+        ? productMyShopRequest.stockQuantity.toString()
+        : "";
     amountController.selection = TextSelection.fromPosition(TextPosition(
         offset: productMyShopRequest.stockQuantity != null
             ? productMyShopRequest.stockQuantity.toString().length
@@ -719,5 +695,43 @@ class _EditProductViewState extends State<EditProductView> {
         offset: productMyShopRequest.offerPrice != null
             ? productMyShopRequest.offerPrice.toString().length
             : 0));
+  }
+  _initialValue(UploadProductStorage event){
+    if (slugInstall) {
+      _installControllerInput(
+          productMyShopRequest: event.productMyShopRequest);
+      slugInstall = false;
+    }
+    count++;
+    if (count == 2) {
+      detailController.text = event.productMyShopRequest.description;
+    }
+  }
+
+  _getProduct() {
+    NaiFarmLocalStorage.getAllCategoriesCache().then((value) {
+      bloc.categoriesAllRespone = value;
+    });
+
+    Usermanager().getUser().then((value) => bloc.getProductIDMyShop(context,
+        token: value.token, productId: widget.productId));
+    bloc.uploadProductStorage.add(widget.uploadProductStorage);
+  }
+
+  _updateProduct() {
+    var item = bloc.uploadProductStorage.value.productMyShopRequest;
+    var inventor = InventoriesRequest(
+        title: item.name,
+        offerPrice: offerPriceController.text.isNotEmpty ? item.offerPrice : 0,
+        stockQuantity: item.stockQuantity,
+        salePrice: item.salePrice,
+        active: item.active);
+    Usermanager().getUser().then((value) => bloc.updateProductInventories(
+        context,
+        isload: true,
+        inventoriesRequest: inventor,
+        productId: widget.productId,
+        inventoriesId: bloc.inventoriesId,
+        token: value.token));
   }
 }

@@ -31,11 +31,7 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
 
   init() {
     NaiFarmLocalStorage.saveNowPage(0);
-    Usermanager().getUser().then((value) {
-      Usermanager().getUser().then((value) => context
-          .read<CustomerCountBloc>()
-          .loadCustomerCount(context, token: value.token));
-    });
+    _getCusCount();
   }
 
   @override
@@ -208,5 +204,12 @@ class _OrderSuccessViewState extends State<OrderSuccessView> {
         ],
       ),
     );
+  }
+  _getCusCount(){
+    Usermanager().getUser().then((value) {
+      Usermanager().getUser().then((value) => context
+          .read<CustomerCountBloc>()
+          .loadCustomerCount(context, token: value.token));
+    });
   }
 }

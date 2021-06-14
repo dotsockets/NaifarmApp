@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,11 +33,7 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
   init(BuildContext context) {
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
-
-      if (widget.orderData.grandTotal != null) {
-        bloc.orderList.add(widget.orderData);
-      }
-
+      _initialValue();
       bloc.onLoad.stream.listen((event) {
         if (event) {
           FunctionHelper.showDialogProcess(context);
@@ -53,17 +48,11 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
         // });
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event, showbtn: true);
-        //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        // Navigator.pop(context,true);
       });
 
-      Usermanager().getUser().then((value) => bloc.getOrderById(context,
-          orderType:
-              widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
-          id: widget.orderData.id,
-          token: value.token));
+    _getOrder();
     }
     // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
   }
@@ -107,7 +96,6 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
                                       .order_detail_seller_cancelled_refund
                                       .tr(),
                                   trailing:
-                                      //"฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}"),
                                       "฿${item.grandTotal}"),
                               SizedBox(height: 1.0.h),
                               itemInfo(
@@ -381,5 +369,17 @@ class _SellerCanceledViewState extends State<SellerCanceledView> {
         );
       },
     );
+  }
+  _getOrder(){
+    Usermanager().getUser().then((value) => bloc.getOrderById(context,
+        orderType:
+        widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+        id: widget.orderData.id,
+        token: value.token));
+  }
+  _initialValue(){
+    if (widget.orderData.grandTotal != null) {
+      bloc.orderList.add(widget.orderData);
+    }
   }
 }

@@ -21,7 +21,7 @@ class AddressBloc {
 
   Stream<Object> get feedList => onSuccess.stream;
 
-  final provice = BehaviorSubject<StatesRespone>();
+  final province = BehaviorSubject<StatesRespone>();
   final city = BehaviorSubject<StatesRespone>();
   final zipCcde = BehaviorSubject<ZipCodeRespone>();
   //Stream<Object> get feedList => onSuccess.stream;
@@ -40,7 +40,7 @@ class AddressBloc {
             .statesProvice(context, countries: countries))
         .listen((respone) {
       if (respone.httpCallBack.status == 200) {
-        provice.add((respone.respone as StatesRespone));
+        province.add((respone.respone as StatesRespone));
       } else {
         onError.add(respone.httpCallBack.message);
       }

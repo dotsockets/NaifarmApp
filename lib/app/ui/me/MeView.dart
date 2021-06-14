@@ -25,7 +25,6 @@ import 'myshop/MyshopView.dart';
 import 'purchase/PurchaseView.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
-import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class MeView extends StatefulWidget {
   @override
@@ -34,7 +33,6 @@ class MeView extends StatefulWidget {
 
 class _MeViewState extends State<MeView> with RouteAware {
   MemberBloc bloc;
-
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool onDialog = true;
   StreamController<bool> controller = new StreamController<bool>();
@@ -83,20 +81,7 @@ class _MeViewState extends State<MeView> with RouteAware {
     //         }
     //       });
 
-    _scrollController.addListener(() {
-      if (_isAppBarExpanded) {
-        expandedBar.add(true);
-      } else {
-        expandedBar.add(false);
-      }
-
-      if (_scrollController.hasClients &&
-          _scrollController.offset > (100 - kToolbarHeight)) {
-        titleBar.add(true);
-      } else {
-        titleBar.add(false);
-      }
-    });
+  _controlScroll();
   }
 
   bool get _isAppBarExpanded {
@@ -573,5 +558,22 @@ class _MeViewState extends State<MeView> with RouteAware {
       imageList.add("");
     }
     return imageList;
+  }
+
+  _controlScroll(){
+    _scrollController.addListener(() {
+      if (_isAppBarExpanded) {
+        expandedBar.add(true);
+      } else {
+        expandedBar.add(false);
+      }
+
+      if (_scrollController.hasClients &&
+          _scrollController.offset > (100 - kToolbarHeight)) {
+        titleBar.add(true);
+      } else {
+        titleBar.add(false);
+      }
+    });
   }
 }

@@ -1,6 +1,4 @@
 import 'dart:io';
-
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -44,8 +42,6 @@ class _OrderViewState extends State<OrderView> {
 
   init() {
     if (bloc == null && productBloc == null) {
-      // OneSignalCall.cancelNotification("orderView", widget.orderData.id,
-      //     orderNumber: widget.orderData.orderNumber);
       bloc = OrdersBloc(AppProvider.getApplication(context));
       productBloc = ProductBloc(AppProvider.getApplication(context));
 
@@ -68,22 +64,18 @@ class _OrderViewState extends State<OrderView> {
       });
 
       bloc.onError.stream.listen((event) {
-        //Navigator.of(context).pop();
         FunctionHelper.alertDialogShop(context,
             message: event,
             showbtn: true,
             title: LocaleKeys.btn_error.tr(), callCancle: () {
           AppRoute.poppageCount(context: context, countpage: 2);
         });
-        //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       productBloc.onError.stream.listen((event) {
-        //Navigator.of(context).pop();
         FunctionHelper.alertDialogShop(context,
             message: event.message,
             showbtn: true,
             title: LocaleKeys.btn_error.tr());
-        //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -93,7 +85,6 @@ class _OrderViewState extends State<OrderView> {
         }
       });
       bloc.onSuccess.stream.listen((event) {
-        //onUpload = true;
         Navigator.pop(context, true);
       });
 
@@ -105,21 +96,13 @@ class _OrderViewState extends State<OrderView> {
         }
       });
       productBloc.onSuccess.stream.listen((event) {
-        //onUpload = true;
         if (event is CartResponse) {
           AppRoute.myCart(context, true, cartNowId: productBloc.bayNow);
-          // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
         }
       });
     }
-
-    Usermanager().getUser().then((value) => bloc.getOrderById(context,
-        orderType:
-            widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
-        id: widget.orderData.id,
-        token: value.token));
-    // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
-  }
+   _getOrder();
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -650,7 +633,7 @@ class _OrderViewState extends State<OrderView> {
                 width: 10,
               ),
               Text(
-                  "฿${NumberFormat("#,##0", "en_US").format(bloc.sumTotal(orderData.items, 0))}",
+                  "฿${bloc.sumTotal(orderData.items, 0).priceFormat()}",
                   style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleFontSize().sp,
                       color: Colors.black))
@@ -678,7 +661,7 @@ class _OrderViewState extends State<OrderView> {
                 width: 10,
               ),
               Text(
-                  "฿${NumberFormat("#,##0", "en_US").format(rateDelivery != null ? rateDelivery : 0)}",
+                  "฿${rateDelivery != null ? rateDelivery.priceFormat() : 0}",
                   style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleFontSize().sp,
                       color: Colors.black))
@@ -706,7 +689,7 @@ class _OrderViewState extends State<OrderView> {
                 width: 10,
               ),
               Text(
-                  "฿${NumberFormat("#,##0", "en_US").format(bloc.sumTotal(orderData.items, rateDelivery != null ? rateDelivery : 0))}",
+                  "฿${bloc.sumTotal(orderData.items, rateDelivery != null ? rateDelivery : 0).priceFormat()}",
                   style: FunctionHelper.fontTheme(
                       fontSize: SizeUtil.titleFontSize().sp,
                       color: ThemeColor.colorSale()))
@@ -799,7 +782,7 @@ class _OrderViewState extends State<OrderView> {
                               orderItems.offerPrice != null &&
                               double.parse(orderItems.offerPrice.toString()) > 0
                           ? Text(
-                              "฿${NumberFormat("#,##0", "en_US").format(double.parse(orderItems.unitPrice))}",
+                              "฿${double.parse(orderItems.unitPrice).toInt().priceFormat()}",
                               style: FunctionHelper.fontTheme(
                                   color: Colors.grey,
                                   fontSize: SizeUtil.titleFontSize().sp,
@@ -815,8 +798,8 @@ class _OrderViewState extends State<OrderView> {
                                 double.parse(
                                         orderItems.offerPrice.toString()) !=
                                     0
-                            ? "฿${NumberFormat("#,##0", "en_US").format(double.parse(orderItems.offerPrice.toString()))}"
-                            : "฿${NumberFormat("#,##0", "en_US").format(double.parse(orderItems.unitPrice).toInt())}",
+                            ? "฿${(double.parse(orderItems.offerPrice.toString()).toInt().priceFormat())}"
+                            : "฿${double.parse(orderItems.unitPrice).toInt().priceFormat()}",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: FunctionHelper.fontTheme(
@@ -1379,5 +1362,16 @@ class _OrderViewState extends State<OrderView> {
           item.quantity;
     }
     return sum;
+  }
+  _getOrder(){
+    Usermanager().getUser().then((value) => bloc.getOrderById(context,
+        orderType:
+        widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+        id: widget.orderData.id,
+        token: value.token)); Usermanager().getUser().then((value) => bloc.getOrderById(context,
+        orderType:
+        widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
+        id: widget.orderData.id,
+        token: value.token));
   }
 }

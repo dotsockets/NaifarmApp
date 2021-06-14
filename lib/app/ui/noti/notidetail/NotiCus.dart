@@ -31,14 +31,12 @@ class NotiCus extends StatefulWidget {
   _NotiCusState createState() => _NotiCusState();
 }
 
-class _NotiCusState extends State<NotiCus>
-    with AutomaticKeepAliveClientMixin<NotiCus> {
+class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<NotiCus> {
   NotiBloc bloc;
   int limit = 10;
   int page = 1;
   bool stepPage = false;
   ScrollController _scrollController = ScrollController();
-
   final _indicatorController = IndicatorController();
   static const _indicatorSize = 50.0;
 
@@ -46,40 +44,15 @@ class _NotiCusState extends State<NotiCus>
     if (bloc == null) {
       bloc = NotiBloc(AppProvider.getApplication(context));
       bloc.onError.stream.listen((event) {
-        //FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey,message: event);
-
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event);
       });
 
       bloc.onSuccess.stream.listen((event) {
-        // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
       });
 
-      //  bloc.onSuccess.add(widget.notiRespone);
-
     }
-    page = 1;
-    bloc.refreshProducts(context, group: "customer", limit: limit, page: page);
-
-    // if (_scrollController.position.pixels > 200) {
-    //   _scrollController.animateTo(
-    //       0,
-    //       duration: Duration(milliseconds: 1000),
-    //       curve: Curves.ease);
-    // }
-    _scrollController.addListener(() {
-      if (_scrollController.position.maxScrollExtent -
-              _scrollController.position.pixels <=
-          200) {
-        if (stepPage) {
-          stepPage = false;
-          page++;
-          bloc.refreshProducts(context,
-              group: "customer", limit: limit, page: page);
-        }
-      }
-    });
+     _controlScroll();
   }
 
   @override
@@ -753,5 +726,29 @@ class _NotiCusState extends State<NotiCus>
     } else {
       return false;
     }
+  }
+
+  _controlScroll(){
+    page = 1;
+    bloc.refreshProducts(context, group: "customer", limit: limit, page: page);
+
+    // if (_scrollController.position.pixels > 200) {
+    //   _scrollController.animateTo(
+    //       0,
+    //       duration: Duration(milliseconds: 1000),
+    //       curve: Curves.ease);
+    // }
+    _scrollController.addListener(() {
+      if (_scrollController.position.maxScrollExtent -
+          _scrollController.position.pixels <=
+          200) {
+        if (stepPage) {
+          stepPage = false;
+          page++;
+          bloc.refreshProducts(context,
+              group: "customer", limit: limit, page: page);
+        }
+      }
+    });
   }
 }

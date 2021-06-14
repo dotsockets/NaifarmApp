@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
 import 'package:naifarm/app/bloc/Provider/HomeMenuIndex.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
@@ -26,7 +24,6 @@ import 'package:naifarm/utility/OneSignalCall.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/CustomTabBar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rxdart/subjects.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 import 'package:uni_links/uni_links.dart';
@@ -40,7 +37,6 @@ class _HomeViewState extends State<HomeView>
     with SingleTickerProviderStateMixin, RouteAware {
   List<MenuModel> _menuViewModel;
   bool isLogin = true;
-  //final _selectedIndex = BehaviorSubject<int>();
   bool isDialogShowing = false;
   ProductBloc bloc;
   StreamSubscription sub;
@@ -55,35 +51,19 @@ class _HomeViewState extends State<HomeView>
     _handleInitialUri();
     if (bloc == null) {
       //Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
-
       bloc = ProductBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         if (event) {
-          //  FunctionHelper.SuccessDialog(context,message: "555");
           FunctionHelper.showDialogProcess(context);
         } else {
           Navigator.of(context).pop();
         }
       });
       bloc.productItem.stream.listen((item) {
-        // bloc.onLoad.add(false);
-
         AppRoute.productDetail(context,
             productImage: "product_hot_${item.id}1", productItem: item);
       });
-
-      NaiFarmLocalStorage.getNowPage().then((value) {
-        if(value==3){
-          context.read<HomeMenuIndex>().onSelect(0);
-          AppRoute.myCart(context, true);
-
-
-        }else{
-          context.read<HomeMenuIndex>().onSelect(value);
-        }
-
-       // NaiFarmLocalStorage.saveNowPage(0);
-      });
+      _selectPage();
     }
   }
 
@@ -284,5 +264,16 @@ class _HomeViewState extends State<HomeView>
                 },
               ))),
     );
+  }
+  _selectPage(){
+    NaiFarmLocalStorage.getNowPage().then((value) {
+      if(value==3){
+        context.read<HomeMenuIndex>().onSelect(0);
+        AppRoute.myCart(context, true);
+      }else{
+        context.read<HomeMenuIndex>().onSelect(value);
+      }
+      // NaiFarmLocalStorage.saveNowPage(0);
+    });
   }
 }

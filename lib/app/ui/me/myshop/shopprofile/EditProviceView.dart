@@ -28,22 +28,9 @@ class _EditProviceViewState extends State<EditProviceView> {
   AddressBloc bloc;
   int proviceSelect = 0;
 
-  bool formCheck() {
-    if (_input1.text.trim().isEmpty) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
   @override
   void initState() {
-    if (widget.itemInfo.state != null) {
-      proviceSelect = widget.itemInfo.state.id;
-    } else {
-      proviceSelect = 0;
-    }
-    _input1.text = widget.itemInfo.description;
+    _initialValue();
     super.initState();
   }
 
@@ -58,20 +45,14 @@ class _EditProviceViewState extends State<EditProviceView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        // Navigator.of(context).pop();
-        // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         Navigator.pop(context, true);
       });
 
-      bloc.provice.stream.listen((event) {
-        // _checkError();
+      bloc.province.stream.listen((event) {
       });
-      NaiFarmLocalStorage.getAllCategoriesCache().then((value) {
-        bloc.provice.add(value.statesRespone);
-      });
-      //bloc.StatesProvice(countries: "1");
+      _getProvince();
     }
   }
 
@@ -117,9 +98,9 @@ class _EditProviceViewState extends State<EditProviceView> {
                     ),
                   ),
                   onPressed: () {
-                    if (bloc.provice.value != null) {
-                      widget.itemInfo.state = bloc.provice.value.data[
-                          loopIndex(bloc.provice.value.data, proviceSelect)];
+                    if (bloc.province.value != null) {
+                      widget.itemInfo.state = bloc.province.value.data[
+                          loopIndex(bloc.province.value.data, proviceSelect)];
                     }
                     Navigator.pop(context, widget.itemInfo);
                   },
@@ -141,7 +122,7 @@ class _EditProviceViewState extends State<EditProviceView> {
 
   Widget form() {
     return StreamBuilder(
-      stream: bloc.provice.stream,
+      stream: bloc.province.stream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           return Container(
@@ -233,4 +214,26 @@ class _EditProviceViewState extends State<EditProviceView> {
       ),
     );
   }
+  bool formCheck() {
+    if (_input1.text.trim().isEmpty) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  _initialValue(){
+    if (widget.itemInfo.state != null) {
+      proviceSelect = widget.itemInfo.state.id;
+    } else {
+      proviceSelect = 0;
+    }
+    _input1.text = widget.itemInfo.description;
+  }
+  _getProvince(){
+    NaiFarmLocalStorage.getAllCategoriesCache().then((value) {
+      bloc.province.add(value.statesRespone);
+    });
+  }
+
 }

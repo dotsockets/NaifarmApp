@@ -25,7 +25,6 @@ class CartAaddressView extends StatefulWidget {
 
 class _CartAaddressViewState extends State<CartAaddressView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
   int select = 0;
   bool onUpdate = false;
   CartBloc bloc;
@@ -41,19 +40,14 @@ class _CartAaddressViewState extends State<CartAaddressView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
-        FunctionHelper.alertDialogShop(context,
-            title: LocaleKeys.btn_error.tr(), message: event.message);
+
+        FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event.message);
       });
 
       bloc.onSuccess.stream.listen((event) {
         onUpdate = true;
-        //  cartReq = event;
       });
-
-      Usermanager()
-          .getUser()
-          .then((value) => bloc.addressesList(context, token: value.token));
+     _getAddr();
     }
   }
 
@@ -440,5 +434,10 @@ class _CartAaddressViewState extends State<CartAaddressView> {
     } else {
       Navigator.pop(context, AddressesListRespone());
     }
+  }
+  _getAddr(){
+    Usermanager()
+        .getUser()
+        .then((value) => bloc.addressesList(context, token: value.token));
   }
 }

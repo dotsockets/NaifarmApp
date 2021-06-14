@@ -306,7 +306,7 @@ class ProductItemCard extends StatelessWidget {
           ),
           Text(
             item.maxPrice != null
-                ? "฿${NumberFormat("#,##0", "en_US").format(item.maxPrice)}"
+                ? "฿${item.maxPrice.priceFormat()}"
                 : "฿0",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,

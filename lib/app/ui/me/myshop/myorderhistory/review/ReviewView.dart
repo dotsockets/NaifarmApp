@@ -33,8 +33,6 @@ class ReviewView extends StatefulWidget {
 class _ReviewViewState extends State<ReviewView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   List<TextEditingController> reviewController = [];
-
-  // bool selectSwitch = false;
   List<Asset> images = <Asset>[];
   OrdersBloc bloc;
   final onRate = BehaviorSubject<int>();
@@ -42,12 +40,7 @@ class _ReviewViewState extends State<ReviewView> {
   List<int> rating = [];
   int selectIndex;
 
-  //ExpandedTileController _controller;
-  //List<bool> isShowItem = [];
-
   void initState() {
-    // _iconHide.add(false);
-    //  _controller = ExpandedTileController();
     onAddImg.add(false);
     super.initState();
   }
@@ -55,10 +48,8 @@ class _ReviewViewState extends State<ReviewView> {
   init() {
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      if (widget.orderData != null) {
-        bloc.orderList.add(widget.orderData);
-      }
-    //  initialValue();
+      _initialValue();
+
       bloc.onLoad.stream.listen((event) {
         if (event) {
           FunctionHelper.showDialogProcess(context);
@@ -67,14 +58,9 @@ class _ReviewViewState extends State<ReviewView> {
         }
       });
       bloc.onSuccess.stream.listen((event) {
-        // Navigator.pop(context, true);
-        FunctionHelper.snackBarShow(
-            context: context,
-            scaffoldKey: _scaffoldKey,
-            message: LocaleKeys.noti_playment_success.tr());
+        FunctionHelper.snackBarShow(context: context, scaffoldKey: _scaffoldKey, message: LocaleKeys.noti_playment_success.tr());
       });
       bloc.onError.stream.listen((event) {
-        // FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event);
       });
@@ -86,8 +72,7 @@ class _ReviewViewState extends State<ReviewView> {
           selectIndex = 0;
       });
 
-      Usermanager().getUser().then((value) => bloc.getOrderById(context,
-          orderType: "order", id: widget.orderData.id, token: value.token));
+   _getOrder();
     }
   }
 
@@ -109,7 +94,6 @@ class _ReviewViewState extends State<ReviewView> {
           body: StreamBuilder(
               stream: bloc.orderList.stream,
               builder: (context, snapshot) {
-
                 if (snapshot.hasData) {
                   var item = (snapshot.data as OrderData);
                   return ListView.builder(
@@ -572,7 +556,8 @@ class _ReviewViewState extends State<ReviewView> {
                       return images.length == 0
                           ? Expanded(child: buildAddImgBtn())
                           : Container(
-                              margin: EdgeInsets.only(left: 2.0.w, right: 2.0.w),
+                              margin:
+                                  EdgeInsets.only(left: 2.0.w, right: 2.0.w),
                               width: MediaQuery.of(context).size.width - 4.0.w,
                               child: GridView.count(
                                 crossAxisCount: 5,
@@ -955,5 +940,13 @@ class _ReviewViewState extends State<ReviewView> {
     }
   }
 
-
+  _initialValue() {
+    if (widget.orderData != null) {
+      bloc.orderList.add(widget.orderData);
+    }
+  }
+  _getOrder(){
+    Usermanager().getUser().then((value) => bloc.getOrderById(context,
+        orderType: "order", id: widget.orderData.id, token: value.token));
+  }
 }

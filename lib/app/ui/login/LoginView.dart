@@ -15,7 +15,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:sizer/sizer.dart';
@@ -65,11 +64,9 @@ class _LoginViewState extends State<LoginView> {
         }
       });
       bloc.onError.stream.listen((event) async {
-        //Navigator.of(context).pop();
         await FacebookLogin().logOut();
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event.message);
-        //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         // if(widget.IsCallBack){
@@ -80,13 +77,11 @@ class _LoginViewState extends State<LoginView> {
         if (widget.isHeader) {
           if (widget.homeCallBack != null) {
             widget.homeCallBack(true);
-            //bloc.onLoad.add(false);
             AppRoute.poppageCount(context: context, countpage: 2);
           } else {
             AppRoute.home(context);
           }
         } else {
-          // bloc.onLoad.add(false);
           widget.homeCallBack(true);
         }
       });

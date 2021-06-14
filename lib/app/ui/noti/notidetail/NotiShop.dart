@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -48,28 +47,10 @@ class _NotiShopState extends State<NotiShop>
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event);
       });
-      bloc.onSuccess.stream.listen((event) {
-        // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
-      });
-
-      //  bloc.onSuccess.add(widget.notiRespone);
+      bloc.onSuccess.stream.listen((event) {});
 
     }
-    page = 1;
-    bloc.refreshProducts(context, group: "shop", limit: limit, page: page);
-
-    _scrollController.addListener(() {
-      if (_scrollController.position.maxScrollExtent -
-              _scrollController.position.pixels <=
-          200) {
-        if (stepPage) {
-          stepPage = false;
-          page++;
-          bloc.refreshProducts(context,
-              group: "shop", limit: limit, page: page);
-        }
-      }
-    });
+  _controlScroll();
   }
 
   @override
@@ -791,12 +772,22 @@ class _NotiShopState extends State<NotiShop>
     }
   }
 
-  // bool CheckShowOrder({String text}){
-  //   if(text=="App\\Notifications\\Order\\MerchantOrderRequestPaymentNotification"){
-  //     return false;
-  //   }else {
-  //     return true;
-  //   }
-  // }
+ _controlScroll(){
+   page = 1;
+   bloc.refreshProducts(context, group: "shop", limit: limit, page: page);
+
+   _scrollController.addListener(() {
+     if (_scrollController.position.maxScrollExtent -
+         _scrollController.position.pixels <=
+         200) {
+       if (stepPage) {
+         stepPage = false;
+         page++;
+         bloc.refreshProducts(context,
+             group: "shop", limit: limit, page: page);
+       }
+     }
+   });
+ }
 
 }

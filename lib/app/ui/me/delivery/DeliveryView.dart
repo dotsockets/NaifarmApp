@@ -14,7 +14,6 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/Skeleton.dart';
 import 'package:sizer/sizer.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DeliveryView extends StatefulWidget {
@@ -30,12 +29,9 @@ class _DeliveryViewState extends State<DeliveryView> {
       bloc = ShippingBloc(AppProvider.getApplication(context));
       bloc.onError.stream.listen((event) {});
       bloc.zipShppingOject.stream.listen((event) {
-        Usermanager().getUser().then((value) => context
-            .read<InfoCustomerBloc>()
-            .loadCustomInfo(context, token: value.token));
+        _getCustomerInfo();
       });
-      Usermanager().getUser().then((value) =>
-          bloc.loadShppingPage(context: context, token: value.token));
+      _getShipping();
     }
   }
 
@@ -153,5 +149,15 @@ class _DeliveryViewState extends State<DeliveryView> {
         ),
       ),
     );
+  }
+  _getCustomerInfo(){
+    Usermanager().getUser().then((value) => context
+        .read<InfoCustomerBloc>()
+        .loadCustomInfo(context, token: value.token));
+  }
+
+  _getShipping(){
+    Usermanager().getUser().then((value) =>
+        bloc.loadShppingPage(context: context, token: value.token));
   }
 }

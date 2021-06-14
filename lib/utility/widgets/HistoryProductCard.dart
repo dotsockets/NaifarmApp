@@ -186,7 +186,7 @@ class HistoryProductCard extends StatelessWidget {
                                   ),
                                   new TextSpan(
                                     text:
-                                        "฿${NumberFormat("#,##0", "en_US").format(this.order.grandTotal != null ? this.order.grandTotal : 0)}",
+                                        "฿${this.order.grandTotal != null ? this.order.grandTotal.priceFormat() : 0}",
                                     style: FunctionHelper.fontTheme(
                                       fontSize: SizeUtil.spanTitleFontSize().sp,
                                       color: ThemeColor.colorSale(),
@@ -365,7 +365,7 @@ class HistoryProductCard extends StatelessWidget {
                               item.offerPrice != null &&
                               double.parse(item.offerPrice.toString()) > 0
                           ? Text(
-                              "฿${NumberFormat("#,##0", "en_US").format(double.parse(item.unitPrice))}",
+                              "฿${double.parse(item.unitPrice).toInt().priceFormat()}",
                               style: FunctionHelper.fontTheme(
                                   color: Colors.grey,
                                   fontSize: SizeUtil.titleFontSize().sp,
@@ -380,8 +380,8 @@ class HistoryProductCard extends StatelessWidget {
                       Text(
                         item.offerPrice != null &&
                                 double.parse(item.offerPrice.toString()) != 0
-                            ? "฿${NumberFormat("#,##0", "en_US").format(double.parse(item.offerPrice.toString()))}"
-                            : "฿${NumberFormat("#,##0", "en_US").format(double.parse(item.unitPrice).toInt())}",
+                            ? "฿${double.parse(item.offerPrice.toString()).toInt().priceFormat()}"
+                            : "฿${double.parse(item.unitPrice).toInt().priceFormat()}",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: FunctionHelper.fontTheme(

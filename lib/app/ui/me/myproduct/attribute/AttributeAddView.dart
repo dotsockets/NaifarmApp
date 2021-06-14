@@ -10,7 +10,6 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
-import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
 
@@ -29,7 +28,6 @@ class _AttributeAddViewState extends State<AttributeAddView> {
   final onAddSubType = BehaviorSubject<bool>();
   final onCheck = BehaviorSubject<bool>();
 
-
   @override
   void initState() {
     super.initState();
@@ -37,9 +35,7 @@ class _AttributeAddViewState extends State<AttributeAddView> {
 
   init() {
     if (bloc == null) {
-      subAttrController.add(TextEditingController());
-      onCheck.add(false);
-      onAddSubType.add(false);
+      _initialValue();
       bloc = UploadProductBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -51,14 +47,11 @@ class _AttributeAddViewState extends State<AttributeAddView> {
       bloc.onSuccess.stream.listen((event) {
         if (event is SubAttributeData) {
           Navigator.pop(context, true);
-        }
-        else if (event is  AttributeData) {
+        } else if (event is AttributeData) {
           Navigator.pop(context, true);
         }
-
       });
       bloc.onError.stream.listen((event) {
-        // FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event);
       });
@@ -125,7 +118,8 @@ class _AttributeAddViewState extends State<AttributeAddView> {
                                                     index: index),
                                               )),
                                     ),
-                                   if(snapshot.hasData)_buildAddAttribute(snapshot.data)
+                                    if (snapshot.hasData)
+                                      _buildAddAttribute(snapshot.data)
                                   ],
                                 );
                               }),
@@ -149,17 +143,15 @@ class _AttributeAddViewState extends State<AttributeAddView> {
         if (isSnapshot) {
           subAttrController.add(TextEditingController());
           onAddSubType.add(false);
-        //  isAddForm = false;
+          //  isAddForm = false;
           //  onCheck.add(false);
         }
       },
       child: Container(
-        padding:
-        EdgeInsets.only(left: 15, right: 15, top: 6, bottom: 6),
+        padding: EdgeInsets.only(left: 15, right: 15, top: 6, bottom: 6),
         decoration: BoxDecoration(
-          color: isSnapshot
-              ? ThemeColor.secondaryColor()
-              : Colors.grey.shade400,
+          color:
+              isSnapshot ? ThemeColor.secondaryColor() : Colors.grey.shade400,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
@@ -226,28 +218,29 @@ class _AttributeAddViewState extends State<AttributeAddView> {
           SizedBox(
             width: 3.0.w,
           ),
-    Expanded(
-    child: Container(
-    margin: EdgeInsets.all(1.0.h),
-    decoration: BoxDecoration(
-    color: Colors.white,
-    borderRadius: BorderRadius.circular(12),
-    border: Border.all(color: Colors.black.withOpacity(0.5))),
-            child: TextFormField(
-              style: FunctionHelper.fontTheme(
-                  fontSize: SizeUtil.titleFontSize().sp),
-              decoration: InputDecoration(
-                  isDense: true,
-                  hintStyle: FunctionHelper.fontTheme(
-                      fontSize: SizeUtil.titleFontSize().sp,
-                      color: Colors.grey),
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.all(2.0.h)),
-              onChanged: (String x) => _check(),
-              controller: attrController,
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.all(1.0.h),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.black.withOpacity(0.5))),
+              child: TextFormField(
+                style: FunctionHelper.fontTheme(
+                    fontSize: SizeUtil.titleFontSize().sp),
+                decoration: InputDecoration(
+                    isDense: true,
+                    hintStyle: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        color: Colors.grey),
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.all(2.0.h)),
+                onChanged: (String x) => _check(),
+                controller: attrController,
+              ),
             ),
-          ),
-    )],
+          )
+        ],
       ),
     );
   }
@@ -335,11 +328,17 @@ class _AttributeAddViewState extends State<AttributeAddView> {
   }
 
   void _check() {
-    if(subAttrController.length!=0) {
-        subAttrController[subAttrController.length - 1].text.trim().isNotEmpty?onAddSubType.add(true): onAddSubType.add(false);
-    }else onAddSubType.add(true);
+    if (subAttrController.length != 0) {
+      subAttrController[subAttrController.length - 1].text.trim().isNotEmpty ? onAddSubType.add(true) : onAddSubType.add(false);
+    } else
+      onAddSubType.add(true);
 
-        attrController.text.trim().length != 0?onCheck.add(true):onCheck.add(false);
-    }
+    attrController.text.trim().length != 0 ? onCheck.add(true) : onCheck.add(false);
+  }
 
+  _initialValue() {
+    subAttrController.add(TextEditingController());
+    onCheck.add(false);
+    onAddSubType.add(false);
+  }
 }

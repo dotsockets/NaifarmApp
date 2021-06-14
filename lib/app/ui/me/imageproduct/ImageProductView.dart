@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -28,28 +27,19 @@ class ImageProductView extends StatefulWidget {
 
 class _ImageProductViewState extends State<ImageProductView> {
   List<Asset> images = <Asset>[];
-
   UploadProductBloc bloc;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   init() {
     if (bloc == null) {
       bloc = UploadProductBloc(AppProvider.getApplication(context));
-
       bloc.onChang.stream.listen((event) {
         if (widget.isActive == IsActive.NewProduct ||
             widget.isActive == IsActive.ReplacemenView) {
-          NaiFarmLocalStorage.saveProductStorage(UploadProductStorage(
-              onSelectItem: bloc.itemImage,
-              productMyShopRequest: bloc.productDetail));
+          _saveProductStorage();
         }
       });
-      NaiFarmLocalStorage.getProductStorageCache().then((value) {
-        if (value != null) {
-          bloc.productDetail = value.productMyShopRequest;
-          bloc.loadImage(item: value.onSelectItem);
-        }
-      });
+      _getProductStorage();
     }
   }
 
@@ -390,5 +380,19 @@ class _ImageProductViewState extends State<ImageProductView> {
         ),
       ),
     );
+  }
+  _getProductStorage(){
+    NaiFarmLocalStorage.getProductStorageCache().then((value) {
+      if (value != null) {
+        bloc.productDetail = value.productMyShopRequest;
+        bloc.loadImage(item: value.onSelectItem);
+      }
+    });
+  }
+
+  _saveProductStorage(){
+    NaiFarmLocalStorage.saveProductStorage(UploadProductStorage(
+        onSelectItem: bloc.itemImage,
+        productMyShopRequest: bloc.productDetail));
   }
 }

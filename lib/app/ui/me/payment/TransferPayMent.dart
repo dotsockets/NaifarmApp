@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +29,6 @@ class TransferPayMent extends StatefulWidget {
 class _TransferPayMentState extends State<TransferPayMent> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   File fileImage;
-
   bool onDialog = false;
   OrdersBloc bloc;
   String isToken = "";
@@ -46,10 +44,8 @@ class _TransferPayMentState extends State<TransferPayMent> {
         }
       });
       bloc.onError.stream.listen((event) {
-        //Navigator.of(context).pop();
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event);
-        //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         onDialog = true;
@@ -63,12 +59,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
         });
       });
 
-      NaiFarmLocalStorage.getSystemCache().then((value) {
-        if (value != null) {
-          bloc.systemRespone.add(value);
-        }
-      });
-
+      _getSysCache();
       bloc.getSystem(context);
       getToken();
     }
@@ -562,5 +553,12 @@ class _TransferPayMentState extends State<TransferPayMent> {
     } else {
       print('No image selected.');
     }
+  }
+  _getSysCache(){
+    NaiFarmLocalStorage.getSystemCache().then((value) {
+      if (value != null) {
+        bloc.systemRespone.add(value);
+      }
+    });
   }
 }

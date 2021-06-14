@@ -42,11 +42,6 @@ class _CategoryDetailViewState extends State<CategoryDetailView> {
   void _init() {
     bloc = ProductBloc(AppProvider.getApplication(context));
     bloc.onLoad.stream.listen((event) {
-      // if(event){
-      //       FunctionHelper.showDialogProcess(context);
-      //     }else{
-      //       Navigator.of(context).pop();
-      //     }
     });
     bloc.loadCategoryPage(context, groupId: widget.index);
   }

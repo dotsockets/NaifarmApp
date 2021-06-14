@@ -36,14 +36,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
 
   init() {
     if (bloc == null) {
-      for (var item in widget.shppingMyShopRespone.data[0].rates) {
-        if (widget.carriersData.id == item.carrierId) {
-          rateController.text = item.rate.toString();
-          isHave = true;
-          rates = item;
-          break;
-        }
-      }
+      _initialValue();
       bloc = ShippingBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -266,6 +259,16 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
       return false;
     } else {
       return true;
+    }
+  }
+  _initialValue(){
+    for (var item in widget.shppingMyShopRespone.data[0].rates) {
+      if (widget.carriersData.id == item.carrierId) {
+        rateController.text = item.rate.toString();
+        isHave = true;
+        rates = item;
+        break;
+      }
     }
   }
 }

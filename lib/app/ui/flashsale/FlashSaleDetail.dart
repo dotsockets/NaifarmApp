@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +23,6 @@ import 'package:easy_localization/easy_localization.dart';
 
 class FlashSaleView extends StatefulWidget {
   final FlashsaleRespone flashsaleRespone;
-
   const FlashSaleView({Key key, this.flashsaleRespone}) : super(key: key);
 
   @override
@@ -39,7 +37,6 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
   bool stepPage = false;
   final _indicatorController = IndicatorController();
   static const _indicatorSize = 50.0;
-
   final positionScroll = BehaviorSubject<bool>();
 
   void _init() {
@@ -48,25 +45,7 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
       bloc.flashsale.add(widget.flashsaleRespone);
       bloc.loadFlashsaleData(context, page: page.toString(), limit: limit);
     }
-
-    _scrollController.addListener(() {
-      if (_scrollController.position.maxScrollExtent -
-              _scrollController.position.pixels <=
-          200) {
-        // if (step_page) {
-        //   step_page = false;
-        //   page++;
-        //   bloc.loadFlashsaleData(
-        //       page: page.toString(), limit: limit);
-        // }
-      }
-
-      if (_scrollController.position.pixels > 500) {
-        positionScroll.add(true);
-      } else {
-        positionScroll.add(false);
-      }
-    });
+    _scrollControl();
   }
 
   @override
@@ -537,5 +516,25 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
     stepPage = true;
     bloc.productMore.clear();
     bloc.loadFlashsaleData(context, page: page.toString(), limit: limit);
+  }
+  _scrollControl(){
+    _scrollController.addListener(() {
+      if (_scrollController.position.maxScrollExtent -
+          _scrollController.position.pixels <=
+          200) {
+        // if (step_page) {
+        //   step_page = false;
+        //   page++;
+        //   bloc.loadFlashsaleData(
+        //       page: page.toString(), limit: limit);
+        // }
+      }
+
+      if (_scrollController.position.pixels > 500) {
+        positionScroll.add(true);
+      } else {
+        positionScroll.add(false);
+      }
+    });
   }
 }

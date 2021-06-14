@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
@@ -14,13 +13,9 @@ class ShippingBloc {
   CompositeSubscription _compositeSubscription = CompositeSubscription();
 
   ShippingBloc(this._application);
-
   final onSuccess = BehaviorSubject<Object>();
-
   final onLoad = BehaviorSubject<bool>();
-
   final onError = BehaviorSubject<String>();
-
   final zipPaymentObject = BehaviorSubject<PaymentObjectCombine>();
   final zipShppingOject = BehaviorSubject<ShppingOjectCombine>();
 
@@ -55,7 +50,6 @@ class ShippingBloc {
           }
         }
       }
-      //  print();
 
       zipShppingOject.add(event);
     });

@@ -27,11 +27,10 @@ class _CategoryViewState extends State<CategoryView> {
     if (bloc == null) {
       bloc = ProductBloc(AppProvider.of(context).application);
       bloc.loadCategoryGroup(context);
-
-      FunctionHelper.translatorText(name: "หมา", from: 'th', to: 'en')
-          .then((value) {
-        print("wsefcer  ${value}");
-      });
+      // FunctionHelper.translatorText(name: "หมา", from: 'th', to: 'en')
+      //     .then((value) {
+      //   print("wsefcer  ${value}");
+      // });
     }
   }
 

@@ -13,7 +13,6 @@ import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:naifarm/app/model/pojo/response/MyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShppingMyShopRespone.dart';
 import 'package:naifarm/app/ui/me/widget/TabMenu.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
@@ -51,19 +50,11 @@ class _MyshopViewState extends State<MyshopView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        //Navigator.of(context).pop();
         FunctionHelper.alertDialogShop(context,
             message: event.message, title: LocaleKeys.btn_error.tr());
-        // FunctionHelper.SnackBarShow(scaffoldKey: widget.scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        // Future.delayed(
-        //     const Duration(milliseconds: 1000), () {
-        //
-        // });
-        Usermanager().getUser().then((value) => context
-            .read<InfoCustomerBloc>()
-            .loadCustomInfo(context, token: value.token));
+        _getCustomerInfo();
       });
     }
   }
@@ -470,5 +461,11 @@ class _MyshopViewState extends State<MyshopView> {
       check = true;
     }
     setState(() {});
+  }
+
+  _getCustomerInfo(){
+    Usermanager().getUser().then((value) => context
+        .read<InfoCustomerBloc>()
+        .loadCustomInfo(context, token: value.token));
   }
 }

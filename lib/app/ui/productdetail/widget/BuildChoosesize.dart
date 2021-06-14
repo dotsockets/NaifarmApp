@@ -118,7 +118,6 @@ class BuildChoosesize extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          // ignore: unnecessary_statements
           isEnable ? onclick2(index) : null;
         },
         child: Text(

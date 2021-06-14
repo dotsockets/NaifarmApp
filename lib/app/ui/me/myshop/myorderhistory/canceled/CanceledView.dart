@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -38,33 +37,7 @@ class _CanceledViewState extends State<CanceledView> {
   init() {
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      NaiFarmLocalStorage.getHistoryCache().then((value) {
-        //   print("ewfcwef ${value}");
-        String orderType =
-            widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order";
-        if (value != null) {
-          for (var data in value.historyCache) {
-            if (data.orderViewType == orderType && data.typeView == "8") {
-              bloc.orderDataList.addAll(data.orderRespone.data);
-              bloc.onSuccess.add(OrderRespone(
-                  data: bloc.orderDataList,
-                  total: data.orderRespone.total,
-                  limit: data.orderRespone.limit,
-                  page: data.orderRespone.limit));
-              break;
-            }
-          }
-        }
-        Usermanager().getUser().then((value) => bloc.loadOrder(context,
-            orderType: widget.typeView == OrderViewType.Shop
-                ? "myshop/orders"
-                : "order",
-            statusId: "8",
-            sort: "orders.updatedAt:desc",
-            limit: limit,
-            page: 1,
-            token: value.token));
-      });
+     _getOrders();
     }
     bloc.onError.stream.listen((msg) {
       Future.delayed(const Duration(milliseconds: 300), () {
@@ -80,29 +53,11 @@ class _CanceledViewState extends State<CanceledView> {
             title: LocaleKeys.btn_error.tr(),
             message: (msg as ThrowIfNoSuccess).message,
             callBack: () {
-              Usermanager().getUser().then((value) => bloc.loadOrder(context,
-                  orderType: widget.typeView == OrderViewType.Shop
-                      ? "myshop/orders"
-                      : "order",
-                  statusId: "8",
-                  sort: "orders.updatedAt:desc",
-                  limit: limit,
-                  page: 1,
-                  token: value.token));
+            _loadOrders();
             });
       });
     });
-    _scrollController.addListener(() {
-      if (_scrollController.position.maxScrollExtent -
-              _scrollController.position.pixels <=
-          200) {
-        if (stepPage) {
-          stepPage = false;
-          page++;
-          _reloadData();
-        }
-      }
-    });
+   _controlScroll();
   }
 
   Widget androidRefreshIndicator() {
@@ -359,7 +314,7 @@ class _CanceledViewState extends State<CanceledView> {
     );
   }
 
-  _reloadData() {
+  _reloadData(){
     Usermanager().getUser().then((value) => bloc.loadOrder(context,
         orderType:
             widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
@@ -368,6 +323,59 @@ class _CanceledViewState extends State<CanceledView> {
         limit: limit,
         page: page,
         token: value.token));
+  }
+
+  _getOrders(){
+    NaiFarmLocalStorage.getHistoryCache().then((value) {
+      String orderType = widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order";
+      if (value != null) {
+        for (var data in value.historyCache) {
+          if (data.orderViewType == orderType && data.typeView == "8") {
+            bloc.orderDataList.addAll(data.orderRespone.data);
+            bloc.onSuccess.add(OrderRespone(
+                data: bloc.orderDataList,
+                total: data.orderRespone.total,
+                limit: data.orderRespone.limit,
+                page: data.orderRespone.limit));
+            break;
+          }
+        }
+      }
+      Usermanager().getUser().then((value) => bloc.loadOrder(context,
+          orderType: widget.typeView == OrderViewType.Shop
+              ? "myshop/orders"
+              : "order",
+          statusId: "8",
+          sort: "orders.updatedAt:desc",
+          limit: limit,
+          page: 1,
+          token: value.token));
+    });
+  }
+
+  _loadOrders(){
+    Usermanager().getUser().then((value) => bloc.loadOrder(context,
+        orderType: widget.typeView == OrderViewType.Shop
+            ? "myshop/orders"
+            : "order",
+        statusId: "8",
+        sort: "orders.updatedAt:desc",
+        limit: limit,
+        page: 1,
+        token: value.token));
+  }
+  _controlScroll(){
+    _scrollController.addListener(() {
+      if (_scrollController.position.maxScrollExtent -
+          _scrollController.position.pixels <=
+          200) {
+        if (stepPage) {
+          stepPage = false;
+          page++;
+          _reloadData();
+        }
+      }
+    });
   }
 
   bool get wantKeepAlive => true;

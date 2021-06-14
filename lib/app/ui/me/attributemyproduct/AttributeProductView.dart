@@ -1,5 +1,3 @@
-import 'dart:collection';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
@@ -9,12 +7,10 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
-import 'package:naifarm/app/model/pojo/response/AttributeRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductShopItemRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
 
 class AttributeProductView extends StatefulWidget {
@@ -27,27 +23,20 @@ class AttributeProductView extends StatefulWidget {
   _AttributeProductViewState createState() => _AttributeProductViewState();
 }
 
-class _AttributeProductViewState extends State<AttributeProductView> with RouteAware {
+class _AttributeProductViewState extends State<AttributeProductView>
+    with RouteAware {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   UploadProductBloc bloc;
-  // HashMap attrMap = new HashMap<int, String>();
 
   @override
   void initState() {
     super.initState();
-
   }
 
   init() {
-    //initialValue();
-
     if (bloc == null) {
       bloc = UploadProductBloc(AppProvider.getApplication(context));
-
-      if (widget.productMyShopRespone != null) {
-        bloc.productRes.add(widget.productMyShopRespone);
-      }
-
+      _initialValue();
       bloc.onLoad.stream.listen((event) {
         if (event) {
           FunctionHelper.showDialogProcess(context);
@@ -70,8 +59,7 @@ class _AttributeProductViewState extends State<AttributeProductView> with RouteA
 
   @override
   void didPopNext() {
-    Usermanager().getUser().then((value) => bloc.getProductIDMyShop(context,
-        token: value.token, productId: widget.productMyShopRespone.id));
+   _getProduct();
   }
 
   @override
@@ -174,7 +162,9 @@ class _AttributeProductViewState extends State<AttributeProductView> with RouteA
       onTap: () {
         AppRoute.attributeProductEdit(
             context: context,
-        value:item.inventories[0].attributes[index].values[0].value ,name: item.inventories[0].attributes[index].attributes[0].name,nameId: item.inventories[0].attributes[index].attributes[0].id);
+            value: item.inventories[0].attributes[index].values[0].value,
+            name: item.inventories[0].attributes[index].attributes[0].name,
+            nameId: item.inventories[0].attributes[index].attributes[0].id);
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -189,14 +179,14 @@ class _AttributeProductViewState extends State<AttributeProductView> with RouteA
           children: [
             Row(
               children: [
-                Text("${LocaleKeys.attributes_index.tr()} ${index+1}",
+                Text("${LocaleKeys.attributes_index.tr()} ${index + 1}",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: FunctionHelper.fontTheme(
                         fontSize: SizeUtil.titleFontSize().sp,
                         color: Colors.black)),
-
-                Text(" (${item.inventories[0].attributes[index].attributes[0].name},${item.inventories[0].attributes[index].values[0].value})",
+                Text(
+                    " (${item.inventories[0].attributes[index].attributes[0].name},${item.inventories[0].attributes[index].values[0].value})",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: FunctionHelper.fontTheme(
@@ -215,10 +205,14 @@ class _AttributeProductViewState extends State<AttributeProductView> with RouteA
     );
   }
 
-// initialValue() {
-//   if (widget.productMyShopRespone.inventories[0].attributes.length != 0) {
-//     for (var item in widget.productMyShopRespone.inventories[0].attributes)
-//       attrMap[item.attributes[0].id] = item.attributes[0].name;
-//   }
-// }
+  _initialValue() {
+    if (widget.productMyShopRespone != null) {
+      bloc.productRes.add(widget.productMyShopRespone);
+    }
+  }
+  _getProduct(){
+    Usermanager().getUser().then((value) => bloc.getProductIDMyShop(context,
+        token: value.token, productId: widget.productMyShopRespone.id));
+  }
+
 }

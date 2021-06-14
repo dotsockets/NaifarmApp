@@ -45,29 +45,13 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
 
   void _init(BuildContext context) {
     if (null == bloc) {
-      Usermanager().getUser().then((value) => context
-          .read<InfoCustomerBloc>()
-          .loadCustomInfo(context, token: value.token));
+      _getCustomerInfo();
       bloc = MemberBloc(AppProvider.getApplication(context));
-
-      NaiFarmLocalStorage.getCustomerInfo().then((value) {
-        setState(() {
-          itemInfo = value.myShopRespone;
-          isSelect = value.myShopRespone.active == 1 ? true : false;
-        });
-      });
-
+      _getCusStorage();
       bloc.onLoad.stream.listen((event) {
-        // if(event){
-        //   FunctionHelper.showDialogProcess(context);
-        // }else{
-        //   Navigator.of(context).pop();
-        // }
       });
       bloc.onError.stream.listen((event) {
-        // Navigator.of(context).pop();
         onUpdate = false;
-        //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event.message);
       });
@@ -82,12 +66,7 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
             itemInfo.image[0].path = event.path;
           });
         } else if (event is MyShopRespone) {
-          Usermanager().getUser().then((value) => context
-              .read<CustomerCountBloc>()
-              .loadCustomerCount(context, token: value.token));
-          Usermanager().getUser().then((value) => context
-              .read<InfoCustomerBloc>()
-              .loadCustomInfo(context, token: value.token));
+          _loadCusData();
         }
         //widget.IsCallBack?Navigator.of(context).pop():AppRoute.Home(context);
       });
@@ -431,5 +410,26 @@ class _ShopprofileState extends State<ShopProfileView> with RouteAware {
         print('No image selected.');
       }
     });
+  }
+
+  _getCusStorage(){
+    NaiFarmLocalStorage.getCustomerInfo().then((value) {
+      setState(() {
+        itemInfo = value.myShopRespone;
+        isSelect = value.myShopRespone.active == 1 ? true : false;
+      });
+    });
+  }
+
+  _getCustomerInfo(){
+    Usermanager().getUser().then((value) => context
+        .read<InfoCustomerBloc>()
+        .loadCustomInfo(context, token: value.token));
+  }
+  _loadCusData(){
+    Usermanager().getUser().then((value) => context
+        .read<CustomerCountBloc>()
+        .loadCustomerCount(context, token: value.token));
+    _getCustomerInfo();
   }
 }

@@ -51,7 +51,6 @@ class _AttributeProductEditViewState extends State<AttributeProductEditView> {
   init() {
     if (bloc == null) {
       bloc = UploadProductBloc(AppProvider.getApplication(context));
-      print(nameAttr.toString());
       bloc.onLoad.stream.listen((event) {
         if (event) {
           FunctionHelper.showDialogProcess(context);
@@ -68,13 +67,7 @@ class _AttributeProductEditViewState extends State<AttributeProductEditView> {
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event);
       });
-      Usermanager().getUser().then(
-          (value) => bloc.getAttributeMyShop(context, token: value.token));
-
-      Usermanager().getUser().then((value) => bloc.getSubAttribute(
-          context,
-          token: value.token,
-          id: widget.nameId));
+      _getAttribute();
     }
   }
 
@@ -555,5 +548,14 @@ class _AttributeProductEditViewState extends State<AttributeProductEditView> {
       onCheck.add(true);
     } else
       onCheck.add(false);
+  }
+  _getAttribute(){
+    Usermanager().getUser().then(
+            (value) => bloc.getAttributeMyShop(context, token: value.token));
+
+    Usermanager().getUser().then((value) => bloc.getSubAttribute(
+        context,
+        token: value.token,
+        id: widget.nameId));
   }
 }

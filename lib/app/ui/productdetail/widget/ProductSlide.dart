@@ -3,8 +3,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
-import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -23,21 +21,12 @@ class ProductSlide extends StatefulWidget {
 }
 
 class _ProductSlideState extends State<ProductSlide> {
-  //final List<String> _imgList = <String>[];
-
-
   final current = BehaviorSubject<int>();
 
   @override
   void initState() {
     current.add( widget.indexImg);
     super.initState();
-    // for (var item in widget.imgList) {
-    //   _imgList.add("${Env.value.baseUrl}/storage/images/${item.path}");
-    // }
-    // if (widget.imgList.isEmpty) {
-    //   _imgList.add(Env.value.noItemUrl);
-    // }
   }
 
   @override
@@ -86,8 +75,6 @@ class _ProductSlideState extends State<ProductSlide> {
                       height: 30,
                       width: MediaQuery.of(context).size.width,
                       child: NaifarmErrorWidget()),
-                  // errorWidget: (context, url, error) =>
-                  //     Image.network(Env.value.noItemUrl, fit: BoxFit.cover),
                 ),
               ),
             )

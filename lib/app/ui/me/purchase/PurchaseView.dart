@@ -29,9 +29,7 @@ class _PurchaseViewState extends State<PurchaseView> {
   init() {
     if (bloc == null) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      NaiFarmLocalStorage.getHomeDataCache().then((value) {
-        bloc.productPopular.add(value.productForyou);
-      });
+    _getHomeCache();
     }
   }
 
@@ -230,5 +228,10 @@ class _PurchaseViewState extends State<PurchaseView> {
       height: 0.5,
       color: Colors.black.withOpacity(0.4),
     );
+  }
+  _getHomeCache(){
+    NaiFarmLocalStorage.getHomeDataCache().then((value) {
+      bloc.productPopular.add(value.productForyou);
+    });
   }
 }

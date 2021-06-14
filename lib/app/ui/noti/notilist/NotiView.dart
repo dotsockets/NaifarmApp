@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
@@ -44,25 +43,11 @@ class _NotiViewState extends State<NotiView>
   init() {
     if (bloc == null) {
       bloc = NotiBloc(AppProvider.getApplication(context));
-
       bloc.onSuccess.listen((event) {
         customReCount();
       });
     }
-    Usermanager().getUser().then((value) {
-      if (value.token != null) {
-        NaiFarmLocalStorage.getNowPage().then((data) {
-          if (data == 2) {
-            //NaiFarmLocalStorage.saveNowPage(0);
-            //_reload.add(true);
-            Future.delayed(const Duration(milliseconds: 3000), () {
-              bloc.markAsReadNotifications(context, token: value.token);
-            });
-            // bloc.MarkAsReadNotifications(token: value.token,context: context);
-          }
-        });
-      }
-    });
+   _getNoti();
   }
 
   @override
@@ -232,5 +217,19 @@ class _NotiViewState extends State<NotiView>
         ),
       ),
     );
+  }
+  _getNoti(){
+    Usermanager().getUser().then((value) {
+      if (value.token != null) {
+        NaiFarmLocalStorage.getNowPage().then((data) {
+          if (data == 2) {
+            //NaiFarmLocalStorage.saveNowPage(0);
+            Future.delayed(const Duration(milliseconds: 3000), () {
+              bloc.markAsReadNotifications(context, token: value.token);
+            });
+          }
+        });
+      }
+    });
   }
 }

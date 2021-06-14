@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,8 +23,6 @@ class ConfirmPaymentView extends StatelessWidget {
 
   ConfirmPaymentView({Key key, this.orderData, this.contextMain})
       : super(key: key);
-
-  // final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   OrdersBloc bloc;
   bool onDialog = false;
@@ -66,8 +63,7 @@ class ConfirmPaymentView extends StatelessWidget {
           });
         }
       });
-      Usermanager().getUser().then((value) => bloc.getOrderById(context,
-          orderType: "myshop/orders", id: orderData.id, token: value.token));
+      _getOrder(context);
     }
     // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
   }
@@ -111,7 +107,6 @@ class ConfirmPaymentView extends StatelessWidget {
                                       leading: LocaleKeys.order_detail_total_pay
                                           .tr(),
                                       trailing:
-                                          //"฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}"):SizedBox(),
                                           "฿${item.grandTotal}")
                                   : SizedBox(),
                               SizedBox(height: 1.0.h),
@@ -121,7 +116,6 @@ class ConfirmPaymentView extends StatelessWidget {
                                       leading:
                                           LocaleKeys.order_detail_subtotal.tr(),
                                       trailing:
-                                          // "฿${NumberFormat("#,##0.00", "en_US").format(item.total)}"):SizedBox(),
                                           "฿${item.total}")
                                   : SizedBox(),
                               item.shipping != null
@@ -317,5 +311,9 @@ class ConfirmPaymentView extends StatelessWidget {
         ),
       ),
     );
+  }
+  _getOrder(BuildContext context){
+    Usermanager().getUser().then((value) => bloc.getOrderById(context,
+        orderType: "myshop/orders", id: orderData.id, token: value.token));
   }
 }

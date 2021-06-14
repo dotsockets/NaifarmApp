@@ -356,7 +356,7 @@ class ProductVertical extends StatelessWidget {
               Text(
                 item.offerPrice != null
                     ? "฿${item.offerPrice.priceFormat()}"
-                    : "฿${NumberFormat("#,##0", "en_US").format(item.salePrice!=null?item.salePrice:0)}",
+                    : "฿${item.salePrice!=null?item.salePrice.priceFormat():0}",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: FunctionHelper.fontTheme(

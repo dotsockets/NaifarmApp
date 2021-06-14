@@ -37,7 +37,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
   bool checkKeyBoard = false;
   UploadProductBloc bloc;
   bool slugInstall = true;
-  //
+
   // @override
   // void initState() {
   //   super.initState();
@@ -56,13 +56,7 @@ class _MyNewProductViewState extends State<MyNewProductView> {
     if (bloc == null) {
       bloc = UploadProductBloc(AppProvider.getApplication(context));
       bloc.uploadProductStorage.stream.listen((event) {
-        if (slugInstall) {
-          _installControllerInput(
-              productMyShopRequest: event.productMyShopRequest);
-          slugInstall = false;
-          checkNum();
-        }
-        NaiFarmLocalStorage.saveProductStorage(bloc.uploadProductStorage.value);
+        _initialValue(event);
       });
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -72,7 +66,6 @@ class _MyNewProductViewState extends State<MyNewProductView> {
         }
       });
       bloc.onError.stream.listen((event) {
-       // FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event);
       });
@@ -84,34 +77,10 @@ class _MyNewProductViewState extends State<MyNewProductView> {
           //
           // Usermanager().getUser().then((value) =>bloc.UpdateProductInventories(inventoriesRequest: inventor,productId: bloc.inventoriesId,inventoriesId: bloc.inventoriesId,
           //     token: value.token));
-
-          NaiFarmLocalStorage.deleteCacheByItem(
-                  key: NaiFarmLocalStorage.naiFarmProductUpload)
-              .then((value) {
-            AppRoute.myProduct(context, widget.shopId,
-                pushEvent: true,
-                countPage: 1,
-                indexTab: bloc.uploadProductStorage.value.productMyShopRequest
-                            .active ==
-                        0
-                    ? 3
-                    : 0);
-          });
+          _deleteCache();
         }
       });
-      NaiFarmLocalStorage.getAllCategoriesCache().then((value) {
-        bloc.categoriesAllRespone = value;
-      });
-
-      NaiFarmLocalStorage.getProductStorageCache().then((value) {
-        if (value != null) {
-          bloc.itemImage.clear();
-          bloc.itemImage.addAll(value.onSelectItem);
-          bloc.uploadProductStorage.add(UploadProductStorage(
-              productMyShopRequest: value.productMyShopRequest,
-              onSelectItem: value.onSelectItem));
-        }
-      });
+      _getProduct();
     }
   }
 
@@ -655,5 +624,46 @@ class _MyNewProductViewState extends State<MyNewProductView> {
         offset: productMyShopRequest.offerPrice != null
             ? productMyShopRequest.offerPrice.toString().length
             : 0));
+  }
+
+  _initialValue(UploadProductStorage event){
+    if (slugInstall) {
+      _installControllerInput(
+          productMyShopRequest: event.productMyShopRequest);
+      slugInstall = false;
+      checkNum();
+    }
+    NaiFarmLocalStorage.saveProductStorage(bloc.uploadProductStorage.value);
+  }
+
+  _deleteCache(){
+    NaiFarmLocalStorage.deleteCacheByItem(
+        key: NaiFarmLocalStorage.naiFarmProductUpload)
+        .then((value) {
+      AppRoute.myProduct(context, widget.shopId,
+          pushEvent: true,
+          countPage: 1,
+          indexTab: bloc.uploadProductStorage.value.productMyShopRequest
+              .active ==
+              0
+              ? 3
+              : 0);
+    });
+  }
+
+  _getProduct(){
+    NaiFarmLocalStorage.getAllCategoriesCache().then((value) {
+      bloc.categoriesAllRespone = value;
+    });
+
+    NaiFarmLocalStorage.getProductStorageCache().then((value) {
+      if (value != null) {
+        bloc.itemImage.clear();
+        bloc.itemImage.addAll(value.onSelectItem);
+        bloc.uploadProductStorage.add(UploadProductStorage(
+            productMyShopRequest: value.productMyShopRequest,
+            onSelectItem: value.onSelectItem));
+      }
+    });
   }
 }

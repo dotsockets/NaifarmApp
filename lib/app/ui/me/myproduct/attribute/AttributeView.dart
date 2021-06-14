@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
@@ -14,7 +13,6 @@ import 'package:naifarm/app/model/pojo/response/AttributeRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
-import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sizer/sizer.dart';
 
 class AttributeView extends StatefulWidget {
@@ -43,15 +41,10 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
         }
       });
       bloc.onError.stream.listen((event) {
-        //FunctionHelper.snackBarShow(context: context,scaffoldKey: _scaffoldKey, message: event);
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event);
       });
-      /*bloc.onSuccessDel.stream.listen((event) {
-        Usermanager().getUser().then((value) => bloc.GetAttributeMyShop(token: value.token));
-      });*/
-      Usermanager().getUser().then(
-          (value) => bloc.getAttributeMyShop(context, token: value.token));
+      _getAttr();
     }
   }
 
@@ -63,9 +56,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
 
   @override
   void didPopNext() {
-    Usermanager()
-        .getUser()
-        .then((value) => bloc.getAttributeMyShop(context, token: value.token));
+    _getAttr();
   }
 
   @override
@@ -104,10 +95,7 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
                     onPressed: () async {
                       var result = await AppRoute.attributeAdd(context: context);
                       if (result) {
-                        // Usermanager().getUser().then(
-                        //         (value) => bloc.getAttributeMyShop(context, token: value.token));
                       }
-
                     },
                     icon: Icon(
                       Icons.add,
@@ -333,45 +321,8 @@ class _AttributeViewState extends State<AttributeView> with RouteAware {
     );
   }
 
-  /* Widget _buildLine(){
-    return Container(
-      height: 0.1.w,
-      color: Colors.black.withOpacity(0.4),
-    );
-  }*/
-  // Widget _buildButton() {
-  //   return Container(
-  //     margin: EdgeInsets.only(top: 2.0.h),
-  //     child: Center(
-  //       child: TextButton(
-  //         style: ButtonStyle(
-  //           shape: MaterialStateProperty.all(
-  //             RoundedRectangleBorder(
-  //               borderRadius: BorderRadius.circular(40.0),
-  //             ),
-  //           ),
-  //           minimumSize: MaterialStateProperty.all(
-  //             Size(50.0.w, 5.0.h),
-  //           ),
-  //           backgroundColor: MaterialStateProperty.all(
-  //             ThemeColor.secondaryColor(),
-  //           ),
-  //           overlayColor: MaterialStateProperty.all(
-  //             Colors.white.withOpacity(0.3),
-  //           ),
-  //         ),
-  //         onPressed: () {
-  //           AppRoute.attributeEdit(context: context, nameAttr: "", idAttr: 0);
-  //         },
-  //         child: Text(
-  //           LocaleKeys.attributes_add.tr(),
-  //           style: FunctionHelper.fontTheme(
-  //               color: Colors.white,
-  //               fontSize: SizeUtil.titleFontSize().sp,
-  //               fontWeight: FontWeight.w500),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
+_getAttr(){
+  Usermanager().getUser().then(
+          (value) => bloc.getAttributeMyShop(context, token: value.token));
+}
 }

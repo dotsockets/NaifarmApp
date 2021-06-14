@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -42,46 +41,9 @@ class _RefundViewState extends State<RefundView> {
   init() {
     if (bloc == null) {
       bloc = OrdersBloc(AppProvider.getApplication(context));
-      NaiFarmLocalStorage.getHistoryCache().then((value) {
-        //   print("ewfcwef ${value}");
-        String orderType =
-            widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order";
-        if (value != null) {
-          for (var data in value.historyCache) {
-            if (data.orderViewType == orderType && data.typeView == "7") {
-              bloc.orderDataList.addAll(data.orderRespone.data);
-              bloc.onSuccess.add(OrderRespone(
-                  data: bloc.orderDataList,
-                  total: data.orderRespone.total,
-                  limit: data.orderRespone.limit,
-                  page: data.orderRespone.limit));
-              break;
-            }
-          }
-        }
-        Usermanager().getUser().then((value) => bloc.loadOrder(context,
-            orderType: widget.typeView == OrderViewType.Shop
-                ? "myshop/orders"
-                : "order",
-            statusId: "7",
-            sort: "orders.updatedAt:desc",
-            limit: limit,
-            page: 1,
-            token: value.token));
-      });
+    _getOrders();
     }
-
-    _scrollController.addListener(() {
-      if (_scrollController.position.maxScrollExtent -
-              _scrollController.position.pixels <=
-          200) {
-        if (stepPage) {
-          stepPage = false;
-          page++;
-          _reloadData();
-        }
-      }
-    });
+    _controlScroll();
   }
 
   @override
@@ -326,7 +288,7 @@ class _RefundViewState extends State<RefundView> {
                               item.offerPrice != null &&
                               double.parse(item.offerPrice.toString()) > 0
                           ? Text(
-                              "฿${NumberFormat("#,##0", "en_US").format(double.parse(item.unitPrice))}",
+                              "฿${double.parse(item.unitPrice).toInt().priceFormat()}",
                               style: FunctionHelper.fontTheme(
                                   color: Colors.grey,
                                   fontSize: SizeUtil.titleFontSize().sp,
@@ -340,8 +302,8 @@ class _RefundViewState extends State<RefundView> {
                       Text(
                         item.offerPrice != null &&
                                 double.parse(item.offerPrice.toString()) != 0
-                            ? "฿${NumberFormat("#,##0", "en_US").format(double.parse(item.offerPrice.toString()))}"
-                            : "฿${NumberFormat("#,##0", "en_US").format(double.parse(item.unitPrice).toInt())}",
+                            ? "฿${(double.parse(item.offerPrice.toString()).toInt().priceFormat())}"
+                            : "฿${double.parse(item.unitPrice).toInt().priceFormat()}",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: FunctionHelper.fontTheme(
@@ -610,6 +572,49 @@ class _RefundViewState extends State<RefundView> {
         limit: 10,
         page: page,
         token: value.token));
+  }
+
+  _getOrders(){
+    NaiFarmLocalStorage.getHistoryCache().then((value) {
+      String orderType =
+      widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order";
+      if (value != null) {
+        for (var data in value.historyCache) {
+          if (data.orderViewType == orderType && data.typeView == "7") {
+            bloc.orderDataList.addAll(data.orderRespone.data);
+            bloc.onSuccess.add(OrderRespone(
+                data: bloc.orderDataList,
+                total: data.orderRespone.total,
+                limit: data.orderRespone.limit,
+                page: data.orderRespone.limit));
+            break;
+          }
+        }
+      }
+      Usermanager().getUser().then((value) => bloc.loadOrder(context,
+          orderType: widget.typeView == OrderViewType.Shop
+              ? "myshop/orders"
+              : "order",
+          statusId: "7",
+          sort: "orders.updatedAt:desc",
+          limit: limit,
+          page: 1,
+          token: value.token));
+    });
+  }
+
+  _controlScroll(){
+    _scrollController.addListener(() {
+      if (_scrollController.position.maxScrollExtent -
+          _scrollController.position.pixels <=
+          200) {
+        if (stepPage) {
+          stepPage = false;
+          page++;
+          _reloadData();
+        }
+      }
+    });
   }
 
   bool get wantKeepAlive => true;

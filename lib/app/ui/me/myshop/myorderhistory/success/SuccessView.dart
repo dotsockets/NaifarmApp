@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +38,6 @@ class _SuccessViewState extends State<SuccessView>   {
   int limit = 10;
   bool stepPage = false;
   final _indicatorController = IndicatorController();
-
   ProductBloc productBloc;
 
   init() {

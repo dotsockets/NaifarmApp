@@ -22,10 +22,7 @@ class MarketView extends StatefulWidget {
 
 class _MarketViewState extends State<MarketView> {
   final _scrollController = TrackingScrollController();
-  // final List<MenuModel> _menuViewModel = MenuViewModel().getMenustype();
   final _indicatorController = IndicatorController();
-  // int _categoryselectedIndex = 0;
-
   ProductBloc bloc;
 
   void _init() {

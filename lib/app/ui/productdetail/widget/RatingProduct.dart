@@ -8,7 +8,6 @@ import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/FeedbackRespone.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
@@ -28,7 +27,6 @@ class RatingProduct extends StatefulWidget {
 }
 
 class _RatingProductState extends State<RatingProduct> {
-  //final List<ReviewModel> reviewscore = ReviewViewModel().getReviewByProduct();
   @override
   void initState() {
     super.initState();
@@ -54,18 +52,6 @@ class _RatingProductState extends State<RatingProduct> {
                               return buildReviewCard(
                                   feedItem: widget.feedbackRespone.data[index]);
                             }),
-
-                            // children: widget.feedbackRespone.data
-                            //     .asMap()
-                            //     .map((key, value) {
-                            //       return MapEntry(
-                            //           key,
-                            //           buildReviewCard(
-                            //               feedItem:
-                            //                   widget.feedbackRespone.data[key]));
-                            //     })
-                            //     .values
-                            //     .toList(),
                           ),
                           InkWell(
                             onTap: () {

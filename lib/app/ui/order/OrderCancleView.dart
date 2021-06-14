@@ -10,7 +10,6 @@ import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -38,10 +37,8 @@ class _OrderCancleViewState extends State<OrderCancleView> {
       }
 
       bloc.onError.stream.listen((event) {
-        //Navigator.of(context).pop();
         FunctionHelper.alertDialogShop(context,
             message: event, showbtn: true, title: LocaleKeys.btn_error.tr());
-        //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -51,7 +48,6 @@ class _OrderCancleViewState extends State<OrderCancleView> {
         }
       });
       bloc.onSuccess.stream.listen((event) {
-        //onUpload = true;
         Navigator.pop(context, true);
       });
 
@@ -70,7 +66,6 @@ class _OrderCancleViewState extends State<OrderCancleView> {
         // }
       });
     }
-
     //  Usermanager().getUser().then((value) => bloc.GetOrderById(orderType: widget.typeView==OrderViewType.Shop?"myshop/orders":"order",id: widget.orderData.id, token: value.token));
     // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
   }
@@ -111,7 +106,6 @@ class _OrderCancleViewState extends State<OrderCancleView> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                //widget.typeView==OrderViewType.Purchase &&  item.orderStatusId!=5 &&  item.orderStatusId!=6 &&  item.orderStatusId!=8?_HeaderStatus(context: context,orderData: item):SizedBox(),
                                 headerStatus(context: context, orderData: item),
                                 SizedBox(height: 1.0.h),
                                 itemInfo(
@@ -119,7 +113,6 @@ class _OrderCancleViewState extends State<OrderCancleView> {
                                     leading:
                                         LocaleKeys.order_detail_refund.tr(),
                                     trailing:
-                                        //"฿${NumberFormat("#,##0.00", "en_US").format(item.grandTotal)}"),
                                         "฿${item.grandTotal}"),
                                 SizedBox(height: 1.0.h),
                                 itemInfo(

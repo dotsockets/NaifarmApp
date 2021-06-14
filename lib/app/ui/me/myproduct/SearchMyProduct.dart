@@ -31,16 +31,8 @@ class _SearchMyProductState extends State<SearchMyProduct> {
   List<String> listClone = <String>[];
   bool checkSeemore = false;
   TextEditingController txtController = TextEditingController();
-
-  // int limit = 10;
   String searchText = "";
-
-  //String filter = "available";
-  //ProductBloc blocProduct;
-  //UploadProductBloc bloc;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
-  //bool checkPop = false;
   final _searchText = BehaviorSubject<String>();
 
   void _init() {

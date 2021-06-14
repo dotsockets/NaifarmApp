@@ -27,6 +27,7 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import "package:naifarm/app/model/core/ExtensionCore.dart";
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:sizer/sizer.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class WishlistsView extends StatefulWidget {
   @override
@@ -312,7 +313,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
           children: [
             item.product != null && item.product.offerPrice != null
                 ? Text(
-                    "฿${NumberFormat("#,##0", "en_US").format(item.product.salePrice)}",
+                    "฿${item.product.salePrice.priceFormat()}",
                     style: FunctionHelper.fontTheme(
                         color: Colors.grey,
                         fontSize: SizeUtil.priceFontSize().sp - 2,
@@ -325,8 +326,8 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
             Text(
               item.product != null
                   ? item.product.offerPrice != null
-                      ? "฿${NumberFormat("#,##0", "en_US").format(item.product.offerPrice)}"
-                      : "฿${NumberFormat("#,##0", "en_US").format(item.product.salePrice!=null?item.product.salePrice:0)}"
+                      ? "฿${item.product.offerPrice.priceFormat()}"
+                      : "฿${item.product.salePrice!=null?item.product.salePrice.priceFormat():0}"
                   : "000",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

@@ -30,7 +30,6 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
   bool isSelect1 = false;
   bool isSelect2 = false;
   bool checkKeyBoard = false;
-
   final reload = BehaviorSubject<bool>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController weightProductController = TextEditingController();
@@ -40,24 +39,15 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
   UploadProductBloc bloc;
 
   init() {
-    final format = new NumberFormat("#.###");
-
-    weightProductController.text =
-        widget.uploadProductStorage.productMyShopRequest.weight != null
-            ? format
-                .format(widget.uploadProductStorage.productMyShopRequest.weight)
-            : "";
+    _initialvalue();
     if (bloc == null) {
       checkForm();
       bloc = UploadProductBloc(AppProvider.getApplication(context));
       bloc.onError.stream.listen((event) {
-       // FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event);
       });
-      bloc.onSuccess.stream.listen((event) {
-        //  Navigator.of(context).pop();
-      });
+      bloc.onSuccess.stream.listen((event) {});
     }
   }
 
@@ -192,10 +182,9 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return Container(
-                padding: EdgeInsets.only(left: 25.0.w,right: 25.0.w,top: 3.0.h,bottom: 3.0.h),
-
+                padding: EdgeInsets.only(
+                    left: 25.0.w, right: 25.0.w, top: 3.0.h, bottom: 3.0.h),
                 color: Colors.grey.shade300,
-
                 child: Container(
                     width: MediaQuery.of(context).size.width,
                     child: _buildButtonItem(
@@ -256,14 +245,22 @@ class _DeliveryCostViewState extends State<DeliveryCostView> {
     bool check = false;
     RegExp checkWeight = RegExp('[0-9]');
 
-    if (weightProductController.text.isNotEmpty && checkWeight.hasMatch(weightProductController.text)) {
+    if (weightProductController.text.isNotEmpty &&
+        checkWeight.hasMatch(weightProductController.text)) {
       check = true;
-    }else{
+    } else {
       check = false;
     }
-    // if (weightProductController.text.startsWith("0")) {
-    //   weightProductController.text = "";
-    // }
+
     reload.add(check);
+  }
+
+  _initialvalue() {
+    final format = new NumberFormat("#.###");
+    weightProductController.text =
+        widget.uploadProductStorage.productMyShopRequest.weight != null
+            ? format
+                .format(widget.uploadProductStorage.productMyShopRequest.weight)
+            : "";
   }
 }

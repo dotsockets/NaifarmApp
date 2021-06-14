@@ -19,7 +19,6 @@ class ProductDetail extends StatefulWidget {
 
 class _ProductDetailState extends State<ProductDetail> {
   GlobalKey _keyRed = GlobalKey();
-
   int lineInto = 7;
 
   @override

@@ -14,7 +14,6 @@ import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/models/ProductModel.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -26,7 +25,6 @@ import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class ProductMoreView extends StatefulWidget {
   final String barTxt;
-
   final List<ProductModel> productList;
   final ProductRespone installData;
   final String apiLink;
@@ -57,25 +55,8 @@ class _ProductMoreViewState extends State<ProductMoreView> {
   void _init() {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-
-      if (widget.installData != null) {
-        bloc.moreProduct.add(widget.installData);
-      }
-      NaiFarmLocalStorage.getProductMoreCache().then((value) {
-        if (value != null) {
-          for (var data in value.productRespone) {
-            if (data.slag == widget.apiLink) {
-              bloc.moreProduct.add(data.searchRespone);
-              break;
-            }
-          }
-        }
-        bloc.loadMoreData(context,
-            page: page.toString(),
-            limit: 10,
-            link: widget.apiLink,
-            typeMore: widget.typeMore);
-      });
+     _initialValue();
+     _getProductCache();
       bloc.onError.stream.listen((event) {
         if (event.status == 0 || event.status >= 500) {
           Future.delayed(const Duration(milliseconds: 300), () {
@@ -87,38 +68,13 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                 title: LocaleKeys.btn_error.tr(),
                 message: event.message,
                 callBack: () {
-                  bloc.loadMoreData(context,
-                      page: page.toString(),
-                      limit: 10,
-                      link: widget.apiLink,
-                      typeMore: widget.typeMore);
+                  _loadmoreData();
                 });
           });
         }
       });
     }
-
-    _scrollController.addListener(() {
-      if (_scrollController.position.maxScrollExtent -
-              _scrollController.position.pixels <=
-          200) {
-        if (stepPage) {
-          stepPage = false;
-          page++;
-          bloc.loadMoreData(context,
-              page: page.toString(),
-              limit: limit,
-              link: widget.apiLink,
-              typeMore: widget.typeMore);
-        }
-      }
-
-      if (_scrollController.position.pixels > 500) {
-        positionScroll.add(true);
-      } else {
-        positionScroll.add(false);
-      }
-    });
+    _controlScroll();
   }
 
   Widget androidRefreshIndicator() {
@@ -177,16 +133,9 @@ class _ProductMoreViewState extends State<ProductMoreView> {
     if (Platform.isAndroid) {
       await Future.delayed(Duration(seconds: 2));
     }
-
     bloc.productMore.clear();
-
     page = 1;
-
-    bloc.loadMoreData(context,
-        page: page.toString(),
-        limit: 10,
-        link: widget.apiLink,
-        typeMore: widget.typeMore);
+    _loadmoreData();
 
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
@@ -195,14 +144,9 @@ class _ProductMoreViewState extends State<ProductMoreView> {
         if (stepPage) {
           stepPage = false;
           page++;
-          bloc.loadMoreData(context,
-              page: page.toString(),
-              limit: limit,
-              link: widget.apiLink,
-              typeMore: widget.typeMore);
+          _loadmoreData();
         }
       }
-
       if (_scrollController.position.pixels > 500) {
         positionScroll.add(true);
       } else {
@@ -595,4 +539,52 @@ class _ProductMoreViewState extends State<ProductMoreView> {
   }
 
   int check(int i) => i != bloc.productMore.length - 1 ? 2 : 1;
+
+  _initialValue(){
+    if (widget.installData != null) {
+      bloc.moreProduct.add(widget.installData);
+    }
+  }
+
+  _getProductCache(){
+    NaiFarmLocalStorage.getProductMoreCache().then((value) {
+      if (value != null) {
+        for (var data in value.productRespone) {
+          if (data.slag == widget.apiLink) {
+            bloc.moreProduct.add(data.searchRespone);
+            break;
+          }
+        }
+      }
+     _loadmoreData();
+    });
+  }
+
+  _loadmoreData(){
+    bloc.loadMoreData(context,
+        page: page.toString(),
+        limit: 10,
+        link: widget.apiLink,
+        typeMore: widget.typeMore);
+  }
+
+  _controlScroll(){
+    _scrollController.addListener(() {
+      if (_scrollController.position.maxScrollExtent -
+          _scrollController.position.pixels <=
+          200) {
+        if (stepPage) {
+          stepPage = false;
+          page++;
+          _loadmoreData();
+        }
+      }
+
+      if (_scrollController.position.pixels > 500) {
+        positionScroll.add(true);
+      } else {
+        positionScroll.add(false);
+      }
+    });
+  }
 }

@@ -37,10 +37,8 @@ class AddtTrackingNumberView extends StatelessWidget {
         }
       });
       bloc.onError.stream.listen((event) {
-        //Navigator.of(context).pop();
         FunctionHelper.alertDialogShop(context,
             message: event, showbtn: true, title: LocaleKeys.btn_error.tr());
-        //FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         if (event is bool) {
@@ -56,7 +54,6 @@ class AddtTrackingNumberView extends StatelessWidget {
         }
       });
     }
-    // Usermanager().getUser().then((value) => context.read<OrderBloc>().loadOrder(statusId: 1, limit: 20, page: 1, token: value.token));
   }
 
   @override

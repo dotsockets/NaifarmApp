@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,6 @@ import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/Skeleton.dart';
@@ -50,22 +48,7 @@ class _BannedState extends State<Banned> {
   int total = 0;
 
   init() {
-    count = 0;
-    if (widget.searchTxt.isNotEmpty) {
-      _searchText.add(widget.searchTxt);
-    }
-
-    _searchText.stream.listen((event) {
-      NaiFarmLocalStorage.getNowPage().then((value) {
-        if (value == 2 && count == 0) {
-          widget.searchTxt.length != 0
-              ? _reloadFirstSearch()
-              : _reloadFirstPage();
-
-          count++;
-        }
-      });
-    });
+   _initialValue();
 
     if (bloc == null) {
       bloc = ProductBloc(AppProvider.getApplication(context));
@@ -105,17 +88,7 @@ class _BannedState extends State<Banned> {
       widget.searchTxt.length != 0 ? _reloadFirstSearch() : _reloadFirstPage();
     }
 
-    _scrollController.addListener(() {
-      if (_scrollController.position.maxScrollExtent -
-              _scrollController.position.pixels <=
-          200) {
-        if (stepPage && bloc.productList.length < total) {
-          stepPage = false;
-          page++;
-          widget.searchTxt.length != 0 ? _searchData() : _reloadData();
-        }
-      }
-    });
+    controlScroll();
   }
 
   @override
@@ -603,6 +576,38 @@ class _BannedState extends State<Banned> {
   _reloadFirstSearch() {
     page = 1;
     _searchData();
+  }
+
+  _initialValue(){
+    count = 0;
+    if (widget.searchTxt.isNotEmpty) {
+      _searchText.add(widget.searchTxt);
+    }
+
+    _searchText.stream.listen((event) {
+      NaiFarmLocalStorage.getNowPage().then((value) {
+        if (value == 2 && count == 0) {
+          widget.searchTxt.length != 0
+              ? _reloadFirstSearch()
+              : _reloadFirstPage();
+          count++;
+        }
+      });
+    });
+  }
+
+  controlScroll(){
+    _scrollController.addListener(() {
+      if (_scrollController.position.maxScrollExtent -
+          _scrollController.position.pixels <=
+          200) {
+        if (stepPage && bloc.productList.length < total) {
+          stepPage = false;
+          page++;
+          widget.searchTxt.length != 0 ? _searchData() : _reloadData();
+        }
+      }
+    });
   }
 
 /* @override

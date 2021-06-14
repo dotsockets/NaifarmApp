@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -32,10 +31,6 @@ class EditImageProductView extends StatefulWidget {
 
 class _EditImageProductViewState extends State<EditImageProductView> {
   List<Asset> images = <Asset>[];
-  // String _error = 'No Error Dectected';
-
-  //File _imageFile;
-  // List<String> imageUrlList = [];
   UploadProductBloc bloc;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -53,13 +48,10 @@ class _EditImageProductViewState extends State<EditImageProductView> {
         Navigator.pop(context, true);
       });
       bloc.onError.stream.listen((event) {
-        //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event);
       });
-      bloc.uploadProductStorage.add(widget.uploadProductStorage);
-      bloc.itemImage = widget.uploadProductStorage.onSelectItem;
-      bloc.onChang.add(widget.uploadProductStorage.onSelectItem);
+     _initailValue();
     }
   }
 
@@ -428,5 +420,10 @@ class _EditImageProductViewState extends State<EditImageProductView> {
         ),
       ),
     );
+  }
+  _initailValue(){
+    bloc.uploadProductStorage.add(widget.uploadProductStorage);
+    bloc.itemImage = widget.uploadProductStorage.onSelectItem;
+    bloc.onChang.add(widget.uploadProductStorage.onSelectItem);
   }
 }

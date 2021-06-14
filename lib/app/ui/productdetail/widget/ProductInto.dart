@@ -16,6 +16,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:share/share.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 // ignore: must_be_immutable
 class ProductInto extends StatelessWidget {
@@ -101,7 +102,7 @@ class ProductInto extends StatelessWidget {
               children: [
                 data.salePrice != null && data.offerPrice != null
                     ? Text(
-                        "฿${NumberFormat("#,##0", "en_US").format(data.salePrice)}",
+                        "฿${data.salePrice.priceFormat()}",
                         style: FunctionHelper.fontTheme(
                             color: Colors.grey,
                             fontSize: SizeUtil.priceFontSize().sp - 2,
@@ -113,8 +114,8 @@ class ProductInto extends StatelessWidget {
                         : 0),
                 Text(
                   data.offerPrice != null
-                      ? "฿${NumberFormat("#,##0", "en_US").format(data.offerPrice)}"
-                      : "฿${NumberFormat("#,##0", "en_US").format(data.salePrice!=null?data.salePrice:0)}",
+                      ? "฿${data.offerPrice.priceFormat()}"
+                      : "฿${data.salePrice!=null?data.salePrice.priceFormat():0}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: FunctionHelper.fontTheme(

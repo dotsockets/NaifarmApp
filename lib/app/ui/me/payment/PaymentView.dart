@@ -33,16 +33,10 @@ class _PaymentViewState extends State<PaymentView> {
     if (bloc == null) {
       bloc = PaymentBloc(AppProvider.getApplication(context));
       bloc.onError.stream.listen((event) {
-        Usermanager()
-            .getUser()
-            .then((value) => bloc.loadPaymentPage(context, token: value.token));
-        //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
-        FunctionHelper.alertDialogShop(context,
-            title: LocaleKeys.btn_error.tr(), message: event);
+       _getPayment();
+        FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event);
       });
-      Usermanager()
-          .getUser()
-          .then((value) => bloc.loadPaymentPage(context, token: value.token));
+      _getPayment();
     }
   }
 
@@ -166,5 +160,10 @@ class _PaymentViewState extends State<PaymentView> {
         ),
       ),
     );
+  }
+  _getPayment(){
+    Usermanager()
+        .getUser()
+        .then((value) => bloc.loadPaymentPage(context, token: value.token));
   }
 }

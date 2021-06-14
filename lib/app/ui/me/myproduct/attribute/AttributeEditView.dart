@@ -1,5 +1,4 @@
 import 'dart:collection';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:naifarm/app/bloc/Stream/UploadProductBloc.dart';
@@ -12,7 +11,6 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
-import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
 
@@ -43,9 +41,7 @@ class _AttributeEditViewState extends State<AttributeEditView> {
 
   init() {
     if (bloc == null) {
-      attrController.text = widget.nameAttr;
-      onCheck.add(false);
-      onAddSubType.add(false);
+      _initialValue();
       bloc = UploadProductBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -62,24 +58,12 @@ class _AttributeEditViewState extends State<AttributeEditView> {
         }
       });
       bloc.subAttributeMyShop.stream.listen((event) {
-        subAttrController.clear();
-        total = event.total;
-        event.total != 0
-            ? event.data.asMap().forEach((index, value) {
-                subAttrController.add(TextEditingController());
-                subAttrController[index].text = value.value;
-                onAddSubType.add(true);
-                onCheck.add(false);
-              })
-            : subAttrController.add(TextEditingController());
+        _initialSubAttr(event);
       });
       bloc.onError.stream.listen((event) {
-        // FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
-        FunctionHelper.alertDialogShop(context,
-            title: LocaleKeys.btn_error.tr(), message: event);
+        FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event);
       });
-      Usermanager().getUser().then((value) => bloc.getSubAttribute(context,
-          token: value.token, id: widget.attrId));
+      _getSubAttr();
     }
   }
 
@@ -341,7 +325,7 @@ class _AttributeEditViewState extends State<AttributeEditView> {
                           _updateSubAttr(valueList: valueUpdateList);
                       }
                       if (subAttrController.length > total) {
-                        addSubAttr();
+                        _addSubAttr();
                       }
                     }
                   },
@@ -385,9 +369,7 @@ class _AttributeEditViewState extends State<AttributeEditView> {
   }
 
   _updateSubAttr({HashMap<int,String> valueList,}) {
-
     List.generate(valueList.length, (index) {
-
       Usermanager().getUser().then((value) => bloc.updateSubAttribute(context,
           value: valueList.values.elementAt(index),
           id: widget.attrId,
@@ -403,7 +385,7 @@ class _AttributeEditViewState extends State<AttributeEditView> {
 
   }
 
-  addSubAttr() {
+  _addSubAttr() {
     if (subAttrController.length - total > 0 &&
         subAttrController[total].text.isNotEmpty) {
       for (int i = total; i < subAttrController.length; i++) {
@@ -418,5 +400,27 @@ class _AttributeEditViewState extends State<AttributeEditView> {
             : null;
       }
     }
+  }
+  _initialSubAttr(SubAttributeRespone event){
+    subAttrController.clear();
+    total = event.total;
+    event.total != 0
+        ? event.data.asMap().forEach((index, value) {
+      subAttrController.add(TextEditingController());
+      subAttrController[index].text = value.value;
+      onAddSubType.add(true);
+      onCheck.add(false);
+    })
+        : subAttrController.add(TextEditingController());
+  }
+
+  _getSubAttr(){
+    Usermanager().getUser().then((value) => bloc.getSubAttribute(context,
+        token: value.token, id: widget.attrId));
+  }
+  _initialValue() {
+    attrController.text = widget.nameAttr;
+    onCheck.add(false);
+    onAddSubType.add(false);
   }
 }

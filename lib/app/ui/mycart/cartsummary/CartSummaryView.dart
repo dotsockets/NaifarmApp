@@ -17,7 +17,6 @@ import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
 import 'package:naifarm/app/models/CartModel.dart';
 import 'package:naifarm/app/ui/mycart/widget/ModalFitBottom_Sheet.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -45,11 +44,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
   void _init() {
     if (null == bloc) {
       bloc = CartBloc(AppProvider.getApplication(context));
-      bloc.cartList.add(widget.item);
-      bloc.shippingCost.add(0);
-      bloc.orderTotalCost.add(0);
-      bloc.orderTotalCost.add(0);
-
+      _initialValue();
       bloc.onLoad.stream.listen((event) {
         if (event) {
           FunctionHelper.showDialogProcess(context);
@@ -62,21 +57,12 @@ class _CartSummaryViewState extends State<CartSummaryView> {
           FunctionHelper.alertDialogRetry(context,
               title: LocaleKeys.btn_error.tr(),
               message: event.message, callBack: () {
-            Usermanager().getUser().then((value) {
-              for (var item in bloc.cartList.value.data) {
-                bloc.createOrder(context,
-                    orderRequest: bloc.convertOrderData(context,
-                        cartData: item, email: value.email),
-                    token: value.token);
-              }
-            });
+            _createOrder();
           });
         } else {
-          // FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
           FunctionHelper.alertDialogShop(context,
               title: LocaleKeys.btn_error.tr(), message: event.message);
         }
-        // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey, message: event);
       });
 
       bloc.onSuccess.stream.listen((event) {
@@ -92,10 +78,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
       bloc.paymentList.stream.listen((event) {
         bloc.checkOut.add(true);
       });
-
-      Usermanager().getUser().then((value) =>
-          bloc.addressesList(context, token: value.token, type: true));
-      bloc.getPaymentList(context, shopIds: bloc.getAllShopID());
+      _getAddr();
+      _getPayment();
     }
   }
 
@@ -236,8 +220,9 @@ class _CartSummaryViewState extends State<CartSummaryView> {
               child: Lottie.asset('assets/json/loading.json', height: 30),
             ),
             fit: BoxFit.cover,
-            imageUrl: item.shop.image.length != 0?
-            "${item.shop.image[0].path.imgUrl()}":"",
+            imageUrl: item.shop.image.length != 0
+                ? "${item.shop.image[0].path.imgUrl()}"
+                : "",
             errorWidget: (context, url, error) => Container(
                 width: 7.0.w,
                 height: 7.0.w,
@@ -277,8 +262,9 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                   child: Lottie.asset('assets/json/loading.json', height: 30),
                 ),
                 fit: BoxFit.cover,
-                imageUrl: item.inventory.product.image.length != 0?
-    "${item.inventory.product.image[0].path.imgUrl()}":"",
+                imageUrl: item.inventory.product.image.length != 0
+                    ? "${item.inventory.product.image[0].path.imgUrl()}"
+                    : "",
                 // errorWidget: (context, url, error) => Container(
                 //     height: 30,
                 //     child: Icon(
@@ -314,7 +300,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                   item.inventory.offerPrice != null &&
                                   item.inventory.offerPrice > 0
                               ? Text(
-                                  "฿${NumberFormat("#,##0", "en_US").format(item.inventory.salePrice)}",
+                                  "฿${item.inventory.salePrice.priceFormat()}",
                                   style: FunctionHelper.fontTheme(
                                       color: Colors.grey,
                                       fontSize: SizeUtil.priceFontSize().sp - 2,
@@ -328,8 +314,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           Text(
                             item.inventory.offerPrice != null &&
                                     item.inventory.offerPrice != 0
-                                ? "฿${NumberFormat("#,##0", "en_US").format(item.inventory.offerPrice)}"
-                                : "฿${NumberFormat("#,##0", "en_US").format(item.inventory.salePrice)}",
+                                ? "฿${item.inventory.offerPrice.priceFormat()}"
+                                : "฿${item.inventory.salePrice.priceFormat()}",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: FunctionHelper.fontTheme(
@@ -438,7 +424,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                             SizedBox(width: 1.0.w),
                             Text(
                                 //"฿${snapshot.data.rate != null ? snapshot.data.rate : 0}",
-                                 "฿${NumberFormat("#,##0", "en_US").format(snapshot.data.rate != null ? snapshot.data.rate : 0)}",
+                                "฿${snapshot.data.rate != null ? snapshot.data.rate.priceFormat() : 0}",
                                 style: FunctionHelper.fontTheme(
                                     fontSize: SizeUtil.titleFontSize().sp,
                                     color: Colors.black)),
@@ -482,15 +468,20 @@ class _CartSummaryViewState extends State<CartSummaryView> {
             children: [
               Row(
                 children: [
-                  Image.asset("assets/images/png/sale_cart.png",width: 5.0.w,height: 5.0.w,),
-                  SizedBox(width: 1.0.h,),
+                  Image.asset(
+                    "assets/images/png/sale_cart.png",
+                    width: 5.0.w,
+                    height: 5.0.w,
+                  ),
+                  SizedBox(
+                    width: 1.0.h,
+                  ),
                   Text("Discount coupons from the store",
                       style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleFontSize().sp,
                           color: Colors.black)),
                 ],
               ),
-
               Row(
                 children: [
                   Icon(
@@ -502,14 +493,14 @@ class _CartSummaryViewState extends State<CartSummaryView> {
               ),
             ],
           ),
-          onTap: (){
+          onTap: () {
             showMaterialModalBottomSheet(
                 context: context,
                 builder: (context) => ModalFitBottomSheet(
                     discountModel: CartViewModel().getDiscount()));
           },
         ),
-       SizedBox(
+        SizedBox(
           height: 2.0.h,
         ),
         StreamBuilder(
@@ -566,7 +557,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                 fontSize: SizeUtil.titleFontSize().sp,
                                 color: Colors.black)),
                         Text(
-                            "฿${NumberFormat("#,##0", "en_US").format(item.total + (item.shippingRates != null ? item.shippingRates.rate : 0))}",
+                            "฿${item.total + (item.shippingRates != null ? item.shippingRates.rate.priceFormat() : 0)}",
 
                             //   Text("฿${NumberFormat("#,##0.00", "en_US").format(item.total)}",
                             style: FunctionHelper.fontTheme(
@@ -607,45 +598,48 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                     return Container(
                         color: Colors.white,
                         child: EasyLocalization.of(context).locale ==
-                            EasyLocalization.of(context).supportedLocales[0]? FutureBuilder(
-                            future: FunctionHelper.translatorText(name: data.name,from: 'th',to: 'en'),
-                            builder:
-                                (BuildContext context, AsyncSnapshot<String> text) {
-
-                              return ListMenuItem(
+                                EasyLocalization.of(context).supportedLocales[0]
+                            ? FutureBuilder(
+                                future: FunctionHelper.translatorText(
+                                    name: data.name, from: 'th', to: 'en'),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<String> text) {
+                                  return ListMenuItem(
+                                    icon: 'assets/images/png/payment.png',
+                                    title: LocaleKeys.select.tr() +
+                                        LocaleKeys.me_title_pay.tr(),
+                                    message: "${text.data ?? "${data.name}"}",
+                                    iconSize: 7.0.w,
+                                    fontWeight: FontWeight.w500,
+                                    onClick: () async {
+                                      final result = await AppRoute.cartBank(
+                                          context,
+                                          paymentRespone:
+                                              bloc.paymentList.value,
+                                          allShopID: bloc.getAllShopID());
+                                      if (result != null) {
+                                        bloc.paymentList.add(result);
+                                      }
+                                    },
+                                  );
+                                })
+                            : ListMenuItem(
                                 icon: 'assets/images/png/payment.png',
                                 title: LocaleKeys.select.tr() +
                                     LocaleKeys.me_title_pay.tr(),
-                                message: "${text.data ?? "${data.name}"}",
+                                message: data.name,
                                 iconSize: 7.0.w,
                                 fontWeight: FontWeight.w500,
                                 onClick: () async {
-
-                                  final result = await AppRoute.cartBank(context,
+                                  final result = await AppRoute.cartBank(
+                                      context,
                                       paymentRespone: bloc.paymentList.value,
                                       allShopID: bloc.getAllShopID());
                                   if (result != null) {
                                     bloc.paymentList.add(result);
                                   }
                                 },
-                              );
-                            }):ListMenuItem(
-                          icon: 'assets/images/png/payment.png',
-                          title: LocaleKeys.select.tr() +
-                              LocaleKeys.me_title_pay.tr(),
-                          message: data.name,
-                          iconSize: 7.0.w,
-                          fontWeight: FontWeight.w500,
-                          onClick: () async {
-                            
-                            final result = await AppRoute.cartBank(context,
-                                paymentRespone: bloc.paymentList.value,
-                                allShopID: bloc.getAllShopID());
-                            if (result != null) {
-                              bloc.paymentList.add(result);
-                            }
-                          },
-                        ));
+                              ));
                   } else {
                     return Container(
                         color: Colors.white,
@@ -656,9 +650,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           message: LocaleKeys.message_select.tr(),
                           iconSize: 7.0.w,
                           fontWeight: FontWeight.w500,
-                          onClick: () async {
-
-                          },
+                          onClick: () async {},
                         ));
                   }
                 }),
@@ -680,9 +672,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                               style: FunctionHelper.fontTheme(
                                   fontSize: SizeUtil.titleSmallFontSize().sp,
                                   color: Colors.black.withOpacity(0.6))),
-                          Text(
-                                "฿${NumberFormat("#,##0", "en_US").format(snapshot.data)}",
-                             // "฿${snapshot.data}",
+                          Text("฿${(snapshot.data as int).priceFormat()}",
+                              // "฿${snapshot.data}",
                               style: FunctionHelper.fontTheme(
                                   fontSize: SizeUtil.titleSmallFontSize().sp,
                                   fontWeight: FontWeight.w500,
@@ -709,10 +700,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                               style: FunctionHelper.fontTheme(
                                   fontSize: SizeUtil.titleSmallFontSize().sp,
                                   color: Colors.black.withOpacity(0.6))),
-                          Text(
-                              //  "฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data)}",
-                              "฿${NumberFormat("#,##0", "en_US").format(snapshot.data)}",
-                              //"฿${snapshot.data}",
+                          Text("฿${(snapshot.data as int).priceFormat()}",
                               style: FunctionHelper.fontTheme(
                                   fontSize: SizeUtil.titleSmallFontSize().sp,
                                   fontWeight: FontWeight.w500,
@@ -742,7 +730,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                   fontWeight: FontWeight.bold)),
                           Text(
                               //"฿${snapshot.data}",
-                              "฿${NumberFormat("#,##0", "en_US").format(snapshot.data)}",
+                              "฿${(snapshot.data as int).priceFormat()}",
                               // "฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data)}",
                               style: FunctionHelper.fontTheme(
                                   fontSize: SizeUtil.titleFontSize().sp,
@@ -799,7 +787,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                 margin: EdgeInsets.only(right: 10),
                                 child: Text(
                                     //"฿${NumberFormat("#,##0.00", "en_US").format(snapshot.data)}",
-                                    "฿${NumberFormat("#,##0", "en_US").format(snapshot.data)}",
+                                    "฿${(snapshot.data as int).priceFormat()}",
                                     //"฿${snapshot.data}",
                                     style: FunctionHelper.fontTheme(
                                         fontSize: SizeUtil.titleFontSize().sp,
@@ -823,7 +811,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                         onPressed: () {
                           // AppRoute.CartSummary(context,);
 
-                          if(bloc.checkListOut()){
+                          if (bloc.checkListOut()) {
                             Usermanager().getUser().then((value) {
                               bloc.onLoad.add(true);
                               for (var item in bloc.cartList.value.data) {
@@ -834,7 +822,6 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                               }
                             });
                           }
-
 
                           // AppRoute.OrderSuccess(context: context,payment_total: bloc.total_payment.value.toString());
                         },
@@ -925,7 +912,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         ),
       ),
       onTap: () async {
-        if(bloc.addressList.value.data!=null){
+        if (bloc.addressList.value.data != null) {
           final result = await AppRoute.cartAddres(context,
               installSelect: bloc.addressList.value.data.isNotEmpty
                   ? bloc.addressList.value.data[0]
@@ -938,7 +925,6 @@ class _CartSummaryViewState extends State<CartSummaryView> {
             //     .then((value) => bloc.AddressesList(token: value.token,type: true));
           }
         }
-
       },
     );
   }
@@ -978,7 +964,6 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                     color: Colors.black)),
                             Text(
                                 "฿${bloc.cartList.value.data[index].total + (item.shippingRates != null ? item.shippingRates.rate : 0)}",
-                                //  "฿${NumberFormat("#,##0.00", "en_US").format(item.total)}",
                                 style: FunctionHelper.fontTheme(
                                     fontSize: SizeUtil.titleFontSize().sp,
                                     fontWeight: FontWeight.w500,
@@ -1043,5 +1028,32 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         );
       },
     );
+  }
+
+  _initialValue() {
+    bloc.cartList.add(widget.item);
+    bloc.shippingCost.add(0);
+    bloc.orderTotalCost.add(0);
+    bloc.orderTotalCost.add(0);
+  }
+
+  _createOrder() {
+    Usermanager().getUser().then((value) {
+      for (var item in bloc.cartList.value.data) {
+        bloc.createOrder(context,
+            orderRequest: bloc.convertOrderData(context,
+                cartData: item, email: value.email),
+            token: value.token);
+      }
+    });
+  }
+
+  _getAddr() {
+    Usermanager().getUser().then(
+        (value) => bloc.addressesList(context, token: value.token, type: true));
+  }
+
+  _getPayment() {
+    bloc.getPaymentList(context, shopIds: bloc.getAllShopID());
   }
 }

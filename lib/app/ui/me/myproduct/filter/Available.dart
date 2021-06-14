@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -49,40 +48,17 @@ class _AvailableState extends State<Available> {
   int total = 0;
 
   init() {
-    count = 0;
-    if (widget.searchTxt.isNotEmpty) {
-      _searchText.add(widget.searchTxt);
-    }
-
-    _searchText.stream.listen((event) {
-      NaiFarmLocalStorage.getNowPage().then((value) {
-        if (value == 0 && count == 0) {
-          widget.searchTxt.length != 0
-              ? _reloadFirstSearch()
-              : _reloadFirstPage();
-
-          count++;
-        }
-      });
-    });
-
+    _initialValue();
     if (bloc == null) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-
       bloc.onSuccess.stream.listen((event) {
         if (event is ProductMyShopRespone || event is bool) {
           widget.searchTxt.length != 0
               ? _reloadFirstSearch()
               : _reloadFirstPage();
-          // bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
         }
       });
-
       bloc.onError.stream.listen((event) {
-        /*   Future.delayed(const Duration(milliseconds: 1000), () {
-          page=1;
-          _reloadData();
-        });*/
         if (event.status != 99) {
           FunctionHelper.alertDialogRetry(context,
               title: LocaleKeys.btn_error.tr(),
@@ -103,18 +79,7 @@ class _AvailableState extends State<Available> {
       });
       widget.searchTxt.length != 0 ? _reloadFirstSearch() : _reloadFirstPage();
     }
-
-    _scrollController.addListener(() {
-      if (_scrollController.position.maxScrollExtent -
-              _scrollController.position.pixels <=
-          200) {
-        if (stepPage && bloc.productList.length < total) {
-          stepPage = false;
-          page++;
-          widget.searchTxt.length != 0 ? _searchData() : _reloadData();
-        }
-      }
-    });
+    _controlScroll();
   }
 
   @override
@@ -610,6 +575,34 @@ class _AvailableState extends State<Available> {
     _searchData();
   }
 
-/* @override
-  bool get wantKeepAlive => true;*/
+_initialValue(){
+  count = 0;
+  if (widget.searchTxt.isNotEmpty) {
+    _searchText.add(widget.searchTxt);
+  }
+  _searchText.stream.listen((event) {
+    NaiFarmLocalStorage.getNowPage().then((value) {
+      if (value == 0 && count == 0) {
+        widget.searchTxt.length != 0
+            ? _reloadFirstSearch()
+            : _reloadFirstPage();
+        count++;
+      }
+    });
+  });
+}
+
+  _controlScroll(){
+  _scrollController.addListener(() {
+    if (_scrollController.position.maxScrollExtent -
+        _scrollController.position.pixels <=
+        200) {
+      if (stepPage && bloc.productList.length < total) {
+        stepPage = false;
+        page++;
+        widget.searchTxt.length != 0 ? _searchData() : _reloadData();
+      }
+    }
+  });
+}
 }

@@ -23,7 +23,6 @@ class DeliverySelectView extends StatefulWidget {
 
 class _DeliverySelectViewState extends State<DeliverySelectView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
   int select = 0;
   CartBloc bloc;
 

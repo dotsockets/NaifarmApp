@@ -24,8 +24,6 @@ class CategorySubDetailView extends StatefulWidget {
 
 class _CategorySubDetailViewState extends State<CategorySubDetailView> {
   final _scrollController = TrackingScrollController();
-  // final _indicatorController = IndicatorController();
-
   ProductBloc bloc;
 
   @override
@@ -38,17 +36,8 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
-        // if(event){
-        //   FunctionHelper.showDialogProcess(context);
-        // }else{
-        //   Navigator.of(context).pop();
-        // }
       });
-      bloc.getProductCategoryGroupId(context, groupId: widget.index);
-      bloc.loadMoreData(context,
-          limit: 10,
-          page: "1",
-          link: "products/types/popular?categorySubGroupId=${widget.index}");
+      _getproduct();
     }
   }
 
@@ -184,5 +173,13 @@ class _CategorySubDetailViewState extends State<CategorySubDetailView> {
             )),
       ),
     );
+  }
+
+  _getproduct(){
+    bloc.getProductCategoryGroupId(context, groupId: widget.index);
+    bloc.loadMoreData(context,
+        limit: 10,
+        page: "1",
+        link: "products/types/popular?categorySubGroupId=${widget.index}");
   }
 }

@@ -26,7 +26,6 @@ import 'package:naifarm/app/ui/productdetail/widget/BuildChoosesize.dart';
 import 'package:naifarm/app/ui/productdetail/widget/HeaderDetail.dart';
 import 'package:naifarm/app/ui/productdetail/widget/RatingProduct.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
@@ -70,68 +69,22 @@ class _ProductDetailViewState extends State<ProductDetailView>
   AnimationController animationController;
   String token = "";
   final checkMyShop = BehaviorSubject<int>();
-
   final _indicatorController = IndicatorController();
   static const _indicatorSize = 50.0;
 
   @override
   void initState() {
     super.initState();
-    trackingScrollController = TrackingScrollController();
-    _controller = AnimationController(
-        duration: const Duration(milliseconds: 2500),
-        vsync: this,
-        value: 0,
-        lowerBound: 0,
-        upperBound: 1);
-    _animation =
-        CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn);
-    _controller.forward();
-
-    trackingScrollController.addListener(() {
-      if (trackingScrollController.offset ==
-          trackingScrollController.position.maxScrollExtent) {
-        checkScrollControl.add(false);
-      } else {
-        checkScrollControl.add(true);
-      }
-    });
-
-    animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 700));
-    animation = Tween<Offset>(begin: Offset(0, 0), end: Offset(57.0.w, -85.0.h))
-        .animate(CurvedAnimation(
-            // เพิ่ม Curve
-            parent: animationController, // เพิ่ม Curve
-            curve: Curves.linear))
-          ..addListener(() {
-            setState(() {});
-          })
-          ..addStatusListener((status) {
-            if (status == AnimationStatus.completed) {
-              //animationController.
-              animationController.reset();
-            }
-          });
-
-    _controller.forward();
+   _controllerScroll();
   }
 
   void _init() {
     iSLogin();
     if (null == bloc) {
-      checkScrollControl.add(false);
-      NaiFarmLocalStorage.getNowPage().then((value) {
-        value = value + 1;
-        subFixId = value;
-        NaiFarmLocalStorage.saveNowPage(value);
-      });
-
+     _initialValue();
       bloc = ProductBloc(AppProvider.getApplication(context));
       bloc.productItem.add(widget.productItem);
-
       bloc.zipProductDetail.add(ProductObjectCombine(producItemRespone: widget.productItem));
-
       bloc.onError.stream.listen((event) {
         checkScrollControl.add(true);
         if (event != null) {
@@ -157,7 +110,6 @@ class _ProductDetailViewState extends State<ProductDetailView>
                   callBack: () => _refreshProducts());
             });
           } else {
-            // FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event.message);
             FunctionHelper.alertDialogShop(context,
                 title: LocaleKeys.btn_error.tr(), message: event.message);
           }
@@ -166,11 +118,9 @@ class _ProductDetailViewState extends State<ProductDetailView>
 
       bloc.zipProductDetail.stream.listen((event) {
         checkScrollControl.add(true);
-        // bloc.Wishlists.add(event.wishlistsRespone);
       });
       bloc.onLoad.stream.listen((event) {
         if (event) {
-          //  FunctionHelper.SuccessDialog(context,message: "555");
           FunctionHelper.showDialogProcess(context);
         } else {
           Navigator.of(context).pop();
@@ -178,15 +128,12 @@ class _ProductDetailViewState extends State<ProductDetailView>
       });
       bloc.onSuccess.stream.listen((event) {
         if (event is CartResponse) {
-          // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
-          //animationController.forward();
           FunctionHelper.snackBarShow(
               context: context,
               scaffoldKey: _scaffoldKey,
               message: LocaleKeys.my_product_addcart.tr());
         } else if (event is bool) {
           AppRoute.myCart(context, true, cartNowId: bloc.bayNow);
-          // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
         }
       });
 
@@ -812,5 +759,52 @@ class _ProductDetailViewState extends State<ProductDetailView>
     }
 
     return !isLiked;
+  }
+  _controllerScroll(){
+    trackingScrollController = TrackingScrollController();
+    _controller = AnimationController(
+        duration: const Duration(milliseconds: 2500),
+        vsync: this,
+        value: 0,
+        lowerBound: 0,
+        upperBound: 1);
+    _animation =
+        CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn);
+    _controller.forward();
+
+    trackingScrollController.addListener(() {
+      if (trackingScrollController.offset ==
+          trackingScrollController.position.maxScrollExtent) {
+        checkScrollControl.add(false);
+      } else {
+        checkScrollControl.add(true);
+      }
+    });
+
+    animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 700));
+    animation = Tween<Offset>(begin: Offset(0, 0), end: Offset(57.0.w, -85.0.h))
+        .animate(CurvedAnimation(
+      // เพิ่ม Curve
+        parent: animationController, // เพิ่ม Curve
+        curve: Curves.linear))
+      ..addListener(() {
+        setState(() {});
+      })
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          //animationController.
+          animationController.reset();
+        }
+      });
+    _controller.forward();
+  }
+
+  _initialValue(){
+    checkScrollControl.add(false);
+    NaiFarmLocalStorage.getNowPage().then((value) {
+      value = value + 1;
+      subFixId = value;
+      NaiFarmLocalStorage.saveNowPage(value);
+    });
   }
 }

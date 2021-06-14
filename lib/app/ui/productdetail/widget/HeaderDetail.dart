@@ -34,69 +34,8 @@ class _HeaderDetailState extends State<HeaderDetail> {
 
   @override
   void initState() {
-    _backgroundColor = Colors.transparent;
-    _backgroundColorSearch = Colors.black.withOpacity(0.2);
-
-    _colorIcon = Colors.white;
-    _colorTitle = Colors.transparent;
-    _opacity = 0.0;
-    _offset = 0.0;
-    _opacityIcon = 0.0;
-
-    widget.scrollController.addListener(_onScroll);
-    _reload.add(true);
+   _initialValue();
     super.initState();
-  }
-
-  _onScroll() {
-    final scrollOffset = widget.scrollController.offset;
-
-    if (scrollOffset >= _offset && scrollOffset > 0) {
-      _opacity = double.parse((_opacity + _opacityMax).toStringAsFixed(2));
-      _opacityIcon =
-          double.parse((_opacityIcon - _opacityMax).toStringAsFixed(2));
-
-      if (_opacity >= 1.0) {
-        _opacity = 1.0;
-        _colorIcon = Colors.white.withOpacity(_opacity);
-      }
-
-      if (_opacityIcon <= 0) {
-        _opacityIcon = 0.0;
-      }
-
-      _offset = scrollOffset;
-    } else if (scrollOffset < 100) {
-      _opacity = double.parse((_opacity - _opacityMax).toStringAsFixed(2));
-      _opacityIcon =
-          double.parse((_opacityIcon + _opacityMax).toStringAsFixed(2));
-      if (_opacity <= 0.0) {
-        _opacityIcon = 0.2;
-        _opacity = 0.0;
-        _colorIcon = Colors.white.withOpacity(_opacity);
-      }
-
-      if (_opacityIcon > 0.20) {
-        _opacityIcon = _opacityIcon - _opacityMax;
-      }
-    }
-
-    if (scrollOffset >= 100) {
-      _opacity = 1.0;
-      _opacityIcon = 0.0;
-    } else if (scrollOffset <= 0) {
-      _colorIcon = Colors.white;
-      _offset = 0.0;
-      _opacityIcon = 0.2;
-      _opacity = 0.0;
-      // _colorIcon = Colors.white.withOpacity(_opacityIcon);
-    }
-
-    _backgroundColorSearch = Colors.black.withOpacity(_opacityIcon);
-    _backgroundColor = ThemeColor.primaryColor().withOpacity(_opacity);
-    _colorTitle = Colors.black.withOpacity(_opacity);
-
-    _reload.add(true);
   }
 
   @override
@@ -231,5 +170,67 @@ class _HeaderDetailState extends State<HeaderDetail> {
             return SizedBox();
           }
         });
+  }
+  _initialValue(){
+    _backgroundColor = Colors.transparent;
+    _backgroundColorSearch = Colors.black.withOpacity(0.2);
+    _colorIcon = Colors.white;
+    _colorTitle = Colors.transparent;
+    _opacity = 0.0;
+    _offset = 0.0;
+    _opacityIcon = 0.0;
+    widget.scrollController.addListener(_onScroll);
+    _reload.add(true);
+  }
+
+  _onScroll() {
+    final scrollOffset = widget.scrollController.offset;
+
+    if (scrollOffset >= _offset && scrollOffset > 0) {
+      _opacity = double.parse((_opacity + _opacityMax).toStringAsFixed(2));
+      _opacityIcon =
+          double.parse((_opacityIcon - _opacityMax).toStringAsFixed(2));
+
+      if (_opacity >= 1.0) {
+        _opacity = 1.0;
+        _colorIcon = Colors.white.withOpacity(_opacity);
+      }
+
+      if (_opacityIcon <= 0) {
+        _opacityIcon = 0.0;
+      }
+
+      _offset = scrollOffset;
+    } else if (scrollOffset < 100) {
+      _opacity = double.parse((_opacity - _opacityMax).toStringAsFixed(2));
+      _opacityIcon =
+          double.parse((_opacityIcon + _opacityMax).toStringAsFixed(2));
+      if (_opacity <= 0.0) {
+        _opacityIcon = 0.2;
+        _opacity = 0.0;
+        _colorIcon = Colors.white.withOpacity(_opacity);
+      }
+
+      if (_opacityIcon > 0.20) {
+        _opacityIcon = _opacityIcon - _opacityMax;
+      }
+    }
+
+    if (scrollOffset >= 100) {
+      _opacity = 1.0;
+      _opacityIcon = 0.0;
+    } else if (scrollOffset <= 0) {
+      _colorIcon = Colors.white;
+      _offset = 0.0;
+      _opacityIcon = 0.2;
+      _opacity = 0.0;
+      // _colorIcon = Colors.white.withOpacity(_opacityIcon);
+    }
+
+    _backgroundColorSearch = Colors.black.withOpacity(_opacityIcon);
+    _backgroundColor = ThemeColor.primaryColor().withOpacity(_opacity);
+    _colorTitle = Colors.black.withOpacity(_opacity);
+
+    _reload.add(true);
   }
 }

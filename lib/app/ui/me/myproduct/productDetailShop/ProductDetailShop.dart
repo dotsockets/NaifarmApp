@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:full_screen_image/full_screen_image.dart';
@@ -20,7 +19,6 @@ import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
 import 'package:naifarm/app/ui/productdetail/widget/ProductDetail.dart';
 import 'package:naifarm/app/ui/productdetail/widget/ProductInto.dart';
 import 'package:naifarm/app/ui/productdetail/widget/ProductSlide.dart';
-import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -52,37 +50,12 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
   void _init() {
     if (null == bloc) {
       bloc = UploadProductBloc(AppProvider.getApplication(context));
-
       bloc.onError.stream.listen((event) {
-        //FunctionHelper.snackBarShow(scaffoldKey: _scaffoldKey, message: event);
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event);
       });
-      /* bloc.onLoad.stream.listen((event) {
-        if (event) {
-            FunctionHelper.showDialogProcess(context);
-        }else{
-          Navigator.pop(context);
-        }
-      });*/
       bloc.onSuccess.stream.listen((event) {});
-
-      NaiFarmLocalStorage.getProductMyShopCache().then((value) {
-        if (value != null) {
-          for (var data in value.item) {
-            if (data.id == widget.productItem.id) {
-              bloc.productRes.add(data);
-              bloc.onSuccess.add(data);
-              break;
-            }
-          }
-        }
-
-        Usermanager().getUser().then((value) => bloc.getProductDetailShop(
-            context,
-            token: value.token,
-            productId: widget.productItem.id));
-      });
+      _getProduct();
     }
   }
 
@@ -316,10 +289,6 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
           FullScreenWidget(
             backgroundIsTransparent: true,
             child: Center(
-              // child: Hero(
-              //   tag: widget.productImage,
-              //   child: ProductSlide(imgList: imgProductList(imgRes: img)),
-              // ),
               child: ProductSlide(imgList: imgProductList(imgRes: img)),
             ),
           ),
@@ -329,7 +298,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
   }
 
   List imgProductList({List<ImageProductShop> imgRes}) {
-   // List<ProductImage> img = <ProductImage>[];
+
     List<String> image = <String>[];
     if (imgRes.isNotEmpty) {
       for (var item in imgRes) {
@@ -382,5 +351,23 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
       image.add("");
     }
     return image;
+  }
+
+  _getProduct(){
+    NaiFarmLocalStorage.getProductMyShopCache().then((value) {
+      if (value != null) {
+        for (var data in value.item) {
+          if (data.id == widget.productItem.id) {
+            bloc.productRes.add(data);
+            bloc.onSuccess.add(data);
+            break;
+          }
+        }
+      }
+      Usermanager().getUser().then((value) => bloc.getProductDetailShop(
+          context,
+          token: value.token,
+          productId: widget.productItem.id));
+    });
   }
 }
