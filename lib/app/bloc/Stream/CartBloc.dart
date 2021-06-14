@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
 import 'package:naifarm/app/model/pojo/request/OrderRequest.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
+import 'package:naifarm/app/model/pojo/response/CouponResponse.dart';
 import 'package:naifarm/app/model/pojo/response/PaymentRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
@@ -28,7 +29,7 @@ class CartBloc {
   final shippingCost = BehaviorSubject<int>();
   final orderTotalCost = BehaviorSubject<int>();
   final totalPayment = BehaviorSubject<int>();
-
+  final couponList = BehaviorSubject<CouponResponse>();
   bool checkNoteUpdate = true;
   int checkLoop = 0;
 
@@ -47,6 +48,7 @@ class CartBloc {
     shippingCost.close();
     orderTotalCost.close();
     totalPayment.close();
+    couponList.close();
   }
 
   getCartlists(
@@ -462,6 +464,82 @@ class CartBloc {
     cartList.value.data[index].shippingZoneId = snapshot.shippingZoneId;
     checkOut.add(true);
     checkNoteUpdate = false;
+  }
+
+  getCouponlists({BuildContext context, String token}) {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .getCouponLists(context, token: token))
+        .listen((respone) {
+      if (respone.httpCallBack.status == 200) {
+        var item = (respone.respone as CouponResponse);
+        couponList.add(CouponResponse(
+            data: item.data,
+            total: item.total,
+            page: item.page,
+            limit: item.limit));
+        onLoad.add(false);
+      } else {
+        onLoad.add(false);
+        onError.add(respone.httpCallBack);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  addCoupon({BuildContext context, String token, CouponData addData}) async {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .addCoupon(context, token: token, addData: addData))
+        .listen((respone) {
+      if (respone.httpCallBack.status == 200) {
+        var item = (respone.respone as CouponResponse);
+        onSuccess.add(item);
+        onLoad.add(false);
+      } else {
+        onLoad.add(false);
+        onError.add(respone.httpCallBack);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  updateCoupon(
+      {BuildContext context, String token, CouponData updateData}) async {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .updateCoupon(context, token: token, updateData: updateData))
+        .listen((respone) {
+      if (respone.httpCallBack.status == 200) {
+        var item = (respone.respone as CouponResponse);
+        onSuccess.add(item);
+        onLoad.add(false);
+      } else {
+        onLoad.add(false);
+        onError.add(respone.httpCallBack);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  deleteCoupon(BuildContext context, {String token, int couponId}) async {
+    onLoad.add(true);
+    StreamSubscription subscription = Observable.fromFuture(_application
+            .appStoreAPIRepository
+            .deleteCoupon(context, token: token, couponId: couponId))
+        .listen((respone) {
+      if (respone.httpCallBack.status == 200) {
+        onSuccess.add(true);
+        onLoad.add(false);
+      } else {
+        onError.add(respone.httpCallBack);
+        onLoad.add(false);
+      }
+    });
+    _compositeSubscription.add(subscription);
   }
 }
 

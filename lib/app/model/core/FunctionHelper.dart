@@ -287,7 +287,7 @@ class FunctionHelper {
   }
 
   static showPickerDateIOS(BuildContext context, DateTime dateTime,
-      {Function(DateTime) onTap}) {
+      {Function(DateTime) onTap, bool isSetMaxDate = true}) {
     DatePicker.showDatePicker(context,
         theme: DatePickerTheme(
           containerHeight: 210.0,
@@ -299,7 +299,9 @@ class FunctionHelper {
         },
         showTitleActions: true,
         minTime: DateTime(1900, 1, 1),
-        maxTime: DateTime.now(),
+        maxTime: isSetMaxDate
+            ? DateTime.now()
+            : DateTime(DateTime.now().year + 1, 12, 31),
         onConfirm: (date) {
           onTap(date);
         },
@@ -311,12 +313,14 @@ class FunctionHelper {
   }
 
   static Future<void> selectDateAndroid(BuildContext context, DateTime dateTime,
-      {Function(DateTime) onDateTime}) async {
+      {Function(DateTime) onDateTime, bool isSetMaxDate = true}) async {
     onDateTime(await showDatePicker(
       context: context,
       initialDate: dateTime,
       firstDate: DateTime(1900, 1, 1),
-      lastDate: DateTime.now(),
+      lastDate: isSetMaxDate
+          ? DateTime.now()
+          : DateTime(DateTime.now().year + 1, 12, 31),
     ));
   }
 

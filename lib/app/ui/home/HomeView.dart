@@ -74,16 +74,14 @@ class _HomeViewState extends State<HomeView>
       });
 
       NaiFarmLocalStorage.getNowPage().then((value) {
-        if(value==3){
+        if (value == 3) {
           context.read<HomeMenuIndex>().onSelect(0);
           AppRoute.myCart(context, true);
-
-
-        }else{
+        } else {
           context.read<HomeMenuIndex>().onSelect(value);
         }
 
-       // NaiFarmLocalStorage.saveNowPage(0);
+        // NaiFarmLocalStorage.saveNowPage(0);
       });
     }
   }
@@ -201,7 +199,7 @@ class _HomeViewState extends State<HomeView>
     // setState(() {});
     Usermanager().getUser().then(
           (value) => bloc.loadCustomerCount(context, token: value.token),
-    );
+        );
     context.read<HomeDataBloc>().loadHomeData(context);
   }
 
@@ -265,7 +263,7 @@ class _HomeViewState extends State<HomeView>
                               Radius.circular(SizeUtil.borderRadiusFooter())),
                       boxShadow: <BoxShadow>[
                         BoxShadow(
-                         // color: Color(0xFF254117).withOpacity(0.75),
+                          // color: Color(0xFF254117).withOpacity(0.75),
                           color: Colors.black26,
                           blurRadius: 1.5,
                           spreadRadius: 0.5,

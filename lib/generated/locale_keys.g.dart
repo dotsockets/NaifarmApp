@@ -530,5 +530,19 @@ abstract class  LocaleKeys {
   static const server_error_status = 'server_error.status';
   static const server_error_again = 'server_error.again';
   static const server_error = 'server_error';
+  static const coupon_coupon_title = 'coupon.coupon_title';
+  static const coupon_coupon_add = 'coupon.coupon_add';
+  static const coupon_coupon_name = 'coupon.coupon_name';
+  static const coupon_coupon_code = 'coupon.coupon_code';
+  static const coupon_coupon_description = 'coupon.coupon_description';
+  static const coupon_coupon_values = 'coupon.coupon_values';
+  static const coupon_coupon_minorder = 'coupon.coupon_minorder';
+  static const coupon_coupon_type = 'coupon.coupon_type';
+  static const coupon_coupon_quantity = 'coupon.coupon_quantity';
+  static const coupon_coupon_quantityPerCustomer = 'coupon.coupon_quantityPerCustomer';
+  static const coupon_coupon_active = 'coupon.coupon_active';
+  static const coupon_coupon_startdate = 'coupon.coupon_startdate';
+  static const coupon_coupon_enddate = 'coupon.coupon_enddate';
+  static const coupon = 'coupon';
 
 }

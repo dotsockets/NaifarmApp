@@ -12,6 +12,7 @@ import 'package:naifarm/app/model/pojo/request/MyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/OrderRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/RegisterRequest.dart';
+import 'package:naifarm/app/model/pojo/response/CouponResponse.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/ShppingMyShopRequest.dart';
@@ -631,6 +632,25 @@ class APIRepository {
     return _apiProvider.getFeedback(context, id: id, limit: limit, page: page);
   }
 
+  Future<ApiResult> getCouponLists(BuildContext context, {String token}) {
+    return _apiProvider.getCouponLists(context, token: token);
+  }
+
+  Future<ApiResult> addCoupon(BuildContext context,
+      {String token, CouponData addData}) {
+    return _apiProvider.addCoupon(context, token: token, addData: addData);
+  }
+
+  Future<ApiResult> updateCoupon(BuildContext context,
+      {String token, CouponData updateData}) {
+    return _apiProvider.updateCoupon(context,
+        token: token, updateData: updateData);
+  }
+
+  Future<ApiResult> deleteCoupon(BuildContext context,
+      {String token, int couponId}) {
+    return _apiProvider.deleteCoupon(context, token: token, couponId: couponId);
+  }
 //  Observable<List<AppContent>> getTop100FreeApp(){
 //    return Observable.fromFuture(_apiProvider.getTopFreeApp(TOP_100))
 //        .flatMap(_convertFromEntry)

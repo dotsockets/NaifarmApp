@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CarriersRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
+import 'package:naifarm/app/model/pojo/response/CouponResponse.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/FeedbackRespone.dart';
 import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
@@ -43,6 +44,8 @@ import 'package:naifarm/app/ui/me/myproduct/attribute/AttributeView.dart';
 import 'package:naifarm/app/ui/me/myproduct/productDetailShop/ProductDetailShop.dart';
 import 'package:naifarm/app/ui/me/myproductaddtype/ProductAddTypeView.dart';
 import 'package:naifarm/app/ui/me/myproductsetprice/ProductSetPriceView.dart';
+import 'package:naifarm/app/ui/me/myshop/coupon/CouponAddView.dart';
+import 'package:naifarm/app/ui/me/myshop/coupon/CouponView.dart';
 import 'package:naifarm/app/ui/me/myshop/myorderhistory/AddtTrackingNumberView.dart';
 import 'package:naifarm/app/ui/me/myshop/myorderhistory/SellerCanceledView.dart';
 import 'package:naifarm/app/ui/me/myshop/myorderhistory/ConfirmPaymentView.dart';
@@ -116,6 +119,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 import 'package:naifarm/app/ui/me/attributemyproduct/AttributeProductView.dart';
 import 'package:naifarm/app/ui/me/attributemyproduct/AttributeSubProductView.dart';
+
 class AppRoute {
   // static  home(BuildContext context){
   //   Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.rightToLeftWithFade, child: HomeView()));
@@ -971,16 +975,22 @@ class AppRoute {
         }));
   }
 
-  static attributeEdit({BuildContext context,int idAttr,String nameAttr}) {
+  static attributeEdit({BuildContext context, int idAttr, String nameAttr}) {
     Navigator.of(context).push(SwipeablePageRoute(
         canOnlySwipeFromEdge: true,
         builder: (context) {
-          return AttributeEditView(idAttr: idAttr,nameAttr: nameAttr,);
+          return AttributeEditView(
+            idAttr: idAttr,
+            nameAttr: nameAttr,
+          );
         }));
   }
 
   static imageFullScreenView(
-      {BuildContext context, String heroTag, List<String> imgList,int indexImg}) {
+      {BuildContext context,
+      String heroTag,
+      List<String> imgList,
+      int indexImg}) {
     Navigator.push(
         context,
         PageTransition(
@@ -988,7 +998,8 @@ class AppRoute {
             type: PageTransitionType.fade,
             child: ImageFullScreen(
               imgList: imgList,
-              tagHero: heroTag,indexImg: indexImg,
+              tagHero: heroTag,
+              indexImg: indexImg,
             )));
     // Navigator.of(context).push(SwipeablePageRoute(
     //     canOnlySwipeFromEdge: true,
@@ -1107,18 +1118,46 @@ class AppRoute {
         }));
   }
 
-  static attributeProduct({BuildContext context,List<AttributesItemShop> attributeList}) {
+  static attributeProduct(
+      {BuildContext context, List<AttributesItemShop> attributeList}) {
     Navigator.of(context).push(SwipeablePageRoute(
         canOnlySwipeFromEdge: true,
         builder: (context) {
-          return AttributeProductView(attributeList: attributeList,);
+          return AttributeProductView(
+            attributeList: attributeList,
+          );
         }));
   }
-  static attributeSubProduct({BuildContext context,}) {
+
+  static attributeSubProduct({
+    BuildContext context,
+  }) {
     Navigator.of(context).push(SwipeablePageRoute(
         canOnlySwipeFromEdge: true,
         builder: (context) {
           return AttributeSubProductView();
+        }));
+  }
+
+  static coupons({BuildContext context, int shopId}) {
+    Navigator.of(context).push(SwipeablePageRoute(
+        canOnlySwipeFromEdge: true,
+        builder: (context) {
+          return CouponView(
+            shopId: shopId,
+          );
+        }));
+  }
+
+  static Future<bool> couponAdd(
+      {BuildContext context, CouponData couponEdit, int shopId}) async {
+    return await Navigator.of(context).push(SwipeablePageRoute(
+        canOnlySwipeFromEdge: true,
+        builder: (context) {
+          return CouponAddView(
+            couponEdit: couponEdit,
+            shopId: shopId,
+          );
         }));
   }
 }
