@@ -47,8 +47,8 @@ class AppNaiFarmApplication implements Application {
   void _initAPIRepository() {
     var options = BaseOptions(
       baseUrl: Env.value.baseUrl,
-      connectTimeout: 20000,
-      receiveTimeout: 20000,
+      connectTimeout: 30000,
+      receiveTimeout: 30000,
     );
     _dio.options = options;
     APIProvider apiProvider = APIProvider(_dio, baseUrl: Env.value.baseUrl);

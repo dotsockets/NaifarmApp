@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:full_screen_image/full_screen_image.dart';
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -26,6 +27,11 @@ import 'package:naifarm/app/ui/productdetail/widget/BuildChoosesize.dart';
 import 'package:naifarm/app/ui/productdetail/widget/HeaderDetail.dart';
 import 'package:naifarm/app/ui/productdetail/widget/RatingProduct.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
+<<<<<<< HEAD
+=======
+import 'package:naifarm/config/Env.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+>>>>>>> bc61649cd081c31c096ab79eb72efb2cf1106304
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
@@ -84,7 +90,13 @@ class _ProductDetailViewState extends State<ProductDetailView>
      _initialValue();
       bloc = ProductBloc(AppProvider.getApplication(context));
       bloc.productItem.add(widget.productItem);
+<<<<<<< HEAD
       bloc.zipProductDetail.add(ProductObjectCombine(producItemRespone: widget.productItem));
+=======
+
+      bloc.zipProductDetail.add(widget.productItem);
+
+>>>>>>> bc61649cd081c31c096ab79eb72efb2cf1106304
       bloc.onError.stream.listen((event) {
         checkScrollControl.add(true);
         if (event != null) {
@@ -147,7 +159,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
               // if (data.productObjectCombine.dataWishlists != null) {
 
 
-              bloc.zipProductDetail.add(data.productObjectCombine);
+              bloc.zipProductDetail.add(data.productObjectCombine.producItemRespone);
               bloc.searchProduct.add(data.searchRespone);
               break;
             }
@@ -170,6 +182,8 @@ class _ProductDetailViewState extends State<ProductDetailView>
         checkMyShop.add(0);
       }
     });
+
+
   }
 
   void iSLogin() async => isLogin = await Usermanager().isLogin();
@@ -369,18 +383,18 @@ class _ProductDetailViewState extends State<ProductDetailView>
           StreamBuilder(
               stream: bloc.zipProductDetail.stream,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
-                var item = (snapshot.data as ProductObjectCombine);
-                if (snapshot.hasData && item.producItemRespone != null) {
+                var item = (snapshot.data as ProducItemRespone);
+                if (snapshot.hasData && item != null) {
                   return FullScreenWidget(
                     backgroundIsTransparent: true,
                     child: Hero(
                       tag: "customTag",
                       child: Center(
                         child: ProductSlide(
-                            imgList: item.producItemRespone !=null && item.producItemRespone.image.length!=0?item.producItemRespone.image
+                            imgList: item !=null && item.image.length!=0?item.image
                                 .map((e) =>
                                     "${e.path.imgUrl()}")
-                                .toList():[""],stockQuantity: item.producItemRespone.inventories!=null?item.producItemRespone.inventories[0].stockQuantity:1,),
+                                .toList():[""],stockQuantity: item.inventories!=null?item.inventories[0].stockQuantity:1,),
                       ),
                     ),
                   );
@@ -401,24 +415,21 @@ class _ProductDetailViewState extends State<ProductDetailView>
           StreamBuilder(
               stream: bloc.zipProductDetail.stream,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
-                var item = (snapshot.data as ProductObjectCombine);
-                if (snapshot.hasData && item.producItemRespone != null) {
+                var item = (snapshot.data as ProducItemRespone);
+                if (snapshot.hasData && item != null) {
                   return buildProductDetail(item);
                 } else {
-                  return widget.productItem != null
-                      ? buildProductDetail(ProductObjectCombine(
-                          producItemRespone: widget.productItem))
-                      : SizedBox();
+                  return  SizedBox();
                 }
               }),
           StreamBuilder(
               stream: bloc.zipProductDetail.stream,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
-                var item = (snapshot.data as ProductObjectCombine);
-                if (snapshot.hasData && item.producItemRespone != null) {
+                var item = (snapshot.data as ProducItemRespone);
+                if (snapshot.hasData && item != null) {
                   return Column(
                     children: [
-                      ProductDetail(productItem: item.producItemRespone),
+                      ProductDetail(productItem: item),
                       divider(),
                       StreamBuilder(
                         stream: bloc.searchProduct.stream,
@@ -441,7 +452,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                   AppRoute.productMore(
                                       context: context,
                                       apiLink:
-                                          "products/types/popular?categoryGroupId=${item.producItemRespone.categories[0].category.categorySubGroup.categoryGroup.id}",
+                                          "products/types/popular?categoryGroupId=${item.categories[0].category.categorySubGroup.categoryGroup.id}",
                                       barTxt:
                                           LocaleKeys.recommend_you_like.tr());
                                 },
@@ -468,7 +479,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                       FutureBuilder<FeedbackRespone>(
                           future: bloc.getFeedbackFuture(context,
                               limit: 10,
-                              id: item.producItemRespone.id,
+                              id: item.id,
                               page: 1),
                           // a Future<String> or null
                           builder: (BuildContext context,
@@ -478,7 +489,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                 return SizedBox();
                               case ConnectionState.waiting:
                                 return RatingProduct(
-                                  productId: item.producItemRespone.id,
+                                  productId: item.id,
                                   feedbackRespone: snapshot.data,
                                 );
                               default:
@@ -486,7 +497,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                   return SizedBox();
                                 else
                                   return RatingProduct(
-                                    productId: item.producItemRespone.id,
+                                    productId: item.id,
                                     feedbackRespone: snapshot.data,
                                   );
                             }
@@ -500,12 +511,12 @@ class _ProductDetailViewState extends State<ProductDetailView>
         ],
       );
 
-  Widget buildProductDetail(ProductObjectCombine item) {
+  Widget buildProductDetail(ProducItemRespone item) {
+
     return Column(
       children: [
         ProductInto(
-            data: item.producItemRespone,
-            dataWishlist: item.dataWishlists,
+            data: item,
             scaffoldKey: _scaffoldKey,
             isLogin: isLogin,
             callbackLogin: () {
@@ -521,19 +532,19 @@ class _ProductDetailViewState extends State<ProductDetailView>
         InkWell(
           child: ShopOwn(
               rateStyle: true,
-              shopItem: item.producItemRespone.shop,
+              shopItem: item.shop,
               shopRespone: MyShopRespone(
-                  countProduct: item.producItemRespone.shop.countProduct,
-                  id: item.producItemRespone.shopId)),
+                  countProduct: item.shop.countProduct,
+                  id: item.shopId)),
           onTap: () {
             AppRoute.shopMain(
                 context: context,
                 myShopRespone: MyShopRespone(
-                    id: item.producItemRespone.shop.id,
-                    name: item.producItemRespone.name,
-                    countProduct: item.producItemRespone.shop.countProduct,
-                    image: item.producItemRespone.shop.image,
-                    updatedAt: item.producItemRespone.shop.updatedAt));
+                    id: item.shop.id,
+                    name: item.name,
+                    countProduct: item.shop.countProduct,
+                    image: item.shop.image,
+                    updatedAt: item.shop.updatedAt));
           },
         ),
         divider(),
@@ -636,8 +647,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                               if (isLogin) {
                                 List<Items> items = <Items>[];
                                 items.add(Items(
-                                    inventoryId: bloc.zipProductDetail.value
-                                        .producItemRespone.inventories[0].id,
+                                    inventoryId: bloc.zipProductDetail.value.inventories[0].id,
                                     quantity: 1));
                                 Usermanager()
                                     .getUser()
@@ -672,7 +682,6 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                         inventoryId: bloc
                                             .zipProductDetail
                                             .value
-                                            .producItemRespone
                                             .inventories[0]
                                             .id,
                                         quantity: 1));
@@ -750,7 +759,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
         Usermanager().getUser().then((value) => bloc.addWishlists(context,
             productId: widget.productItem.id,
             inventoryId:
-                bloc.zipProductDetail.value.producItemRespone.inventories[0].id,
+                bloc.zipProductDetail.value.inventories[0].id,
             token: value.token));
         item.data = <DataWishlists>[];
         item.total = 1;

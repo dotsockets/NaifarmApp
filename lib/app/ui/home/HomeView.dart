@@ -63,7 +63,17 @@ class _HomeViewState extends State<HomeView>
         AppRoute.productDetail(context,
             productImage: "product_hot_${item.id}1", productItem: item);
       });
-      _selectPage();
+
+      NaiFarmLocalStorage.getNowPage().then((value) {
+        if (value == 3) {
+          context.read<HomeMenuIndex>().onSelect(0);
+          AppRoute.myCart(context, true);
+        } else {
+          context.read<HomeMenuIndex>().onSelect(value);
+        }
+
+        // NaiFarmLocalStorage.saveNowPage(0);
+      });
     }
   }
 
@@ -245,7 +255,7 @@ class _HomeViewState extends State<HomeView>
                               Radius.circular(SizeUtil.borderRadiusFooter())),
                       boxShadow: <BoxShadow>[
                         BoxShadow(
-                         // color: Color(0xFF254117).withOpacity(0.75),
+                          // color: Color(0xFF254117).withOpacity(0.75),
                           color: Colors.black26,
                           blurRadius: 1.5,
                           spreadRadius: 0.5,

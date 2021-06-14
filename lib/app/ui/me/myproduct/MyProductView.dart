@@ -74,7 +74,7 @@ class _MyProductViewState extends State<MyProductView> {
             child: Container(
               child: AppBar(
                 elevation: 0,
-                toolbarHeight:6.5.h,
+                toolbarHeight: 6.5.h,
                 iconTheme: IconThemeData(
                   color: Colors.white, //change your color here
                 ),
@@ -104,7 +104,9 @@ class _MyProductViewState extends State<MyProductView> {
                             tabNum: tabNum);
                       }),
                   Container(
-                    padding: EdgeInsets.only(right:SizeUtil.paddingCart().w,left: SizeUtil.paddingItem().w),
+                    padding: EdgeInsets.only(
+                        right: SizeUtil.paddingCart().w,
+                        left: SizeUtil.paddingItem().w),
                     child: IconButton(
                       icon: Icon(
                         FontAwesome.ellipsis_v,
@@ -112,11 +114,7 @@ class _MyProductViewState extends State<MyProductView> {
                         color: Colors.white,
                       ),
                       onPressed: () {
-                        buttonDialog(context,
-                            message: [LocaleKeys.attributes_set.tr()], onClick: () {
-                          Navigator.of(context).pop();
-                          AppRoute.attribute(context: context);
-                        });
+                        buttonDialog(context, shopId: widget.shopId);
                       },
                     ),
                   )
@@ -233,7 +231,6 @@ class _MyProductViewState extends State<MyProductView> {
             var result = await AppRoute.imageProduct(context,
                 isactive: IsActive.ReplacemenView);
             if (result != null && result) {
-
               Usermanager().getUser().then((value) => bloc.getProductMyShop(
                   context,
                   page: "1",
@@ -278,33 +275,57 @@ class _MyProductViewState extends State<MyProductView> {
   }
 }
 
-buttonDialog(BuildContext context, {Function() onClick, List<String> message}) {
+buttonDialog(BuildContext context, {int shopId}) {
   showDialog<bool>(
     context: context,
     barrierDismissible: true,
     builder: (BuildContext context) {
-      return Dialog(
-        child: InkWell(
-          onTap: () {
-            onClick();
-          },
-          child: Container(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: List.generate(
-                      message.length,
-                      (index) => Container(
-                            width: MediaQuery.of(context).size.width,
-                            child: Text(
-                              message[index],
-                              style: FunctionHelper.fontTheme(
-                                  fontSize: SizeUtil.titleFontSize().sp,
-                                  fontWeight: FontWeight.w500),
-                              textAlign: TextAlign.center,
-                            ),
-                          )))),
-        ),
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Dialog(
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).pop();
+                AppRoute.attribute(context: context);
+              },
+              child: Container(
+                padding: EdgeInsets.all(20),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Text(
+                    LocaleKeys.attributes_set.tr(),
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.w500),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Dialog(
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).pop();
+                AppRoute.coupons(context: context, shopId: shopId);
+              },
+              child: Container(
+                padding: EdgeInsets.all(20),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Text(
+                    LocaleKeys.coupon_coupon_title.tr(),
+                    style: FunctionHelper.fontTheme(
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.w500),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       );
     },
   );

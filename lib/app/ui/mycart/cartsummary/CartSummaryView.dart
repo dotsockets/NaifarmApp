@@ -78,8 +78,12 @@ class _CartSummaryViewState extends State<CartSummaryView> {
       bloc.paymentList.stream.listen((event) {
         bloc.checkOut.add(true);
       });
-      _getAddr();
-      _getPayment();
+
+      Usermanager().getUser().then((value) {
+        bloc.addressesList(context, token: value.token, type: true);
+        bloc.getCouponlists(context: context, token: value.token);
+      });
+      bloc.getPaymentList(context, shopIds: bloc.getAllShopID());
     }
   }
 
@@ -221,7 +225,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
             ),
             fit: BoxFit.cover,
             imageUrl: item.shop.image.length != 0
-                ? "${item.shop.image[0].path.imgUrl()}"
+                ? "${Env.value.baseUrl}/storage/images/${item.shop.image[0].path}"
                 : "",
             errorWidget: (context, url, error) => Container(
                 width: 7.0.w,
@@ -263,7 +267,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                 ),
                 fit: BoxFit.cover,
                 imageUrl: item.inventory.product.image.length != 0
-                    ? "${item.inventory.product.image[0].path.imgUrl()}"
+                    ? "${Env.value.baseUrl}/storage/images/${item.inventory.product.image[0].path}"
                     : "",
                 // errorWidget: (context, url, error) => Container(
                 //     height: 30,
@@ -341,22 +345,32 @@ class _CartSummaryViewState extends State<CartSummaryView> {
   }
 
   Widget buildcoupon() {
-    return Container(
-        color: Colors.white,
-        padding: EdgeInsets.only(right: 5, left: 0),
-        child: ListMenuItem(
-          icon: 'assets/images/png/sale_cart.png',
-          title: LocaleKeys.cart_discount_from.tr() + " Naifarm",
-          message: "",
-          iconSize: 8.0.w,
-          fontWeight: FontWeight.w500,
-          onClick: () {
-            showMaterialModalBottomSheet(
-                context: context,
-                builder: (context) => ModalFitBottomSheet(
-                    discountModel: CartViewModel().getDiscountFormShop()));
-          },
-        ));
+    return StreamBuilder(
+        stream: bloc.couponList.stream,
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snap) {
+          if (snap.hasData) {
+            return Container(
+                color: Colors.white,
+                padding: EdgeInsets.only(right: 5, left: 0),
+                child: ListMenuItem(
+                  icon: 'assets/images/png/sale_cart.png',
+                  title: LocaleKeys.cart_discount_from.tr() + " Naifarm",
+                  message: "",
+                  iconSize: 8.0.w,
+                  fontWeight: FontWeight.w500,
+                  onClick: () {
+                    showMaterialModalBottomSheet(
+                        context: context,
+                        builder: (context) => ModalFitBottomSheet(
+                              couponResponse: snap.data,
+                              title: "",
+                            ));
+                  },
+                ));
+          } else {
+            return Container();
+          }
+        });
   }
 
   Widget introShipment({CartData item, int index}) {
@@ -424,7 +438,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                             SizedBox(width: 1.0.w),
                             Text(
                                 //"฿${snapshot.data.rate != null ? snapshot.data.rate : 0}",
-                                "฿${snapshot.data.rate != null ? snapshot.data.rate.priceFormat() : 0}",
+                                "฿${NumberFormat("#,##0", "en_US").format(snapshot.data.rate != null ? snapshot.data.rate : 0)}",
                                 style: FunctionHelper.fontTheme(
                                     fontSize: SizeUtil.titleFontSize().sp,
                                     color: Colors.black)),
@@ -462,44 +476,54 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         SizedBox(
           height: 1.0.h,
         ),
-        InkWell(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Image.asset(
-                    "assets/images/png/sale_cart.png",
-                    width: 5.0.w,
-                    height: 5.0.w,
+        StreamBuilder(
+            stream: bloc.couponList.stream,
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snap) {
+              if (snap.hasData) {
+                return InkWell(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Image.asset(
+                            "assets/images/png/sale_cart.png",
+                            width: 5.0.w,
+                            height: 5.0.w,
+                          ),
+                          SizedBox(
+                            width: 1.0.h,
+                          ),
+                          Text("Discount coupons from the store",
+                              style: FunctionHelper.fontTheme(
+                                  fontSize: SizeUtil.titleFontSize().sp,
+                                  color: Colors.black)),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.grey.withOpacity(0.7),
+                            size: 4.0.w,
+                          )
+                        ],
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    width: 1.0.h,
-                  ),
-                  Text("Discount coupons from the store",
-                      style: FunctionHelper.fontTheme(
-                          fontSize: SizeUtil.titleFontSize().sp,
-                          color: Colors.black)),
-                ],
-              ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    color: Colors.grey.withOpacity(0.7),
-                    size: 4.0.w,
-                  )
-                ],
-              ),
-            ],
-          ),
-          onTap: () {
-            showMaterialModalBottomSheet(
-                context: context,
-                builder: (context) => ModalFitBottomSheet(
-                    discountModel: CartViewModel().getDiscount()));
-          },
-        ),
+                  onTap: () {
+                    showMaterialModalBottomSheet(
+                        context: context,
+                        builder: (context) => ModalFitBottomSheet(
+                              couponResponse: snap.data,
+                              title: "",
+                            ));
+                  },
+                );
+              } else {
+                return Container();
+              }
+            }),
         SizedBox(
           height: 2.0.h,
         ),
@@ -639,7 +663,23 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                                     bloc.paymentList.add(result);
                                   }
                                 },
-                              ));
+                              );
+                            }):ListMenuItem(
+                          icon: 'assets/images/png/payment.png',
+                          title: LocaleKeys.select.tr() +
+                              LocaleKeys.me_title_pay.tr(),
+                          message: data.name,
+                          iconSize: 7.0.w,
+                          fontWeight: FontWeight.w500,
+                          onClick: () async {
+                            final result = await AppRoute.cartBank(context,
+                                paymentRespone: bloc.paymentList.value,
+                                allShopID: bloc.getAllShopID());
+                            if (result != null) {
+                              bloc.paymentList.add(result);
+                            }
+                          },
+                        ));
                   } else {
                     return Container(
                         color: Colors.white,
@@ -672,7 +712,8 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                               style: FunctionHelper.fontTheme(
                                   fontSize: SizeUtil.titleSmallFontSize().sp,
                                   color: Colors.black.withOpacity(0.6))),
-                          Text("฿${(snapshot.data as int).priceFormat()}",
+                          Text(
+                              "฿${NumberFormat("#,##0", "en_US").format(snapshot.data)}",
                               // "฿${snapshot.data}",
                               style: FunctionHelper.fontTheme(
                                   fontSize: SizeUtil.titleSmallFontSize().sp,

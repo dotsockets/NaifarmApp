@@ -586,5 +586,20 @@
     "default": "Unable to connect with the server, please try again.",
     "status":"Received invalid status code",
     "again":"Please check your internet connection and connect again"
+  },
+  "coupon": {
+    "coupon_title": "Coupons",
+    "coupon_add": "Add Coupons",
+    "coupon_name": "Coupon Name",
+    "coupon_code": "Coupon Code",
+    "coupon_description": "Coupon Description",
+    "coupon_values": "Coupon Values",
+    "coupon_minorder": "Coupon Min Order Amount",
+    "coupon_type": "Coupon Type",
+    "coupon_quantity": "Coupon Quantity",
+    "coupon_quantityPerCustomer": "Quantity Per Customer",
+    "coupon_active": "Active Coupon",
+    "coupon_startdate": "Start Date",
+    "coupon_enddate": "End Date"
   }
 }

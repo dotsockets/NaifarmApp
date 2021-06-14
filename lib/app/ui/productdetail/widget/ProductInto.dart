@@ -38,8 +38,11 @@ class ProductInto extends StatelessWidget {
       : super(key: key);
   ProductBloc bloc;
 
+
   void _init(BuildContext context) {
+
     if (null == bloc) {
+
       bloc = ProductBloc(AppProvider.getApplication(context));
       //bloc.ProductItem.add(widget.productItem);
       bloc.onError.stream.listen((event) {
@@ -57,9 +60,9 @@ class ProductInto extends StatelessWidget {
         }
       });
 
-      if (dataWishlist != null) {
-        bloc.wishlists.add(WishlistsRespone(data: [dataWishlist], total: 1));
-      }
+      // if (dataWishlist != null) {
+      //   bloc.wishlists.add(WishlistsRespone(data: [dataWishlist], total: 1));
+      // }
 
       bloc.isStatus.stream.listen((event) {
         if (event) {
@@ -74,8 +77,11 @@ class ProductInto extends StatelessWidget {
               message: LocaleKeys.my_product_unlike.tr());
         }
       });
+
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -201,22 +207,45 @@ class ProductInto extends StatelessWidget {
                     ? StreamBuilder(
                         stream: bloc.wishlists.stream,
                         builder:
-                            (BuildContext context, AsyncSnapshot snapshot) {
+                            (BuildContext context, AsyncSnapshot snapshotwish) {
                           if (isLogin) {
-                            if (snapshot.hasData &&
-                                (snapshot.data as WishlistsRespone) != null) {
-                              if ((snapshot.data as WishlistsRespone).total >
-                                  0) {
-                                return likeContent(
-                                    item: snapshot.data, context: context);
-                              } else {
-                                return likeContent(
-                                    item: snapshot.data, context: context);
-                              }
-                            } else {
-                              return likeContent(
-                                  item: WishlistsRespone(), context: context);
-                            }
+                            // if (snapshot.hasData &&
+                            //     (snapshot.data as WishlistsRespone) != null) {
+                            //   if ((snapshot.data as WishlistsRespone).total >
+                            //       0) {
+                            //     return likeContent(
+                            //         item: snapshot.data, context: context);
+                            //   } else {
+                            //     return likeContent(
+                            //         item: snapshot.data, context: context);
+                            //   }
+                            // } else {
+                            //   return likeContent(
+                            //       item: WishlistsRespone(), context: context);
+                            // }
+
+                            return Container(
+                              child: FutureBuilder<DataWishlists>(
+                                  future: bloc.getWishlistsByProductFuture(context,id: data.id),
+                                  // a Future<String> or null
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<DataWishlists> snapshot) {
+
+                                    switch (snapshot.connectionState) {
+                                      case ConnectionState.none:
+                                        return SizedBox();
+                                      case ConnectionState.waiting:
+                                          return likeContent(item: WishlistsRespone(data: (snapshotwish.data as WishlistsRespone)!=null ?[DataWishlists()]:[]), context: context);
+
+                                      default:
+                                        if (snapshot.hasData && snapshot.data!=null)
+                                          return likeContent(item: WishlistsRespone(data: [snapshot.data]), context: context);
+
+                                        else
+                                          return likeContent(item: WishlistsRespone(data: []), context: context);
+                                    }
+                                  }),
+                            );
                           } else {
                             return likeContentNoLogin(context);
                           }
@@ -260,7 +289,7 @@ class ProductInto extends StatelessWidget {
   Widget likeContent({WishlistsRespone item, BuildContext context}) {
     return LikeButton(
       size: 10.0.w,
-      isLiked: item.total > 0 ? true : false,
+      isLiked: item.data!=null && item.data.isNotEmpty  ? true : false,
       circleColor:
           const CircleColor(start: Color(0xffF03A13), end: Color(0xffE6593A)),
       bubblesColor: const BubblesColor(
@@ -278,20 +307,23 @@ class ProductInto extends StatelessWidget {
       likeCountAnimationType: LikeCountAnimationType.part,
       likeCountPadding: EdgeInsets.all(1.0.w),
       onTap: (bool like) =>
-          onLikeButtonTapped(item.total > 0 ? true : false, item, context),
+          onLikeButtonTapped(item.data!=null && item.data.isNotEmpty ? true : false, item, context),
     );
   }
 
   Future<bool> onLikeButtonTapped(
       bool isLiked, WishlistsRespone item, BuildContext context) async {
-    if (item.total > 0) {
-      int id = item.data[0].id;
-      item.data = <DataWishlists>[];
-      item.total = 0;
-      bloc.wishlists.add(item);
+    if (item.data!=null && item.data.isNotEmpty) {
+
+      // int id = item.data[0].id;
+      // int inventoryId = item.data[0].inventoryId;
+      //bloc.wishlists.add(WishlistsRespone());
+     // bloc.wishlists.add(null);
       Usermanager().getUser().then((value) => bloc.deleteWishlists(context,
-          productId: data.id, wishId: id, token: value.token));
+          productId: data.inventories[0].id, wishId: item.data[0].id, token: value.token,reload: true));
     } else {
+
+      bloc.wishlists.add(WishlistsRespone(data: [DataWishlists()]));
       Usermanager().getUser().then((value) => bloc.addWishlists(context,
           productId: data.id,
           inventoryId: data.inventories[0].id,

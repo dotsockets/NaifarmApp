@@ -80,11 +80,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
               _searchText.add(text);
             },
             onTab: () {
-              buttonDialog(context, message: [LocaleKeys.attributes_set.tr()],
-                  onClick: () {
-                Navigator.of(context).pop();
-                AppRoute.attribute(context: context);
-              });
+              buttonDialog(context, shopId: widget.shopID);
             },
           ),
           body:
@@ -101,7 +97,9 @@ class _SearchMyProductState extends State<SearchMyProduct> {
             child: Container(
               child: Column(
                 children: [
-                  SizedBox(height: SizeUtil.paddingMenu().w,),
+                  SizedBox(
+                    height: SizeUtil.paddingMenu().w,
+                  ),
                   SizedBox(
                     height: SizeUtil.tabBarHeight().h,
                     child: Container(

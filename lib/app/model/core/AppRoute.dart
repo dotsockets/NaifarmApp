@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CarriersRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
+import 'package:naifarm/app/model/pojo/response/CouponResponse.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerInfoRespone.dart';
 import 'package:naifarm/app/model/pojo/response/FeedbackRespone.dart';
 import 'package:naifarm/app/model/pojo/response/FlashsaleRespone.dart';
@@ -28,6 +29,8 @@ import 'package:naifarm/app/ui/home/HomeView.dart';
 import 'package:naifarm/app/ui/login/LoginView.dart';
 import 'package:naifarm/app/ui/login/SplashLoginView.dart';
 import 'package:naifarm/app/ui/market/MarketView.dart';
+import 'package:naifarm/app/ui/me/attributemyproduct/AttributeProductAddView.dart';
+import 'package:naifarm/app/ui/me/attributemyproduct/AttributeProductEditView.dart';
 import 'package:naifarm/app/ui/me/delivery/DeliveryEditView.dart';
 import 'package:naifarm/app/ui/me/delivery/DeliverySelectView.dart';
 import 'package:naifarm/app/ui/me/deliveryCost/DeliveryCostView.dart';
@@ -43,6 +46,8 @@ import 'package:naifarm/app/ui/me/myproduct/attribute/AttributeView.dart';
 import 'package:naifarm/app/ui/me/myproduct/productDetailShop/ProductDetailShop.dart';
 import 'package:naifarm/app/ui/me/myproductaddtype/ProductAddTypeView.dart';
 import 'package:naifarm/app/ui/me/myproductsetprice/ProductSetPriceView.dart';
+import 'package:naifarm/app/ui/me/myshop/coupon/CouponAddView.dart';
+import 'package:naifarm/app/ui/me/myshop/coupon/CouponView.dart';
 import 'package:naifarm/app/ui/me/myshop/myorderhistory/AddtTrackingNumberView.dart';
 import 'package:naifarm/app/ui/me/myshop/myorderhistory/SellerCanceledView.dart';
 import 'package:naifarm/app/ui/me/myshop/myorderhistory/ConfirmPaymentView.dart';
@@ -972,7 +977,7 @@ class AppRoute {
         }));
   }
 
-  static attributeEdit({BuildContext context,int idAttr,String nameAttr}) {
+  static attributeEdit({BuildContext context, int idAttr, String nameAttr}) {
     Navigator.of(context).push(SwipeablePageRoute(
         canOnlySwipeFromEdge: true,
         builder: (context) {
@@ -981,7 +986,10 @@ class AppRoute {
   }
 
   static imageFullScreenView(
-      {BuildContext context, String heroTag, List<String> imgList,int indexImg}) {
+      {BuildContext context,
+      String heroTag,
+      List<String> imgList,
+      int indexImg}) {
     Navigator.push(
         context,
         PageTransition(
@@ -989,7 +997,8 @@ class AppRoute {
             type: PageTransitionType.fade,
             child: ImageFullScreen(
               imgList: imgList,
-              tagHero: heroTag,indexImg: indexImg,
+              tagHero: heroTag,
+              indexImg: indexImg,
             )));
     // Navigator.of(context).push(SwipeablePageRoute(
     //     canOnlySwipeFromEdge: true,
@@ -1129,6 +1138,28 @@ class AppRoute {
         canOnlySwipeFromEdge: true,
         builder: (context) {
           return AttributeProductEditView(nameId: nameId,value: value,name: name,);
+        }));
+  }
+
+  static coupons({BuildContext context, int shopId}) {
+    Navigator.of(context).push(SwipeablePageRoute(
+        canOnlySwipeFromEdge: true,
+        builder: (context) {
+          return CouponView(
+            shopId: shopId,
+          );
+        }));
+  }
+
+  static Future<bool> couponAdd(
+      {BuildContext context, CouponData couponEdit, int shopId}) async {
+    return await Navigator.of(context).push(SwipeablePageRoute(
+        canOnlySwipeFromEdge: true,
+        builder: (context) {
+          return CouponAddView(
+            couponEdit: couponEdit,
+            shopId: shopId,
+          );
         }));
   }
 }

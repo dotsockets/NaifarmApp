@@ -47,6 +47,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   CartBloc bloc;
   NotiBloc blocNoti;
+
   final _indicatorController = IndicatorController();
   static const _indicatorSize = 50.0;
 
@@ -86,8 +87,22 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
          _getCusCount();
         }
       });
-      _getCartCache();
-      _getCart();
+
+      NaiFarmLocalStorage.getCartCache().then((value) {
+        if (value != null) {
+          bloc.cartList.add(CartResponse(
+              data: value.data, total: value.total, selectAll: false));
+        }
+      });
+
+      Usermanager().getUser().then((value) {
+        bloc.getCartlists(
+            context: context,
+            token: value.token,
+            cartActive: CartActive.CartList,
+            cartNowId: widget.cartNowId);
+        bloc.getCouponlists(context: context, token: value.token);
+      });
     }
   }
 
@@ -259,22 +274,32 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
   }
 
   Widget buildDiscountCode() {
-    return Container(
-        color: Colors.white,
-        padding: EdgeInsets.only(right: 5, left: 0),
-        child: ListMenuItem(
-          icon: 'assets/images/png/sale_cart.png',
-          title: LocaleKeys.cart_discount_from.tr(),
-          message: LocaleKeys.cart_select_discount.tr(),
-          iconSize: 8.0.w,
-          fontWeight: FontWeight.w500,
-          onClick: () {
-            showMaterialModalBottomSheet(
-                context: context,
-                builder: (context) => ModalFitBottomSheet(
-                    discountModel: CartViewModel().getDiscountFormShop()));
-          },
-        ));
+    return StreamBuilder(
+        stream: bloc.couponList.stream,
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snap) {
+          if (snap.hasData) {
+            return Container(
+                color: Colors.white,
+                padding: EdgeInsets.only(right: 5, left: 0),
+                child: ListMenuItem(
+                  icon: 'assets/images/png/sale_cart.png',
+                  title: LocaleKeys.cart_discount_from.tr(),
+                  message: LocaleKeys.cart_select_discount.tr(),
+                  iconSize: 8.0.w,
+                  fontWeight: FontWeight.w500,
+                  onClick: () {
+                    showMaterialModalBottomSheet(
+                        context: context,
+                        builder: (context) => ModalFitBottomSheet(
+                              couponResponse: snap.data,
+                              title: "",
+                            ));
+                  },
+                ));
+          } else {
+            return Container();
+          }
+        });
   }
 
   Widget cardCart({CartData item, int index}) {
@@ -390,7 +415,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
               ),
               fit: BoxFit.cover,
               imageUrl: item.image.length != 0
-                  ? "${item.image[0].path.imgUrl()}"
+                  ? "${Env.value.baseUrl}/storage/images/${item.image[0].path}"
                   : "",
               errorWidget: (context, url, error) => Container(
                   width: 7.0.w,
@@ -703,22 +728,32 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
   }
 
   Widget buildcoupon() {
-    return Container(
-        color: Colors.white,
-        padding: EdgeInsets.only(right: 1.0.w, left: 0),
-        child: ListMenuItem(
-          icon: 'assets/images/png/sale_cart.png',
-          title: LocaleKeys.cart_discount.tr(),
-          message: "เลือกโค๊ดส่วนลด",
-          iconSize: 3.0.h,
-          fontWeight: FontWeight.w500,
-          onClick: () {
-            showMaterialModalBottomSheet(
-                context: context,
-                builder: (context) => ModalFitBottomSheet(
-                    discountModel: CartViewModel().getDiscount()));
-          },
-        ));
+    return StreamBuilder(
+        stream: bloc.couponList.stream,
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snap) {
+          if (snap.hasData) {
+            return Container(
+                color: Colors.white,
+                padding: EdgeInsets.only(right: 1.0.w, left: 0),
+                child: ListMenuItem(
+                  icon: 'assets/images/png/sale_cart.png',
+                  title: LocaleKeys.cart_discount.tr(),
+                  message: "เลือกโค๊ดส่วนลด",
+                  iconSize: 3.0.h,
+                  fontWeight: FontWeight.w500,
+                  onClick: () {
+                    showMaterialModalBottomSheet(
+                        context: context,
+                        builder: (context) => ModalFitBottomSheet(
+                              couponResponse: snap.data,
+                              title: "",
+                            ));
+                  },
+                ));
+          } else {
+            return Container();
+          }
+        });
   }
 
   Widget introShipment() {

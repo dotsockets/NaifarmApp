@@ -1,17 +1,27 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:focused_menu/focused_menu.dart';
+import 'package:focused_menu/modals.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
+import 'package:naifarm/app/model/core/AppProvider.dart';
+import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/pojo/request/CartRequest.dart';
+import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:share/share.dart';
 import 'package:sizer/sizer.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import "package:naifarm/app/model/core/ExtensionCore.dart";
+import 'package:vibration/vibration.dart';
 
 
 class ProductItemCard extends StatelessWidget {
@@ -30,12 +40,104 @@ class ProductItemCard extends StatelessWidget {
       this.onClick})
       : super(key: key);
 
+  ProductBloc productBloc;
+
+  init(BuildContext context) {
+
+    if (productBloc == null) {
+      productBloc = ProductBloc(AppProvider.getApplication(context));
+      productBloc.onLoad.stream.listen((event) {
+        if (event) {
+          FunctionHelper.showDialogProcess(context);
+        } else {
+          Navigator.of(context).pop();
+        }
+      });
+      productBloc.onError.stream.listen((event) {
+        if (event != null) {
+          FunctionHelper.alertDialogShop(context,
+              title: LocaleKeys.btn_error.tr(), message: event.message);
+        }
+      });
+
+      productBloc.productItem.stream.listen((event) {
+        List<Items> items = <Items>[];
+        items.add(Items(inventoryId: event.inventories[0].id, quantity: 1));
+
+        Usermanager()
+            .getUser()
+            .then((value) => productBloc.addCartlists(context,
+            addNow: false,
+            onload: false,
+            cartRequest: CartRequest(
+              shopId: event.shopId,
+              items: items,
+            ),
+            token: value.token));
+      });
+      productBloc.onSuccess.stream.listen((event) {
+        //onUpload = true;
+        if (event is CartResponse) {
+          AppRoute.myCart(context, true, cartNowId: productBloc.bayNow);
+          // Usermanager().getUser().then((value) => bloc.GetMyWishlistsById(token: value.token,productId: widget.productItem.id));
+        }
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(tagHero != "flash" ? 0 : 1.0.w),
-      child: Column(
-        children: [productImage(context), _intoProduct(context)],
+    init(context);
+    return FocusedMenuHolder(
+      menuWidth: MediaQuery.of(context).size.width*0.50,
+      blurSize: 5.0,
+      menuItemExtent: 45,
+      menuOffset: 5.0,
+      menuBoxDecoration: BoxDecoration(color: Colors.grey,borderRadius: BorderRadius.all(Radius.circular(15.0))),
+      duration: Duration(milliseconds: 100),
+      animateMenuItems: false,
+      blurBackgroundColor: Colors.black54,
+      bottomOffsetHeight: 100,
+      openWithTap: false,
+      menuItems: <FocusedMenuItem>[
+        FocusedMenuItem(title: Text("Open"),trailingIcon: Icon(Icons.open_in_new) ,onPressed: (){
+         // Navigator.push(context, MaterialPageRoute(builder: (context)=>ScreenTwo()));
+          AppRoute.productDetail(context,
+              productImage: "product_hot_${item.id}1",
+              productItem: ProductBloc.convertDataToProduct(data: item));
+
+        }),
+        FocusedMenuItem(title: Text("Share"),trailingIcon: Icon(Icons.share) ,onPressed: (){
+          Share.share(
+              '${Env.value.baseUrlWeb}/${item.name}-i.${item.id}');
+        }),
+        FocusedMenuItem(title: Text("Buy Now"),trailingIcon: Icon(Icons.shopping_bag) ,onPressed: (){
+          Usermanager().isLogin().then((value) async {
+            if (!value) {
+              // ignore: unused_local_variable
+              final result = await AppRoute.login(
+                context,
+                isCallBack: true,
+                isHeader: true,
+                isSetting: false,
+              );
+            } else {
+              productBloc.getProductsById(context, id: item.id);
+            }
+          });
+        }),
+    ],
+      onPressed: (){
+        AppRoute.productDetail(context,
+            productImage: "product_hot_${item.id}1",
+            productItem: ProductBloc.convertDataToProduct(data: item));
+      },
+      child: Container(
+        color: Colors.white,
+        padding: EdgeInsets.all(tagHero != "flash" ? 0 : 1.0.w),
+        child: Column(
+          children: [productImage(context), _intoProduct(context)],
+        ),
       ),
     );
   }
