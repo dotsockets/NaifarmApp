@@ -47,15 +47,13 @@ class MyCartView extends StatefulWidget {
 class _MyCartViewState extends State<MyCartView> with RouteAware {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   CartBloc bloc;
-  NotiBloc blocNoti;
 
   final _indicatorController = IndicatorController();
   static const _indicatorSize = 50.0;
 
   void _init() {
-    if (null == bloc && blocNoti == null) {
+    if (null == bloc ) {
       bloc = CartBloc(AppProvider.getApplication(context));
-      blocNoti = NotiBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         if (event) {
           FunctionHelper.showDialogProcess(context);

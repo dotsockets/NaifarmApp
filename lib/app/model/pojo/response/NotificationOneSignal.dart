@@ -1,25 +1,72 @@
-class NotificationOneSignal {
-  Data item;
-  String i;
 
-  NotificationOneSignal({this.item, this.i});
+class NotificationOneSignal {
+  Aps aps;
+  Custom custom;
+
+  NotificationOneSignal({this.aps, this.custom});
 
   NotificationOneSignal.fromJson(Map<String, dynamic> json) {
-    item = json['a'] != null ? new Data.fromJson(json['a']) : null;
+    aps = json['aps'] != null ? new Aps.fromJson(json['aps']) : null;
+    custom =
+    json['custom'] != null ? new Custom.fromJson(json['custom']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.aps != null) {
+      data['aps'] = this.aps.toJson();
+    }
+    if (this.custom != null) {
+      data['custom'] = this.custom.toJson();
+    }
+    return data;
+  }
+}
+
+class Aps {
+  String alert;
+  int mutableContent;
+  String sound;
+
+  Aps({this.alert, this.mutableContent, this.sound});
+
+  Aps.fromJson(Map<String, dynamic> json) {
+    alert = json['alert'];
+    mutableContent = json['mutable-content'];
+    sound = json['sound'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['alert'] = this.alert;
+    data['mutable-content'] = this.mutableContent;
+    data['sound'] = this.sound;
+    return data;
+  }
+}
+
+class Custom {
+  A a;
+  String i;
+
+  Custom({this.a, this.i});
+
+  Custom.fromJson(Map<String, dynamic> json) {
+    a = json['a'] != null ? new A.fromJson(json['a']) : null;
     i = json['i'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.item != null) {
-      data['a'] = this.item.toJson();
+    if (this.a != null) {
+      data['a'] = this.a.toJson();
     }
     data['i'] = this.i;
     return data;
   }
 }
 
-class Data {
+class A {
   String name;
   String image;
   String requirePaymentAt;
@@ -30,17 +77,17 @@ class Data {
   String status;
   String type;
 
-  Data(
+  A(
       {this.name,
-      this.image,
-      this.requirePaymentAt,
-      this.id,
+        this.image,
+        this.requirePaymentAt,
+        this.id,
         this.customer,
         this.customerName,
-      this.order,
-      this.status,this.type});
+        this.order,
+        this.status,this.type});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  A.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     image = json['image'];
     requirePaymentAt = json['requirePaymentAt'];

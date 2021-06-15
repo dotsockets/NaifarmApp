@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
@@ -29,12 +30,15 @@ import 'package:naifarm/utility/widgets/BannerSlide.dart';
 import 'package:naifarm/utility/widgets/LifecycleWatcherState.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:naifarm/utility/widgets/ProductVertical.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'widget/RecommendMenu.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 import "package:naifarm/app/model/core/ExtensionCore.dart";
+
+
 
 class RecommendView extends StatefulWidget {
   final Size size;
@@ -47,7 +51,7 @@ class RecommendView extends StatefulWidget {
   _RecommendViewState createState() => _RecommendViewState();
 }
 
-class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
+class _RecommendViewState extends State<RecommendView> {
   final _indicatorController = IndicatorController();
   static const _indicatorSize = 50.0;
   bool onReLoad = true;
@@ -92,8 +96,8 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
                 message: event.message,
                 callBack: () {
                   onDialog = true;
-                  // _refreshProducts();
-                  onResumed();
+                   _refreshProducts();
+                  //onResumed();
                 });
           });
         }
@@ -368,9 +372,8 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
       // AudioCache().play("sound/Click.mp3");
       // Vibration.vibrate(duration: 500);
     }
-    Usermanager().getUser().then(
-          (value) => bloc.loadCustomerCount(context, token: value.token),
-        );
+    Usermanager().getUser().then((value) => context.read<CustomerCountBloc>()
+        .loadCustomerCount(context, token: value.token));
     /*context.read<HomeDataBloc>().loadHomeData(context);
     Usermanager().getUser().then((value) => context
         .read<CustomerCountBloc>()
@@ -392,32 +395,5 @@ class _RecommendViewState extends LifecycleWatcherState<RecommendView> {
     return image;
   }
 
-  @override
-  void onDetached() {
-    // print("wefc onDetached");
-  }
 
-  @override
-  void onInactive() {
-    //  print("wefc onInactive");
-  }
-
-  @override
-  void onPaused() {
-    //  print("wefc onPaused");
-  }
-
-  @override
-  void onResumed() {
-    OneSignalCall.cancelNotification("", 0);
-    NaiFarmLocalStorage.getNowPage().then((value) {
-      if (value == 0) {
-        Usermanager().getUser().then(
-              (value) => bloc.loadCustomerCount(context, token: value.token),
-            );
-        // OneSignalCall.cancelNotification("", 0);
-        // _refreshProducts();
-      }
-    });
-  }
 }
