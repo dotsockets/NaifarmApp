@@ -3,11 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-<<<<<<< HEAD
-=======
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
-import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
->>>>>>> dev_phase2
 import 'package:naifarm/app/bloc/Provider/HomeMenuIndex.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
@@ -29,11 +25,6 @@ import 'package:naifarm/utility/OneSignalCall.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/CustomTabBar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-<<<<<<< HEAD
-=======
-import 'package:onesignal_flutter/onesignal_flutter.dart';
-import 'package:rxdart/subjects.dart';
->>>>>>> dev_phase2
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 import 'package:uni_links/uni_links.dart';
@@ -98,13 +89,19 @@ class _HomeViewState extends LifecycleWatcherState<HomeView>
         // });
         latestUri = link;
         err = null;
-        if (link.split("-i.").length == 2) {
+        if (link
+            .split("-i.")
+            .length == 2) {
           bloc.getProductsByIdApplink(context,
               id: int.parse(link.split("-i.")[1]), onload: false);
-        } else if (link.split("-cg.").length == 2) {
+        } else if (link
+            .split("-cg.")
+            .length == 2) {
           AppRoute.categoryDetail(context, int.parse(link.split("-cg.")[1]),
               title: LocaleKeys.recommend_category_product.tr());
-        } else if (link.split("-cs.").length == 2) {
+        } else if (link
+            .split("-cs.")
+            .length == 2) {
           AppRoute.categorySubDetail(context, int.parse(link.split("-cs.")[1]),
               title: LocaleKeys.recommend_category_sub.tr());
         } else if (link.split("/")[3] == "special-price") {
@@ -202,7 +199,7 @@ class _HomeViewState extends LifecycleWatcherState<HomeView>
     // Usermanager().getUser().then(
     //       (value) => bloc.loadCustomerCount(context, token: value.token),
     // );
-  //  context.read<HomeDataBloc>().loadHomeData(context);
+    //  context.read<HomeDataBloc>().loadHomeData(context);
   }
 
   @override
@@ -213,20 +210,20 @@ class _HomeViewState extends LifecycleWatcherState<HomeView>
       onWillPop: () async {
         FunctionHelper.confirmDialog(context,
             message: LocaleKeys.dialog_message_exit.tr(), onClick: () {
-          if (Platform.isAndroid) {
-            SystemNavigator.pop();
-          } else if (Platform.isIOS) {
-            exit(0);
-          }
-        }, onCancel: () {
-          Navigator.pop(context, true);
-        });
+              if (Platform.isAndroid) {
+                SystemNavigator.pop();
+              } else if (Platform.isIOS) {
+                exit(0);
+              }
+            }, onCancel: () {
+              Navigator.pop(context, true);
+            });
         return false;
       },
       child: DefaultTabController(
           length: _menuViewModel.length,
           child: Scaffold(
-              //backgroundColor: Colors.transparent,
+            //backgroundColor: Colors.transparent,
               extendBody: true,
               body: BlocBuilder<HomeMenuIndex, int>(
                 builder: (_, indexSelect) {
@@ -234,8 +231,13 @@ class _HomeViewState extends LifecycleWatcherState<HomeView>
                     index: indexSelect,
                     children: [
                       RecommendView(
-                          size: MediaQuery.of(context).size,
-                          paddingBottom: MediaQuery.of(context).padding.bottom,
+                          size: MediaQuery
+                              .of(context)
+                              .size,
+                          paddingBottom: MediaQuery
+                              .of(context)
+                              .padding
+                              .bottom,
                           onClick: (int index) {
                             if (index == 2) {
                               context.read<HomeMenuIndex>().onSelect(index);
@@ -256,13 +258,15 @@ class _HomeViewState extends LifecycleWatcherState<HomeView>
                 builder: (_, indexSelect) {
                   return Container(
                     padding: EdgeInsets.symmetric(
-                        vertical: SizerUtil.deviceType == DeviceType.mobile ? 0 : 1.5.h),
+                        vertical: SizerUtil.deviceType == DeviceType.mobile
+                            ? 0
+                            : 1.5.h),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                           topRight:
-                              Radius.circular(SizeUtil.borderRadiusFooter()),
+                          Radius.circular(SizeUtil.borderRadiusFooter()),
                           topLeft:
-                              Radius.circular(SizeUtil.borderRadiusFooter())),
+                          Radius.circular(SizeUtil.borderRadiusFooter())),
                       boxShadow: <BoxShadow>[
                         BoxShadow(
                           // color: Color(0xFF254117).withOpacity(0.75),
@@ -285,18 +289,18 @@ class _HomeViewState extends LifecycleWatcherState<HomeView>
               ))),
     );
   }
-<<<<<<< HEAD
-  _selectPage(){
+
+  _selectPage() {
     NaiFarmLocalStorage.getNowPage().then((value) {
-      if(value==3){
+      if (value == 3) {
         context.read<HomeMenuIndex>().onSelect(0);
         AppRoute.myCart(context, true);
-      }else{
+      } else {
         context.read<HomeMenuIndex>().onSelect(value);
       }
       // NaiFarmLocalStorage.saveNowPage(0);
     });
-=======
+  }
 
   @override
   void onDetached() {
@@ -315,12 +319,10 @@ class _HomeViewState extends LifecycleWatcherState<HomeView>
 
   @override
   void onResumed() {
-    print("esfvrsfvrd");
-    Usermanager().getUser().then((value) => context.read<CustomerCountBloc>()
-        .loadCustomerCount(context, token: value.token));
-  //  OneSignal.shared.clearOneSignalNotifications();
+    Usermanager().getUser().then((value) =>
+        context.read<CustomerCountBloc>()
+            .loadCustomerCount(context, token: value.token));
+    //  OneSignal.shared.clearOneSignalNotifications();
     OneSignalCall.cancelNotification("", 0);
-
->>>>>>> dev_phase2
   }
 }

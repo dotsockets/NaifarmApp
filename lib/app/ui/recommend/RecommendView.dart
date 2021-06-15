@@ -366,19 +366,9 @@ class _RecommendViewState extends State<RecommendView> {
   Future<Null> _refreshProducts() async {
     if (Platform.isAndroid) {
       await Future.delayed(Duration(seconds: 2));
-      // AudioCache().play("sound/Click.mp3");
-      // Vibration.vibrate(duration: 500);
     }
     Usermanager().getUser().then((value) => context.read<CustomerCountBloc>()
         .loadCustomerCount(context, token: value.token));
-    /*context.read<HomeDataBloc>().loadHomeData(context);
-    Usermanager().getUser().then((value) => context
-        .read<CustomerCountBloc>()
-        .loadCustomerCount(context, token: value.token));
-    Usermanager().getUser().then((value) => context
-        .read<InfoCustomerBloc>()
-        .loadCustomInfo(context, token: value.token));*/
-    // bloc.loadHomeData(context: context,callback: true);
   }
 
   List<String> convertSliderImage({SliderRespone sliderRespone}) {
@@ -393,25 +383,7 @@ class _RecommendViewState extends State<RecommendView> {
   }
 
 
-<<<<<<< HEAD
-  @override
-  void onPaused() {
-    //  print("wefc onPaused");
-  }
 
-  @override
-  void onResumed() {
-    OneSignalCall.cancelNotification("", 0);
-    NaiFarmLocalStorage.getNowPage().then((value) {
-      if (value == 0) {
-        Usermanager().getUser().then(
-              (value) => bloc.loadCustomerCount(context, token: value.token),
-            );
-        // OneSignalCall.cancelNotification("", 0);
-        // _refreshProducts();
-      }
-    });
-  }
   
   _getHomeCache(){
     NaiFarmLocalStorage.getHomeDataCache().then((value) {
@@ -419,6 +391,5 @@ class _RecommendViewState extends State<RecommendView> {
       bloc.zipHomeObject.add(value);
     });
   }
-=======
->>>>>>> dev_phase2
+
 }
