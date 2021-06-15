@@ -51,9 +51,8 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
   static const _indicatorSize = 50.0;
 
   void _init() {
-    if (null == bloc && blocNoti == null) {
+    if (null == bloc ) {
       bloc = CartBloc(AppProvider.getApplication(context));
-      blocNoti = NotiBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         if (event) {
           FunctionHelper.showDialogProcess(context);

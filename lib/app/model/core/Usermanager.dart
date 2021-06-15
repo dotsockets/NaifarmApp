@@ -84,6 +84,8 @@ class Usermanager {
         FlutterLocalNotificationsPlugin();
     flutterLocalNotificationsPlugin.cancelAll();
 
+    OneSignal.shared.clearOneSignalNotifications();
+
     NaiFarmLocalStorage.getCustomerInfo().then((value) async {
       await OneSignal.shared.deleteTag("shopID");
       OneSignal.shared.removeExternalUserId();

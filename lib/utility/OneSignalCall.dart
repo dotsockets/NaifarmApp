@@ -17,6 +17,11 @@ class OneSignalCall {
     await OneSignal.shared
         .setAppId(Env.value.onesignal);
 
+
+
+    OneSignal.shared.consentGranted(true);
+    OneSignal.shared.clearOneSignalNotifications();
+
     OneSignal.shared.setRequiresUserPrivacyConsent(true);
 
 // The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
@@ -42,34 +47,44 @@ class OneSignalCall {
     });
   }
 
-  static oneSignalReceivedHandler(BuildContext context) async {
+  static oneSignalOpenedHandler(BuildContext context) async {
+
+    OneSignal.shared
+        .setNotificationOpenedHandler((OSNotificationOpenedResult result) {
+      Usermanager().getUser().then((value) => context.read<CustomerCountBloc>()
+          .loadCustomerCount(context, token: value.token));
+      var item = NotificationOneSignal.fromJson(
+          jsonDecode(result.notification.jsonRepresentation().replaceAll("\\n", "\n")));
+
+      if (item.custom.a.type == "Shop") {
+        AppRoute.orderDetail(context,
+            orderData: OrderData(id: int.parse(item.custom.a.id)),
+            typeView: OrderViewType.Shop);
+      } else if (item.custom.a.type == "Customer") {
+        AppRoute.orderDetail(context,
+            orderData: OrderData(id: int.parse(item.custom.a.id)),
+            typeView: OrderViewType.Purchase);
+      }
+    });
+
+  }
+
+    static oneSignalReceivedHandler(BuildContext context) async {
 
 
     OneSignal.shared
         .setNotificationWillShowInForegroundHandler((OSNotificationReceivedEvent event) {
       print('FOREGROUND HANDLER CALLED WITH: ${event}');
       /// Display Notification, send null to not display
+
+      print("Notification received in foreground notification: \n${event.notification.jsonRepresentation().replaceAll("\\n", "\n")}");
       event.complete(null);
 
       Usermanager().getUser().then((value) => context.read<CustomerCountBloc>()
           .loadCustomerCount(context, token: value.token));
     });
 
-    // OneSignal.shared
-    //     .setNotificationOpenedHandler((OSNotificationOpenedResult result) {
-    //   var item = NotificationOneSignal.fromJson(
-    //       jsonDecode(result.notification.payload.rawPayload['custom']));
-    //
-    //   if (item.item.type == "Shop") {
-    //     AppRoute.orderDetail(context,
-    //         orderData: OrderData(id: int.parse(item.item.id)),
-    //         typeView: OrderViewType.Shop);
-    //   } else if (item.item.type == "Customer") {
-    //     AppRoute.orderDetail(context,
-    //         orderData: OrderData(id: int.parse(item.item.id)),
-    //         typeView: OrderViewType.Purchase);
-    //   }
-    // });
+
   }
 
   static Future selectNotification(String payload) async {

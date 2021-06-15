@@ -3,6 +3,11 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+<<<<<<< HEAD
+=======
+import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
+import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
+>>>>>>> dev_phase2
 import 'package:naifarm/app/bloc/Provider/HomeMenuIndex.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
@@ -24,16 +29,22 @@ import 'package:naifarm/utility/OneSignalCall.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/CustomTabBar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+<<<<<<< HEAD
+=======
+import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:rxdart/subjects.dart';
+>>>>>>> dev_phase2
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 import 'package:uni_links/uni_links.dart';
+import 'package:naifarm/utility/widgets/LifecycleWatcherState.dart';
 
 class HomeView extends StatefulWidget {
   @override
   _HomeViewState createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView>
+class _HomeViewState extends LifecycleWatcherState<HomeView>
     with SingleTickerProviderStateMixin, RouteAware {
   List<MenuModel> _menuViewModel;
   bool isLogin = true;
@@ -166,6 +177,7 @@ class _HomeViewState extends State<HomeView>
 
     if (Platform.isAndroid || Platform.isIOS || Platform.isFuchsia) {
       OneSignalCall.oneSignalReceivedHandler(context);
+      OneSignalCall.oneSignalOpenedHandler(context);
     }
   }
 
@@ -273,6 +285,7 @@ class _HomeViewState extends State<HomeView>
               ))),
     );
   }
+<<<<<<< HEAD
   _selectPage(){
     NaiFarmLocalStorage.getNowPage().then((value) {
       if(value==3){
@@ -283,5 +296,31 @@ class _HomeViewState extends State<HomeView>
       }
       // NaiFarmLocalStorage.saveNowPage(0);
     });
+=======
+
+  @override
+  void onDetached() {
+
+  }
+
+  @override
+  void onInactive() {
+
+  }
+
+  @override
+  void onPaused() {
+
+  }
+
+  @override
+  void onResumed() {
+    print("esfvrsfvrd");
+    Usermanager().getUser().then((value) => context.read<CustomerCountBloc>()
+        .loadCustomerCount(context, token: value.token));
+  //  OneSignal.shared.clearOneSignalNotifications();
+    OneSignalCall.cancelNotification("", 0);
+
+>>>>>>> dev_phase2
   }
 }
