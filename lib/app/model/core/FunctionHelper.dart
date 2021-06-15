@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -744,6 +745,13 @@ class FunctionHelper {
     final translator = GoogleTranslator();
     var translation =
     await translator.translate("${name}", from: from, to: to);
+
+    // try {
+    //   var response = await Dio().get('https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t&q=${name}');
+    //   print(response);
+    // } catch (e) {
+    //   print(e);
+    // }
     return translation.text.upperCaseFirst();
   }
 

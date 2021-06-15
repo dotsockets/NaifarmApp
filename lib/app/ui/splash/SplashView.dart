@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/services.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
@@ -30,10 +31,11 @@ class _SplashViewState extends State<SplashView>
   Animation<double> animation;
   ProductBloc bloc;
 
-  String platformVersion;
+  String platformVersion = '0.0.1';
 
   @override
   void initState() {
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     animationController = new AnimationController(
         vsync: this, duration: new Duration(seconds: 1));
     animation =
@@ -41,7 +43,6 @@ class _SplashViewState extends State<SplashView>
 
     animation.addListener(() => this.setState(() {}));
     animationController.forward();
-    _initPackageInfo();
     super.initState();
   }
 
@@ -105,6 +106,8 @@ class _SplashViewState extends State<SplashView>
   void versionName() async {
     try {
       //platformVersion = await GetVersion.projectVersion;
+      final PackageInfo info = await PackageInfo.fromPlatform();
+      platformVersion = info.version;
     } on Exception {
       platformVersion = '0.0.1';
     }
@@ -161,10 +164,7 @@ class _SplashViewState extends State<SplashView>
     );
   }
 
-  Future<Null> _initPackageInfo() async {
-    final PackageInfo info = await PackageInfo.fromPlatform();
-    print("efverf ${info.packageName}");
-  }
+
 
 
   startTimer() async {
