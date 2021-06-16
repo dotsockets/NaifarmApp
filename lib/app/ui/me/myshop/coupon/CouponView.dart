@@ -114,7 +114,6 @@ class _CouponViewState extends State<CouponView> {
                 )
               ],
             ),
-            backgroundColor: Colors.grey.shade300,
             body: Platform.isAndroid
                 ? androidRefreshIndicator()
                 : iosRefreshIndicator()),
@@ -150,7 +149,7 @@ class _CouponViewState extends State<CouponView> {
                   return Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
-                      bloc.onSuccess.hasValue
+                      bloc.onSuccess.value != null
                           ? Positioned(
                               top: 25 * controller.value,
                               child: Container(

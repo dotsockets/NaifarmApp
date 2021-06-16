@@ -533,6 +533,7 @@ abstract class  LocaleKeys {
   static const server_error_status = 'server_error.status';
   static const server_error_again = 'server_error.again';
   static const server_error = 'server_error';
+  static const coupon_coupon_discount = 'coupon.coupon_discount';
   static const coupon_coupon_title = 'coupon.coupon_title';
   static const coupon_coupon_add = 'coupon.coupon_add';
   static const coupon_coupon_name = 'coupon.coupon_name';

@@ -588,6 +588,7 @@
     "again":"Please check your internet connection and connect again"
   },
   "coupon": {
+    "coupon_discount": "Discount Coupons",
     "coupon_title": "Coupons",
     "coupon_add": "Add Coupons",
     "coupon_name": "Coupon Name",

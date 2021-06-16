@@ -20,6 +20,7 @@ import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:naifarm/app/model/pojo/response/CouponResponse.dart';
 import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
@@ -29,6 +30,7 @@ import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:naifarm/app/viewmodels/CartViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
 import '../widget/ModalFitBottom_Sheet.dart';
 import "package:naifarm/app/model/core/ExtensionCore.dart";
@@ -284,23 +286,27 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
         builder: (BuildContext context, AsyncSnapshot<dynamic> snap) {
           if (snap.hasData) {
             return Container(
-                color: Colors.white,
-                padding: EdgeInsets.only(right: 5, left: 0),
-                child: ListMenuItem(
-                  icon: 'assets/images/png/sale_cart.png',
-                  title: LocaleKeys.cart_discount_from.tr(),
-                  message: LocaleKeys.cart_select_discount.tr(),
-                  iconSize: 8.0.w,
-                  fontWeight: FontWeight.w500,
-                  onClick: () {
-                    showMaterialModalBottomSheet(
-                        context: context,
-                        builder: (context) => ModalFitBottomSheet(
-                              couponResponse: snap.data,
-                              title: "",
-                            ));
-                  },
-                ));
+              color: Colors.white,
+              padding: EdgeInsets.only(right: 5, left: 0),
+              child: ListMenuItem(
+                icon: 'assets/images/png/sale_cart.png',
+                title: LocaleKeys.cart_discount_from.tr(),
+                message: LocaleKeys.cart_select_discount.tr(),
+                iconSize: 8.0.w,
+                fontWeight: FontWeight.w500,
+                onClick: () {
+                  showMaterialModalBottomSheet(
+                      context: context,
+                      builder: (context) => ModalFitBottomSheet(
+                            couponResponse: snap.data,
+                            title: "",
+                            onSelectedCoupon: (CouponData selectedData) {
+                              print(selectedData);
+                            },
+                          ));
+                },
+              ),
+            );
           } else {
             return Container();
           }
@@ -485,8 +491,10 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                                       id: item.items[indexShopItem].inventory
                                           .product.id,
                                       image: item.items[indexShopItem].inventory
-                                          .product.image.isNotEmpty?item.items[indexShopItem].inventory
-                                          .product.image:[ProductImage(path: "",name: "")],
+                                              .product.image.isNotEmpty
+                                          ? item.items[indexShopItem].inventory
+                                              .product.image
+                                          : [ProductImage(path: "", name: "")],
                                       shop: ShopItem(
                                           id: item.shop.id,
                                           name: item.shop.name,
@@ -736,23 +744,27 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
         builder: (BuildContext context, AsyncSnapshot<dynamic> snap) {
           if (snap.hasData) {
             return Container(
-                color: Colors.white,
-                padding: EdgeInsets.only(right: 1.0.w, left: 0),
-                child: ListMenuItem(
-                  icon: 'assets/images/png/sale_cart.png',
-                  title: LocaleKeys.cart_discount.tr(),
-                  message: "เลือกโค๊ดส่วนลด",
-                  iconSize: 3.0.h,
-                  fontWeight: FontWeight.w500,
-                  onClick: () {
-                    showMaterialModalBottomSheet(
-                        context: context,
-                        builder: (context) => ModalFitBottomSheet(
-                              couponResponse: snap.data,
-                              title: "",
-                            ));
-                  },
-                ));
+              color: Colors.white,
+              padding: EdgeInsets.only(right: 1.0.w, left: 0),
+              child: ListMenuItem(
+                icon: 'assets/images/png/sale_cart.png',
+                title: LocaleKeys.cart_discount.tr(),
+                message: "เลือกโค๊ดส่วนลด",
+                iconSize: 3.0.h,
+                fontWeight: FontWeight.w500,
+                onClick: () {
+                  showMaterialModalBottomSheet(
+                      context: context,
+                      builder: (context) => ModalFitBottomSheet(
+                            couponResponse: snap.data,
+                            title: "",
+                            onSelectedCoupon: (CouponData selectedData) {
+                              print(selectedData);
+                            },
+                          ));
+                },
+              ),
+            );
           } else {
             return Container();
           }
@@ -792,7 +804,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
       child: Column(
         children: [
           Container(color: Colors.black.withOpacity(0.1), height: 1),
-          buildcoupon(),
+          // buildcoupon(),
           Divider(),
           Container(
             padding: EdgeInsets.only(top: 1.0.h, bottom: 1.0.h, right: 0.5.h),
