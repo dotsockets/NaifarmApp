@@ -5,9 +5,11 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
+import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:sizer/sizer.dart';
 import 'BuildIconShop.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 enum Header_Type { barHome, barNoBackground, barNormal, barcartShop, barMap }
 
@@ -60,7 +62,7 @@ class AppToobar extends PreferredSize {
 
   Widget barNormal(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 0, right: 0.3.w,bottom: 1.0.h),
+      padding: EdgeInsets.only(left: 0, right: 0.3.w, bottom: 1.0.h),
       decoration: new BoxDecoration(
         color: ThemeColor.primaryColor(),
         // borderRadius:  IsborderRadius?BorderRadius.only(
@@ -316,16 +318,67 @@ class AppToobar extends PreferredSize {
                           right: SizeUtil.paddingCart().w,
                           left: SizeUtil.paddingItem().w),
                       child: BuildIconShop())
-                  : IconButton(
-                      icon: Icon(
-                        FontAwesome.ellipsis_v,
-                        size: SizeUtil.mediumIconSize().w,
-                        color: Colors.white,
+                  : PopupMenuButton(
+                      child: Container(
+                        padding: EdgeInsets.only(
+                            right: SizeUtil.paddingCart().w,
+                            left: SizeUtil.paddingItem().w),
+                        child: Icon(
+                          FontAwesome.ellipsis_v,
+                          size: SizeUtil.mediumIconSize().w,
+                          color: Colors.white,
+                        ),
                       ),
-                      onPressed: () {
-                        onTab();
+                      itemBuilder: (context) {
+                        return [
+                          PopupMenuItem(
+                            value: 0,
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(right: 5.0),
+                                  child: Icon(
+                                    FontAwesome.tag,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                Text(
+                                  LocaleKeys.attributes_set.tr(),
+                                  style: FunctionHelper.fontTheme(
+                                      fontSize: SizeUtil.titleFontSize().sp,
+                                      fontWeight: FontWeight.w500),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 1,
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(right: 5.0),
+                                  child: Icon(
+                                    FontAwesome.ticket,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                Text(
+                                  LocaleKeys.coupon_coupon_title.tr(),
+                                  style: FunctionHelper.fontTheme(
+                                      fontSize: SizeUtil.titleFontSize().sp,
+                                      fontWeight: FontWeight.w500),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ];
                       },
-                    )
+                      onSelected: (int selectedValue) {
+                        this.onTab(selectedValue);
+                      },
+                    ),
             ],
           ),
         )

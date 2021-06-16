@@ -87,8 +87,16 @@ class _SearchMyProductState extends State<SearchMyProduct> {
             onSearch: (String text) {
               _searchText.add(text);
             },
-            onTab: () {
-              buttonDialog(context, shopId: widget.shopID);
+            onTab: (int selectedValue) {
+              switch (selectedValue) {
+                case 0:
+                  AppRoute.attribute(context: context);
+                  break;
+                case 1:
+                  AppRoute.coupons(context: context, shopId: widget.shopID);
+                  break;
+                default:
+              }
             },
           ),
           body:
