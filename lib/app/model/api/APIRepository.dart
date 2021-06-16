@@ -26,8 +26,6 @@ class APIRepository {
 
   APIRepository(this._apiProvider, this.dbAppStoreRepository);
 
-
-
   Future<ApiResult> customersLogin(BuildContext context,
       {LoginRequest loginRequest}) {
     return _apiProvider.customersLogin(context, loginRequest);
@@ -630,11 +628,12 @@ class APIRepository {
   }) {
     return _apiProvider.getFeedback(context, id: id, limit: limit, page: page);
   }
+
   Future<ApiResult> updateInventoriesAttr(BuildContext context,
       {InventoriesAttrRequest inventoriesRequest,
-        int productId,
-        int inventoriesId,
-        String token}) {
+      int productId,
+      int inventoriesId,
+      String token}) {
     return _apiProvider.updateInventoriesAttr(context,
         productId: productId,
         token: token,
@@ -660,6 +659,17 @@ class APIRepository {
   Future<ApiResult> deleteCoupon(BuildContext context,
       {String token, int couponId}) {
     return _apiProvider.deleteCoupon(context, token: token, couponId: couponId);
+  }
+
+  Future<ApiResult> applyCoupon(BuildContext context,
+      {String token, int cartId, String couponCode}) {
+    return _apiProvider.applyCoupon(context,
+        token: token, cartId: cartId, couponCode: couponCode);
+  }
+
+  Future<ApiResult> deleteCartCoupon(BuildContext context,
+      {String token, int cartId}) {
+    return _apiProvider.deleteCartCoupon(context, token: token, cartId: cartId);
   }
 //  Observable<List<AppContent>> getTop100FreeApp(){
 //    return Observable.fromFuture(_apiProvider.getTopFreeApp(TOP_100))

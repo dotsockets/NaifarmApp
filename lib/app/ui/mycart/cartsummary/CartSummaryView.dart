@@ -12,11 +12,12 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/response/AddressesListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
+import 'package:naifarm/app/model/pojo/response/CouponResponse.dart';
+import 'package:naifarm/app/model/pojo/response/OrderRespone.dart';
 import 'package:naifarm/app/model/pojo/response/PaymentRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ShippingsRespone.dart';
 import 'package:naifarm/app/models/CartModel.dart';
 import 'package:naifarm/app/ui/mycart/widget/ModalFitBottom_Sheet.dart';
-import 'package:naifarm/app/viewmodels/CartViewModel.dart';
 import 'package:naifarm/config/Env.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -25,7 +26,6 @@ import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import 'package:sizer/sizer.dart';
-import "package:naifarm/app/model/core/ExtensionCore.dart";
 
 class CartSummaryView extends StatefulWidget {
   final CartResponse item;
@@ -38,7 +38,6 @@ class CartSummaryView extends StatefulWidget {
 
 class _CartSummaryViewState extends State<CartSummaryView> {
   List<CartModel> dataArr = <CartModel>[];
-
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   CartBloc bloc;
 
@@ -58,7 +57,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        if (event.status > 400) {
+        if (event.status > 400 && event.code != 99) {
           FunctionHelper.alertDialogRetry(context,
               title: LocaleKeys.btn_error.tr(),
               message: event.message, callBack: () {
@@ -80,10 +79,30 @@ class _CartSummaryViewState extends State<CartSummaryView> {
       });
 
       bloc.onSuccess.stream.listen((event) {
-        AppRoute.orderSuccess(
-            context: context,
-            paymentTotal: bloc.totalPayment.value.toString(),
-            orderData: event);
+        if (event is OrderData) {
+          AppRoute.orderSuccess(
+              context: context,
+              paymentTotal: bloc.totalPayment.value.toString(),
+              orderData: event);
+        } else if (event is CartResponse) {
+          bloc.cartList.value.data.forEach((e) {
+            if (e.id == event.data.first.id) {
+              e.coupon = event.data.first.coupon;
+              e.couponId = event.data.first.coupon.id;
+            }
+          });
+          bloc.cartList.add(bloc.cartList.value);
+          Navigator.of(context).pop();
+        } else if (event is int) {
+          bloc.cartList.value.data.forEach((e) {
+            if (e.id == event) {
+              e.coupon = null;
+              e.couponId = null;
+            }
+          });
+          bloc.cartList.add(bloc.cartList.value);
+          Navigator.of(context).pop();
+        }
       });
       bloc.addressList.stream.listen((event) {
         bloc.checkOut.add(true);
@@ -364,23 +383,27 @@ class _CartSummaryViewState extends State<CartSummaryView> {
         builder: (BuildContext context, AsyncSnapshot<dynamic> snap) {
           if (snap.hasData) {
             return Container(
-                color: Colors.white,
-                padding: EdgeInsets.only(right: 5, left: 0),
-                child: ListMenuItem(
-                  icon: 'assets/images/png/sale_cart.png',
-                  title: LocaleKeys.cart_discount_from.tr() + " Naifarm",
-                  message: "",
-                  iconSize: 8.0.w,
-                  fontWeight: FontWeight.w500,
-                  onClick: () {
-                    showMaterialModalBottomSheet(
-                        context: context,
-                        builder: (context) => ModalFitBottomSheet(
-                              couponResponse: snap.data,
-                              title: "",
-                            ));
-                  },
-                ));
+              color: Colors.white,
+              padding: EdgeInsets.only(right: 5, left: 0),
+              child: ListMenuItem(
+                icon: 'assets/images/png/sale_cart.png',
+                title: LocaleKeys.cart_discount_from.tr() + " Naifarm",
+                message: "",
+                iconSize: 8.0.w,
+                fontWeight: FontWeight.w500,
+                onClick: () {
+                  showMaterialModalBottomSheet(
+                      context: context,
+                      builder: (context) => ModalFitBottomSheet(
+                            couponResponse: snap.data,
+                            title: LocaleKeys.coupon_coupon_discount.tr(),
+                            onSelectedCoupon: (CouponData selectedData) {
+                              print(selectedData);
+                            },
+                          ));
+                },
+              ),
+            );
           } else {
             return Container();
           }
@@ -508,14 +531,22 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                           SizedBox(
                             width: 1.0.h,
                           ),
-                          Text("Discount coupons from the store",
-                              style: FunctionHelper.fontTheme(
-                                  fontSize: SizeUtil.titleFontSize().sp,
-                                  color: Colors.black)),
+                          Text(
+                            "Discount coupons from the store",
+                            style: FunctionHelper.fontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                color: Colors.black),
+                          ),
                         ],
                       ),
                       Row(
                         children: [
+                          Text(
+                            item.coupon != null ? item.coupon.code : "",
+                            style: FunctionHelper.fontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                color: Colors.black),
+                          ),
                           Icon(
                             Icons.arrow_forward_ios,
                             color: Colors.grey.withOpacity(0.7),
@@ -530,7 +561,28 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                         context: context,
                         builder: (context) => ModalFitBottomSheet(
                               couponResponse: snap.data,
-                              title: "",
+                              couponData: item.coupon != null
+                                  ? CouponData(id: item.coupon.id)
+                                  : null,
+                              title: LocaleKeys.coupon_coupon_discount.tr(),
+                              cartData: item,
+                              onSelectedCoupon: (CouponData selectedData) {
+                                Usermanager().getUser().then((value) {
+                                  bloc.applyCoupon(
+                                      context: context,
+                                      token: value.token,
+                                      cartId: item.id,
+                                      coupon: selectedData);
+                                });
+                              },
+                              onDeleteCoupon: () {
+                                Usermanager().getUser().then((value) {
+                                  bloc.deleteCartCoupon(
+                                      context: context,
+                                      token: value.token,
+                                      cartId: item.id);
+                                });
+                              },
                             ));
                   },
                 );
@@ -636,44 +688,48 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                     return Container(
                         color: Colors.white,
                         child: EasyLocalization.of(context).locale ==
-                            EasyLocalization.of(context).supportedLocales[0]? FutureBuilder(
-                            future: FunctionHelper.translatorText(name: data.name,from: 'th',to: 'en'),
-                            builder:
-                                (BuildContext context, AsyncSnapshot<String> text) {
-
-                              return ListMenuItem(
+                                EasyLocalization.of(context).supportedLocales[0]
+                            ? FutureBuilder(
+                                future: FunctionHelper.translatorText(
+                                    name: data.name, from: 'th', to: 'en'),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<String> text) {
+                                  return ListMenuItem(
+                                    icon: 'assets/images/png/payment.png',
+                                    title: LocaleKeys.select.tr() +
+                                        LocaleKeys.me_title_pay.tr(),
+                                    message: "${text.data ?? "${data.name}"}",
+                                    iconSize: 7.0.w,
+                                    fontWeight: FontWeight.w500,
+                                    onClick: () async {
+                                      final result = await AppRoute.cartBank(
+                                          context,
+                                          paymentRespone:
+                                              bloc.paymentList.value,
+                                          allShopID: bloc.getAllShopID());
+                                      if (result != null) {
+                                        bloc.paymentList.add(result);
+                                      }
+                                    },
+                                  );
+                                })
+                            : ListMenuItem(
                                 icon: 'assets/images/png/payment.png',
                                 title: LocaleKeys.select.tr() +
                                     LocaleKeys.me_title_pay.tr(),
-                                message: "${text.data ?? "${data.name}"}",
+                                message: data.name,
                                 iconSize: 7.0.w,
                                 fontWeight: FontWeight.w500,
                                 onClick: () async {
-
-                                  final result = await AppRoute.cartBank(context,
+                                  final result = await AppRoute.cartBank(
+                                      context,
                                       paymentRespone: bloc.paymentList.value,
                                       allShopID: bloc.getAllShopID());
                                   if (result != null) {
                                     bloc.paymentList.add(result);
                                   }
                                 },
-                              );
-                            }):ListMenuItem(
-                          icon: 'assets/images/png/payment.png',
-                          title: LocaleKeys.select.tr() +
-                              LocaleKeys.me_title_pay.tr(),
-                          message: data.name,
-                          iconSize: 7.0.w,
-                          fontWeight: FontWeight.w500,
-                          onClick: () async {
-                            final result = await AppRoute.cartBank(context,
-                                paymentRespone: bloc.paymentList.value,
-                                allShopID: bloc.getAllShopID());
-                            if (result != null) {
-                              bloc.paymentList.add(result);
-                            }
-                          },
-                        ));
+                              ));
                   } else {
                     return Container(
                         color: Colors.white,
