@@ -26,6 +26,7 @@ import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import 'package:sizer/sizer.dart';
+import 'package:naifarm/app/model/core/ExtensionCore.dart';
 
 class CartSummaryView extends StatefulWidget {
   final CartResponse item;
