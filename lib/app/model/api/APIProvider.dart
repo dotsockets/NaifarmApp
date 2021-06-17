@@ -62,7 +62,6 @@ part '_APIProvider.dart';
 abstract class APIProvider {
   factory APIProvider(Dio dio, {String baseUrl}) = _APIProvider;
 
-
   @POST("/v1/customers/login")
   Future<ApiResult> customersLogin(
       BuildContext context, @Body() LoginRequest loginRequest);
@@ -482,11 +481,11 @@ abstract class APIProvider {
   });
 
   @PATCH("/v1/myshop/products")
-  Future<ApiResult>  updateInventoriesAttr(BuildContext context,
+  Future<ApiResult> updateInventoriesAttr(BuildContext context,
       {InventoriesAttrRequest inventoriesRequest,
-        int productId,
-        int inventoriesId,
-        String token});
+      int productId,
+      int inventoriesId,
+      String token});
   @GET("/v1/myshop/coupons")
   Future<ApiResult> getCouponLists(BuildContext context, {String token});
 
@@ -501,6 +500,14 @@ abstract class APIProvider {
   @DELETE("/v1/myshop/coupons/id")
   Future<ApiResult> deleteCoupon(BuildContext context,
       {String token, int couponId});
+
+  @POST("/v1/cart/id/applycoupon")
+  Future<ApiResult> applyCoupon(BuildContext context,
+      {String token, int cartId, String couponCode});
+
+  @POST("/v1/cart/id/deletecoupon")
+  Future<ApiResult> deleteCartCoupon(BuildContext context,
+      {String token, int cartId});
 }
 
 // @JsonSerializable()

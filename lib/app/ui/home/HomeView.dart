@@ -48,6 +48,7 @@ class _HomeViewState extends LifecycleWatcherState<HomeView>
   bool initialUriIsHandled = true;
 
   init() {
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     OneSignalCall.cancelNotification("", 0);
     _handleIncomingLinks();
     _handleInitialUri();
@@ -319,10 +320,10 @@ class _HomeViewState extends LifecycleWatcherState<HomeView>
 
   @override
   void onResumed() {
-    Usermanager().getUser().then((value) =>
-        context.read<CustomerCountBloc>()
-            .loadCustomerCount(context, token: value.token));
-    //  OneSignal.shared.clearOneSignalNotifications();
+
+    Usermanager().getUser().then((value) => context.read<CustomerCountBloc>()
+        .loadCustomerCount(context, token: value.token));
+  //  OneSignal.shared.clearOneSignalNotifications();
     OneSignalCall.cancelNotification("", 0);
   }
 }

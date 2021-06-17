@@ -449,8 +449,6 @@ class CartBloc {
         } else {
           shippingCost.add(shippingCost.value + snapshot.rate);
         }
-
-
       }
       orderTotalCost.add(orderTotalCost.value += item.total);
     }
@@ -537,6 +535,58 @@ class CartBloc {
       } else {
         onError.add(respone.httpCallBack);
         onLoad.add(false);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  applyCoupon(
+      {BuildContext context,
+      String token,
+      int cartId,
+      CouponData coupon}) async {
+    onLoad.add(true);
+    StreamSubscription subscription = Stream.fromFuture(
+            _application.appStoreAPIRepository.applyCoupon(context,
+                token: token, cartId: cartId, couponCode: coupon.code))
+        .listen((respone) {
+      if (respone.httpCallBack.status == 200) {
+        var item = (respone.respone as CartResponse);
+        if (item.data.length > 0) {
+          for (var cart in item.data) {
+            cart.coupon = Coupon(
+              id: coupon.id,
+              code: coupon.code,
+              name: coupon.name,
+              value: coupon.value,
+              description: coupon.description,
+            );
+          }
+        }
+        onSuccess.add(item);
+        onLoad.add(false);
+      } else {
+        onLoad.add(false);
+        respone.httpCallBack.code = 99;
+        onError.add(respone.httpCallBack);
+      }
+    });
+    _compositeSubscription.add(subscription);
+  }
+
+  deleteCartCoupon({BuildContext context, String token, int cartId}) async {
+    onLoad.add(true);
+    StreamSubscription subscription = Stream.fromFuture(_application
+            .appStoreAPIRepository
+            .deleteCartCoupon(context, token: token, cartId: cartId))
+        .listen((respone) {
+      if (respone.httpCallBack.status == 200) {
+        onSuccess.add(cartId);
+        onLoad.add(false);
+      } else {
+        onLoad.add(false);
+        respone.httpCallBack.code = 99;
+        onError.add(respone.httpCallBack);
       }
     });
     _compositeSubscription.add(subscription);

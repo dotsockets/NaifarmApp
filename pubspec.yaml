@@ -101,7 +101,6 @@ dependencies:
   sms_autofill: ^2.0.0
   focused_menu: ^1.0.5
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

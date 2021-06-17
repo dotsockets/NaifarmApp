@@ -114,7 +114,6 @@ class _CouponViewState extends State<CouponView> {
                 )
               ],
             ),
-            backgroundColor: Colors.grey.shade300,
             body: Platform.isAndroid
                 ? androidRefreshIndicator()
                 : iosRefreshIndicator()),

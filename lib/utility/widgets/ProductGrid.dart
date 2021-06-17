@@ -288,28 +288,34 @@ class _ProductGridState extends State<ProductGrid> {
                       ClipRRect(
                     borderRadius: BorderRadius.circular(1.0.h),
                     child: CachedNetworkImage(
-                      width: 30.0.w,
-                      height: 40.0.w,
-                      placeholder: (context, url) => Container(
-                        width: 30.0.w,
-                        height: 40.0.w,
-                        color: Colors.white,
-                        child: Lottie.asset(
+                          width: 30.0.w,
+                          height: 40.0.w,
+                        imageUrl:  item.image.length != 0?
+                      "${item.image[0].path.imgUrl()}":"",
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: imageProvider),
+                          ),
+                        ),
+                          placeholder: (context, url) => Container(
+                          width: 30.0.w,
+                          height: 40.0.w,
+                          color: Colors.white,
+                          child: Lottie.asset(
                           'assets/json/loading.json',
                           width: 30.0.w,
                           height: 40.0.w,
-                        ),
-                      ),
-                      imageUrl:  item.image.length != 0?
-                      "${item.image[0].path.imgUrl()}":"",
-                      errorWidget: (context, url, error) => Container(
-                          width: 30.0.w,
-                          height: 40.0.w,
+                          ),
+                          ),
+                        errorWidget: (context, url, error) => Container(
+                            width: 30.0.w,
+                            height: 40.0.w,
 
-                          //child: Image.network(Env.value.noItemUrl,
-                          //    fit: BoxFit.cover)),
-                          child: NaifarmErrorWidget()),
-                    ),
+                            //child: Image.network(Env.value.noItemUrl,
+                            //    fit: BoxFit.cover)),
+                            child: NaifarmErrorWidget()),
+                      ),
                   ),
                 ),
                 // ),

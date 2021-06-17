@@ -91,7 +91,9 @@ class _MyProductViewState extends State<MyProductView> {
                 actions: [
                   IconButton(
                       padding: EdgeInsets.only(
-                          right: SizerUtil.deviceType == DeviceType.mobile  ? 0 : 3.0.w),
+                          right: SizerUtil.deviceType == DeviceType.mobile
+                              ? 0
+                              : 3.0.w),
                       icon: Icon(
                         Icons.search,
                         size: SizeUtil.mediumIconSize().w,
@@ -103,21 +105,76 @@ class _MyProductViewState extends State<MyProductView> {
                             shopID: widget.shopId,
                             tabNum: tabNum);
                       }),
-                  Container(
-                    padding: EdgeInsets.only(
-                        right: SizeUtil.paddingCart().w,
-                        left: SizeUtil.paddingItem().w),
-                    child: IconButton(
-                      icon: Icon(
+                  PopupMenuButton(
+                    child: Container(
+                      padding: EdgeInsets.only(
+                          right: SizeUtil.paddingCart().w,
+                          left: SizeUtil.paddingItem().w),
+                      child: Icon(
                         FontAwesome.ellipsis_v,
                         size: SizeUtil.mediumIconSize().w,
                         color: Colors.white,
                       ),
-                      onPressed: () {
-                        buttonDialog(context, shopId: widget.shopId);
-                      },
                     ),
-                  )
+                    itemBuilder: (context) {
+                      return [
+                        PopupMenuItem(
+                          value: 0,
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(right: 5.0),
+                                child: Icon(
+                                  FontAwesome.tag,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              Text(
+                                LocaleKeys.attributes_set.tr(),
+                                style: FunctionHelper.fontTheme(
+                                    fontSize: SizeUtil.titleFontSize().sp,
+                                    fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                        PopupMenuItem(
+                          value: 1,
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(right: 5.0),
+                                child: Icon(
+                                  FontAwesome.ticket,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              Text(
+                                LocaleKeys.coupon_coupon_title.tr(),
+                                style: FunctionHelper.fontTheme(
+                                    fontSize: SizeUtil.titleFontSize().sp,
+                                    fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ];
+                    },
+                    onSelected: (int selectedValue) {
+                      switch (selectedValue) {
+                        case 0:
+                          AppRoute.attribute(context: context);
+                          break;
+                        case 1:
+                          AppRoute.coupons(
+                              context: context, shopId: widget.shopId);
+                          break;
+                        default:
+                      }
+                    },
+                  ),
                 ],
               ),
             ),
@@ -275,7 +332,7 @@ class _MyProductViewState extends State<MyProductView> {
   }
 }
 
-buttonDialog(BuildContext context, {int shopId}) {
+/*buttonDialog(BuildContext context, {int shopId}) {
   showDialog<bool>(
     context: context,
     barrierDismissible: true,
@@ -329,4 +386,4 @@ buttonDialog(BuildContext context, {int shopId}) {
       );
     },
   );
-}
+}*/

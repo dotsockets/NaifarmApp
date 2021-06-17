@@ -296,18 +296,17 @@ class _AttributeAddViewState extends State<AttributeAddView> {
                     if (snapshot.data) {
                       FocusScope.of(context).unfocus();
 
-                      List<String> valueList = <String>[];
-                      List.generate(
-                          subAttrController.length,
-                          (index) => subAttrController[index].text.isNotEmpty
-                              ? valueList.add(subAttrController[index].text)
-                              : null);
+                      // List<String> valueList = <String>[];
+                      // List.generate(subAttrController.length, (index) => subAttrController[index].text.isNotEmpty
+                      //     ? valueList.add(subAttrController[index].text) : null);
+                      //
+                      // subAttrController.map((e) => e.text.isNotEmpty ? valueList.add(e.text) : null).toList();
 
                       Usermanager().getUser().then((value) =>
                           bloc.addAttributeMyShop(context,
                               name: attrController.text,
                               token: value.token,
-                              value: valueList,
+                              value: subAttrController.map((e) => e.text.isNotEmpty ? e.text : null).toList(),
                               color: ""));
                     }
                   },
@@ -329,7 +328,9 @@ class _AttributeAddViewState extends State<AttributeAddView> {
 
   void _check() {
     if (subAttrController.length != 0) {
-      subAttrController[subAttrController.length - 1].text.trim().isNotEmpty ? onAddSubType.add(true) : onAddSubType.add(false);
+      subAttrController[subAttrController.length - 1].text.trim().isNotEmpty
+          ? onAddSubType.add(true)
+          : onAddSubType.add(false);
     } else
       onAddSubType.add(true);
 

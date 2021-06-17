@@ -376,7 +376,7 @@ class UploadProductBloc {
       onLoad.add(false);
       if (respone.httpCallBack.status == 200) {
         var item = (respone.respone as ProductShopItemRespone);
-        if(uploadProductStorage.value!=null){uploadProductStorage.value.onSelectItem.clear();
+        if(uploadProductStorage.hasValue){uploadProductStorage.value.onSelectItem.clear();
         for (var value in item.image) {
           uploadProductStorage.value.onSelectItem
               .add(OnSelectItem(url: value.path, onEdit: false));
