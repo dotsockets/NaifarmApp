@@ -92,37 +92,43 @@ class _AttributeAddViewState extends State<AttributeAddView> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            margin: EdgeInsets.only(top: 2.0.h),
-                            child: Text(
-                              "${LocaleKeys.attributes_label.tr()}:",
-                              style: FunctionHelper.fontTheme(
-                                  fontSize: SizeUtil.titleFontSize().sp,
-                                  fontWeight: FontWeight.w500),
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              margin: EdgeInsets.only(top: 2.0.h),
+                              child: Text(
+                                "${LocaleKeys.attributes_label.tr()}:",
+                                style: FunctionHelper.fontTheme(
+                                    fontSize: SizeUtil.titleFontSize().sp,
+                                    fontWeight: FontWeight.w500),
+                              ),
                             ),
                           ),
-                          SizedBox(
-                            width: 3.0.w,
+                          Expanded(
+                            flex: 5,
+                            child: StreamBuilder(
+                                stream: onAddSubType.stream,
+                                builder: (context, snapshot) {
+                                  return Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+
+                                        child: Column(
+                                          children: List.generate(
+                                              subAttrController.length,
+                                              (index) => Container(
+                                                    child: _buildEdittextDel(
+                                                        index: index),
+                                                  )),
+                                        ),
+                                      ),
+                                      if (snapshot.hasData)
+                                        _buildAddAttribute(snapshot.data)
+                                    ],
+                                  );
+                                }),
                           ),
-                          StreamBuilder(
-                              stream: onAddSubType.stream,
-                              builder: (context, snapshot) {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Column(
-                                      children: List.generate(
-                                          subAttrController.length,
-                                          (index) => Container(
-                                                child: _buildEdittextDel(
-                                                    index: index),
-                                              )),
-                                    ),
-                                    if (snapshot.hasData)
-                                      _buildAddAttribute(snapshot.data)
-                                  ],
-                                );
-                              }),
                         ],
                       ),
                     ),
@@ -148,13 +154,15 @@ class _AttributeAddViewState extends State<AttributeAddView> {
         }
       },
       child: Container(
-        padding: EdgeInsets.only(left: 15, right: 15, top: 6, bottom: 6),
+        width: 30.0.w,
+        padding: EdgeInsets.only(top: 6, bottom: 6),
         decoration: BoxDecoration(
           color:
               isSnapshot ? ThemeColor.secondaryColor() : Colors.grey.shade400,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               "+",
@@ -209,16 +217,17 @@ class _AttributeAddViewState extends State<AttributeAddView> {
       color: Colors.white,
       child: Row(
         children: [
-          Text(
-            "${LocaleKeys.my_profile_name.tr()}:",
-            style: FunctionHelper.fontTheme(
-                fontSize: SizeUtil.titleFontSize().sp,
-                fontWeight: FontWeight.w500),
-          ),
-          SizedBox(
-            width: 3.0.w,
+          Expanded(
+            flex: 1,
+            child: Text(
+              "${LocaleKeys.my_profile_name.tr()}:",
+              style: FunctionHelper.fontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
           Expanded(
+            flex: 6,
             child: Container(
               margin: EdgeInsets.all(1.0.h),
               decoration: BoxDecoration(
@@ -245,22 +254,24 @@ class _AttributeAddViewState extends State<AttributeAddView> {
     );
   }
 
-  Widget _buildEdittextList({double sizeTxt = 70, int index}) {
-    return Container(
-      width: sizeTxt.w,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.black.withOpacity(0.5))),
-      child: TextFormField(
-        style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp),
-        decoration: InputDecoration(
-            isDense: true,
-            hintStyle: FunctionHelper.fontTheme(
-                fontSize: SizeUtil.titleFontSize().sp, color: Colors.grey),
-            border: InputBorder.none,
-            contentPadding: EdgeInsets.all(2.0.h)),
-        onChanged: (String x) => _check(),
-        controller: subAttrController[index],
+  Widget _buildEdittextList({int index}) {
+    return Expanded(
+      flex: 4,
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.black.withOpacity(0.5))),
+        child: TextFormField(
+          style: FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp),
+          decoration: InputDecoration(
+              isDense: true,
+              hintStyle: FunctionHelper.fontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp, color: Colors.grey),
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.all(2.0.h)),
+          onChanged: (String x) => _check(),
+          controller: subAttrController[index],
+        ),
       ),
     );
   }

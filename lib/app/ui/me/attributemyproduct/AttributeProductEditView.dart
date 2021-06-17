@@ -122,13 +122,17 @@ class _AttributeProductEditViewState extends State<AttributeProductEditView> {
       color: Colors.white,
       child: Row(
         children: [
-          Text(
-            "${LocaleKeys.attributes_label.tr()}:",
-            style: FunctionHelper.fontTheme(
-                fontSize: SizeUtil.titleFontSize().sp,
-                fontWeight: FontWeight.w500),
+          Expanded(
+            flex: 1,
+            child: Text(
+              "${LocaleKeys.attributes_label.tr()}:",
+              style: FunctionHelper.fontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
           Expanded(
+            flex: 5,
               child: Container(
             margin: EdgeInsets.only(
                 top: 1.0.h, bottom: 1.0.h, right: 6.0.w, left: 1.0.h),
@@ -218,13 +222,17 @@ class _AttributeProductEditViewState extends State<AttributeProductEditView> {
               color: Colors.white,
               child: Row(
                 children: [
-                  Text(
-                    "${LocaleKeys.attributes_label.tr()}:",
-                    style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp,
-                        fontWeight: FontWeight.w500),
+                  Expanded(
+                    flex: 1,
+                    child: Text(
+                      "${LocaleKeys.attributes_label.tr()}:",
+                      style: FunctionHelper.fontTheme(
+                          fontSize: SizeUtil.titleFontSize().sp,
+                          fontWeight: FontWeight.w500),
+                    ),
                   ),
                   Expanded(
+                    flex: 5,
                       child: Container(
                     margin: EdgeInsets.only(
                         top: 1.0.h, bottom: 1.0.h, right: 6.0.w, left: 1.0.h),
@@ -266,19 +274,23 @@ class _AttributeProductEditViewState extends State<AttributeProductEditView> {
       child: Row(
        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            txt,
-            style: FunctionHelper.fontTheme(
-                fontSize: SizeUtil.titleFontSize().sp,
-                fontWeight: FontWeight.w500),
+          Expanded(
+            flex: 1,
+            child: Text(
+              txt,
+              style: FunctionHelper.fontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
           SizedBox(
             width: 3.0.w,
           ),
-          //Expanded(
-          //child: Container(
-          Container(
-            width: 73.5.w,
+          Expanded(
+            flex: 5,
+          child: Container(
+          // Container(
+          //   width: 73.5.w,
             margin: EdgeInsets.only(top: 1.0.h, bottom: 1.0.h, right: 2.0.w),
             decoration: BoxDecoration(
                 color: Colors.white,
@@ -304,7 +316,7 @@ class _AttributeProductEditViewState extends State<AttributeProductEditView> {
               controller: controller,
             ),
           ),
-          //   )
+             )
         ],
       ),
     );

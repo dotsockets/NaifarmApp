@@ -121,13 +121,17 @@ class _AttributeProductAddViewState extends State<AttributeProductAddView> {
       color: Colors.white,
       child: Row(
         children: [
-          Text(
-            "${LocaleKeys.attributes_label.tr()}:",
-            style: FunctionHelper.fontTheme(
-                fontSize: SizeUtil.titleFontSize().sp,
-                fontWeight: FontWeight.w500),
+          Expanded(
+            flex: 1,
+            child: Text(
+              "${LocaleKeys.attributes_label.tr()}:",
+              style: FunctionHelper.fontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
           Expanded(
+            flex: 5,
               child: Container(
             margin: EdgeInsets.only(
                 top: 1.0.h, bottom: 1.0.h, right: 6.0.w, left: 1.0.h),
@@ -217,13 +221,17 @@ class _AttributeProductAddViewState extends State<AttributeProductAddView> {
               color: Colors.white,
               child: Row(
                 children: [
-                  Text(
-                    "${LocaleKeys.attributes_label.tr()}:",
-                    style: FunctionHelper.fontTheme(
-                        fontSize: SizeUtil.titleFontSize().sp,
-                        fontWeight: FontWeight.w500),
+                  Expanded(
+                    flex: 1,
+                    child: Text(
+                      "${LocaleKeys.attributes_label.tr()}:",
+                      style: FunctionHelper.fontTheme(
+                          fontSize: SizeUtil.titleFontSize().sp,
+                          fontWeight: FontWeight.w500),
+                    ),
                   ),
                   Expanded(
+                    flex: 5,
                       child: Container(
                     margin: EdgeInsets.only(
                         top: 1.0.h, bottom: 1.0.h, right: 6.0.w, left: 1.0.h),
@@ -265,19 +273,23 @@ class _AttributeProductAddViewState extends State<AttributeProductAddView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            txt,
-            style: FunctionHelper.fontTheme(
-                fontSize: SizeUtil.titleFontSize().sp,
-                fontWeight: FontWeight.w500),
+          Expanded(
+            flex: 1,
+            child: Text(
+              txt,
+              style: FunctionHelper.fontTheme(
+                  fontSize: SizeUtil.titleFontSize().sp,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
           SizedBox(
             width: 3.0.w,
           ),
-          //Expanded(
-          //child: Container(
-          Container(
-            width: 73.5.w,
+          Expanded(
+            flex: 5,
+          child: Container(
+          // Container(
+          //   width: 73.5.w,
             margin: EdgeInsets.only(top: 1.0.h, bottom: 1.0.h, right: 2.0.w),
             decoration: BoxDecoration(
                 color: Colors.white,
@@ -301,9 +313,9 @@ class _AttributeProductAddViewState extends State<AttributeProductAddView> {
                   contentPadding: EdgeInsets.all(2.0.h)),
               onChanged: (String x) => _check(),
               controller: controller,
+              ),
             ),
-          ),
-          //   )
+          )
         ],
       ),
     );
@@ -501,13 +513,13 @@ class _AttributeProductAddViewState extends State<AttributeProductAddView> {
                           minOrderQuantity: 1,
                           //   attributes: attributes,
                           description: widget.productMyShopRespone.description,
-                          offerStart: "2022-06-10T06:29:30.745",
-                          offerEnd: "2022-06-10T06:29:30.745",
-                          preorderEnd: "2022-06-10T06:29:30.745",
-                          preorderStart: "2022-06-10T06:29:30.745",
+                          offerStart: "2021-06-15T06:29:30.745",
+                          offerEnd: "2021-06-15T06:29:30.745",
+                          preorderEnd: "2021-06-15T06:29:30.745",
+                          preorderStart: "2022-06-15T06:29:30.745",
                           condition: "New",
-                          active: 0,
-                          availableFrom: "2022-06-10T06:29:30.745Z",
+                          active: 1,
+                          availableFrom: "2022-06-15T06:29:30.745Z",
                           title: "",
                           offerPrice: widget.productMyShopRespone.offerPrice,
                           salePrice: widget.productMyShopRespone.salePrice,
@@ -517,7 +529,7 @@ class _AttributeProductAddViewState extends State<AttributeProductAddView> {
                           packaging: 0,
                           preorder: 0,
                           preorderMsg: "",
-                          purchasePrice: 0,
+                          purchasePrice: int.parse(priceController.text),
                           shippingWeight: 0);
                       Usermanager().getUser().then((value) =>
                           bloc.updateInventoriesAttr(context,

@@ -25,7 +25,7 @@ class _ProductSlideState extends State<ProductSlide> {
 
   @override
   void initState() {
-    current.add( widget.indexImg);
+    current.add(widget.indexImg);
     super.initState();
   }
 
@@ -70,7 +70,7 @@ class _ProductSlideState extends State<ProductSlide> {
                     child: Lottie.asset('assets/json/loading.json', height: 30),
                   ),
                   imageUrl: item,
-                  fit: BoxFit.contain,
+                  fit: BoxFit.cover,
                   errorWidget: (context, url, error) => Container(
                       height: 30,
                       width: MediaQuery.of(context).size.width,
