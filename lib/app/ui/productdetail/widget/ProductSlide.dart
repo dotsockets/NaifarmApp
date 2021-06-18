@@ -70,7 +70,6 @@ class _ProductSlideState extends State<ProductSlide> {
                     child: Lottie.asset('assets/json/loading.json', height: 30),
                   ),
                   imageUrl: item,
-                  fit: BoxFit.cover,
                   errorWidget: (context, url, error) => Container(
                       height: 30,
                       width: MediaQuery.of(context).size.width,
