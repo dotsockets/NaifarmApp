@@ -77,28 +77,25 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
       },
       child: Container(
         color: ThemeColor.primaryColor(),
-        child: SafeArea(
-          bottom: false,
-          child: Scaffold(
-              key: _scaffoldKey,
-              backgroundColor: Colors.grey.shade200,
-              body: BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
-                builder: (_, item) {
-                  if (item is InfoCustomerLoaded) {
-                    itemInfo = item.profileObjectCombine.customerInfoRespone;
-                    return contentMe(itemInfo: itemInfo);
-                  } else if (item is InfoCustomerLoading) {
-                    itemInfo = item.profileObjectCombine.customerInfoRespone;
-                    return contentMe(itemInfo: itemInfo);
-                  } else if (item is InfoCustomerError) {
-                    itemInfo = item.profileObjectCombine.customerInfoRespone;
-                    return contentMe(itemInfo: itemInfo);
-                  } else {
-                    return SizedBox();
-                  }
-                },
-              )),
-        ),
+        child: Scaffold(
+            key: _scaffoldKey,
+            backgroundColor: Colors.grey.shade200,
+            body: BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
+              builder: (_, item) {
+                if (item is InfoCustomerLoaded) {
+                  itemInfo = item.profileObjectCombine.customerInfoRespone;
+                  return contentMe(itemInfo: itemInfo);
+                } else if (item is InfoCustomerLoading) {
+                  itemInfo = item.profileObjectCombine.customerInfoRespone;
+                  return contentMe(itemInfo: itemInfo);
+                } else if (item is InfoCustomerError) {
+                  itemInfo = item.profileObjectCombine.customerInfoRespone;
+                  return contentMe(itemInfo: itemInfo);
+                } else {
+                  return SizedBox();
+                }
+              },
+            )),
       ),
     );
   }
@@ -107,6 +104,7 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
     return CustomScrollView(
       slivers: [
         SliverAppBar(
+          toolbarHeight: 5.5.h,
           leading: Container(
               margin: EdgeInsets.only(left: 1.5.w),
               child: IconButton(
@@ -130,12 +128,23 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
           expandedHeight: SizeUtil.headerHeight().h,
           flexibleSpace: FlexibleSpaceBar(
             background: Container(
-              color: ThemeColor.primaryColor(),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  tileMode: TileMode.repeated,
+                  stops: [0.2, 1.0],
+                  colors: [
+                    ThemeColor.primaryColor(),
+                    ThemeColor.gradientColor()
+                  ],
+                ),
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 20,
+                    height: 7.0.h,
                   ),
                   Text(
                     LocaleKeys.my_profile_title.tr(),

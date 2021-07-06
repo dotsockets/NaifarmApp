@@ -175,12 +175,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
       child: Container(
           padding: EdgeInsets.only(bottom: 3.5.h),
           // width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            color: ThemeColor.primaryColor(),
-            borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(15.0.w),
-                bottomLeft: Radius.circular(15.0.w)),
-          ),
+
           child: Column(
             children: [
               Text(
@@ -198,7 +193,16 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   Widget buildBar(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: ThemeColor.primaryColor(),
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          tileMode: TileMode.repeated,
+          stops: [0.1, 1.0],
+          colors: [
+            ThemeColor.primaryColor(),
+            ThemeColor.gradientColor()
+          ],
+        ),
         borderRadius: BorderRadius.only(
             bottomRight: Radius.circular(15.0.w),
             bottomLeft: Radius.circular(15.0.w)),

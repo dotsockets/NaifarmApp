@@ -45,7 +45,16 @@ class SplashLoginView extends StatelessWidget {
         padding: EdgeInsets.all(10),
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          color: ThemeColor.primaryColor(),
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            tileMode: TileMode.repeated,
+            stops: [0.2, 0.6],
+            colors: [
+              ThemeColor.primaryColor(),
+              ThemeColor.gradientColor()
+            ],
+          ),
           borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(50),
               bottomLeft: Radius.circular(50)),
@@ -64,7 +73,8 @@ class SplashLoginView extends StatelessWidget {
               height: 5.0.h,
             ),
             Image.asset(
-              'assets/images/png/img_login.png',
+              'assets/images/png/logoimage.png',
+              width: 35.0.h,
               height: 35.0.h,
             ),
             SizedBox(

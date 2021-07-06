@@ -204,7 +204,18 @@ class _MeViewState extends State<MeView> with RouteAware {
           expandedHeight: SizeUtil.headerHeight().h,
           flexibleSpace: FlexibleSpaceBar(
             background: Container(
-              color: ThemeColor.primaryColor(),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  tileMode: TileMode.repeated,
+                  stops: [0.2, 1.0],
+                  colors: [
+                    ThemeColor.primaryColor(),
+                    ThemeColor.gradientColor()
+                  ],
+                ),
+              ),
               child: BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
                 builder: (_, item) {
                   if (item is InfoCustomerLoaded) {

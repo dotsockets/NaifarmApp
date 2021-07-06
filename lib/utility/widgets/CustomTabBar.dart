@@ -56,7 +56,7 @@ class _CustomTabBarState extends State<CustomTabBar>
         indicatorColor: Color(ColorUtils.hexToInt("#e85440")),
         indicatorWeight: 5.0,
         labelPadding: EdgeInsets.zero,
-        labelColor: ThemeColor.secondaryColor(),
+        labelColor: ThemeColor.gradientColor(),
         labelStyle: TextStyle(
             fontSize: SizeUtil.detailFontSize().sp, fontWeight: FontWeight.bold),
         unselectedLabelColor: Colors.white,
@@ -235,7 +235,7 @@ class _CustomTabBarState extends State<CustomTabBar>
                 child: Image.asset(
                   pathIcon,
                   color: _tabController.index == index
-                      ? ThemeColor.secondaryColor()
+                      ? ThemeColor.gradientColor()
                       : Colors.white,
                   width: sizeIcon,
                   height: sizeIcon,

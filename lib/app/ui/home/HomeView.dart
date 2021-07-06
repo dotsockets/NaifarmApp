@@ -263,6 +263,16 @@ class _HomeViewState extends LifecycleWatcherState<HomeView>
                             ? 0
                             : 1.5.h),
                     decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        tileMode: TileMode.repeated,
+                        stops: [0.2, 1.0],
+                        colors: [
+                          ThemeColor.primaryColor(),
+                          ThemeColor.gradientColor()
+                        ],
+                      ),
                       borderRadius: BorderRadius.only(
                           topRight:
                           Radius.circular(SizeUtil.borderRadiusFooter()),

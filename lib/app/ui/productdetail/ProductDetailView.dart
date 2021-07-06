@@ -205,11 +205,11 @@ class _ProductDetailViewState extends State<ProductDetailView>
           }
         }
 
-        Usermanager().getUser().then((value) {
-          token = value.token;
-          bloc.loadProductsPage(context,
-              id: widget.productItem.id, token: value.token);
-        });
+        // Usermanager().getUser().then((value) {
+        //   token = value.token;
+        //   bloc.loadProductsPage(context,
+        //       id: widget.productItem.id, token: value.token);
+        // });
       });
     }
 

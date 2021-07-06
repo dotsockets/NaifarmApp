@@ -4,7 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ThemeColor {
   static Color secondaryColor() {
-    return Color(ColorUtils.hexToInt("#006100"));
+    return Color(ColorUtils.hexToInt("#21a382"));
+  }
+
+  static Color gradientColor() {
+    return Color(ColorUtils.hexToInt("#0d6952"));
   }
 
   static Color colorSale() {
@@ -16,7 +20,7 @@ class ThemeColor {
   }
 
   static Color primaryColor() {
-    return Color(ColorUtils.hexToInt("#79af66"));
+    return Color(ColorUtils.hexToInt("#00a178"));
   }
 
   static Color fontprimaryColor(BuildContext context) {

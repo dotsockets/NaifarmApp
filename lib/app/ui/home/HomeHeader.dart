@@ -27,7 +27,16 @@ class _HomeHeaderState extends State<HomeHeader> {
       padding: EdgeInsets.only(
           left: 0, right: 0.3.w, top: SizeUtil.paddingHeaderHome().h),
       decoration: new BoxDecoration(
-          color: ThemeColor.primaryColor(),
+        gradient: LinearGradient(
+          begin: Alignment.bottomCenter,
+          end: Alignment.topCenter,
+          tileMode: TileMode.repeated,
+          stops: [0.2, 1.0],
+          colors: [
+            ThemeColor.primaryColor(),
+            ThemeColor.gradientColor()
+          ],
+        ),
           // borderRadius: new BorderRadius.only(
           //   bottomRight: Radius.circular(widget.snapshot.sliderRespone != null
           //       ? widget.snapshot.sliderRespone.data.isNotEmpty
