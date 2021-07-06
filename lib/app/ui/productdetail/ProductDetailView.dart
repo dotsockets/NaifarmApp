@@ -94,28 +94,29 @@ class _ProductDetailViewState extends State<ProductDetailView>
         checkScrollControl.add(true);
       }
     });
-
-    animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 700));
-    animation = Tween<Offset>(begin: Offset(0, 0), end: Offset(57.0.w, -85.0.h))
-        .animate(CurvedAnimation(
-      // เพิ่ม Curve
-        parent: animationController, // เพิ่ม Curve
-        curve: Curves.linear))
-      ..addListener(() {
-        setState(() {});
-      })
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          //animationController.
-          animationController.reset();
-        }
-      });
+    //
+    // animationController =
+    //     AnimationController(vsync: this, duration: Duration(milliseconds: 700));
+    // animation = Tween<Offset>(begin: Offset(0, 0), end: Offset(57.0.w, -85.0.h))
+    //     .animate(CurvedAnimation(
+    //   // เพิ่ม Curve
+    //     parent: animationController, // เพิ่ม Curve
+    //     curve: Curves.linear))
+    //   ..addListener(() {
+    //     setState(() {});
+    //   })
+    //   ..addStatusListener((status) {
+    //     if (status == AnimationStatus.completed) {
+    //       //animationController.
+    //       animationController.reset();
+    //     }
+    //   });
 
     _controller.forward();
   }
 
   void _init() {
+
     iSLogin();
     if (null == bloc) {
       checkScrollControl.add(false);
@@ -163,6 +164,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
       });
 
       bloc.zipProductDetail.stream.listen((event) {
+
         checkScrollControl.add(true);
         // bloc.Wishlists.add(event.wishlistsRespone);
       });
@@ -205,11 +207,11 @@ class _ProductDetailViewState extends State<ProductDetailView>
           }
         }
 
-        // Usermanager().getUser().then((value) {
-        //   token = value.token;
-        //   bloc.loadProductsPage(context,
-        //       id: widget.productItem.id, token: value.token);
-        // });
+        Usermanager().getUser().then((value) {
+          token = value.token;
+          bloc.loadProductsPage(context,
+              id: widget.productItem.id, token: value.token);
+        });
       });
     }
 
@@ -430,7 +432,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                   tag: "customTag",
                   child: Center(
                     child: ProductSlide(
-                      imgList: item !=null && item.image.length!=0?item.image
+                      imgList: item !=null && item.image!=null?item.image
                           .map((e) =>
                       "${e.path.imgUrl()}")
                           .toList():[""],stockQuantity: item.inventories!=null?item.inventories[0].stockQuantity:1,),
@@ -514,33 +516,33 @@ class _ProductDetailViewState extends State<ProductDetailView>
                       }
                     },
                   ),
-                  divider(),
-                  FutureBuilder<FeedbackRespone>(
-                      future: bloc.getFeedbackFuture(context,
-                          limit: 10,
-                          id: item.id,
-                          page: 1),
-                      // a Future<String> or null
-                      builder: (BuildContext context,
-                          AsyncSnapshot<FeedbackRespone> snapshot) {
-                        switch (snapshot.connectionState) {
-                          case ConnectionState.none:
-                            return SizedBox();
-                          case ConnectionState.waiting:
-                            return RatingProduct(
-                              productId: item.id,
-                              feedbackRespone: snapshot.data,
-                            );
-                          default:
-                            if (snapshot.hasError)
-                              return SizedBox();
-                            else
-                              return RatingProduct(
-                                productId: item.id,
-                                feedbackRespone: snapshot.data,
-                              );
-                        }
-                      }),
+                  // divider(),
+                  // FutureBuilder<FeedbackRespone>(
+                  //     future: bloc.getFeedbackFuture(context,
+                  //         limit: 10,
+                  //         id: item.id,
+                  //         page: 1),
+                  //     // a Future<String> or null
+                  //     builder: (BuildContext context,
+                  //         AsyncSnapshot<FeedbackRespone> snapshot) {
+                  //       switch (snapshot.connectionState) {
+                  //         case ConnectionState.none:
+                  //           return SizedBox();
+                  //         case ConnectionState.waiting:
+                  //           return RatingProduct(
+                  //             productId: item.id,
+                  //             feedbackRespone: snapshot.data,
+                  //           );
+                  //         default:
+                  //           if (snapshot.hasError)
+                  //             return SizedBox();
+                  //           else
+                  //             return RatingProduct(
+                  //               productId: item.id,
+                  //               feedbackRespone: snapshot.data,
+                  //             );
+                  //       }
+                  //     }),
                 ],
               );
             } else {
@@ -565,8 +567,8 @@ class _ProductDetailViewState extends State<ProductDetailView>
                     id: widget.productItem.id, token: value.token);
               });
             }),
-        widget.productItem.image != null ? divider() : SizedBox(),
-        BuildChoosesize(),
+        //widget.productItem.image != null ? divider() : SizedBox(),
+     //  BuildChoosesize(),
         divider(),
         InkWell(
           child: ShopOwn(

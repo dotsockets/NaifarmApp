@@ -51,7 +51,7 @@ class _ProductSlideState extends State<ProductSlide> {
           padding: EdgeInsets.only(top: 0, bottom: 30),
           child: CarouselSlider(
             options: CarouselOptions(
-              height: 50.0.h,
+              height: 46.0.h,
               viewportFraction: 0.999,
               autoPlay: true,
               initialPage: widget.indexImg,

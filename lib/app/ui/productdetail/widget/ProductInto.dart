@@ -40,7 +40,6 @@ class ProductInto extends StatelessWidget {
 
 
   void _init(BuildContext context) {
-
     if (null == bloc) {
 
       bloc = ProductBloc(AppProvider.getApplication(context));

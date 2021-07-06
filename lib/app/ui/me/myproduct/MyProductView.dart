@@ -105,76 +105,76 @@ class _MyProductViewState extends State<MyProductView> {
                             shopID: widget.shopId,
                             tabNum: tabNum);
                       }),
-                  PopupMenuButton(
-                    child: Container(
-                      padding: EdgeInsets.only(
-                          right: SizeUtil.paddingCart().w,
-                          left: SizeUtil.paddingItem().w),
-                      child: Icon(
-                        FontAwesome.ellipsis_v,
-                        size: SizeUtil.mediumIconSize().w,
-                        color: Colors.white,
-                      ),
-                    ),
-                    itemBuilder: (context) {
-                      return [
-                        PopupMenuItem(
-                          value: 0,
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(right: 5.0),
-                                child: Icon(
-                                  FontAwesome.tag,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              Text(
-                                LocaleKeys.attributes_set.tr(),
-                                style: FunctionHelper.fontTheme(
-                                    fontSize: SizeUtil.titleFontSize().sp,
-                                    fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                        ),
-                        PopupMenuItem(
-                          value: 1,
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(right: 5.0),
-                                child: Icon(
-                                  FontAwesome.ticket,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              Text(
-                                LocaleKeys.coupon_coupon_title.tr(),
-                                style: FunctionHelper.fontTheme(
-                                    fontSize: SizeUtil.titleFontSize().sp,
-                                    fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ];
-                    },
-                    onSelected: (int selectedValue) {
-                      switch (selectedValue) {
-                        case 0:
-                          AppRoute.attribute(context: context);
-                          break;
-                        case 1:
-                          AppRoute.coupons(
-                              context: context, shopId: widget.shopId);
-                          break;
-                        default:
-                      }
-                    },
-                  ),
+                  // PopupMenuButton(
+                  //   child: Container(
+                  //     padding: EdgeInsets.only(
+                  //         right: SizeUtil.paddingCart().w,
+                  //         left: SizeUtil.paddingItem().w),
+                  //     child: Icon(
+                  //       FontAwesome.ellipsis_v,
+                  //       size: SizeUtil.mediumIconSize().w,
+                  //       color: Colors.white,
+                  //     ),
+                  //   ),
+                  //   itemBuilder: (context) {
+                  //     return [
+                  //       PopupMenuItem(
+                  //         value: 0,
+                  //         child: Row(
+                  //           children: [
+                  //             Padding(
+                  //               padding: EdgeInsets.only(right: 5.0),
+                  //               child: Icon(
+                  //                 FontAwesome.tag,
+                  //                 color: Colors.black,
+                  //               ),
+                  //             ),
+                  //             Text(
+                  //               LocaleKeys.attributes_set.tr(),
+                  //               style: FunctionHelper.fontTheme(
+                  //                   fontSize: SizeUtil.titleFontSize().sp,
+                  //                   fontWeight: FontWeight.w500),
+                  //               textAlign: TextAlign.center,
+                  //             ),
+                  //           ],
+                  //         ),
+                  //       ),
+                  //       PopupMenuItem(
+                  //         value: 1,
+                  //         child: Row(
+                  //           children: [
+                  //             Padding(
+                  //               padding: EdgeInsets.only(right: 5.0),
+                  //               child: Icon(
+                  //                 FontAwesome.ticket,
+                  //                 color: Colors.black,
+                  //               ),
+                  //             ),
+                  //             Text(
+                  //               LocaleKeys.coupon_coupon_title.tr(),
+                  //               style: FunctionHelper.fontTheme(
+                  //                   fontSize: SizeUtil.titleFontSize().sp,
+                  //                   fontWeight: FontWeight.w500),
+                  //               textAlign: TextAlign.center,
+                  //             ),
+                  //           ],
+                  //         ),
+                  //       ),
+                  //     ];
+                  //   },
+                  //   onSelected: (int selectedValue) {
+                  //     switch (selectedValue) {
+                  //       case 0:
+                  //         AppRoute.attribute(context: context);
+                  //         break;
+                  //       case 1:
+                  //         AppRoute.coupons(
+                  //             context: context, shopId: widget.shopId);
+                  //         break;
+                  //       default:
+                  //     }
+                  //   },
+                  // ),
                 ],
               ),
             ),
