@@ -9,11 +9,13 @@ import 'package:naifarm/app/model/core/AppProvider.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryCombin.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:package_info/package_info.dart';
+import 'package:rive/rive.dart' as rive;
 import 'package:sizer/sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -81,56 +83,76 @@ class _SplashViewState extends State<SplashView>
   @override
   build(BuildContext context) {
     _init(context);
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Container(
-          child: Stack(
-            fit: StackFit.expand,
-            children: <Widget>[
-              new Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Padding(
-                      padding: EdgeInsets.only(bottom: 20.0),
-                      child: Column(
-                        children: [
-                          Text(
-                            "NaiFarm",
-                            style: GoogleFonts.kanit(
-                                fontSize: SizeUtil.detailFontSize().sp,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          Text(
-                            "Version $platformVersion",
-                            style: GoogleFonts.kanit(
-                                fontSize: SizeUtil.detailFontSize().sp,
-                                fontWeight: FontWeight.w500),
-                          )
-                        ],
-                      ))
-                ],
-              ),
-              new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Image.asset(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Container(
+        child: Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            new Column(
+              children: [
+                Container(
+                  height: 100.0.h,
+                  width: 100.0.w,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        ThemeColor.primaryColor().withOpacity(0.5),
+                        Colors.white,
+                      ],
+                      begin: const FractionalOffset(0.0, 0.0),
+                      end: const FractionalOffset(0.0, 1),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            new Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.only(bottom: 20.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          "NaiFarm",
+                          style: GoogleFonts.kanit(
+                              fontSize: SizeUtil.detailFontSize().sp,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        Text(
+                          "Version $platformVersion",
+                          style: GoogleFonts.kanit(
+                              fontSize: SizeUtil.detailFontSize().sp,
+                              fontWeight: FontWeight.w500),
+                        )
+                      ],
+                    ))
+              ],
+            ),
+            new Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                /*Image.asset(
                     'assets/images/png/img_login.png',
                     width: animation.value * 70.0.w,
                     height: animation.value * 70.0.w,
+                  ),*/
+                Container(
+                  width: 100.0.w,
+                  height: 100.0.w,
+                  child: rive.RiveAnimation.asset(
+                    'assets/rive animation/naifarm.riv',
                   ),
-                ],
-              ),
-            ],
-          ),
+                )
+              ],
+            ),
+          ],
         ),
       ),
     );
   }
-
-
-
 
   startTimer() async {
     var duration = new Duration(seconds: 1);
@@ -165,14 +187,14 @@ class _SplashViewState extends State<SplashView>
         .then((value) => bloc.loadCustomerCount(context, token: value.token));
   }
 
-  _loadData(){
+  _loadData() {
     bloc.getCategoriesAll(
       context,
     );
     Usermanager().getUser().then((value) {
       context.read<HomeDataBloc>().loadHomeData(
-        context,
-      );
+            context,
+          );
       Usermanager().getUser().then((value) => context
           .read<CustomerCountBloc>()
           .loadCustomerCount(context, token: value.token));

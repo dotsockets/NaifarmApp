@@ -51,7 +51,6 @@ class ProductDetailView extends StatefulWidget {
 
 class _ProductDetailViewState extends State<ProductDetailView>
     with TickerProviderStateMixin, RouteAware {
-
   TrackingScrollController trackingScrollController;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   int indexTypes1 = 1;
@@ -116,7 +115,6 @@ class _ProductDetailViewState extends State<ProductDetailView>
   }
 
   void _init() {
-
     iSLogin();
     if (null == bloc) {
       checkScrollControl.add(false);
@@ -138,9 +136,9 @@ class _ProductDetailViewState extends State<ProductDetailView>
             FunctionHelper.alertDialogShop(context,
                 title: LocaleKeys.btn_error.tr(),
                 message: event.message, callCancle: () {
-                  AppRoute.poppageCount(
-                      context: context, countpage: Platform.isAndroid ? 2 : 2);
-                });
+              AppRoute.poppageCount(
+                  context: context, countpage: Platform.isAndroid ? 2 : 2);
+            });
           } else if (event.status == 0 || event.status >= 500) {
             Future.delayed(const Duration(milliseconds: 500), () {
               FunctionHelper.alertDialogRetry(context,
@@ -164,7 +162,6 @@ class _ProductDetailViewState extends State<ProductDetailView>
       });
 
       bloc.zipProductDetail.stream.listen((event) {
-
         checkScrollControl.add(true);
         // bloc.Wishlists.add(event.wishlistsRespone);
       });
@@ -190,8 +187,6 @@ class _ProductDetailViewState extends State<ProductDetailView>
         }
       });
 
-
-
       NaiFarmLocalStorage.getProductDetailCache().then((value) {
         if (value != null) {
           for (var data in value.item) {
@@ -200,7 +195,8 @@ class _ProductDetailViewState extends State<ProductDetailView>
               // if (data.productObjectCombine.dataWishlists != null) {
 
               data.productObjectCombine.producItemRespone.slug = "";
-              bloc.zipProductDetail.add(data.productObjectCombine.producItemRespone);
+              bloc.zipProductDetail
+                  .add(data.productObjectCombine.producItemRespone);
               bloc.searchProduct.add(data.searchRespone);
               break;
             }
@@ -223,8 +219,6 @@ class _ProductDetailViewState extends State<ProductDetailView>
         checkMyShop.add(0);
       }
     });
-
-
   }
 
   void iSLogin() async => isLogin = await Usermanager().isLogin();
@@ -257,8 +251,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
     return Platform.isAndroid
         ? androidRefreshIndicator()
         : Container(
-        color: ThemeColor.primaryColor(),
-        child: iosRefreshIndicator());
+            color: ThemeColor.primaryColor(), child: iosRefreshIndicator());
   }
 
   Widget androidRefreshIndicator() {
@@ -277,10 +270,10 @@ class _ProductDetailViewState extends State<ProductDetailView>
         completeStateDuration: const Duration(seconds: 1),
         offsetToArmed: 50.0,
         builder: (
-            BuildContext context,
-            Widget child,
-            IndicatorController controller,
-            ) {
+          BuildContext context,
+          Widget child,
+          IndicatorController controller,
+        ) {
           return Stack(
             children: <Widget>[
               AnimatedBuilder(
@@ -320,8 +313,9 @@ class _ProductDetailViewState extends State<ProductDetailView>
   Widget get contentMain => Scaffold(
       key: _scaffoldKey,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.dark
-            .copyWith(statusBarColor: ThemeColor.primaryColor()),
+        value: SystemUiOverlayStyle.dark.copyWith(
+          statusBarColor: Colors.transparent,
+        ),
         child: Container(
           color: ThemeColor.primaryColor(),
           child: SafeArea(
@@ -351,8 +345,8 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                   if (value > 0) {
                                     value = value - 1;
                                   }
-                                  NaiFarmLocalStorage.saveNowPage(value)
-                                      .then((value) => Navigator.of(context).pop());
+                                  NaiFarmLocalStorage.saveNowPage(value).then(
+                                      (value) => Navigator.of(context).pop());
                                 });
                               },
                             ),
@@ -363,48 +357,49 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                 if (snapshot.hasData) {
                                   return snapshot.data
                                       ? Positioned(
-                                    bottom: 0.0,
-                                    right: 0.0,
-                                    left: 0.0,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            spreadRadius: 1,
-                                            blurRadius: 1,
-                                            offset: Offset(5,
-                                                0), // changes position of shadow
+                                          bottom: 0.0,
+                                          right: 0.0,
+                                          left: 0.0,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.grey
+                                                      .withOpacity(0.5),
+                                                  spreadRadius: 1,
+                                                  blurRadius: 1,
+                                                  offset: Offset(5,
+                                                      0), // changes position of shadow
+                                                ),
+                                              ],
+                                            ),
+                                            child: StreamBuilder(
+                                              stream: bloc.wishlists.stream,
+                                              builder: (BuildContext context,
+                                                  AsyncSnapshot snapshot) {
+                                                if (snapshot.hasData &&
+                                                    (snapshot.data
+                                                            as WishlistsRespone) !=
+                                                        null) {
+                                                  if ((snapshot.data
+                                                              as WishlistsRespone)
+                                                          .total >
+                                                      0) {
+                                                    return buildFooterTotal(
+                                                        item: snapshot.data);
+                                                  } else {
+                                                    return buildFooterTotal(
+                                                        item: snapshot.data);
+                                                  }
+                                                } else {
+                                                  return buildFooterTotal(
+                                                      item: WishlistsRespone());
+                                                }
+                                              },
+                                            ),
                                           ),
-                                        ],
-                                      ),
-                                      child: StreamBuilder(
-                                        stream: bloc.wishlists.stream,
-                                        builder: (BuildContext context,
-                                            AsyncSnapshot snapshot) {
-                                          if (snapshot.hasData &&
-                                              (snapshot.data
-                                              as WishlistsRespone) !=
-                                                  null) {
-                                            if ((snapshot.data
-                                            as WishlistsRespone)
-                                                .total >
-                                                0) {
-                                              return buildFooterTotal(
-                                                  item: snapshot.data);
-                                            } else {
-                                              return buildFooterTotal(
-                                                  item: snapshot.data);
-                                            }
-                                          } else {
-                                            return buildFooterTotal(
-                                                item: WishlistsRespone());
-                                          }
-                                        },
-                                      ),
-                                    ),
-                                  )
+                                        )
                                       : SizedBox();
                                 } else {
                                   return SizedBox();
@@ -420,140 +415,145 @@ class _ProductDetailViewState extends State<ProductDetailView>
       ));
 
   Widget get _content => Column(
-    children: [
-      StreamBuilder(
-          stream: bloc.zipProductDetail.stream,
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            var item = (snapshot.data as ProducItemRespone);
-            if (snapshot.hasData && item != null) {
-              return FullScreenWidget(
-                backgroundIsTransparent: true,
-                child: Hero(
-                  tag: "customTag",
-                  child: Center(
-                    child: ProductSlide(
-                      imgList: item !=null && item.image!=null?item.image
-                          .map((e) =>
-                      "${e.path.imgUrl()}")
-                          .toList():[""],stockQuantity: item.inventories!=null?item.inventories[0].stockQuantity:1,),
-                  ),
-                ),
-              );
-            } else {
-              return widget.productItem.image != null
-                  ? ProductSlide(
-                imgList: widget.productItem.image.length!=0?widget.productItem.image
-                    .map((e) =>
-                "${e.path.imgUrl()}")
-                    .toList():[""],stockQuantity: 1,)
-              // ? Hero(
-              //     tag: widget.productImage,
-              //     child: ProductSlide(
-              //         imgList: widget.productItem.image))
-                  : SizedBox();
-            }
-          }),
-      StreamBuilder(
-          stream: bloc.zipProductDetail.stream,
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            var item = (snapshot.data as ProducItemRespone);
-            if (snapshot.hasData && item != null) {
-              return buildProductDetail(item);
-            } else {
-              return  SizedBox();
-            }
-          }),
-      StreamBuilder(
-          stream: bloc.zipProductDetail.stream,
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            var item = (snapshot.data as ProducItemRespone);
-            if (snapshot.hasData && item != null) {
-              return Column(
-                children: [
-                  ProductDetail(productItem: item),
-                  divider(),
-                  StreamBuilder(
-                    stream: bloc.searchProduct.stream,
-                    builder:
-                        (BuildContext context, AsyncSnapshot snapshot) {
-                      if (snapshot.hasData &&
-                          (snapshot.data as SearchRespone) != null) {
-                        if ((snapshot.data as SearchRespone).hits.length >
-                            0) {
-                          return ProductLandscape(
-                            subFixId: subFixId,
-                            productRespone: bloc.convertSearchData(
-                                item: snapshot.data as SearchRespone),
-                            titleInto: LocaleKeys.recommend_you_like.tr(),
-                            producViewModel:
-                            ProductViewModel().getBestSaller(),
-                            imageIcon: 'assets/images/png/like.png',
-                            iconSize: 5.0.w,
-                            onSelectMore: () {
-                              AppRoute.productMore(
-                                  context: context,
-                                  apiLink:
-                                  "products/types/popular?categoryGroupId=${item.categories[0].category.categorySubGroup.categoryGroup.id}",
-                                  barTxt:
-                                  LocaleKeys.recommend_you_like.tr());
-                            },
-                            onTapItem: (ProductData item, int index) {
-                              item.stockQuantity = 1;
-                              AppRoute.productDetail(context,
-                                  productImage:
-                                  "product_detail_${item.id}$subFixId",
-                                  productItem:
-                                  ProductBloc.convertDataToProduct(
-                                      data: item));
-                            },
-                            tagHero: "product_detail",
-                          );
-                        } else {
-                          return SizedBox();
-                        }
-                      } else {
-                        return SizedBox();
-                      }
-                    },
-                  ),
-                  divider(),
-                  FutureBuilder<FeedbackRespone>(
-                      future: bloc.getFeedbackFuture(context,
-                          limit: 10,
-                          id: item.id,
-                          page: 1),
-                      // a Future<String> or null
-                      builder: (BuildContext context,
-                          AsyncSnapshot<FeedbackRespone> snapshot) {
-                        switch (snapshot.connectionState) {
-                          case ConnectionState.none:
-                            return SizedBox();
-                          case ConnectionState.waiting:
-                            return RatingProduct(
-                              productId: item.id,
-                              feedbackRespone: snapshot.data,
-                            );
-                          default:
-                            if (snapshot.hasError)
-                              return SizedBox();
-                            else
-                              return RatingProduct(
-                                productId: item.id,
-                                feedbackRespone: snapshot.data,
+        children: [
+          StreamBuilder(
+              stream: bloc.zipProductDetail.stream,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                var item = (snapshot.data as ProducItemRespone);
+                if (snapshot.hasData && item != null) {
+                  return FullScreenWidget(
+                    backgroundIsTransparent: true,
+                    child: Hero(
+                      tag: "customTag",
+                      child: Center(
+                        child: ProductSlide(
+                          imgList: item != null && item.image != null
+                              ? item.image
+                                  .map((e) => "${e.path.imgUrl()}")
+                                  .toList()
+                              : [""],
+                          stockQuantity: item.inventories != null
+                              ? item.inventories[0].stockQuantity
+                              : 1,
+                        ),
+                      ),
+                    ),
+                  );
+                } else {
+                  return widget.productItem.image != null
+                      ? ProductSlide(
+                          imgList: widget.productItem.image.length != 0
+                              ? widget.productItem.image
+                                  .map((e) => "${e.path.imgUrl()}")
+                                  .toList()
+                              : [""],
+                          stockQuantity: 1,
+                        )
+                      // ? Hero(
+                      //     tag: widget.productImage,
+                      //     child: ProductSlide(
+                      //         imgList: widget.productItem.image))
+                      : SizedBox();
+                }
+              }),
+          StreamBuilder(
+              stream: bloc.zipProductDetail.stream,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                var item = (snapshot.data as ProducItemRespone);
+                if (snapshot.hasData && item != null) {
+                  return buildProductDetail(item);
+                } else {
+                  return SizedBox();
+                }
+              }),
+          StreamBuilder(
+              stream: bloc.zipProductDetail.stream,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                var item = (snapshot.data as ProducItemRespone);
+                if (snapshot.hasData && item != null) {
+                  return Column(
+                    children: [
+                      ProductDetail(productItem: item),
+                      divider(),
+                      StreamBuilder(
+                        stream: bloc.searchProduct.stream,
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          if (snapshot.hasData &&
+                              (snapshot.data as SearchRespone) != null) {
+                            if ((snapshot.data as SearchRespone).hits.length >
+                                0) {
+                              return ProductLandscape(
+                                subFixId: subFixId,
+                                productRespone: bloc.convertSearchData(
+                                    item: snapshot.data as SearchRespone),
+                                titleInto: LocaleKeys.recommend_you_like.tr(),
+                                producViewModel:
+                                    ProductViewModel().getBestSaller(),
+                                imageIcon: 'assets/images/png/like.png',
+                                iconSize: 5.0.w,
+                                onSelectMore: () {
+                                  AppRoute.productMore(
+                                      context: context,
+                                      apiLink:
+                                          "products/types/popular?categoryGroupId=${item.categories[0].category.categorySubGroup.categoryGroup.id}",
+                                      barTxt:
+                                          LocaleKeys.recommend_you_like.tr());
+                                },
+                                onTapItem: (ProductData item, int index) {
+                                  item.stockQuantity = 1;
+                                  AppRoute.productDetail(context,
+                                      productImage:
+                                          "product_detail_${item.id}$subFixId",
+                                      productItem:
+                                          ProductBloc.convertDataToProduct(
+                                              data: item));
+                                },
+                                tagHero: "product_detail",
                               );
-                        }
-                      }),
-                ],
-              );
-            } else {
-              return SizedBox();
-            }
-          })
-    ],
-  );
+                            } else {
+                              return SizedBox();
+                            }
+                          } else {
+                            return SizedBox();
+                          }
+                        },
+                      ),
+                      divider(),
+                      FutureBuilder<FeedbackRespone>(
+                          future: bloc.getFeedbackFuture(context,
+                              limit: 10, id: item.id, page: 1),
+                          // a Future<String> or null
+                          builder: (BuildContext context,
+                              AsyncSnapshot<FeedbackRespone> snapshot) {
+                            switch (snapshot.connectionState) {
+                              case ConnectionState.none:
+                                return SizedBox();
+                              case ConnectionState.waiting:
+                                return RatingProduct(
+                                  productId: item.id,
+                                  feedbackRespone: snapshot.data,
+                                );
+                              default:
+                                if (snapshot.hasError)
+                                  return SizedBox();
+                                else
+                                  return RatingProduct(
+                                    productId: item.id,
+                                    feedbackRespone: snapshot.data,
+                                  );
+                            }
+                          }),
+                    ],
+                  );
+                } else {
+                  return SizedBox();
+                }
+              })
+        ],
+      );
 
   Widget buildProductDetail(ProducItemRespone item) {
-
     return Column(
       children: [
         ProductInto(
@@ -568,15 +568,14 @@ class _ProductDetailViewState extends State<ProductDetailView>
               });
             }),
         widget.productItem.image != null ? divider() : SizedBox(),
-      BuildChoosesize(),
+        BuildChoosesize(),
         divider(),
         InkWell(
           child: ShopOwn(
               rateStyle: true,
               shopItem: item.shop,
               shopRespone: MyShopRespone(
-                  countProduct: item.shop.countProduct,
-                  id: item.shopId)),
+                  countProduct: item.shop.countProduct, id: item.shopId)),
           onTap: () {
             AppRoute.shopMain(
                 context: context,
@@ -596,25 +595,25 @@ class _ProductDetailViewState extends State<ProductDetailView>
   Widget buildFooterTotal({WishlistsRespone item}) {
     return widget.productItem.shop != null
         ? StreamBuilder(
-        stream: checkMyShop.stream,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData &&
-              snapshot.data != widget.productItem.shop.id) {
-            return FadeTransition(
-              opacity: _animation,
-              child: Container(
-                height: SizeUtil.largeIconSize().h,
-                decoration: BoxDecoration(
-                  border: Border(
-                      top: BorderSide(
-                          color: Colors.grey.withOpacity(0.4), width: 0),
-                      bottom: BorderSide(
-                          color: Colors.grey.withOpacity(0.4), width: 0)),
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                        child: InkWell(
+            stream: checkMyShop.stream,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData &&
+                  snapshot.data != widget.productItem.shop.id) {
+                return FadeTransition(
+                  opacity: _animation,
+                  child: Container(
+                    height: SizeUtil.largeIconSize().h,
+                    decoration: BoxDecoration(
+                      border: Border(
+                          top: BorderSide(
+                              color: Colors.grey.withOpacity(0.4), width: 0),
+                          bottom: BorderSide(
+                              color: Colors.grey.withOpacity(0.4), width: 0)),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: InkWell(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -640,13 +639,13 @@ class _ProductDetailViewState extends State<ProductDetailView>
                     // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
                   },*/
                         )),
-                    Container(
-                      color: Colors.grey.withOpacity(0.4),
-                      height: SizeUtil.largeIconSize().h,
-                      width: 1,
-                    ),
-                    Expanded(
-                        child: Center(
+                        Container(
+                          color: Colors.grey.withOpacity(0.4),
+                          height: SizeUtil.largeIconSize().h,
+                          width: 1,
+                        ),
+                        Expanded(
+                            child: Center(
                           child: InkWell(
                             child: Stack(
                               children: [
@@ -675,8 +674,8 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                         LocaleKeys.cart_add_cart.tr(),
                                         style: FunctionHelper.fontTheme(
                                             fontSize:
-                                            SizeUtil.titleSmallFontSize()
-                                                .sp,
+                                                SizeUtil.titleSmallFontSize()
+                                                    .sp,
                                             fontWeight: FontWeight.bold),
                                       )
                                     ],
@@ -688,53 +687,18 @@ class _ProductDetailViewState extends State<ProductDetailView>
                               if (isLogin) {
                                 List<Items> items = <Items>[];
                                 items.add(Items(
-                                    inventoryId: bloc.zipProductDetail.value.inventories[0].id,
+                                    inventoryId: bloc.zipProductDetail.value
+                                        .inventories[0].id,
                                     quantity: 1));
                                 Usermanager()
                                     .getUser()
                                     .then((value) => bloc.addCartlists(context,
-                                    onload: true,
-                                    cartRequest: CartRequest(
-                                      shopId:
-                                      widget.productItem.shop != null
-                                          ? widget.productItem.shop.id
-                                          : 0,
-                                      items: items,
-                                    ),
-                                    token: value.token));
-                              } else {
-                                AppRoute.login(context,
-                                    isCallBack: true,
-                                    isHeader: true,
-                                    isSetting: false, homeCallBack: (bool fix) {
-                                      //print("wefcrewfcrefc $fix");
-                                    });
-                              }
-                            },
-                          ),
-                        )),
-                    Expanded(
-                        flex: 2,
-                        child: InkWell(
-                            onTap: () {
-                              if (isLogin) {
-                                List<Items> items = <Items>[];
-                                items.add(Items(
-                                    inventoryId: bloc
-                                        .zipProductDetail
-                                        .value
-                                        .inventories[0]
-                                        .id,
-                                    quantity: 1));
-                                Usermanager().getUser().then(
-                                        (value) => bloc.addCartlists(context,
-                                        addNow: true,
                                         onload: true,
                                         cartRequest: CartRequest(
-                                          shopId: widget.productItem.shop !=
-                                              null
-                                              ? widget.productItem.shop.id
-                                              : 0,
+                                          shopId:
+                                              widget.productItem.shop != null
+                                                  ? widget.productItem.shop.id
+                                                  : 0,
                                           items: items,
                                         ),
                                         token: value.token));
@@ -742,28 +706,61 @@ class _ProductDetailViewState extends State<ProductDetailView>
                                 AppRoute.login(context,
                                     isCallBack: true,
                                     isHeader: true,
-                                    isSetting: false,
-                                    homeCallBack: (bool fix) {});
+                                    isSetting: false, homeCallBack: (bool fix) {
+                                  //print("wefcrewfcrefc $fix");
+                                });
                               }
                             },
-                            child: Container(
-                                alignment: Alignment.center,
-                                height: 8.0.h,
-                                color: ThemeColor.colorSale(),
-                                child: Text(LocaleKeys.btn_buy_product.tr(),
-                                    style: FunctionHelper.fontTheme(
-                                        fontSize:
-                                        SizeUtil.titleFontSize().sp,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white)))))
-                  ],
-                ),
-              ),
-            );
-          } else {
-            return SizedBox();
-          }
-        })
+                          ),
+                        )),
+                        Expanded(
+                            flex: 2,
+                            child: InkWell(
+                                onTap: () {
+                                  if (isLogin) {
+                                    List<Items> items = <Items>[];
+                                    items.add(Items(
+                                        inventoryId: bloc.zipProductDetail.value
+                                            .inventories[0].id,
+                                        quantity: 1));
+                                    Usermanager().getUser().then(
+                                        (value) => bloc.addCartlists(context,
+                                            addNow: true,
+                                            onload: true,
+                                            cartRequest: CartRequest(
+                                              shopId: widget.productItem.shop !=
+                                                      null
+                                                  ? widget.productItem.shop.id
+                                                  : 0,
+                                              items: items,
+                                            ),
+                                            token: value.token));
+                                  } else {
+                                    AppRoute.login(context,
+                                        isCallBack: true,
+                                        isHeader: true,
+                                        isSetting: false,
+                                        homeCallBack: (bool fix) {});
+                                  }
+                                },
+                                child: Container(
+                                    alignment: Alignment.center,
+                                    height: 8.0.h,
+                                    color: ThemeColor.colorSale(),
+                                    child: Text(LocaleKeys.btn_buy_product.tr(),
+                                        style: FunctionHelper.fontTheme(
+                                            fontSize:
+                                                SizeUtil.titleFontSize().sp,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white)))))
+                      ],
+                    ),
+                  ),
+                );
+              } else {
+                return SizedBox();
+              }
+            })
         : SizedBox();
   }
 
@@ -799,8 +796,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
       } else {
         Usermanager().getUser().then((value) => bloc.addWishlists(context,
             productId: widget.productItem.id,
-            inventoryId:
-            bloc.zipProductDetail.value.inventories[0].id,
+            inventoryId: bloc.zipProductDetail.value.inventories[0].id,
             token: value.token));
         item.data = <DataWishlists>[];
         item.total = 1;

@@ -83,11 +83,8 @@ class SettingGuestView extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               tileMode: TileMode.repeated,
-              stops: [0.2, 1.0],
-              colors: [
-                ThemeColor.primaryColor(),
-                ThemeColor.gradientColor()
-              ],
+              stops: [0.6, 1.0],
+              colors: [ThemeColor.primaryColor(), ThemeColor.gradientColor()],
             ),
           ),
           child: Row(

@@ -56,9 +56,10 @@ class _CustomTabBarState extends State<CustomTabBar>
         indicatorColor: Color(ColorUtils.hexToInt("#e85440")),
         indicatorWeight: 5.0,
         labelPadding: EdgeInsets.zero,
-        labelColor: ThemeColor.gradientColor(),
+        labelColor: Colors.white60,
         labelStyle: TextStyle(
-            fontSize: SizeUtil.detailFontSize().sp, fontWeight: FontWeight.bold),
+            fontSize: SizeUtil.detailFontSize().sp,
+            fontWeight: FontWeight.bold),
         unselectedLabelColor: Colors.white,
         indicatorPadding: SizeUtil.custombarIndicationPadding(),
         tabs: [
@@ -218,11 +219,14 @@ class _CustomTabBarState extends State<CustomTabBar>
                       : false
                   : false,
               badgeContent: Container(
-                padding: EdgeInsets.all(
-                    notification < 10 ? (SizerUtil.deviceType == DeviceType.mobile ? 0.7 : 3.0) : 0),
+                padding: EdgeInsets.all(notification < 10
+                    ? (SizerUtil.deviceType == DeviceType.mobile ? 0.7 : 3.0)
+                    : 0),
                 child: Container(
-                  margin:
-                      EdgeInsets.only(bottom: SizerUtil.deviceType == DeviceType.mobile ? 0.5.w : 0),
+                  margin: EdgeInsets.only(
+                      bottom: SizerUtil.deviceType == DeviceType.mobile
+                          ? 0.5.w
+                          : 0),
                   child: Text(
                     "$notification",
                     style: FunctionHelper.fontTheme(

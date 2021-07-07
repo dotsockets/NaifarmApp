@@ -27,28 +27,26 @@ class _HomeHeaderState extends State<HomeHeader> {
       padding: EdgeInsets.only(
           left: 0, right: 0.3.w, top: SizeUtil.paddingHeaderHome().h),
       decoration: new BoxDecoration(
+        // color: ThemeColor.primaryColor(),
         gradient: LinearGradient(
-          begin: Alignment.bottomCenter,
-          end: Alignment.topCenter,
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
           tileMode: TileMode.repeated,
-          stops: [0.2, 1.0],
-          colors: [
-            ThemeColor.primaryColor(),
-            ThemeColor.gradientColor()
-          ],
+          stops: [0.6, 1.0],
+          colors: [ThemeColor.primaryColor(), ThemeColor.gradientColor()],
         ),
-          // borderRadius: new BorderRadius.only(
-          //   bottomRight: Radius.circular(widget.snapshot.sliderRespone != null
-          //       ? widget.snapshot.sliderRespone.data.isNotEmpty
-          //           ? 0.0
-          //           : SizeUtil.borderRadiusHeader()
-          //       : SizeUtil.borderRadiusHeader()),
-          //   bottomLeft: Radius.circular(widget.snapshot.sliderRespone != null
-          //       ? widget.snapshot.sliderRespone.data.isNotEmpty
-          //           ? 0.0
-          //           : SizeUtil.borderRadiusHeader()
-          //       : SizeUtil.borderRadiusHeader()),
-          // )
+        // borderRadius: new BorderRadius.only(
+        //   bottomRight: Radius.circular(widget.snapshot.sliderRespone != null
+        //       ? widget.snapshot.sliderRespone.data.isNotEmpty
+        //           ? 0.0
+        //           : SizeUtil.borderRadiusHeader()
+        //       : SizeUtil.borderRadiusHeader()),
+        //   bottomLeft: Radius.circular(widget.snapshot.sliderRespone != null
+        //       ? widget.snapshot.sliderRespone.data.isNotEmpty
+        //           ? 0.0
+        //           : SizeUtil.borderRadiusHeader()
+        //       : SizeUtil.borderRadiusHeader()),
+        // )
       ),
       child: SafeArea(
         bottom: false,

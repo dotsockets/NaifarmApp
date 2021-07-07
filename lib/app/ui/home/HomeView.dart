@@ -90,19 +90,13 @@ class _HomeViewState extends LifecycleWatcherState<HomeView>
         // });
         latestUri = link;
         err = null;
-        if (link
-            .split("-i.")
-            .length == 2) {
+        if (link.split("-i.").length == 2) {
           bloc.getProductsByIdApplink(context,
               id: int.parse(link.split("-i.")[1]), onload: false);
-        } else if (link
-            .split("-cg.")
-            .length == 2) {
+        } else if (link.split("-cg.").length == 2) {
           AppRoute.categoryDetail(context, int.parse(link.split("-cg.")[1]),
               title: LocaleKeys.recommend_category_product.tr());
-        } else if (link
-            .split("-cs.")
-            .length == 2) {
+        } else if (link.split("-cs.").length == 2) {
           AppRoute.categorySubDetail(context, int.parse(link.split("-cs.")[1]),
               title: LocaleKeys.recommend_category_sub.tr());
         } else if (link.split("/")[3] == "special-price") {
@@ -211,20 +205,20 @@ class _HomeViewState extends LifecycleWatcherState<HomeView>
       onWillPop: () async {
         FunctionHelper.confirmDialog(context,
             message: LocaleKeys.dialog_message_exit.tr(), onClick: () {
-              if (Platform.isAndroid) {
-                SystemNavigator.pop();
-              } else if (Platform.isIOS) {
-                exit(0);
-              }
-            }, onCancel: () {
-              Navigator.pop(context, true);
-            });
+          if (Platform.isAndroid) {
+            SystemNavigator.pop();
+          } else if (Platform.isIOS) {
+            exit(0);
+          }
+        }, onCancel: () {
+          Navigator.pop(context, true);
+        });
         return false;
       },
       child: DefaultTabController(
           length: _menuViewModel.length,
           child: Scaffold(
-            //backgroundColor: Colors.transparent,
+              //backgroundColor: Colors.transparent,
               extendBody: true,
               body: BlocBuilder<HomeMenuIndex, int>(
                 builder: (_, indexSelect) {
@@ -232,13 +226,8 @@ class _HomeViewState extends LifecycleWatcherState<HomeView>
                     index: indexSelect,
                     children: [
                       RecommendView(
-                          size: MediaQuery
-                              .of(context)
-                              .size,
-                          paddingBottom: MediaQuery
-                              .of(context)
-                              .padding
-                              .bottom,
+                          size: MediaQuery.of(context).size,
+                          paddingBottom: MediaQuery.of(context).padding.bottom,
                           onClick: (int index) {
                             if (index == 2) {
                               context.read<HomeMenuIndex>().onSelect(index);
@@ -275,9 +264,9 @@ class _HomeViewState extends LifecycleWatcherState<HomeView>
                       ),
                       borderRadius: BorderRadius.only(
                           topRight:
-                          Radius.circular(SizeUtil.borderRadiusFooter()),
+                              Radius.circular(SizeUtil.borderRadiusFooter()),
                           topLeft:
-                          Radius.circular(SizeUtil.borderRadiusFooter())),
+                              Radius.circular(SizeUtil.borderRadiusFooter())),
                       boxShadow: <BoxShadow>[
                         BoxShadow(
                           // color: Color(0xFF254117).withOpacity(0.75),
@@ -314,26 +303,20 @@ class _HomeViewState extends LifecycleWatcherState<HomeView>
   }
 
   @override
-  void onDetached() {
-
-  }
+  void onDetached() {}
 
   @override
-  void onInactive() {
-
-  }
+  void onInactive() {}
 
   @override
-  void onPaused() {
-
-  }
+  void onPaused() {}
 
   @override
   void onResumed() {
-
-    Usermanager().getUser().then((value) => context.read<CustomerCountBloc>()
+    Usermanager().getUser().then((value) => context
+        .read<CustomerCountBloc>()
         .loadCustomerCount(context, token: value.token));
-  //  OneSignal.shared.clearOneSignalNotifications();
+    //  OneSignal.shared.clearOneSignalNotifications();
     OneSignalCall.cancelNotification("", 0);
   }
 }

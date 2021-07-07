@@ -130,8 +130,8 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
             background: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                   tileMode: TileMode.repeated,
                   stops: [0.2, 1.0],
                   colors: [

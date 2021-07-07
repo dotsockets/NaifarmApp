@@ -82,7 +82,7 @@ class _MeViewState extends State<MeView> with RouteAware {
     //         }
     //       });
 
-  _controlScroll();
+    _controlScroll();
   }
 
   bool get _isAppBarExpanded {
@@ -206,8 +206,8 @@ class _MeViewState extends State<MeView> with RouteAware {
             background: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                   tileMode: TileMode.repeated,
                   stops: [0.2, 1.0],
                   colors: [
@@ -397,8 +397,7 @@ class _MeViewState extends State<MeView> with RouteAware {
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                                image: imageProvider,
-                                fit: BoxFit.cover),
+                                image: imageProvider, fit: BoxFit.cover),
                           ),
                         ),
                         placeholder: (context, url) => Container(
@@ -572,7 +571,7 @@ class _MeViewState extends State<MeView> with RouteAware {
     return imageList;
   }
 
-  _controlScroll(){
+  _controlScroll() {
     _scrollController.addListener(() {
       if (_isAppBarExpanded) {
         expandedBar.add(true);

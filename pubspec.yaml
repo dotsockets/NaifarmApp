@@ -100,6 +100,7 @@ dependencies:
   translator: ^0.1.7
   sms_autofill: ^2.0.0
   focused_menu: ^1.0.5
+  rive: ^0.7.22
 
 dev_dependencies:
   flutter_test:
@@ -126,6 +127,7 @@ flutter:
     - assets/images/png/
     - resources/langs/
     - assets/sound/
+    - assets/rive animation/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
