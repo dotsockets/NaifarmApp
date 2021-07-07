@@ -8,7 +8,7 @@ class ThemeColor {
   }
 
   static Color gradientColor() {
-    return Color(ColorUtils.hexToInt("#0d6952"));
+    return Color(ColorUtils.hexToInt("#127f64"));
   }
 
   static Color colorSale() {

@@ -49,19 +49,6 @@
       <change beforePath="$PROJECT_DIR$/../.dart_tool/flutter_build/d3e2a837f952363205350b1ad19d52d5/kernel_snapshot.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/../.dart_tool/flutter_build/d3e2a837f952363205350b1ad19d52d5/kernel_snapshot.stamp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.dart_tool/flutter_build/d3e2a837f952363205350b1ad19d52d5/outputs.json" beforeDir="false" afterPath="$PROJECT_DIR$/../.dart_tool/flutter_build/d3e2a837f952363205350b1ad19d52d5/outputs.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/../.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_stat_name.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_stat_onesignal_default.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_stat_onesignal_default.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_stat_name.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_stat_onesignal_default.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_stat_onesignal_default.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_stat_name.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_stat_onesignal_default.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_stat_onesignal_default.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_stat_name.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_stat_onesignal_default.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_stat_onesignal_default.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_stat_name.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_stat_onesignal_default.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_stat_onesignal_default.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/app/generated/not_namespaced_r_class_sources/productionDebug/r/androidx/activity/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/generated/not_namespaced_r_class_sources/productionDebug/r/androidx/activity/R.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/app/generated/not_namespaced_r_class_sources/productionDebug/r/androidx/appcompat/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/generated/not_namespaced_r_class_sources/productionDebug/r/androidx/appcompat/R.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/app/generated/not_namespaced_r_class_sources/productionDebug/r/androidx/asynclayoutinflater/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/generated/not_namespaced_r_class_sources/productionDebug/r/androidx/asynclayoutinflater/R.java" afterDir="false" />
