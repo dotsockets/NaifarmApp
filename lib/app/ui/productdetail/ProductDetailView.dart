@@ -516,33 +516,33 @@ class _ProductDetailViewState extends State<ProductDetailView>
                       }
                     },
                   ),
-                  // divider(),
-                  // FutureBuilder<FeedbackRespone>(
-                  //     future: bloc.getFeedbackFuture(context,
-                  //         limit: 10,
-                  //         id: item.id,
-                  //         page: 1),
-                  //     // a Future<String> or null
-                  //     builder: (BuildContext context,
-                  //         AsyncSnapshot<FeedbackRespone> snapshot) {
-                  //       switch (snapshot.connectionState) {
-                  //         case ConnectionState.none:
-                  //           return SizedBox();
-                  //         case ConnectionState.waiting:
-                  //           return RatingProduct(
-                  //             productId: item.id,
-                  //             feedbackRespone: snapshot.data,
-                  //           );
-                  //         default:
-                  //           if (snapshot.hasError)
-                  //             return SizedBox();
-                  //           else
-                  //             return RatingProduct(
-                  //               productId: item.id,
-                  //               feedbackRespone: snapshot.data,
-                  //             );
-                  //       }
-                  //     }),
+                  divider(),
+                  FutureBuilder<FeedbackRespone>(
+                      future: bloc.getFeedbackFuture(context,
+                          limit: 10,
+                          id: item.id,
+                          page: 1),
+                      // a Future<String> or null
+                      builder: (BuildContext context,
+                          AsyncSnapshot<FeedbackRespone> snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.none:
+                            return SizedBox();
+                          case ConnectionState.waiting:
+                            return RatingProduct(
+                              productId: item.id,
+                              feedbackRespone: snapshot.data,
+                            );
+                          default:
+                            if (snapshot.hasError)
+                              return SizedBox();
+                            else
+                              return RatingProduct(
+                                productId: item.id,
+                                feedbackRespone: snapshot.data,
+                              );
+                        }
+                      }),
                 ],
               );
             } else {
