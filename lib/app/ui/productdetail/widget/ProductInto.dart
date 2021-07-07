@@ -40,6 +40,7 @@ class ProductInto extends StatelessWidget {
 
 
   void _init(BuildContext context) {
+
     if (null == bloc) {
 
       bloc = ProductBloc(AppProvider.getApplication(context));
@@ -288,7 +289,7 @@ class ProductInto extends StatelessWidget {
   Widget likeContent({WishlistsRespone item, BuildContext context}) {
     return LikeButton(
       size: 10.0.w,
-      isLiked: item.data!=null && item.data.isNotEmpty  ? true : false,
+      isLiked: item.data!=null && item.data.isNotEmpty && data.slug.isNotEmpty  ? true : false,
       circleColor:
           const CircleColor(start: Color(0xffF03A13), end: Color(0xffE6593A)),
       bubblesColor: const BubblesColor(

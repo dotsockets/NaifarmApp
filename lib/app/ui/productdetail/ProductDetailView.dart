@@ -199,7 +199,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                 widget.productItem.id) {
               // if (data.productObjectCombine.dataWishlists != null) {
 
-
+              data.productObjectCombine.producItemRespone.slug = "";
               bloc.zipProductDetail.add(data.productObjectCombine.producItemRespone);
               bloc.searchProduct.add(data.searchRespone);
               break;
