@@ -35,7 +35,7 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.5.0"
+    version: "2.6.1"
   badges:
     dependency: "direct main"
     description:
@@ -260,48 +260,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
-  device_info_plus:
-    dependency: "direct main"
-    description:
-      name: device_info_plus
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
-  device_info_plus_linux:
-    dependency: transitive
-    description:
-      name: device_info_plus_linux
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
-  device_info_plus_macos:
-    dependency: transitive
-    description:
-      name: device_info_plus_macos
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
-  device_info_plus_platform_interface:
-    dependency: transitive
-    description:
-      name: device_info_plus_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.2"
-  device_info_plus_web:
-    dependency: transitive
-    description:
-      name: device_info_plus_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
-  device_info_plus_windows:
-    dependency: transitive
-    description:
-      name: device_info_plus_windows
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
   dio:
     dependency: "direct main"
     description:
@@ -959,6 +917,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  rive:
+    dependency: "direct main"
+    description:
+      name: rive
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.7.22"
   rxdart:
     dependency: "direct main"
     description:
@@ -1096,7 +1061,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.0"
+    version: "1.8.1"
   sqflite:
     dependency: "direct main"
     description:
@@ -1187,7 +1152,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.19"
+    version: "0.3.0"
   timeago:
     dependency: "direct main"
     description:

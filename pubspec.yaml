@@ -89,7 +89,6 @@ dependencies:
   onesignal_flutter: ^3.0.0
   slide_countdown_clock: ^1.0.3
   flutter_html: ^2.0.0
-  device_info_plus: ^1.0.1
   flutter_local_notifications: ^5.0.0
   #flutter_automation: ^1.4.0
   screenshot: ^0.3.0
