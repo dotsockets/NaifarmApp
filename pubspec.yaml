@@ -29,7 +29,7 @@ dependencies:
 
   cupertino_icons: ^1.0.3
   shared_preferences: ^2.0.6
-  basic_utils: ^3.1.0
+  basic_utils: ^3.3.3
   lottie: ^1.0.1
   flutter_svg: ^0.22.0
   google_fonts: ^2.1.0
@@ -37,18 +37,17 @@ dependencies:
   flutter_icons: ^1.1.0
   sqflite: ^2.0.0+3
   path_provider: ^2.0.2
-  equatable: ^2.0.2
+  equatable: ^2.0.3
   dio: ^4.0.0
   logging: ^1.0.1
   rxdart: ^0.27.1
   cached_network_image: ^3.0.0
   smooth_star_rating: 1.1.1
-  carousel_slider: ^3.0.0
+  carousel_slider: ^4.0.0
   form_validator: ^0.1.7
   clipboard: ^0.1.3
   regexed_validator: ^1.0.4
   progress_dialog: ^1.2.4
-  flutter_facebook_login: ^3.0.0
   retrofit: ^2.0.0
   logger: ^1.0.0
   easy_localization: ^3.0.0
@@ -57,15 +56,15 @@ dependencies:
   flutter_spinkit: ^5.0.0
   timeline_tile: ^2.0.0
   dotted_border: ^2.0.0
-  flutter_switch: ^0.3.1
+  flutter_switch: ^0.3.2
   custom_dropdown: ^0.0.2
   modal_bottom_sheet: ^2.0.0
   keyboard_visibility: ^0.5.6
   flutter_screenutil: ^5.0.0+2
   nuts_activity_indicator: ^0.1.1
   flutter_countdown_timer: ^4.1.0
-  image_picker: ^0.8.0+1
-  permission_handler: ^8.0.1
+  image_picker: ^0.8.1+3
+  permission_handler: ^8.1.2
   #google_maps_flutter: ^1.0.6
   #  location: ^3.2.4
   #  geolocator: ^6.2.0
@@ -74,7 +73,7 @@ dependencies:
   vibration: ^1.7.3
   flutter_datetime_picker: ^1.5.1
   sizer: ^2.0.13
-  skeleton_loader: ^1.0.2+3
+  skeleton_loader: ^2.0.0+4
   localstorage: ^4.0.0+1
   flutter_bloc: ^7.0.1
   multi_image_picker: ^4.8.1
@@ -83,16 +82,14 @@ dependencies:
   full_screen_image: ^1.0.2
   badges: ^2.0.1
   #flutter_widget_from_html: ^0.3.3
-  timeago: ^3.0.2
+  timeago: ^3.1.0
   share: ^2.0.4
   like_button: ^2.0.2
   onesignal_flutter: ^3.0.0
-  slide_countdown_clock: ^1.0.3
-  flutter_html: ^2.0.0
-  flutter_local_notifications: ^5.0.0
+  flutter_html: ^2.1.0
+  flutter_local_notifications: ^6.0.0
   #flutter_automation: ^1.4.0
-  screenshot: ^0.3.0
-  swipeable_page_route: ^0.2.1
+  swipeable_page_route: ^0.2.2
   uni_links: ^0.5.1
   sign_in_with_apple: ^3.0.0
   package_info: ^2.0.2
@@ -100,11 +97,12 @@ dependencies:
   sms_autofill: ^2.0.0
   focused_menu: ^1.0.5
   rive: ^0.7.22
+  flutter_login_facebook: ^1.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^2.0.4
+  build_runner: ^2.0.5
 
 
 

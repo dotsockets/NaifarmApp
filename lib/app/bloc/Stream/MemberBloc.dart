@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
@@ -109,6 +109,7 @@ class MemberBloc {
       FbProfile loginRequest,
       String provider,
       bool isLoad}) async {
+    onLoad.add(true);
     StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.customersLoginSocial(context,
                 loginRequest: LoginRequest(
@@ -163,27 +164,61 @@ class MemberBloc {
 
 
   loginFacebook({BuildContext context, bool isLoad}) async {
-    // onLoad.add(true);
-    final FacebookLogin facebookSignIn = new FacebookLogin();
-    final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
-    // facebookSignIn.loginBehavior = FacebookLoginBehavior.webViewOnly;
-    switch (result.status) {
-      case FacebookLoginStatus.loggedIn:
-        //  onLoad.add(false);
-        //  {"name":"Apisit Kaewsasan","first_name":"Apisit","last_name":"Kaewsasan","email":"apisitkaewsasan\u0040hotmail.com","id":"3899261036761384"}
-        final FacebookAccessToken accessToken = result.accessToken;
+     //onLoad.add(true);
+    // Create an instance of FacebookLogin
 
+
+    final fb = FacebookLogin();
+
+// Log in
+    final res = await fb.logIn(permissions: [
+      FacebookPermission.publicProfile,
+      FacebookPermission.email,
+    ]);
+
+// Check result status
+    switch (res.status) {
+      case FacebookLoginStatus.success:
+      // Logged in
+
+
+      // Send access token to server for validation and auth
+        final FacebookAccessToken accessToken = res.accessToken;
+        print('Access token: ${accessToken.token}');
+
+        // Get profile data
+        final profile = await fb.getUserProfile();
+        print('Hello, ${profile.name}! You ID: ${profile.userId}');
+
+        // Get user profile image url
+        final imageUrl = await fb.getProfileImageUrl(width: 100);
+        print('Your profile image: $imageUrl');
+
+        // Get email (since we request email permission)
+        final email = await fb.getUserEmail();
+        // But user can decline permission
+        if (email != null)
+          print('And your email is $email');
+
+        customersLoginSocial(
+            context: context,
+            loginRequest: FbProfile(name: profile.name,token: accessToken.token,email: email,firstName: profile.firstName,lastName: profile.lastName,id: profile.userId),
+            provider: "facebook",
+            isLoad: isLoad);
 
         break;
-      case FacebookLoginStatus.cancelledByUser:
-        //  onLoad.add(false);
+      case FacebookLoginStatus.cancel:
+      // User cancel log in
         onError.add(ThrowIfNoSuccess(message: "Login cancelled by the user."));
         break;
       case FacebookLoginStatus.error:
-        //  onLoad.add(false);
-        onError.add(ThrowIfNoSuccess(message: result.errorMessage));
+      // Log in failed
+        print('Error while log in: ${res.error}');
+        onError.add(ThrowIfNoSuccess(message: res.error.developerMessage));
         break;
     }
+
+
   }
 
   otpRequest(BuildContext context, {String numberphone}) async {
