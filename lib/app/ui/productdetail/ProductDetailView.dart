@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:full_screen_image/full_screen_image.dart';
+import 'package:lottie/lottie.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:naifarm/app/model/core/AppProvider.dart';
@@ -21,12 +24,12 @@ import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
 import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
-import 'package:naifarm/app/ui/productdetail/widget/BuildChoosesize.dart';
 import 'package:naifarm/app/ui/productdetail/widget/HeaderDetail.dart';
 import 'package:naifarm/app/ui/productdetail/widget/RatingProduct.dart';
 import 'package:naifarm/app/viewmodels/ProductViewModel.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
 import 'package:naifarm/utility/widgets/ProductLandscape.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:rxdart/subjects.dart';
@@ -36,6 +39,7 @@ import 'widget/ProductSlide.dart';
 import '../../../utility/widgets/ShopOwn.dart';
 import 'package:sizer/sizer.dart';
 import "package:naifarm/app/model/core/ExtensionCore.dart";
+import 'package:naifarm/app/ui/productdetail/widget/AttrBottomSheet.dart';
 
 // ignore: must_be_immutable
 class ProductDetailView extends StatefulWidget {
@@ -567,8 +571,10 @@ class _ProductDetailViewState extends State<ProductDetailView>
                     id: widget.productItem.id, token: value.token);
               });
             }),
-        widget.productItem.image != null ? divider() : SizedBox(),
-        BuildChoosesize(),
+        //widget.productItem.image != null ? divider() : SizedBox(),
+        // BuildChoosesize(),
+        divider(),
+        _buildAttr(item.image),
         divider(),
         InkWell(
           child: ShopOwn(
@@ -589,6 +595,113 @@ class _ProductDetailViewState extends State<ProductDetailView>
         ),
         divider(),
       ],
+    );
+  }
+
+  Widget _buildAttr(List<ProductImage> images) {
+    return InkWell(
+      onTap: () {
+        showMaterialModalBottomSheet(
+            context: context,
+            builder: (context) => AttrBottomSheet(
+                  images:images,
+                ));
+      },
+      child: images.length>0?Container(
+        padding: EdgeInsets.only(
+            left: 3.0.w, top: 2.0.h, bottom: 2.0.h, right: 3.0.w),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      LocaleKeys.my_product_variation.tr(),
+                      style: FunctionHelper.fontTheme(
+                          fontSize: SizeUtil.titleFontSize().sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      " (${images.length} ${LocaleKeys.my_product_size.tr()})",
+                      style: FunctionHelper.fontTheme(
+                          fontSize: SizeUtil.titleFontSize().sp,
+                          color: Colors.black),
+                    ),
+                  ],
+                ),
+                Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.grey.withOpacity(0.8),
+                  size: SizeUtil.ratingSize().w,
+                )
+              ],
+            ),
+            SizedBox(
+              height: 1.5.h,
+            ),
+            Row(
+              children: List.generate(
+                images.length < 5 ? images.length : 5,
+                (index) => Stack(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(right: 2.0.w),
+                      decoration: BoxDecoration(
+                          border:
+                              Border.all(color: Colors.black.withOpacity(0.2)),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(3.0.w))),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(3.0.w)),
+                        child: CachedNetworkImage(
+                          width: 15.0.w,
+                          height: 15.0.w,
+                          placeholder: (context, url) => Container(
+                            color: Colors.white,
+                            child: Lottie.asset(
+                              'assets/json/loading.json',
+                              width: 15.0.w,
+                              height: 15.0.w,
+                            ),
+                          ),
+                          fit: BoxFit.cover,
+                          imageUrl: images.length > 0
+                              ? "${images[index].path.imgUrl()}"
+                              : '',
+                          errorWidget: (context, url, error) => Container(
+                              width: 15.0.w,
+                              height: 15.0.w,
+                              child: NaifarmErrorWidget()),
+                        ),
+                      ),
+                    ),
+                    images.length > 5 && index == 4
+                        ? Container(
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(3.0.w)),
+                                color: Colors.black.withOpacity(0.4)),
+                            width: 15.5.w,
+                            height: 15.0.w,
+                            child: Center(
+                              child: Text("+${images.length - 5}",
+                                  style: FunctionHelper.fontTheme(
+                                      fontSize:
+                                          SizeUtil.titleSmallFontSize().sp,
+                                      color: Colors.white)),
+                            ),
+                          )
+                        : SizedBox()
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      ):SizedBox(),
     );
   }
 
