@@ -361,7 +361,8 @@
     "empty":"-",
     "delivery_use": "using",
     "data_manage": "Product Information",
-    "see": "My Product"
+    "see": "My Product",
+    "variation": "Select Variation"
   },
   "shop":{
     "title": "Shop",

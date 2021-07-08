@@ -326,6 +326,7 @@ abstract class  LocaleKeys {
   static const my_product_delivery_use = 'my_product.delivery_use';
   static const my_product_data_manage = 'my_product.data_manage';
   static const my_product_see = 'my_product.see';
+  static const my_product_variation = 'my_product.variation';
   static const my_product = 'my_product';
   static const shop_title = 'shop.title';
   static const shop_category = 'shop.category';

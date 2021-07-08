@@ -362,7 +362,8 @@ class CodegenLoader extends AssetLoader{
     "empty": "-",
     "delivery_use": "using",
     "data_manage": "Product Information",
-    "see": "My Product"
+    "see": "My Product",
+    "variation": "Select Variation"
   },
   "shop": {
     "title": "Shop",
@@ -582,6 +583,22 @@ class CodegenLoader extends AssetLoader{
     "default": "Unable to connect with the server, please try again.",
     "status": "Received invalid status code",
     "again": "Please check your internet connection and connect again"
+  },
+  "coupon": {
+    "coupon_discount": "Discount Coupons",
+    "coupon_title": "Coupons",
+    "coupon_add": "Add Coupons",
+    "coupon_name": "Coupon Name",
+    "coupon_code": "Coupon Code",
+    "coupon_description": "Coupon Description",
+    "coupon_values": "Coupon Values",
+    "coupon_minorder": "Coupon Min Order Amount",
+    "coupon_type": "Coupon Type",
+    "coupon_quantity": "Coupon Quantity",
+    "coupon_quantityPerCustomer": "Quantity Per Customer",
+    "coupon_active": "Active Coupon",
+    "coupon_startdate": "Start Date",
+    "coupon_enddate": "End Date"
   }
 };
 static const Map<String,dynamic> th_TH = {
@@ -921,7 +938,8 @@ static const Map<String,dynamic> th_TH = {
     "empty": "ไม่มี",
     "delivery_use": "เลือกใช้",
     "data_manage": "จัดการข้อมูลสินค้า",
-    "see": "ดูสินค้าของฉัน"
+    "see": "ดูสินค้าของฉัน",
+    "variation": "ระบุลักษณะตัวเลือกสินค้า"
   },
   "shop": {
     "title": "ร้านค้า",
@@ -1151,6 +1169,22 @@ static const Map<String,dynamic> th_TH = {
     "default": "ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ กรุณาลองอีกครั้ง",
     "status": "พบข้อผิดพลาดสถานะ (Status Code)",
     "again": "กรุณาตรวจสอบอินเทอร์เน็ตของคุณและทำรายการอีกครั้ง"
+  },
+  "coupon": {
+    "coupon_discount": "คูปองส่วนลด",
+    "coupon_title": "จัดการคูปอง",
+    "coupon_add": "เพิ่มคูปอง",
+    "coupon_name": "ชื่อคูปอง",
+    "coupon_code": "คูปองโค้ด",
+    "coupon_description": "รายละเอียดคูปอง",
+    "coupon_values": "มูลค่าคูปอง",
+    "coupon_minorder": "ขั้นต่ำ",
+    "coupon_type": "ประเภทคูปอง",
+    "coupon_quantity": "จำนวนคูปอง",
+    "coupon_quantityPerCustomer": "จำนวนคูปองที่ใช้ได้/คน",
+    "coupon_active": "เปิดใช้งาน",
+    "coupon_startdate": "วันที่เริ่มต้น",
+    "coupon_enddate": "วันที่สิ้นสุด"
   }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en_US": en_US, "th_TH": th_TH};
