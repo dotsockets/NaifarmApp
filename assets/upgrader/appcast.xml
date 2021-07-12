@@ -17,7 +17,6 @@
     <item>
         <title>Version 111.01.00</title>
         <sparkle:version>111.01.00</sparkle:version>
-        <sparkle:maximumSystemVersion>111.01.00</sparkle:maximumSystemVersion>
     </item>
   </channel>
 </rss>
