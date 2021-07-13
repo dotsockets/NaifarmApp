@@ -603,5 +603,10 @@
     "coupon_active": "Active Coupon",
     "coupon_startdate": "Start Date",
     "coupon_enddate": "End Date"
+  },
+  "appUpdate": {
+    "title": "App Update Available",
+    "releaseNote": "Release Note",
+    "updateButton": "Update Now"
   }
 }

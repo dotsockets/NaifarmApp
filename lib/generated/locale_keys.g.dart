@@ -549,5 +549,9 @@ abstract class  LocaleKeys {
   static const coupon_coupon_startdate = 'coupon.coupon_startdate';
   static const coupon_coupon_enddate = 'coupon.coupon_enddate';
   static const coupon = 'coupon';
+  static const appUpdate_title = 'appUpdate.title';
+  static const appUpdate_releaseNote = 'appUpdate.releaseNote';
+  static const appUpdate_updateButton = 'appUpdate.updateButton';
+  static const appUpdate = 'appUpdate';
 
 }

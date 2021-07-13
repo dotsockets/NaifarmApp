@@ -582,5 +582,10 @@
     "coupon_active": "เปิดใช้งาน",
     "coupon_startdate": "วันที่เริ่มต้น",
     "coupon_enddate": "วันที่สิ้นสุด"
+  },
+  "appUpdate": {
+    "title": "แอพอัพเดต",
+    "releaseNote": "มีอะไรใหม่",
+    "updateButton": "อัพเดต"
   }
 }
