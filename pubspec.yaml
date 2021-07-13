@@ -98,6 +98,8 @@ dependencies:
   focused_menu: ^1.0.5
   rive: ^0.7.22
   flutter_login_facebook: ^1.0.0
+  http: ^0.13.3
+  url_launcher: ^6.0.9
 
 dev_dependencies:
   flutter_test:

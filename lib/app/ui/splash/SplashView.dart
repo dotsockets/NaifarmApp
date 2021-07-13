@@ -14,6 +14,7 @@ import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CategoryCombin.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
+import 'package:naifarm/utility/widgets/CheckUpdate.dart';
 import 'package:package_info/package_info.dart';
 import 'package:rive/rive.dart' as rive;
 import 'package:sizer/sizer.dart';
@@ -46,7 +47,7 @@ class _SplashViewState extends State<SplashView>
     super.initState();
   }
 
-  void _init(BuildContext context) {
+  void _init(BuildContext context) async {
     versionName();
     if (null == bloc) {
       _delCache();
@@ -160,12 +161,18 @@ class _SplashViewState extends State<SplashView>
   }
 
   navigatorPage() async {
-    //Clean();
-    if (await Usermanager().isLogin())
-      AppRoute.home(context);
-    else
-      AppRoute.splashLogin(context);
-    //  Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.fade, child:  SplashLoginView(item: bloc.ZipHomeObject.value,)), (Route<dynamic> route) => false);
+    CheckUpdate.checkAppUpdate(
+            context: context, currentVersion: platformVersion)
+        .then((noUpdateYet) async {
+      if (noUpdateYet) {
+        //Clean();
+        if (await Usermanager().isLogin())
+          AppRoute.home(context);
+        else
+          AppRoute.splashLogin(context);
+        //  Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.fade, child:  SplashLoginView(item: bloc.ZipHomeObject.value,)), (Route<dynamic> route) => false);
+      }
+    });
   }
 
   _delCache() {
