@@ -491,7 +491,6 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                                 child: Lottie.asset('assets/json/loading.json',
                                     height: 30),
                               ),
-                              fit: BoxFit.cover,
                               imageUrl: item.items[indexShopItem].inventory
                                   .product.image.isNotEmpty
                                   ? "${item.items[indexShopItem].inventory.product.image[0].path.imgUrl()}"

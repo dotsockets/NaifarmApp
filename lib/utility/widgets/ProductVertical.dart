@@ -274,8 +274,7 @@ class ProductVertical extends StatelessWidget {
                                     imageBuilder: (context, imageProvider) => Container(
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
-                                            image: imageProvider,
-                                            fit: BoxFit.cover),
+                                            image: imageProvider),
                                       ),
                                     ),
                                     placeholder: (context, url) =>Container(

@@ -161,18 +161,23 @@ class _SplashViewState extends State<SplashView>
   }
 
   navigatorPage() async {
-    CheckUpdate.checkAppUpdate(
-            context: context, currentVersion: platformVersion)
-        .then((noUpdateYet) async {
-      if (noUpdateYet) {
-        //Clean();
-        if (await Usermanager().isLogin())
-          AppRoute.home(context);
-        else
-          AppRoute.splashLogin(context);
-        //  Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.fade, child:  SplashLoginView(item: bloc.ZipHomeObject.value,)), (Route<dynamic> route) => false);
-      }
-    });
+    // CheckUpdate.checkAppUpdate(
+    //         context: context, currentVersion: platformVersion)
+    //     .then((noUpdateYet) async {
+    //   if (noUpdateYet) {
+    //     //Clean();
+    //     if (await Usermanager().isLogin())
+    //       AppRoute.home(context);
+    //     else
+    //       AppRoute.splashLogin(context);
+    //     //  Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.fade, child:  SplashLoginView(item: bloc.ZipHomeObject.value,)), (Route<dynamic> route) => false);
+    //   }
+    // });
+
+    if (await Usermanager().isLogin())
+      AppRoute.home(context);
+    else
+      AppRoute.splashLogin(context);
   }
 
   _delCache() {

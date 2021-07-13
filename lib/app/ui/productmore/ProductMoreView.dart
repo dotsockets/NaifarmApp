@@ -527,6 +527,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                           height: 40.0.w,
                         ),
                       ),
+
                       imageUrl:  item.image.length != 0?
                       "${item.image[0].path.imgUrl()}":"",
                       errorWidget: (context, url, error) => Container(

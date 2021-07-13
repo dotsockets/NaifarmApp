@@ -282,7 +282,6 @@ class _CartSummaryViewState extends State<CartSummaryView> {
                   color: Colors.white,
                   child: Lottie.asset('assets/json/loading.json', height: 30),
                 ),
-                fit: BoxFit.cover,
                 imageUrl: item.inventory.product.image.length != 0
                     ? "${item.inventory.product.image[0].path.imgUrl()}"
                     : "",

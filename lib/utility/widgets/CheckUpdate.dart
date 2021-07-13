@@ -79,8 +79,7 @@ class CheckUpdate {
                     ),
                   ),
                   onPressed: () {
-                    launch(
-                        "https://play.google.com/store/apps/details?id=com.naifarm.app");
+                    launch("https://play.google.com/store/apps/details?id=com.naifarm.app");
                   },
                 )
               ],
@@ -126,6 +125,7 @@ class CheckUpdate {
                       fontSize: SizeUtil.titleSmallFontSize().sp)),
               onPressed: () {
                 // go app store
+                launch("https://apps.apple.com/us/app/naifarm/id1561733274");
               },
             ),
           ]),
