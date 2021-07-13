@@ -45,72 +45,76 @@ class CheckUpdate {
             ? 'th'
             : 'en';
     showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-              title: Text(
-                LocaleKeys.appUpdate_title.tr(),
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) => WillPopScope(
+        onWillPop: () async => false,
+        child: AlertDialog(
+          title: Text(
+            LocaleKeys.appUpdate_title.tr(),
+            style: FunctionHelper.fontTheme(
+                fontWeight: FontWeight.normal,
+                fontSize: SizeUtil.priceFontSize().sp),
+          ),
+          content: RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: LocaleKeys.appUpdate_detail1.tr() +
+                      ' ' +
+                      content['version'] +
+                      ' ' +
+                      LocaleKeys.appUpdate_detail2.tr() +
+                      ' ' +
+                      currentVersion +
+                      '.\n\n' +
+                      LocaleKeys.appUpdate_requestUpdate.tr() +
+                      '\n\n',
+                  style: FunctionHelper.fontTheme(
+                      fontWeight: FontWeight.w200,
+                      fontSize: SizeUtil.titleSmallFontSize().sp,
+                      color: Colors.black),
+                ),
+                TextSpan(
+                  text: LocaleKeys.appUpdate_releaseNote.tr() + ':\n\n',
+                  style: FunctionHelper.fontTheme(
+                      fontWeight: FontWeight.w400,
+                      fontSize: SizeUtil.titleMeduimFontSize().sp,
+                      color: Colors.black),
+                ),
+                TextSpan(
+                  text: content["releaseNote"][local] ?? '',
+                  style: FunctionHelper.fontTheme(
+                      fontWeight: FontWeight.w200,
+                      fontSize: SizeUtil.titleSmallFontSize().sp,
+                      color: Colors.black),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              child: Text(
+                LocaleKeys.appUpdate_updateButton.tr(),
                 style: FunctionHelper.fontTheme(
-                    fontWeight: FontWeight.normal,
-                    fontSize: SizeUtil.priceFontSize().sp),
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white,
+                    fontSize: SizeUtil.titleSmallFontSize().sp),
               ),
-              content: RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: LocaleKeys.appUpdate_detail1.tr() +
-                          ' ' +
-                          content['version'] +
-                          ' ' +
-                          LocaleKeys.appUpdate_detail2.tr() +
-                          ' ' +
-                          currentVersion +
-                          '.\n\n' +
-                          LocaleKeys.appUpdate_requestUpdate.tr() +
-                          '\n\n',
-                      style: FunctionHelper.fontTheme(
-                          fontWeight: FontWeight.w200,
-                          fontSize: SizeUtil.titleSmallFontSize().sp,
-                          color: Colors.black),
-                    ),
-                    TextSpan(
-                      text: LocaleKeys.appUpdate_releaseNote.tr() + ':\n\n',
-                      style: FunctionHelper.fontTheme(
-                          fontWeight: FontWeight.w400,
-                          fontSize: SizeUtil.titleMeduimFontSize().sp,
-                          color: Colors.black),
-                    ),
-                    TextSpan(
-                      text: content["releaseNote"][local] ?? '',
-                      style: FunctionHelper.fontTheme(
-                          fontWeight: FontWeight.w200,
-                          fontSize: SizeUtil.titleSmallFontSize().sp,
-                          color: Colors.black),
-                    ),
-                  ],
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(
+                  ThemeColor.primaryColor(),
                 ),
               ),
-              actions: [
-                TextButton(
-                  child: Text(
-                    LocaleKeys.appUpdate_updateButton.tr(),
-                    style: FunctionHelper.fontTheme(
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                        fontSize: SizeUtil.titleSmallFontSize().sp),
-                  ),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      ThemeColor.primaryColor(),
-                    ),
-                  ),
-                  onPressed: () {
-                    launch(
-                        "https://play.google.com/store/apps/details?id=com.naifarm.app");
-                  },
-                )
-              ],
-            ));
+              onPressed: () {
+                launch(
+                    "https://play.google.com/store/apps/details?id=com.naifarm.app");
+              },
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   static showIOSUpdate(
