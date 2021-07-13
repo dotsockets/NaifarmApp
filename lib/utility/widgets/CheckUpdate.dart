@@ -23,13 +23,13 @@ class CheckUpdate {
       if (Platform.isAndroid) {
         final android = note['os']['android'];
         if (android != null && android['version'] != currentVersion) {
-          showAndroidUpdate(context, android);
+          showAndroidUpdate(context, android, currentVersion);
           return false;
         }
       } else if (Platform.isIOS) {
         final ios = note['os']['ios'];
         if (ios != null && ios['version'] != currentVersion) {
-          showIOSUpdate(context, ios);
+          showIOSUpdate(context, ios, currentVersion);
           return false;
         }
       }
@@ -37,7 +37,8 @@ class CheckUpdate {
     return true;
   }
 
-  static showAndroidUpdate(BuildContext context, dynamic content) {
+  static showAndroidUpdate(
+      BuildContext context, dynamic content, String currentVersion) {
     print(EasyLocalization.of(context).currentLocale);
     final String local =
         EasyLocalization.of(context).currentLocale == Locale('th', 'TH')
@@ -50,19 +51,44 @@ class CheckUpdate {
               title: Text(
                 LocaleKeys.appUpdate_title.tr(),
                 style: FunctionHelper.fontTheme(
-                    fontWeight: FontWeight.bold,
-                    fontSize: SizeUtil.titleFontSize().sp),
+                    fontWeight: FontWeight.normal,
+                    fontSize: SizeUtil.priceFontSize().sp),
               ),
-              content: Text(
-                "**" +
-                        LocaleKeys.appUpdate_releaseNote.tr() +
-                        "**" +
-                        "\n" +
-                        content["releaseNote"][local] ??
-                    '',
-                style: FunctionHelper.fontTheme(
-                    fontWeight: FontWeight.w400,
-                    fontSize: SizeUtil.titleSmallFontSize().sp),
+              content: RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: LocaleKeys.appUpdate_detail1.tr() +
+                          ' ' +
+                          content['version'] +
+                          ' ' +
+                          LocaleKeys.appUpdate_detail2.tr() +
+                          ' ' +
+                          currentVersion +
+                          '.\n\n' +
+                          LocaleKeys.appUpdate_requestUpdate.tr() +
+                          '\n\n',
+                      style: FunctionHelper.fontTheme(
+                          fontWeight: FontWeight.w200,
+                          fontSize: SizeUtil.titleSmallFontSize().sp,
+                          color: Colors.black),
+                    ),
+                    TextSpan(
+                      text: LocaleKeys.appUpdate_releaseNote.tr() + ':\n\n',
+                      style: FunctionHelper.fontTheme(
+                          fontWeight: FontWeight.w400,
+                          fontSize: SizeUtil.titleMeduimFontSize().sp,
+                          color: Colors.black),
+                    ),
+                    TextSpan(
+                      text: content["releaseNote"][local] ?? '',
+                      style: FunctionHelper.fontTheme(
+                          fontWeight: FontWeight.w200,
+                          fontSize: SizeUtil.titleSmallFontSize().sp,
+                          color: Colors.black),
+                    ),
+                  ],
+                ),
               ),
               actions: [
                 TextButton(
@@ -86,7 +112,8 @@ class CheckUpdate {
             ));
   }
 
-  static showIOSUpdate(BuildContext context, dynamic content) {
+  static showIOSUpdate(
+      BuildContext context, dynamic content, String currentVersion) {
     final String local =
         EasyLocalization.of(context).currentLocale == Locale('th', 'TH')
             ? 'th'
@@ -96,24 +123,49 @@ class CheckUpdate {
       context: context,
       builder: (BuildContext context) => CupertinoAlertDialog(
           title: Container(
-            padding: EdgeInsets.only(bottom: 0.5.h),
+            padding: EdgeInsets.only(bottom: 15.0),
             child: Text(
               LocaleKeys.appUpdate_title.tr(),
-              style: FunctionHelper.fontTheme(
-                  fontWeight: FontWeight.bold,
-                  fontSize: SizeUtil.titleFontSize().sp),
-            ),
-          ),
-          content: Center(
-            child: Text(
-              LocaleKeys.appUpdate_releaseNote.tr() +
-                      "\n" +
-                      content["releaseNote"][local] ??
-                  '',
               textAlign: TextAlign.left,
               style: FunctionHelper.fontTheme(
-                  fontWeight: FontWeight.w400,
-                  fontSize: SizeUtil.titleSmallFontSize().sp),
+                  fontWeight: FontWeight.normal,
+                  fontSize: SizeUtil.priceFontSize().sp),
+            ),
+          ),
+          content: RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: LocaleKeys.appUpdate_detail1.tr() +
+                      ' ' +
+                      content['version'] +
+                      ' ' +
+                      LocaleKeys.appUpdate_detail2.tr() +
+                      ' ' +
+                      currentVersion +
+                      '.\n\n' +
+                      LocaleKeys.appUpdate_requestUpdate.tr() +
+                      '\n\n',
+                  style: FunctionHelper.fontTheme(
+                      fontWeight: FontWeight.w200,
+                      fontSize: SizeUtil.titleSmallFontSize().sp,
+                      color: Colors.black),
+                ),
+                TextSpan(
+                  text: LocaleKeys.appUpdate_releaseNote.tr() + ':\n\n',
+                  style: FunctionHelper.fontTheme(
+                      fontWeight: FontWeight.w400,
+                      fontSize: SizeUtil.titleMeduimFontSize().sp,
+                      color: Colors.black),
+                ),
+                TextSpan(
+                  text: content["releaseNote"][local] ?? '',
+                  style: FunctionHelper.fontTheme(
+                      fontWeight: FontWeight.w200,
+                      fontSize: SizeUtil.titleSmallFontSize().sp,
+                      color: Colors.black),
+                ),
+              ],
             ),
           ),
           actions: [
