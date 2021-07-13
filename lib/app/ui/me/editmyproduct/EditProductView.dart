@@ -283,10 +283,10 @@ class _EditProductViewState extends State<EditProductView> {
                                   height: 0.5.h,
                                 ),
                                 _buildImageTab(),
-                                // Divider(
-                                //   height: 0.5.h,
-                                // ),
-                                // _buildAttributeTab(),
+                                Divider(
+                                  height: 0.5.h,
+                                ),
+                                _buildAttributeTab(),
                                 Divider(
                                   height: 0.5.h,
                                 ),

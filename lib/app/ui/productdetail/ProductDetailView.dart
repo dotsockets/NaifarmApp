@@ -571,10 +571,10 @@ class _ProductDetailViewState extends State<ProductDetailView>
                     id: widget.productItem.id, token: value.token);
               });
             }),
-        //widget.productItem.image != null ? divider() : SizedBox(),
-        // BuildChoosesize(),
-        // divider(),
-        // _buildAttr(item.image),
+        widget.productItem.image != null ? divider() : SizedBox(),
+        //BuildChoosesize(),
+       // divider(),
+        _buildAttr(item.image),
         divider(),
         InkWell(
           child: ShopOwn(
