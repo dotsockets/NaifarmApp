@@ -173,6 +173,7 @@ class UploadProductBloc {
               token: token);
 
           checkloop = 0;
+          var loop = 0;
           for (var item in uploadProductStorage.value.onSelectItem) {
             writeToFile(await item.image.getByteData(quality: 100))
                 .then((file) {
@@ -181,8 +182,9 @@ class UploadProductBloc {
                   imageableId: (respone.respone as ProductMyShopRespone).id,
                   imageFile: file,
                   imageableType: "product",
-                  index: countSelectImage());
+                  index: loop==uploadProductStorage.value.onSelectItem.length?99:0);
             });
+            loop++;
           }
         }
       } else {
@@ -445,7 +447,7 @@ class UploadProductBloc {
       if (respone.httpCallBack.status == 200) {
         var item = (respone.respone as ProductShopItemRespone);
         if(uploadProductStorage.hasValue){uploadProductStorage.value.onSelectItem.clear();
-        for (var value in item.image) {
+        for (var value in item.images) {
           uploadProductStorage.value.onSelectItem
               .add(OnSelectItem(url: value.path, onEdit: false));
         }
@@ -482,8 +484,8 @@ class UploadProductBloc {
       if (respone.httpCallBack.status == 200) {
         NaiFarmLocalStorage.getProductMyShopCache().then((value) {
           var res = (respone.respone as ProductShopItemRespone);
-          productImageList.addAll(res.image);
-          res.image = productImageList;
+          productImageList.addAll(res.images);
+          res.images = productImageList;
           if (value != null) {
             for (var data in value.item) {
               if (data.id == productId) {

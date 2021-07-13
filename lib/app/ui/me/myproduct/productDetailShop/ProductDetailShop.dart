@@ -97,7 +97,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
                                             buildTitle(
                                                 img: (snapshot.data
                                                         as ProductShopItemRespone)
-                                                    .image),
+                                                    .images),
                                             buildProductDetail(snapshot.data
                                                 as ProductShopItemRespone),
                                           ],
@@ -331,10 +331,10 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
   List imgShopList({  ProductShopItemRespone item}) {
     List<ProductImage> img = <ProductImage>[];
 
-    if (item.shop.image != null || item.shop.image.length != 0) {
-      for (int i = 0; i < item.shop.image.length; i++)
+    if (item.shop.images != null || item.shop.images.length != 0) {
+      for (int i = 0; i < item.shop.images.length; i++)
         img.add(ProductImage(
-            name: item.shop.image[i].name, path: item.shop.image[i].path));
+            name: item.shop.images[i].name, path: item.shop.images[i].path));
     } else {
       img.add(ProductImage(name: "", path: ""));
     }

@@ -16,7 +16,7 @@ import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
-import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductShopItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
@@ -54,7 +54,7 @@ class _InActiveState extends State<InActive> {
       bloc = ProductBloc(AppProvider.getApplication(context));
 
       bloc.onSuccess.stream.listen((event) {
-        if (event is ProductMyShopRespone || event is bool) {
+        if (event is ProductShopItemRespone || event is bool) {
           widget.searchTxt.length != 0 ? _reloadFirstSearch() : _reloadFirstPage();
         }
       });

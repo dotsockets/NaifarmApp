@@ -23,8 +23,9 @@ import 'package:sizer/sizer.dart';
 class MyProductView extends StatefulWidget {
   final int shopId;
   final int indexTab;
+  final bool pushEvent;
 
-  const MyProductView({Key key, this.shopId, this.indexTab}) : super(key: key);
+  const MyProductView({Key key, this.shopId, this.indexTab,this.pushEvent}) : super(key: key);
 
   @override
   _MyProductViewState createState() => _MyProductViewState();
@@ -40,10 +41,23 @@ class _MyProductViewState extends State<MyProductView> {
   bool stepPage = false;
   int tabNum = 0;
 
+  @override
+  void initState() {
+    super.initState();
+    // Future.delayed(const Duration(milliseconds: 100), () {
+    //   if(widget.pushEvent){
+    //     AppRoute.imageProduct(context, isactive: IsActive.NewProduct);
+    //   }
+    // });
+
+  }
+
   init() {
     if (bloc == null) {
       bloc = UploadProductBloc(AppProvider.getApplication(context));
       NaiFarmLocalStorage.saveNowPage(0);
+
+
       /*  bloc.onSuccess.stream.listen((event)  {
           if(event is bool){
             bloc.ProductMyShopRes.add(bloc.ProductMyShopRes.value);
@@ -105,76 +119,76 @@ class _MyProductViewState extends State<MyProductView> {
                             shopID: widget.shopId,
                             tabNum: tabNum);
                       }),
-                  PopupMenuButton(
-                    child: Container(
-                      padding: EdgeInsets.only(
-                          right: SizeUtil.paddingCart().w,
-                          left: SizeUtil.paddingItem().w),
-                      child: Icon(
-                        FontAwesome.ellipsis_v,
-                        size: SizeUtil.mediumIconSize().w,
-                        color: Colors.white,
-                      ),
-                    ),
-                    itemBuilder: (context) {
-                      return [
-                        PopupMenuItem(
-                          value: 0,
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(right: 5.0),
-                                child: Icon(
-                                  FontAwesome.tag,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              Text(
-                                LocaleKeys.attributes_set.tr(),
-                                style: FunctionHelper.fontTheme(
-                                    fontSize: SizeUtil.titleFontSize().sp,
-                                    fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                        ),
-                        PopupMenuItem(
-                          value: 1,
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(right: 5.0),
-                                child: Icon(
-                                  FontAwesome.ticket,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              Text(
-                                LocaleKeys.coupon_coupon_title.tr(),
-                                style: FunctionHelper.fontTheme(
-                                    fontSize: SizeUtil.titleFontSize().sp,
-                                    fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ];
-                    },
-                    onSelected: (int selectedValue) {
-                      switch (selectedValue) {
-                        case 0:
-                          AppRoute.attribute(context: context);
-                          break;
-                        case 1:
-                          AppRoute.coupons(
-                              context: context, shopId: widget.shopId);
-                          break;
-                        default:
-                      }
-                    },
-                  ),
+                  // PopupMenuButton(
+                  //   child: Container(
+                  //     padding: EdgeInsets.only(
+                  //         right: SizeUtil.paddingCart().w,
+                  //         left: SizeUtil.paddingItem().w),
+                  //     child: Icon(
+                  //       FontAwesome.ellipsis_v,
+                  //       size: SizeUtil.mediumIconSize().w,
+                  //       color: Colors.white,
+                  //     ),
+                  //   ),
+                  //   itemBuilder: (context) {
+                  //     return [
+                  //       PopupMenuItem(
+                  //         value: 0,
+                  //         child: Row(
+                  //           children: [
+                  //             Padding(
+                  //               padding: EdgeInsets.only(right: 5.0),
+                  //               child: Icon(
+                  //                 FontAwesome.tag,
+                  //                 color: Colors.black,
+                  //               ),
+                  //             ),
+                  //             Text(
+                  //               LocaleKeys.attributes_set.tr(),
+                  //               style: FunctionHelper.fontTheme(
+                  //                   fontSize: SizeUtil.titleFontSize().sp,
+                  //                   fontWeight: FontWeight.w500),
+                  //               textAlign: TextAlign.center,
+                  //             ),
+                  //           ],
+                  //         ),
+                  //       ),
+                  //       PopupMenuItem(
+                  //         value: 1,
+                  //         child: Row(
+                  //           children: [
+                  //             Padding(
+                  //               padding: EdgeInsets.only(right: 5.0),
+                  //               child: Icon(
+                  //                 FontAwesome.ticket,
+                  //                 color: Colors.black,
+                  //               ),
+                  //             ),
+                  //             Text(
+                  //               LocaleKeys.coupon_coupon_title.tr(),
+                  //               style: FunctionHelper.fontTheme(
+                  //                   fontSize: SizeUtil.titleFontSize().sp,
+                  //                   fontWeight: FontWeight.w500),
+                  //               textAlign: TextAlign.center,
+                  //             ),
+                  //           ],
+                  //         ),
+                  //       ),
+                  //     ];
+                  //   },
+                  //   onSelected: (int selectedValue) {
+                  //     switch (selectedValue) {
+                  //       case 0:
+                  //         AppRoute.attribute(context: context);
+                  //         break;
+                  //       case 1:
+                  //         AppRoute.coupons(
+                  //             context: context, shopId: widget.shopId);
+                  //         break;
+                  //       default:
+                  //     }
+                  //   },
+                  // ),
                 ],
               ),
             ),
@@ -286,7 +300,7 @@ class _MyProductViewState extends State<MyProductView> {
           onPressed: () async {
             // index==0?AppRoute.ProductAddType(context):AppRoute.ImageProduct(context);
             var result = await AppRoute.imageProduct(context,
-                isactive: IsActive.ReplacemenView);
+                isactive: IsActive.NewProduct);
             if (result != null && result) {
               Usermanager().getUser().then((value) => bloc.getProductMyShop(
                   context,

@@ -248,31 +248,42 @@ class AppRoute {
 
   static myProduct(BuildContext context, int shopId,
       {bool pushEvent = false, int countPage = 1, int indexTab = 0}) {
-    if (pushEvent) {
+
+
+    Navigator.of(context).push(SwipeablePageRoute(
+        canOnlySwipeFromEdge: true,
+        builder: (context) {
+          return MyProductView(
+            pushEvent:pushEvent,
+            shopId: shopId,
+            indexTab: indexTab,
+          );
+        }));
+    //if (pushEvent) {
       //  Navigator.push(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.rightToLeftWithFade, child: MyProductView()));
       // Navigator.pop(context);
-      poppageCount(context: context, countpage: countPage);
-
-      Navigator.of(context).push(SwipeablePageRoute(
-          canOnlySwipeFromEdge: true,
-          builder: (context) {
-            return MyProductView(
-              shopId: shopId,
-              indexTab: indexTab,
-            );
-          }));
+      // poppageCount(context: context, countpage: countPage);
+      //
+      // Navigator.of(context).push(SwipeablePageRoute(
+      //     canOnlySwipeFromEdge: true,
+      //     builder: (context) {
+      //       return MyProductView(
+      //         shopId: shopId,
+      //         indexTab: indexTab,
+      //       );
+      //     }));
 
       // Navigator.pushReplacement(context, PageTransition(duration: Duration(milliseconds: 300),type: PageTransitionType.rightToLeftWithFade, child: MyProductView(shopId:shopId)));
-    } else {
-      Navigator.of(context).push(SwipeablePageRoute(
-          canOnlySwipeFromEdge: true,
-          builder: (context) {
-            return MyProductView(
-              shopId: shopId,
-              indexTab: indexTab,
-            );
-          }));
-    }
+    // } else {
+    //   Navigator.of(context).push(SwipeablePageRoute(
+    //       canOnlySwipeFromEdge: true,
+    //       builder: (context) {
+    //         return MyProductView(
+    //           shopId: shopId,
+    //           indexTab: indexTab,
+    //         );
+    //       }));
+    // }
   }
 
   static productDetailShop(BuildContext context,

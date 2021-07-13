@@ -20,7 +20,7 @@ class ProductShopItemRespone {
   List<Inventories> inventories;
   Shop shop;
   List<Categories> categories;
-  List<ImageProductShop> image;
+  List<ImageProductShop> images;
   int discountPercent;
   double rating;
   double reviewCount;
@@ -48,7 +48,7 @@ class ProductShopItemRespone {
         this.inventories,
         this.shop,
         this.categories,
-        this.image,
+        this.images,
         this.discountPercent,
         this.rating,
         this.reviewCount,
@@ -87,9 +87,9 @@ class ProductShopItemRespone {
       });
     }
     if (json['image'] != null) {
-      image = new List<ImageProductShop>();
+      images = new List<ImageProductShop>();
       json['image'].forEach((v) {
-        image.add(new ImageProductShop.fromJson(v));
+        images.add(new ImageProductShop.fromJson(v));
       });
     }
     discountPercent = json['discountPercent'];
@@ -139,8 +139,8 @@ class ProductShopItemRespone {
     if (this.categories != null) {
       data['categories'] = this.categories.map((v) => v.toJson()).toList();
     }
-    if (this.image != null) {
-      data['image'] = this.image.map((v) => v.toJson()).toList();
+    if (this.images != null) {
+      data['image'] = this.images.map((v) => v.toJson()).toList();
     }
     data['discountPercent'] = this.discountPercent;
     data['rating'] = this.rating;
@@ -175,7 +175,7 @@ class Inventories {
   int freeShipping;
   int minOrderQuantity;
   int  linkedItems;
-  List<ImageProductShopItem> image;
+  List<ImageProductShopItem> images;
   List<Feedbacks> feedbacks;
   List<AttributesList> attributes;
 
@@ -202,7 +202,7 @@ class Inventories {
         this.freeShipping,
         this.minOrderQuantity,
         this.linkedItems,
-        this.image,
+        this.images,
         this.feedbacks,
         this.attributes});
 
@@ -231,9 +231,9 @@ class Inventories {
     minOrderQuantity = json['minOrderQuantity'];
     linkedItems = json['linkedItems'];
     if (json['image'] != null) {
-      image = new List<Null>();
+      images = new List<Null>();
       json['image'].forEach((v) {
-        image.add(new ImageProductShopItem.fromJson(v));
+        images.add(new ImageProductShopItem.fromJson(v));
       });
     }
     if (json['feedbacks'] != null) {
@@ -274,8 +274,8 @@ class Inventories {
     data['freeShipping'] = this.freeShipping;
     data['minOrderQuantity'] = this.minOrderQuantity;
     data['linkedItems'] = this.linkedItems;
-    if (this.image != null) {
-      data['image'] = this.image.map((v) => v.toJson()).toList();
+    if (this.images != null) {
+      data['image'] = this.images.map((v) => v.toJson()).toList();
     }
     if (this.feedbacks != null) {
       data['feedbacks'] = this.feedbacks.map((v) => v.toJson()).toList();
@@ -320,15 +320,15 @@ class Customer {
   String name;
   Null niceName;
   String email;
-  Image image;
+  Images images;
 
-  Customer({this.name, this.niceName, this.email, this.image});
+  Customer({this.name, this.niceName, this.email, this.images});
 
   Customer.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     niceName = json['niceName'];
     email = json['email'];
-    image = json['image'] != null ? new Image.fromJson(json['image']) : null;
+    images = json['image'] != null ? new Images.fromJson(json['image']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -336,20 +336,20 @@ class Customer {
     data['name'] = this.name;
     data['niceName'] = this.niceName;
     data['email'] = this.email;
-    if (this.image != null) {
-      data['image'] = this.image.toJson();
+    if (this.images != null) {
+      data['image'] = this.images.toJson();
     }
     return data;
   }
 }
 
-class Image {
+class Images {
   String name;
   String path;
 
-  Image({this.name, this.path});
+  Images({this.name, this.path});
 
-  Image.fromJson(Map<String, dynamic> json) {
+  Images.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     path = json['path'];
   }
@@ -457,7 +457,7 @@ class Shop {
   Null addressVerified;
   String createdAt;
   String updatedAt;
-  List<Image> image;
+  List<Images> images;
   DataStatesItem state;
   int countProduct;
   int rating;
@@ -484,7 +484,7 @@ class Shop {
         this.addressVerified,
         this.createdAt,
         this.updatedAt,
-        this.image,
+        this.images,
         this.state,
         this.countProduct,
         this.rating,
@@ -512,9 +512,9 @@ class Shop {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     if (json['image'] != null) {
-      image = new List<Image>();
+      images = new List<Images>();
       json['image'].forEach((v) {
-        image.add(new Image.fromJson(v));
+        images.add(new Images.fromJson(v));
       });
     }
     state =
@@ -546,8 +546,8 @@ class Shop {
     data['addressVerified'] = this.addressVerified;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
-    if (this.image != null) {
-      data['image'] = this.image.map((v) => v.toJson()).toList();
+    if (this.images != null) {
+      data['image'] = this.images.map((v) => v.toJson()).toList();
     }
     if (this.state != null) {
       data['state'] = this.state.toJson();

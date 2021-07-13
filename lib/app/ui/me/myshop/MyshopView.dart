@@ -381,7 +381,7 @@ class _MyshopViewState extends State<MyshopView> {
             Colors.white.withOpacity(0.3),
           ),
         ),
-        onPressed: () {
+        onPressed: () async {
           if (shpping.data[0].rates.length == 0) {
             FunctionHelper.naiFarmDialog(
                 context: context,
@@ -390,7 +390,8 @@ class _MyshopViewState extends State<MyshopView> {
                   Navigator.of(context).pop();
                 });
           } else {
-            AppRoute.imageProduct(context, isactive: IsActive.NewProduct);
+            var result = await AppRoute.imageProduct(context,
+                isactive: IsActive.NewProduct);
           }
         },
         child: Text(

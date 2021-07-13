@@ -2722,7 +2722,7 @@ class _APIProvider implements APIProvider {
               ),
               data: _data);
       return ApiResult(
-          respone: ProductMyShopRespone.fromJson(_result.data),
+          respone: ProductShopItemRespone.fromJson(_result.data),
           httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
     } on DioError catch (e) {
       return ServerError.dioErrorExpction(e);

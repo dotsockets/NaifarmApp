@@ -11,6 +11,7 @@ import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductShopItemRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -70,13 +71,14 @@ class _MyNewProductViewState extends State<MyNewProductView> {
             title: LocaleKeys.btn_error.tr(), message: event);
       });
       bloc.onSuccess.stream.listen((event) {
-        if (event is ProductMyShopRespone) {
+        if (event is ProductShopItemRespone) {
         } else if (event is bool) {
           // var item = bloc.uploadProductStorage.value.productMyShopRequest;
           // var inventor = InventoriesRequest(title: item.name,offerPrice: item.offerPrice!=null?item.offerPrice:0,stockQuantity: item.stockQuantity,salePrice: item.salePrice,active: item.active);
           //
           // Usermanager().getUser().then((value) =>bloc.UpdateProductInventories(inventoriesRequest: inventor,productId: bloc.inventoriesId,inventoriesId: bloc.inventoriesId,
           //     token: value.token));
+
           _deleteCache();
         }
       });

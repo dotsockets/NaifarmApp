@@ -32,8 +32,11 @@ class _ImageProductViewState extends State<ImageProductView> {
 
   init() {
     if (bloc == null) {
-      NaiFarmLocalStorage.deleteCacheByItem(
-          key: NaiFarmLocalStorage.naiFarmProductUpload);
+      if(widget.isActive == IsActive.NewProduct){
+        NaiFarmLocalStorage.deleteCacheByItem(
+            key: NaiFarmLocalStorage.naiFarmProductUpload);
+      }
+
       bloc = UploadProductBloc(AppProvider.getApplication(context));
       bloc.onChang.stream.listen((event) {
         if (widget.isActive == IsActive.NewProduct ||
@@ -363,6 +366,9 @@ class _ImageProductViewState extends State<ImageProductView> {
       onPressed: () {
         if (widget.isActive == IsActive.NewProduct ||
             widget.isActive == IsActive.ReplacemenView) {
+          NaiFarmLocalStorage.saveProductStorage(UploadProductStorage(
+              onSelectItem: bloc.getSelectItem(),
+              productMyShopRequest: bloc.productDetail));
           isEnable
               ? AppRoute.myNewProduct(context, widget.shopId,
                   isActive: widget.isActive)

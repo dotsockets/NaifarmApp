@@ -26,6 +26,7 @@ import 'package:naifarm/app/model/pojo/response/ProductMyShopListRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ProductObjectCombine.dart';
 import 'package:naifarm/app/model/pojo/response/ProductRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductShopItemRespone.dart';
 import 'package:naifarm/app/model/pojo/response/SearchRespone.dart';
 import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/app/model/pojo/response/WishlistsRespone.dart';
@@ -916,7 +917,7 @@ class ProductBloc {
       }
       //  onLoad.add(false);
       if (respone.httpCallBack.status == 200) {
-        onSuccess.add((respone.respone as ProductMyShopRespone));
+        onSuccess.add((respone.respone as ProductShopItemRespone));
       } else {
         onError.add(respone.httpCallBack);
       }
@@ -936,7 +937,7 @@ class ProductBloc {
         .listen((respone) {
       if (respone.httpCallBack.status == 200) {
         //onSuccess.add(true);
-        var item = respone.respone as ProductMyShopRespone;
+        var item = respone.respone as ProductShopItemRespone;
         var inventor = InventoriesRequest(
             title: item.name,
             offerPrice: item.offerPrice,
