@@ -12,6 +12,7 @@ import 'package:naifarm/app/model/pojo/request/InventoriesRequest.dart';
 import 'package:naifarm/app/model/pojo/request/ProductMyShopRequest.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/ProductMyShopRespone.dart';
+import 'package:naifarm/app/model/pojo/response/ProductShopItemRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -81,12 +82,18 @@ class _EditProductViewState extends State<EditProductView> {
         FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event);
       });
       bloc.onSuccess.stream.listen((event) {
+
         onUpdate = true;
         if (event is bool) {
+
           _updateProduct();
-        } else if (event is ProductMyShopRespone) {
+         // Navigator.pop(context, onUpdate);
+
+        } else if (event is ProductShopItemRespone) {
           Navigator.pop(context, onUpdate);
-        } else if (event is IsActive) {}
+        } else if (event is IsActive) {
+          Navigator.pop(context, onUpdate);
+        }
       });
       _getProduct();
     }
@@ -501,6 +508,7 @@ class _EditProductViewState extends State<EditProductView> {
                 ],
               ))),
       onTap: () async {
+
         var result = await AppRoute.editImageProduct(
             context: context,
             uploadProductStorage: bloc.uploadProductStorage.value,

@@ -36,6 +36,7 @@ class UploadProductBloc {
   CategoryCombin categoriesAllRespone = CategoryCombin();
   ProductMyShopRequest productDetail = ProductMyShopRequest();
   List<OnSelectItem> itemImage = <OnSelectItem>[];
+  List<OnSelectItem> itemImageDel = <OnSelectItem>[];
   List<ProductMyShop> productList = <ProductMyShop>[];
   List<ImageProductShop> productImageList = <ImageProductShop>[];
 
@@ -76,12 +77,31 @@ class UploadProductBloc {
 
   void deleteImage({int index}) {
     itemImage.remove(null);
+    itemImageDel.add(itemImage[index]);
     itemImage.removeAt(index);
+
+
 
     NaiFarmLocalStorage.saveProductStorage(UploadProductStorage(
             onSelectItem: itemImage, productMyShopRequest: productDetail))
         .then((value) {
+
       onChang.add(itemImage);
+    });
+  }
+
+  void restoreImage(){
+    itemImage.remove(null);
+    itemImageDel.forEach((element) {
+      itemImage.add(element);
+    });
+
+    itemImageDel.clear();
+
+    NaiFarmLocalStorage.saveProductStorage(UploadProductStorage(
+        onSelectItem: itemImage, productMyShopRequest: productDetail))
+        .then((value) {
+          onSuccess.add(true);
     });
   }
 
@@ -187,8 +207,8 @@ class UploadProductBloc {
                 imageableType: imageableType,
                 token: token))
         .listen((respone) {
-      checkloop++;
-      if (checkloop == index) {
+     // checkloop++;
+      if (99 == index) {
         onLoad.add(false);
         onSuccess.add(true);
       }
@@ -241,12 +261,13 @@ class UploadProductBloc {
                 productId: productId,
                 token: token))
         .listen((respone) {
-      if (isload) {
-        onLoad.add(false);
-      }
+      // if (isload) {
+      //   onLoad.add(false);
+      // }
       //  onLoad.add(false);
       if (respone.httpCallBack.status == 200) {
-        onSuccess.add((respone.respone as ProductMyShopRespone));
+        onLoad.add(false);
+        onSuccess.add((respone.respone as ProductShopItemRespone));
       } else {
         onError.add(respone.httpCallBack.message);
       }
@@ -315,7 +336,8 @@ class UploadProductBloc {
   }
 
   deleteImageProduct(BuildContext context,
-      {String imageableId, String imageableType, String path, String token}) {
+      {String imageableId, String imageableType, String path, String token,int index, List<OnSelectItem> data}) {
+
     StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.deleteImageProduct(context,
                 imageableType: imageableType,
@@ -324,6 +346,17 @@ class UploadProductBloc {
                 token: token))
         .listen((respone) {
       if (respone.httpCallBack.status == 200) {
+        if(index==itemImageDel.length){
+
+          if(data.isEmpty){
+             onLoad.add(false);
+
+            itemImageDel.clear();
+            onSuccess.add(true);
+
+          }
+
+        }
       } else {
         onError.add(respone.httpCallBack.message);
       }
@@ -331,12 +364,44 @@ class UploadProductBloc {
     _compositeSubscription.add(subscription);
   }
 
+   onDelImageUpload({BuildContext context,int productId, String token, List<OnSelectItem> data}){
+  //  onLoad.add(true);
+    var i = 0;
+    checkloop = 0;
+     for(var value  in itemImageDel){
+       i++;
+      deleteImageProduct(context,
+          imageableId: productId.toString(),
+          imageableType: "product",
+          path: value.url,
+          token: token,index: i,data: data);
+
+      checkloop++;
+
+    }
+
+  }
+
   onUpdateImage(BuildContext context,
       {int productId, String token, List<OnSelectItem> data}) async {
-    onLoad.add(true);
+
+    if(data.length == 0 && itemImageDel.length == 0){
+      onSuccess.add(IsActive.DeleteImage);
+
+    }else{
+      onLoad.add(true);
+    }
+
+
+    onDelImageUpload(context: context,productId: productId,token: token,data: data);
+
+
+
+
+
     itemImage.remove(null);
     checkloop = 0;
-
+    var loop = 0;
     for (var item in data) {
       if (item.image != null && item.url != "") {
         writeToFile(await item.image.getByteData(quality: 100)).then((file) {
@@ -345,7 +410,7 @@ class UploadProductBloc {
               imageableId: productId,
               imageFile: file,
               imageableType: "product",
-              index: data.length,
+              index: loop==data.length?99:0,
               isActive: IsActive.UpdateProduct);
         });
         deleteImageProduct(context,
@@ -354,16 +419,19 @@ class UploadProductBloc {
             path: item.url,
             token: token);
       } else if (item.image != null && item.url == "") {
+
         writeToFile(await item.image.getByteData(quality: 100)).then((file) {
           uploadImageProduct(context,
               token: token,
               imageableId: productId,
               imageFile: file,
               imageableType: "product",
-              index: data.length,
+              index: loop==data.length?99:0,
               isActive: IsActive.UpdateProduct);
         });
       }
+      loop++;
+
     }
   }
 

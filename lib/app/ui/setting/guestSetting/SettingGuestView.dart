@@ -113,6 +113,7 @@ class SettingGuestView extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(right: 2.0.w),
                 child: SizedBox(
+                  width: 30.0.w,
                   height: 4.0.h,
                   child: TextButton(
                     style: ButtonStyle(
@@ -143,6 +144,7 @@ class SettingGuestView extends StatelessWidget {
                 ),
               ),
               SizedBox(
+                width: 30.0.w,
                 height: 4.0.h,
                 child: TextButton(
                   style: ButtonStyle(

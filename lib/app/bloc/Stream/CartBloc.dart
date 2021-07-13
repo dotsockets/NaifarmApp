@@ -465,7 +465,7 @@ class CartBloc {
   }
 
   getCouponlists({BuildContext context, String token}) {
-    onLoad.add(true);
+    //onLoad.add(true);
     StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .getCouponLists(context, token: token))
@@ -477,7 +477,7 @@ class CartBloc {
             total: item.total,
             page: item.page,
             limit: item.limit));
-        onLoad.add(false);
+        //onLoad.add(false);
       } else {
         onLoad.add(false);
         onError.add(respone.httpCallBack);

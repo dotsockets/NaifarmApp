@@ -106,7 +106,7 @@ class _SearchMyProductState extends State<SearchMyProduct> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: SizeUtil.paddingMenu().w,
+                    height: 1.0.h,
                   ),
                   SizedBox(
                     height: SizeUtil.tabBarHeight().h,

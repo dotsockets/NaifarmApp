@@ -1057,7 +1057,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
           token: value.token,
           cartActive: CartActive.CartList,
           cartNowId: widget.cartNowId);
-      bloc.getCouponlists(context: context, token: value.token);
+    //  bloc.getCouponlists(context: context, token: value.token);
     });
   }
 

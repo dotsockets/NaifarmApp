@@ -197,7 +197,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           tileMode: TileMode.repeated,
-          stops: [0.1, 1.0],
+          stops: [0.2, 0.9],
           colors: [
             ThemeColor.primaryColor(),
             ThemeColor.gradientColor()

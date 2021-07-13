@@ -1714,7 +1714,7 @@ class _APIProvider implements APIProvider {
               ),
               data: shopRequest);
       return ApiResult(
-          respone: ProductMyShopRespone.fromJson(_result.data),
+          respone: ProductShopItemRespone.fromJson(_result.data),
           httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
     } on DioError catch (e) {
       return ServerError.dioErrorExpction(e);
@@ -1857,7 +1857,7 @@ class _APIProvider implements APIProvider {
           ),
           data: inventoriesRequest);
       return ApiResult(
-          respone: ProductMyShopRespone.fromJson(_result.data),
+          respone: ProductShopItemRespone.fromJson(_result.data),
           httpCallBack: ThrowIfNoSuccess(status: _result.statusCode));
     } on DioError catch (e) {
       return ServerError.dioErrorExpction(e);

@@ -179,6 +179,8 @@ class _SplashViewState extends State<SplashView>
     NaiFarmLocalStorage.deleteCacheByItem(key: NaiFarmLocalStorage.naiFarmShop);
     NaiFarmLocalStorage.deleteCacheByItem(
         key: NaiFarmLocalStorage.naiFarmHiSTORY);
+    NaiFarmLocalStorage.deleteCacheByItem(
+        key: NaiFarmLocalStorage.naiFarmProductUpload);
   }
 
   _loadCusCount() {

@@ -32,6 +32,8 @@ class _ImageProductViewState extends State<ImageProductView> {
 
   init() {
     if (bloc == null) {
+      NaiFarmLocalStorage.deleteCacheByItem(
+          key: NaiFarmLocalStorage.naiFarmProductUpload);
       bloc = UploadProductBloc(AppProvider.getApplication(context));
       bloc.onChang.stream.listen((event) {
         if (widget.isActive == IsActive.NewProduct ||
@@ -237,7 +239,8 @@ class _ImageProductViewState extends State<ImageProductView> {
   }
 
   Widget _buildImageItem({OnSelectItem item, int index}) {
-    return item != null
+
+    return item != null && item.image!=null
         ? InkWell(
             child: Container(
               margin: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
@@ -384,6 +387,7 @@ class _ImageProductViewState extends State<ImageProductView> {
   _getProductStorage(){
     NaiFarmLocalStorage.getProductStorageCache().then((value) {
       if (value != null) {
+
         bloc.productDetail = value.productMyShopRequest;
         bloc.loadImage(item: value.onSelectItem);
       }

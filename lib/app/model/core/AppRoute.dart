@@ -422,10 +422,9 @@ class AppRoute {
   }
 
   static splashLogin(BuildContext context) {
+
     Navigator.of(context).pushAndRemoveUntil(
-        SwipeablePageRoute(
-            canOnlySwipeFromEdge: true,
-            builder: (context) => SplashLoginView()),
+        PageTransition(type: PageTransitionType.fade, child: SplashLoginView()),
         (Route<dynamic> route) => false);
   }
 

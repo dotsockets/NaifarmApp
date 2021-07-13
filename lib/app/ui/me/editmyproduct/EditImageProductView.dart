@@ -48,6 +48,7 @@ class _EditImageProductViewState extends State<EditImageProductView> {
         Navigator.pop(context, true);
       });
       bloc.onError.stream.listen((event) {
+
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event);
       });
@@ -71,7 +72,7 @@ class _EditImageProductViewState extends State<EditImageProductView> {
               icon: "",
               isEnableSearch: false,
               headerType: Header_Type.barNormal,
-              onClick: () => Navigator.pop(context, false),
+              onClick: () =>  bloc.restoreImage(),
             ),
           ),
           body: Container(
@@ -377,7 +378,7 @@ class _EditImageProductViewState extends State<EditImageProductView> {
         padding: EdgeInsets.only(left: 25.0.w,right: 25.0.w,top: 3.0.h,bottom: 3.0.h),
         child: _buildButtonItem(
             btnTxt: LocaleKeys.btn_continue.tr(),
-            isEnable: bloc.countSelectImage() > 0 ? true : false)));
+            isEnable: item.length > 0 ? true : false)));
   }
 
   Widget _buildButtonItem({String btnTxt, isEnable = false}) {
@@ -392,7 +393,7 @@ class _EditImageProductViewState extends State<EditImageProductView> {
           Size(50.0.w, 5.0.h),
         ),
         backgroundColor: MaterialStateProperty.all(
-          isEnable ? ThemeColor.secondaryColor() : Colors.grey,
+          isEnable || bloc.itemImageDel.length>0 ? ThemeColor.secondaryColor() : Colors.grey,
         ),
         overlayColor: MaterialStateProperty.all(
           Colors.white.withOpacity(0.3),
@@ -400,7 +401,8 @@ class _EditImageProductViewState extends State<EditImageProductView> {
       ),
       onPressed: () {
         //AppRoute.MyNewProduct(context);
-        if (isEnable) {
+        if (isEnable || bloc.itemImageDel.length>0) {
+
           Usermanager().getUser().then((value) {
             bloc.onUpdateImage(context,
                 productId: widget.productId,
@@ -422,6 +424,7 @@ class _EditImageProductViewState extends State<EditImageProductView> {
     );
   }
   _initailValue(){
+
     bloc.uploadProductStorage.add(widget.uploadProductStorage);
     bloc.itemImage = widget.uploadProductStorage.onSelectItem;
     bloc.onChang.add(widget.uploadProductStorage.onSelectItem);
