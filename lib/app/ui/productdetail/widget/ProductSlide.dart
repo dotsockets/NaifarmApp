@@ -15,19 +15,26 @@ class ProductSlide extends StatefulWidget {
   final int indexImg;
   final int stockQuantity;
 
-  const ProductSlide({Key key, this.imgList,this.indexImg=0,this.stockQuantity=1}) : super(key: key);
+  const ProductSlide(
+      {Key key, this.imgList, this.indexImg = 0, this.stockQuantity = 1})
+      : super(key: key);
+
   @override
   _ProductSlideState createState() => _ProductSlideState();
 }
 
 class _ProductSlideState extends State<ProductSlide> {
   final current = BehaviorSubject<int>();
+ // final onCover = BehaviorSubject<bool>();
+  List<Image> imageList;
 
   @override
   void initState() {
+    _checkImg();
     current.add(widget.indexImg);
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +54,15 @@ class _ProductSlideState extends State<ProductSlide> {
       children: [
         Container(
           color: Colors.white,
-          width: MediaQuery.of(context).size.width,
+          width: MediaQuery
+              .of(context)
+              .size
+              .width,
           padding: EdgeInsets.only(top: 0, bottom: 30),
           child: CarouselSlider(
             options: CarouselOptions(
               height: 46.0.h,
-              viewportFraction: 0.999,
+              viewportFraction: 1,
               autoPlay: true,
               initialPage: widget.indexImg,
               enableInfiniteScroll: widget.imgList.length > 1 ? true : false,
@@ -61,26 +71,68 @@ class _ProductSlideState extends State<ProductSlide> {
                 current.add(index);
               },
             ),
-            items: widget.imgList
-                .map(
-                  (item) => Container(
-                child: CachedNetworkImage(
-                  placeholder: (context, url) => Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: Lottie.asset('assets/json/loading.json', height: 30),
+            // items: widget.imgList
+            //     .map(
+            //       (item) => Container(
+            //         child: CachedNetworkImage(
+            //           placeholder: (context, url) => Container(
+            //             width: MediaQuery.of(context).size.width,
+            //             child: Lottie.asset('assets/json/loading.json',
+            //                 height: 30),
+            //           ),
+            //           imageUrl: item,
+            //           width: MediaQuery.of(context).size.width,
+            //             fit: isCoverImg[0]?BoxFit.cover:BoxFit.contain,
+            //           errorWidget: (context, url, error) => Container(
+            //               height: 30,
+            //               width: MediaQuery.of(context).size.width,
+            //               child: NaifarmErrorWidget()),
+            //         ),
+            //       ),
+            //     )
+            //     .toList(),
+            items: List.generate(
+              widget.imgList.length,
+                  (index) =>
+                  Container(
+                    child: StreamBuilder(
+                    //  stream: onCover.stream,
+                      builder: (context, snapshot) {
+                        return CachedNetworkImage(
+                          placeholder: (context, url) =>
+                              Container(
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width,
+                                child: Lottie.asset(
+                                    'assets/json/loading.json', height: 30),
+                              ),
+                          imageUrl: widget.imgList[index],
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
+                          fit: _isCover(index < imageList.length?index:0)
+                              ? BoxFit.cover
+                              : BoxFit.contain,
+                          errorWidget: (context, url, error) =>
+                              Container(
+                                  height: 30,
+                                  width: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width,
+                                  child: NaifarmErrorWidget()),
+                        );
+                      }
+                    ),
                   ),
-                  imageUrl: item,
-                  errorWidget: (context, url, error) => Container(
-                      height: 30,
-                      width: MediaQuery.of(context).size.width,
-                      child: NaifarmErrorWidget()),
-                ),
-              ),
-            )
-                .toList(),
+            ),
           ),
         ),
-        widget.stockQuantity==null || widget.stockQuantity==0?Positioned.fill(
+        widget.stockQuantity == null || widget.stockQuantity == 0
+            ? Positioned.fill(
           child: IgnorePointer(
             ignoring: true,
             child: Container(
@@ -98,26 +150,33 @@ class _ProductSlideState extends State<ProductSlide> {
                     child: Text(
                         LocaleKeys.search_product_out_of_stock.tr(),
                         style: FunctionHelper.fontTheme(
-                            fontSize: SizeUtil.detailFontSize().sp,
+                            fontSize: SizeUtil
+                                .detailFontSize()
+                                .sp,
                             color: Colors.white)),
                   ),
                 ),
               ),
             ),
           ),
-        ):SizedBox()
+        )
+            : SizedBox()
       ],
     );
   }
 
-  Widget _buildIndicator() => Positioned(
+  Widget _buildIndicator() =>
+      Positioned(
         bottom: 5,
         //  left: MediaQuery.of(context).size.width/2*0.86,
         child: Container(
-          width: MediaQuery.of(context).size.width,
+          width: MediaQuery
+              .of(context)
+              .size
+              .width,
           child: StreamBuilder(
             stream: current.stream,
-            builder: (_,snapShot){
+            builder: (_, snapShot) {
               return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: widget.imgList
@@ -145,4 +204,34 @@ class _ProductSlideState extends State<ProductSlide> {
           ),
         ),
       );
+
+// bool _reSize(){
+//   Size size = _key.currentContext.size;
+//   double height = _key.currentContext.size.height;
+//   double width = _key.currentContext.size.width;
+//   print("${height} ${width}");
+//
+// }
+  _checkImg() {
+    imageList = widget.imgList.map((e) => Image.network(e)).toList();
+    // imageList.map((e) =>
+    //     e.image.resolve(ImageConfiguration())
+    //         .addListener(ImageStreamListener((ImageInfo img, bool isSync) {
+    //       img.image.width - img.image.height == 0
+    //           ? isCoverImg.add(true)
+    //           : isCoverImg.add(false);
+    //     }))).toList();
+    // print("${info.image.width} ${info.image.height}");
+  }
+
+  bool _isCover(int index) {
+    bool check = false;
+    imageList[index].image.resolve(ImageConfiguration()).addListener(ImageStreamListener((ImageInfo img, bool isSync) {
+      check = img.image.width - img.image.height == 0;
+      //onCover.add(true);
+    }
+    ));
+    return check;
+  }
+
 }
