@@ -606,6 +606,9 @@
   },
   "appUpdate": {
     "title": "App Update Available",
+    "detail1": "A new version of Naifarm is available version",
+    "detail2": "is now available-you have",
+    "requestUpdate": "Would you like to update in now?",
     "releaseNote": "Release Note",
     "updateButton": "Update Now"
   }
