@@ -484,6 +484,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                             child: CachedNetworkImage(
                               width: 20.0.w,
                               height: 20.0.w,
+                              fit: BoxFit.fitWidth,
                               placeholder: (context, url) => Container(
                                 width: 20.0.w,
                                 height: 20.0.w,
@@ -784,9 +785,9 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
         children: [
           Container(color: Colors.black.withOpacity(0.1), height: 1),
           // buildcoupon(),
-          Divider(),
+        //  Divider(),
           Container(
-            padding: EdgeInsets.only(top: 1.0.h, bottom: 1.0.h, right: 0.5.h),
+            padding: EdgeInsets.only(top: 1.5.h, bottom: 1.0.h, right: 0.5.h),
             child: InkWell(
               child: Row(
                 children: [

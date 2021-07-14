@@ -726,7 +726,7 @@ class _OrderViewState extends State<OrderView> {
                 color: Colors.white,
                 child: Lottie.asset('assets/json/loading.json', height: 30),
               ),
-              fit: BoxFit.cover,
+              fit: BoxFit.fitWidth,
               imageUrl: orderItems.itemImagePath != null
                   ? "${orderItems.itemImagePath.imgUrl()}"
                   : Env.value.noItemUrl,

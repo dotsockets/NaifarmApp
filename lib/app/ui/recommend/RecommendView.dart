@@ -367,6 +367,7 @@ class _RecommendViewState extends State<RecommendView> {
     if (Platform.isAndroid) {
       await Future.delayed(Duration(seconds: 2));
     }
+    context.read<HomeDataBloc>().loadHomeData(context);
     Usermanager().getUser().then((value) => context.read<CustomerCountBloc>()
         .loadCustomerCount(context, token: value.token));
   }

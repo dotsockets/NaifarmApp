@@ -159,7 +159,7 @@ class ProductItemCard extends StatelessWidget {
               imageBuilder: (context, imageProvider) => Container(
                 decoration: BoxDecoration(
                   image:
-                      DecorationImage(image: imageProvider),
+                      DecorationImage(image: imageProvider,fit:  BoxFit.fitWidth),
                 ),
               ),
               placeholder: (context, url) => Container(

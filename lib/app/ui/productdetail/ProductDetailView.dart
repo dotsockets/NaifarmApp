@@ -272,7 +272,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
         armedToLoadingDuration: const Duration(seconds: 1),
         draggingToIdleDuration: const Duration(seconds: 1),
         completeStateDuration: const Duration(seconds: 1),
-        offsetToArmed: 50.0,
+        offsetToArmed: 60.0,
         builder: (
           BuildContext context,
           Widget child,
@@ -291,7 +291,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                   return Align(
                     alignment: Alignment.topCenter,
                     child: Container(
-                      margin: EdgeInsets.only(top: 2.0.h),
+                      margin: EdgeInsets.only(top: 5.0.h),
                       width: 5.0.w,
                       height: 5.0.w,
                       child: CupertinoActivityIndicator(),

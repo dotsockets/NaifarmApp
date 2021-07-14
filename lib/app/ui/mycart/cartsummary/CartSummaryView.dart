@@ -278,6 +278,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
               child: CachedNetworkImage(
                 width: 22.0.w,
                 height: 22.0.w,
+                fit: BoxFit.fitWidth,
                 placeholder: (context, url) => Container(
                   color: Colors.white,
                   child: Lottie.asset('assets/json/loading.json', height: 30),

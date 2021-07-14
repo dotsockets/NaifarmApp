@@ -517,6 +517,7 @@ class _ProductMoreViewState extends State<ProductMoreView> {
                     child: CachedNetworkImage(
                       width: 30.0.w,
                       height: 40.0.w,
+                      fit: BoxFit.fitWidth,
                       placeholder: (context, url) => Container(
                         width: 30.0.w,
                         height: 40.0.w,

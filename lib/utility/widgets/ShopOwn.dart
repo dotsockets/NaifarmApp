@@ -233,7 +233,7 @@ class ShopOwn extends StatelessWidget {
                                   Size(20.0.w, 4.0.h),
                                 ),
                                 backgroundColor: MaterialStateProperty.all(
-                                  ThemeColor.primaryColor(),
+                                  ThemeColor.secondaryColor(),
                                 ),
                                 overlayColor: MaterialStateProperty.all(
                                   Colors.white.withOpacity(0.3),

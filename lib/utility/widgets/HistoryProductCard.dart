@@ -305,7 +305,7 @@ class HistoryProductCard extends StatelessWidget {
                 color: Colors.white,
                 child: Lottie.asset('assets/json/loading.json', height: 30),
               ),
-              fit: BoxFit.cover,
+              fit: BoxFit.fitWidth,
               imageUrl: item.itemImagePath != null
                   ? "${item.itemImagePath.imgUrl()}"
                   : Env.value.noItemUrl,

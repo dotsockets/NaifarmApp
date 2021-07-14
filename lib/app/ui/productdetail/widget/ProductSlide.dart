@@ -25,7 +25,7 @@ class ProductSlide extends StatefulWidget {
 
 class _ProductSlideState extends State<ProductSlide> {
   final current = BehaviorSubject<int>();
- // final onCover = BehaviorSubject<bool>();
+ final onCover = BehaviorSubject<bool>();
   List<Image> imageList;
 
   @override
@@ -93,41 +93,41 @@ class _ProductSlideState extends State<ProductSlide> {
             //     .toList(),
             items: List.generate(
               widget.imgList.length,
-                  (index) =>
-                  Container(
-                    child: StreamBuilder(
-                    //  stream: onCover.stream,
-                      builder: (context, snapshot) {
-                        return CachedNetworkImage(
-                          placeholder: (context, url) =>
-                              Container(
-                                width: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .width,
-                                child: Lottie.asset(
-                                    'assets/json/loading.json', height: 30),
-                              ),
-                          imageUrl: widget.imgList[index],
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width,
-                          fit: _isCover(index < imageList.length?index:0)
-                              ? BoxFit.cover
-                              : BoxFit.contain,
-                          errorWidget: (context, url, error) =>
-                              Container(
-                                  height: 30,
-                                  width: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width,
-                                  child: NaifarmErrorWidget()),
-                        );
-                      }
-                    ),
-                  ),
+                  (index) {
+
+                    return Container(
+                      child: StreamBuilder(
+                      //    stream: onCover.stream,
+                          builder: (context, snapshot) {
+                            return CachedNetworkImage(
+                              placeholder: (context, url) =>
+                                  Container(
+                                    width: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .width,
+                                    child: Lottie.asset(
+                                        'assets/json/loading.json', height: 30),
+                                  ),
+                              imageUrl: widget.imgList[index],
+                              width: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width,
+                              fit:  BoxFit.fitWidth,
+                              errorWidget: (context, url, error) =>
+                                  Container(
+                                      height: 30,
+                                      width: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .width,
+                                      child: NaifarmErrorWidget()),
+                            );
+                          }
+                      ),
+                    );
+                  },
             ),
           ),
         ),
@@ -213,7 +213,9 @@ class _ProductSlideState extends State<ProductSlide> {
 //
 // }
   _checkImg() {
+
     imageList = widget.imgList.map((e) => Image.network(e)).toList();
+   // widget.imgList.f
     // imageList.map((e) =>
     //     e.image.resolve(ImageConfiguration())
     //         .addListener(ImageStreamListener((ImageInfo img, bool isSync) {
@@ -224,14 +226,26 @@ class _ProductSlideState extends State<ProductSlide> {
     // print("${info.image.width} ${info.image.height}");
   }
 
-  bool _isCover(int index) {
-    bool check = false;
-    imageList[index].image.resolve(ImageConfiguration()).addListener(ImageStreamListener((ImageInfo img, bool isSync) {
-      check = img.image.width - img.image.height == 0;
-      //onCover.add(true);
-    }
-    ));
-    return check;
-  }
+  // bool _isCove1r(String url) {
+  //   bool check = false;
+  //
+  //   Image.network(url).image.resolve(ImageConfiguration()).addListener(ImageStreamListener((ImageInfo img, bool isSync) {
+  //     check = img.image.width - img.image.height == 0;
+  //    // onCover.add(true);
+  //   }
+  //   ));
+  //   return check;
+  // }
+  //
+  // Future<bool> _isCover(int index) async{
+  //   bool check = false;
+  //   imageList[index].image.resolve(ImageConfiguration()).addListener(ImageStreamListener((ImageInfo img, bool isSync) {
+  //
+  //     check = img.image.width - img.image.height == 0;
+  //   //  onCover.add(true);
+  //   }
+  //   ));
+  //   return check;
+  // }
 
 }

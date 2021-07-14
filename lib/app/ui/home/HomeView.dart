@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
+import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
 import 'package:naifarm/app/bloc/Provider/HomeMenuIndex.dart';
 import 'package:naifarm/app/bloc/Stream/ProductBloc.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
@@ -313,6 +314,7 @@ class _HomeViewState extends LifecycleWatcherState<HomeView>
 
   @override
   void onResumed() {
+    context.read<HomeDataBloc>().loadHomeData(context);
     Usermanager().getUser().then((value) => context
         .read<CustomerCountBloc>()
         .loadCustomerCount(context, token: value.token));
