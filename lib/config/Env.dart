@@ -24,6 +24,9 @@ class Env {
   String onesignal;
   EnvType environmentType = EnvType.DEVELOPMENT;
   String noItemUrl;
+  String appUpdateUrl;
+  String androidAppUrl;
+  String appleAppUrl;
 
   // Database Config
   int dbVersion = 1;
@@ -51,7 +54,7 @@ class Env {
           fallbackLocale: Locale('th', 'TH'),
           startLocale: Locale('th', 'TH'),
           saveLocale: true,
-         // useOnlyLangCode: true,
+          // useOnlyLangCode: true,
           child: MultiBlocProvider(
             providers: [
               BlocProvider(
