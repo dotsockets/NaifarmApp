@@ -311,7 +311,7 @@ class AppToobar extends PreferredSize {
                 ),
               ),
               _buildSearch(context),
-              SizedBox(width: 3.0.w,),
+              SizedBox(width: 1.0.w,),
               showCartBtn
                   ? Container(
                       padding: EdgeInsets.only(

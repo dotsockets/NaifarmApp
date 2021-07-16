@@ -164,7 +164,7 @@ class _HomeHeaderState extends State<HomeHeader> {
               ],
             ),
             SizedBox(
-              height: 1.0.h,
+              height: 1.5.h,
             ),
             /*    widget.snapshot.featuredRespone != null
                 ? CategoryMenu(
