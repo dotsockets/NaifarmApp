@@ -68,7 +68,7 @@ class ListMenuItem extends StatelessWidget {
                                       'assets/json/loading.json',
                                       height: iconSize),
                                 ),
-                                fit: BoxFit.cover,
+                                fit: BoxFit.contain,
                                 imageUrl: isPhoto,
                                 // errorWidget: (context, url, error) => Container(
                                 //     height: iconSize,

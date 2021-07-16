@@ -114,7 +114,7 @@ class _ProductSlideState extends State<ProductSlide> {
                                   .of(context)
                                   .size
                                   .width,
-                              fit:  BoxFit.fitWidth,
+                              fit:  BoxFit.contain,
                               errorWidget: (context, url, error) =>
                                   Container(
                                       height: 30,

@@ -467,7 +467,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
                       CachedNetworkImage(
                     width: 30.0.w,
                     height: 40.0.w,
-                    fit: BoxFit.fitWidth,
+                    fit: BoxFit.contain,
                     placeholder: (context, url) => Container(
                       width: 30.0.w,
                       height: 40.0.w,

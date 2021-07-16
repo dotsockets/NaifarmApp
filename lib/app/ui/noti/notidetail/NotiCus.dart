@@ -261,7 +261,7 @@ class _NotiCusState extends State<NotiCus> with AutomaticKeepAliveClientMixin<No
                               child: CachedNetworkImage(
                                 width: 12.0.w,
                                 height: 12.0.w,
-                                fit: BoxFit.cover,
+                                fit: BoxFit.contain,
                                 placeholder: (context, url) => Container(
                                   color: Colors.white,
                                   child: Lottie.asset(
