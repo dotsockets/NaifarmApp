@@ -427,8 +427,8 @@ class _ProductDetailViewState extends State<ProductDetailView>
                 if (snapshot.hasData && item != null) {
                   return FullScreenWidget(
                     backgroundIsTransparent: true,
-                  //  child: Hero(
-                     // tag: "customTag",
+                   child: Hero(
+                     tag: "customTag${item.id}",
                       child: Center(
                         child: ProductSlide(
                           imgList: item != null && item.image != null
@@ -441,7 +441,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                               : 1,
                         ),
                       ),
-                 //   ),
+                    ),
                   );
                 } else {
                   return widget.productItem.image != null
