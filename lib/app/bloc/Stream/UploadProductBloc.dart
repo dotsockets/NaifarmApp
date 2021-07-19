@@ -398,9 +398,6 @@ class UploadProductBloc {
     onDelImageUpload(context: context,productId: productId,token: token,data: data);
 
 
-
-
-
     itemImage.remove(null);
     checkloop = 0;
     var loop = 0;
