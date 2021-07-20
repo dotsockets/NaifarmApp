@@ -55,6 +55,12 @@ class OneSignalCall {
 
   static oneSignalOpenedHandler(BuildContext context) async {
 
+    OneSignal.shared.setNotificationWillShowInForegroundHandler((OSNotificationReceivedEvent event) {
+      // Will be called whenever a notification is received in foreground
+      // Display Notification, pass null param for not displaying the notification
+      event.complete(event.notification);
+    });
+
     OneSignal.shared
         .setNotificationOpenedHandler((OSNotificationOpenedResult result) {
       Usermanager().getUser().then((value) => context.read<CustomerCountBloc>()

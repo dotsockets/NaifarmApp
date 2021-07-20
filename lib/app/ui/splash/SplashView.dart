@@ -48,6 +48,7 @@ class _SplashViewState extends State<SplashView>
   }
 
   void _init(BuildContext context) async {
+
     versionName();
     if (null == bloc) {
       _delCache();

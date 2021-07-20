@@ -219,12 +219,13 @@ class _NotiViewState extends State<NotiView>
     );
   }
   _getNoti(){
+
     Usermanager().getUser().then((value) {
       if (value.token != null) {
         NaiFarmLocalStorage.getNowPage().then((data) {
           if (data == 2) {
             //NaiFarmLocalStorage.saveNowPage(0);
-            Future.delayed(const Duration(milliseconds: 3000), () {
+            Future.delayed(const Duration(milliseconds: 2000), () {
               bloc.markAsReadNotifications(context, token: value.token);
             });
           }

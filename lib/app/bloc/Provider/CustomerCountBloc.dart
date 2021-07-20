@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/pojo/response/ApiResult.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
 import 'package:naifarm/app/model/pojo/response/CustomerCountRespone.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:flutter_app_badger/flutter_app_badger.dart';
 
 class CustomerCountBloc extends Cubit<CustomerCountState> {
   final AppNaiFarmApplication _application;
@@ -65,6 +66,7 @@ class CustomerCountBloc extends Cubit<CustomerCountState> {
             item.like > 0 ||
             item.watingReview > 0 ||
             item.cartCount > 0) {
+          FlutterAppBadger.updateBadgeCount(item.notification.unreadCustomer + item.notification.unreadShop);
           NaiFarmLocalStorage.saveCustomerCuse(item);
         } else {
           NaiFarmLocalStorage.saveCustomerCuse(null);

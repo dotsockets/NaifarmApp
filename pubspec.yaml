@@ -85,7 +85,7 @@ dependencies:
   timeago: ^3.1.0
   share: ^2.0.4
   like_button: ^2.0.2
-  onesignal_flutter: ^3.0.0
+  onesignal_flutter: ^3.1.0
   flutter_html: ^2.1.0
   flutter_local_notifications: ^6.0.0
   #flutter_automation: ^1.4.0
@@ -94,13 +94,13 @@ dependencies:
   sign_in_with_apple: ^3.0.0
   package_info: ^2.0.2
   translator: ^0.1.7
-  sms_autofill: ^2.0.0
+  sms_autofill: ^2.0.1
   focused_menu: ^1.0.5
-  rive: ^0.7.22
+  rive: ^0.7.23
   flutter_login_facebook: ^1.0.1
   http: ^0.13.3
   url_launcher: ^6.0.9
-  store_redirect: ^2.0.0
+  flutter_app_badger: ^1.2.0
 
 dev_dependencies:
   flutter_test:
