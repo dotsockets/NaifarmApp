@@ -45,12 +45,16 @@ class _EditImageProductViewState extends State<EditImageProductView> {
         }
       });
       bloc.onSuccess.stream.listen((event) {
-        Navigator.pop(context, true);
+
+        Navigator.pop(context, UploadProductStorage(onSelectItem: bloc.onChang.value,productMyShopRequest: widget.uploadProductStorage.productMyShopRequest));
       });
       bloc.onError.stream.listen((event) {
 
         FunctionHelper.alertDialogShop(context,
             title: LocaleKeys.btn_error.tr(), message: event);
+      });
+      bloc.uploadProductStorage.stream.listen((event) {
+        bloc.onChang.add(event.onSelectItem);
       });
      _initailValue();
     }
@@ -428,5 +432,9 @@ class _EditImageProductViewState extends State<EditImageProductView> {
     bloc.uploadProductStorage.add(widget.uploadProductStorage);
     bloc.itemImage = widget.uploadProductStorage.onSelectItem;
     bloc.onChang.add(widget.uploadProductStorage.onSelectItem);
+
+    Usermanager().getUser().then((value) => bloc.getProductIDMyShop(context,
+        token: value.token, productId: widget.productId));
+
   }
 }

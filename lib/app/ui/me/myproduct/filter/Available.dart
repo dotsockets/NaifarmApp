@@ -290,7 +290,7 @@ class _AvailableState extends State<Available> {
                                   : SizedBox(),
                               SizedBox(
                                   width: item.offerPrice != null ? 1.0.w : 0),
-                              Text(
+                              Expanded(child: Text(
                                 item.offerPrice != null
                                     ? "฿${item.offerPrice.priceFormat()}"
                                     : "฿${item.salePrice.priceFormat()}",
@@ -300,7 +300,7 @@ class _AvailableState extends State<Available> {
                                     color: ThemeColor.colorSale(),
                                     fontWeight: FontWeight.w500,
                                     fontSize: SizeUtil.priceFontSize().sp),
-                              ),
+                              )),
                             ],
                           ),
                           SizedBox(

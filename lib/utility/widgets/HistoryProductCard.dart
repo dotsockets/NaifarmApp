@@ -339,10 +339,8 @@ class HistoryProductCard extends StatelessWidget {
               SizedBox(height: 3.0.w),
               Container(
                 child: Text(
-                  item.inventory != null
-                      ? item.inventory.title
-                      : item.itemTitle.isNotEmpty
-                          ? item.itemTitle
+                  item.itemTitle != null
+                      ?  item.itemTitle
                           : LocaleKeys.search_product_not_found.tr(),
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,

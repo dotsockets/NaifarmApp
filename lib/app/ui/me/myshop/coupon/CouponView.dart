@@ -184,13 +184,31 @@ class _CouponViewState extends State<CouponView> {
         child: StreamBuilder(
             stream: bloc.couponList.stream,
             builder: (context, snapshot) {
-              if (snapshot.hasData) {
+              if (snapshot.hasData && snapshot.data.data.length>0) {
                 var item = (snapshot.data as CouponResponse);
                 return Column(
                   children: item.data.map((e) => coupons(e)).toList(),
                 );
               } else {
-                return Container();
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  color: Colors.white,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Lottie.asset('assets/json/boxorder.json',
+                          height: 70.0.w, width: 70.0.w, repeat: false),
+                      Text(LocaleKeys.search_product_not_found.tr(),
+                          style: FunctionHelper.fontTheme(
+                              fontSize: SizeUtil.titleFontSize().sp,
+                              fontWeight: FontWeight.w500)),
+                      SizedBox(
+                        height: 25.0.h,
+                      ),
+                    ],
+                  ),
+                );
               }
             }),
       ),

@@ -118,7 +118,7 @@ class _AttributeProductViewState extends State<AttributeProductView>
                 body: StreamBuilder(
                     stream: bloc.productRes.stream,
                     builder: (context, snapshot) {
-                      if (snapshot.hasData) {
+                      if (snapshot.hasData && snapshot.data.inventories[0].attributes.length>0) {
                         var item = snapshot.data as ProductShopItemRespone;
                         return Column(
                           children: [

@@ -271,6 +271,7 @@ class UploadProductBloc {
         onLoad.add(false);
         onSuccess.add((respone.respone as ProductShopItemRespone));
       } else {
+        onLoad.add(false);
         onError.add(respone.httpCallBack.message);
       }
     });
@@ -443,10 +444,12 @@ class UploadProductBloc {
       onLoad.add(false);
       if (respone.httpCallBack.status == 200) {
         var item = (respone.respone as ProductShopItemRespone);
-        if(uploadProductStorage.hasValue){uploadProductStorage.value.onSelectItem.clear();
+        if(uploadProductStorage.hasValue){
+          uploadProductStorage.value.onSelectItem.clear();
         for (var value in item.images) {
-          uploadProductStorage.value.onSelectItem
-              .add(OnSelectItem(url: value.path, onEdit: false));
+          uploadProductStorage.value.onSelectItem.add(OnSelectItem(url: value.path, onEdit: false));
+
+
         }
 
         inventoriesId = item.inventories[0].id;

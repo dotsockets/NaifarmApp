@@ -921,7 +921,7 @@ class AppRoute {
             canOnlySwipeFromEdge: true, builder: (context) => SplashView()));
   }
 
-  static Future<bool> editImageProduct(
+  static Future<Object> editImageProduct(
       {BuildContext context,
       UploadProductStorage uploadProductStorage,
       int productId}) async {

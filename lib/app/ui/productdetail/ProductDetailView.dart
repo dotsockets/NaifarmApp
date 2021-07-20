@@ -607,7 +607,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
                   images:images,
                 ));
       },
-      child: images.length>0?Container(
+      child: images!=null && images.length>0?Container(
         padding: EdgeInsets.only(
             left: 3.0.w, top: 2.0.h, bottom: 2.0.h, right: 3.0.w),
         child: Column(

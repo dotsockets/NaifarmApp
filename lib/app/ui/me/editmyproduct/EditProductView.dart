@@ -56,13 +56,13 @@ class _EditProductViewState extends State<EditProductView> {
   @override
   void initState() {
     super.initState();
-    KeyboardVisibilityNotification().addNewListener(
-      onChange: (bool visible) {
-        setState(() {
-          checkKeyBoard = visible;
-        });
-      },
-    );
+    // KeyboardVisibilityNotification().addNewListener(
+    //   onChange: (bool visible) {
+    //     setState(() {
+    //       checkKeyBoard = visible;
+    //     });
+    //   },
+    // );
   }
 
   init() {
@@ -96,6 +96,32 @@ class _EditProductViewState extends State<EditProductView> {
         }
       });
       _getProduct();
+      bloc.uploadProductStorage.stream.listen((event) {
+        nameProductController.text = event.productMyShopRequest.name;
+        detailController.text = event.productMyShopRequest.description;
+        priceController.text = event.productMyShopRequest.salePrice.toString();
+        amountController.text = event.productMyShopRequest.stockQuantity.toString();
+        offerPriceController.text = event.productMyShopRequest.offerPrice!=null?event.productMyShopRequest.offerPrice.toString():'';
+      });
+      // bloc.productRes.stream.listen((event) {
+      //   var item = (event as ProductShopItemRespone);
+      //   for (var value in item.images) {
+      //     bloc.uploadProductStorage.value.onSelectItem
+      //         .add(OnSelectItem(url: value.path, onEdit: false));
+      //   }
+      //
+      //   bloc.uploadProductStorage.value.productMyShopRequest = ProductMyShopRequest(
+      //       inventoriesid: item.inventories[0].id,
+      //       name: item.name,
+      //       salePrice: item.salePrice,
+      //       stockQuantity: item.inventories[0].stockQuantity,
+      //       offerPrice: item.offerPrice,
+      //       active: bloc.uploadProductStorage.value.productMyShopRequest.active,
+      //       category: item.categories[0].category.id,
+      //       weight: item.inventories[0].shippingWeight,
+      //       description: item.description);
+      //   bloc.uploadProductStorage.add(bloc.uploadProductStorage.value);
+      // });
     }
   }
 
@@ -271,9 +297,10 @@ class _EditProductViewState extends State<EditProductView> {
                                     ],
                                   ),
                                 ),
+
                                 Container(
                                   color: Colors.white,
-                                  height: 1.0.h,
+                                  height: 2.0.h,
                                 ),
                                 Divider(
                                   height: 0.5.h,
@@ -342,8 +369,7 @@ class _EditProductViewState extends State<EditProductView> {
       {String head, String hint, String seletText /*, List<String> dataList*/
       }) {
     for (var item in bloc.categoriesAllRespone.categoriesRespone.data) {
-      if (item.id ==
-          bloc.uploadProductStorage.value.productMyShopRequest.category) {
+      if (item.id == bloc.uploadProductStorage.value.productMyShopRequest.category) {
         seletText = item.name;
         break;
       }
@@ -513,8 +539,9 @@ class _EditProductViewState extends State<EditProductView> {
             context: context,
             uploadProductStorage: bloc.uploadProductStorage.value,
             productId: widget.productId);
-        if (result) {
+        if ((result as UploadProductStorage) != null) {
           onUpdate = true;
+          bloc.uploadProductStorage.add(result);
           Usermanager().getUser().then((value) => bloc.getProductIDMyShop(
               context,
               token: value.token,
@@ -727,6 +754,7 @@ class _EditProductViewState extends State<EditProductView> {
   }
 
   _updateProduct() {
+    FocusScope.of(context).requestFocus(FocusNode());
     var item = bloc.uploadProductStorage.value.productMyShopRequest;
     var inventor = InventoriesRequest(
         title: item.name,
