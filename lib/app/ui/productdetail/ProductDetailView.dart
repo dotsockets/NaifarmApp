@@ -242,11 +242,11 @@ class _ProductDetailViewState extends State<ProductDetailView>
 
   @override
   void didPopNext() {
-    Usermanager().getUser().then((value) {
-      token = value.token;
-      bloc.loadProductsPage(context,
-          id: widget.productItem.id, token: value.token);
-    });
+    // Usermanager().getUser().then((value) {
+    //   token = value.token;
+    //   bloc.loadProductsPage(context,
+    //       id: widget.productItem.id, token: value.token);
+    // });
   }
 
   @override
