@@ -202,15 +202,9 @@ class _RecommendViewState extends State<RecommendView> {
                           ),
                         ),
                       );
-                    } else {
-                      // if (onDialog) {
-                      //   onDialog = false;
-                      //   bloc.onError.add(ThrowIfNoSuccess(
-                      //       status: 500,
-                      //       message:
-                      //           item.homeObjectCombine.httpCallBack.message));
-                      // }
-
+                    }else if(item is HomeDataLoading){
+                      return Text("Loadding...");
+                  } else if(item is HomeDataError){
                       return SingleChildScrollView(
                         child: Container(
                           child: StickyHeader(
@@ -227,11 +221,21 @@ class _RecommendViewState extends State<RecommendView> {
                             content: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  content(item: HomeObjectCombine()),
+                                  content(item: item.homeObjectCombine),
                                 ]),
                           ),
                         ),
                       );
+                  } else{
+                      // if (onDialog) {
+                      //   onDialog = false;
+                      //   bloc.onError.add(ThrowIfNoSuccess(
+                      //       status: 500,
+                      //       message:
+                      //           item.homeObjectCombine.httpCallBack.message));
+                      // }
+
+                      return Text("Error http");
                     }
                   },
                 )
