@@ -11,6 +11,7 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vibration/vibration.dart';
 import '../SizeUtil.dart';
 
 class CheckUpdate {
@@ -23,12 +24,14 @@ class CheckUpdate {
       if (Platform.isAndroid) {
         final android = note['os']['android'];
         if (android != null && android['version'] != currentVersion) {
+          Vibration.vibrate();
           showAndroidUpdate(context, android, currentVersion);
           return false;
         }
       } else if (Platform.isIOS) {
         final ios = note['os']['ios'];
         if (ios != null && ios['version'] != currentVersion) {
+          Vibration.vibrate();
           showIOSUpdate(context, ios, currentVersion);
           return false;
         }
@@ -39,11 +42,10 @@ class CheckUpdate {
 
   static showAndroidUpdate(
       BuildContext context, dynamic content, String currentVersion) {
-    print(EasyLocalization.of(context).currentLocale);
     final String local =
-        EasyLocalization.of(context).currentLocale == Locale('th', 'TH')
-            ? 'th'
-            : 'en';
+    EasyLocalization.of(context).currentLocale == Locale('th', 'TH')
+        ? 'th'
+        : 'en';
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -119,9 +121,9 @@ class CheckUpdate {
   static showIOSUpdate(
       BuildContext context, dynamic content, String currentVersion) {
     final String local =
-        EasyLocalization.of(context).currentLocale == Locale('th', 'TH')
-            ? 'th'
-            : 'en';
+    EasyLocalization.of(context).currentLocale == Locale('th', 'TH')
+        ? 'th'
+        : 'en';
     showDialog(
       barrierDismissible: false,
       context: context,

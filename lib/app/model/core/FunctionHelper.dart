@@ -14,7 +14,6 @@ import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:translator/translator.dart';
-import 'package:vibration/vibration.dart';
 import 'package:sizer/sizer.dart';
 import "ExtensionCore.dart";
 
@@ -270,7 +269,6 @@ class FunctionHelper {
               child: CupertinoPicker(
                   onSelectedItemChanged: (value) {
                     select = value;
-                    Vibration.vibrate(duration: 500);
                   },
                   itemExtent: 32.0,
                   children: List.generate(dataList.length, (index) {
@@ -298,7 +296,6 @@ class FunctionHelper {
               fontSize: SizeUtil.titleFontSize().sp, color: Colors.black),
         ),
         onChanged: (DateTime dateTime) {
-          Vibration.vibrate(duration: 500);
         },
         showTitleActions: true,
         minTime: DateTime(1900, 1, 1),
