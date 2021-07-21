@@ -196,7 +196,8 @@
     "reject_order": "Reject request",
     "accept_order": "Accept request",
     "chat": "Chat Now",
-    "exit": "Exit"
+    "exit": "Exit",
+    "something_wrong": "Something went wrong"
   },
 
 

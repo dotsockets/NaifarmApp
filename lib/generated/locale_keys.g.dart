@@ -178,6 +178,7 @@ abstract class  LocaleKeys {
   static const btn_accept_order = 'btn.accept_order';
   static const btn_chat = 'btn.chat';
   static const btn_exit = 'btn.exit';
+  static const btn_something_wrong = 'btn.something_wrong';
   static const btn = 'btn';
   static const dialog_message_del_account = 'dialog_message.del_account';
   static const dialog_message_phone_edit_cancel = 'dialog_message.phone_edit_cancel';
