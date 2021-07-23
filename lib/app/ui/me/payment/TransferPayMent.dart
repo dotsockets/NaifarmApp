@@ -441,7 +441,8 @@ class _TransferPayMentState extends State<TransferPayMent> {
                         0 &&
                     systemRespone.bankAccountNumber != null) {
                   captureImage(ImageSource.gallery,
-                      orderDataItem.image.isNotEmpty ? false : true);
+                     orderDataItem.image.isNotEmpty ? false : true,orderDataItem.image.isNotEmpty ? true : false);
+
                 }
               },
               child: Text(
@@ -538,7 +539,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
     );
   }
 
-  Future captureImage(ImageSource imageSource, bool requestPayment) async {
+  Future captureImage(ImageSource imageSource, bool requestPayment,bool isUpadate) async {
     final picker = ImagePicker();
     final pickedFile = await picker.getImage(source: imageSource);
 
@@ -547,7 +548,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
       Usermanager().getUser().then((value) => bloc.uploadImage(context,
           imageFile: fileImage,
           imageableType: "order",
-          imageableId: widget.orderData.id,
+          imageableId: widget.orderData.id,isUpdate: isUpadate,
           token: value.token,
           requestPayments: requestPayment));
     } else {

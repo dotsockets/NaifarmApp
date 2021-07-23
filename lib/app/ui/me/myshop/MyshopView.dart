@@ -458,7 +458,7 @@ class _MyshopViewState extends State<MyshopView> {
     //  FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: "ไม่ถูกต้อง",context: context);
     check = false;
 
-    if (nameShopController.text != "" && slugShopController.text != "") {
+    if (nameShopController.text.trim() != "" && slugShopController.text.trim() != "") {
       check = true;
     }
     setState(() {});

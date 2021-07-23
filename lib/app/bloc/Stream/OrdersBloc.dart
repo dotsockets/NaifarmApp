@@ -24,10 +24,12 @@ class OrdersBloc {
   final orderList = BehaviorSubject<OrderData>();
   final systemRespone = BehaviorSubject<SystemRespone>();
   final onUpdateFeedback = BehaviorSubject<int>();
+
   Stream<Object> get feedList => onSuccess.stream;
   List<OrderData> orderDataList = <OrderData>[];
   HashMap feedbackMap = new HashMap<int, int>();
   int checkLoop = 0;
+
   OrdersBloc(this._application);
 
   loadOrder(BuildContext context,
@@ -114,11 +116,14 @@ class OrdersBloc {
     _compositeSubscription.add(subscription);
   }
 
-
   Future<OrderRespone> getOrderBuyAgain(BuildContext context,
-      { String id, int limit, int page,String token}) async {
-    final respone = await _application.appStoreAPIRepository.
-    getOrder(context,page: page,limit: limit,orderType: "order",statusId: id,token:token );
+      {String id, int limit, int page, String token}) async {
+    final respone = await _application.appStoreAPIRepository.getOrder(context,
+        page: page,
+        limit: limit,
+        orderType: "order",
+        statusId: id,
+        token: token);
     if (respone.httpCallBack.status == 200) {
       return (respone.respone as OrderRespone);
     } else {
@@ -200,9 +205,12 @@ class OrdersBloc {
       {File imageFile,
       String imageableType,
       int imageableId,
-      String token,int length,
-      bool requestPayments=false,int index=0}) async {
-    if(requestPayments){
+      String token,
+      int length,
+      bool requestPayments = false,
+      int index = 0,
+      bool isUpdate = false}) async {
+    if (requestPayments || isUpdate) {
       onLoad.add(true);
     }
     StreamSubscription subscription = Stream.fromFuture(
@@ -218,9 +226,12 @@ class OrdersBloc {
         //context.read<InfoCustomerBloc>().loadCustomInfo(token:token);
         if (requestPayments) {
           requestPayment(context, orderId: imageableId, token: token);
+        } else if (isUpdate) {
+          onLoad.add(false);
+          onSuccess.add(true);
         } else {
           onUpdateFeedback.add(index);
-          if(checkLoop==length)onLoad.add(false);
+          if (checkLoop == length) onLoad.add(false);
         }
       } else {
         onLoad.add(false);
@@ -262,6 +273,7 @@ class OrdersBloc {
       onLoad.add(false);
       if (respone.httpCallBack.status == 200) {
         //context.read<InfoCustomerBloc>().loadCustomInfo(token:token);
+
         onSuccess.add(true);
       } else {
         onError.add(respone.httpCallBack.message);
@@ -334,9 +346,9 @@ class OrdersBloc {
   }
 
   getSystem(BuildContext context) async {
-    StreamSubscription subscription = Stream.fromFuture(
-            _application.appStoreAPIRepository.getSystem(context))
-        .listen((respone) {
+    StreamSubscription subscription =
+        Stream.fromFuture(_application.appStoreAPIRepository.getSystem(context))
+            .listen((respone) {
       if (respone.httpCallBack.status == 200) {
         NaiFarmLocalStorage.getSystemCache().then((value) {
           NaiFarmLocalStorage.saveSystemCache(respone.respone as SystemRespone)
@@ -369,7 +381,6 @@ class OrdersBloc {
                 comment: comment))
         .listen((respone) async {
       if (respone.httpCallBack.status == 200) {
-
         feedbackMap[index] = (respone.respone as FeedbackData).rating;
         //  onSuccess.add(true);
         // indexRate.add(index);
@@ -378,25 +389,24 @@ class OrdersBloc {
         if (imageList.length == 0) {
           onUpdateFeedback.add(index);
           onLoad.add(false);
-
         } else
-         // for(var item in imageList) {
-          checkLoop=0;
-          for(int i=0;i< imageList.length;i++) {
-         //   writeToFile(await item.getByteData(quality: 100)).then((file) {
-            writeToFile(await imageList[i].getByteData(quality: 100)).then((file) {
-              //fileList.add(file);
-              uploadImage(
-                context,
+          // for(var item in imageList) {
+          checkLoop = 0;
+        for (int i = 0; i < imageList.length; i++) {
+          //   writeToFile(await item.getByteData(quality: 100)).then((file) {
+          writeToFile(await imageList[i].getByteData(quality: 100))
+              .then((file) {
+            //fileList.add(file);
+            uploadImage(context,
                 token: token,
                 imageableId: int.parse((respone.respone as FeedbackData).id),
-                imageFile: file
-                  ,index:index,length: imageList.length,
-                imageableType: "feedback"
-              );
-            });
-          }
-          getOrderById(context, orderType: "order", id: orderId, token: token);
+                imageFile: file,
+                index: index,
+                length: imageList.length,
+                imageableType: "feedback");
+          });
+        }
+        getOrderById(context, orderType: "order", id: orderId, token: token);
         //feedbackData.add(respone.respone as FeedbackData);
         // uploadImages(
         //   context,

@@ -315,7 +315,6 @@ class _PaidViewState extends State<PaidView> {
         if (widget.typeView == OrderViewType.Shop) {
           final result =
               await AppRoute.confirmPayment(context: context, orderData: item);
-
           if (result) {
             //bloc.onLoad.add(true);
             bloc.orderDataList.clear();

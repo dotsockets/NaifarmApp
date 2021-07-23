@@ -264,7 +264,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
   _initialValue(){
     for (var item in widget.shppingMyShopRespone.data[0].rates) {
       if (widget.carriersData.id == item.carrierId) {
-        rateController.text = item.rate.toString();
+        rateController.text = item.rate.toString()!="null"?item.rate.toString():"0";
         isHave = true;
         rates = item;
         break;

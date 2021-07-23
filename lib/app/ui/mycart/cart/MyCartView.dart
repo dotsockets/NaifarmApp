@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -28,6 +30,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:naifarm/utility/widgets/NaifarmErrorWidget.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
 import '../widget/ModalFitBottom_Sheet.dart';
 import "package:naifarm/app/model/core/ExtensionCore.dart";
@@ -51,7 +54,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
   static const _indicatorSize = 50.0;
 
   void _init() {
-    if (null == bloc ) {
+    if (null == bloc) {
       bloc = CartBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -87,9 +90,8 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
               .loadCustomerCount(context, token: value.token));
         }
       });
-
      _getCartCache();
-      _getCart();
+     _getCart();
     }
   }
 
@@ -122,12 +124,62 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
             //_data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(7.0.h),
-              child: AppToobar(
-                title: LocaleKeys.cart_toobar.tr(),
-                icon: "",
-                showBackBtn: widget.btnBack,
-                isEnableSearch: false,
-                headerType: Header_Type.barNormal,
+              // child: AppToobar(
+              //   title: LocaleKeys.cart_toobar.tr(),
+              //   icon: "",
+              //   showBackBtn: widget.btnBack,
+              //   isEnableSearch: false,
+              //   headerType: Header_Type.barNormal,
+              // ),
+              child: AppBar(
+                elevation: 0,
+                toolbarHeight: 6.5.h,
+                iconTheme: IconThemeData(
+                  color: Colors.white, //change your color here
+                ),
+                backgroundColor: ThemeColor.primaryColor(),
+                title: Text(
+                  LocaleKeys.cart_toobar.tr(),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: FunctionHelper.fontTheme(
+                      fontSize: SizeUtil.titleFontSize().sp,
+                      fontWeight: FontWeight.w600),
+                ),
+                centerTitle: true,
+                actions: [
+                  StreamBuilder(
+                    stream: bloc.cartList.stream,
+                    builder: (context, snapshot) {
+                      var item = (snapshot.data as CartResponse).data;
+                      return snapshot.hasData&&checkSelect()?IconButton(
+                          padding: EdgeInsets.only(
+                              right: SizerUtil.deviceType == DeviceType.mobile
+                                  ? 0
+                                  : 3.0.w),
+                          icon:   Lottie.asset('assets/json/delete.json',
+                              height: 2.0.h,
+                              width: 2.0.h,
+                              repeat: true),
+                          onPressed: () {
+                            for (var i = 0; i < item.length; i++) {
+                              for (var j = 0; j < item[i].items.length; j++) {
+                                if (item[i].items[j].select) {
+                                  Usermanager().getUser().then((value) =>
+                                      bloc.deleteCart(
+                                          context: context,
+                                          cartid: item[i].id,
+                                          inventoryId: item[i].items[j].inventory.id,
+                                          token: value.token));
+                                }
+                              }
+                            }
+                           // bloc.cartList.add(bloc.cartList.value);
+                          }):SizedBox();
+                    }
+                  ),
+
+                ],
               ),
             ),
             body: Container(
