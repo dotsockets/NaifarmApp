@@ -38,7 +38,7 @@ class _RulesOfUseViewState extends State<RulesOfUseView> {
         FunctionHelper.alertDialogRetry(context,
             cancalMessage: LocaleKeys.btn_exit.tr(),
             callCancle: () {
-              AppRoute.poppageCount(context: context, countpage:2);
+              AppRoute.poppageCount(context: context, countpage: 2);
             },
             title: LocaleKeys.btn_error.tr(),
             message: event.message,
@@ -46,7 +46,7 @@ class _RulesOfUseViewState extends State<RulesOfUseView> {
               _getRule();
             });
       });
-     _getRule();
+      _getRule();
     }
   }
 
@@ -93,7 +93,10 @@ class _RulesOfUseViewState extends State<RulesOfUseView> {
 
   Widget _buildTxt({String txt}) {
     return Html(
-      data: txt,
+      data: txt
+          .replaceAll(
+              'padding: 20px; margin: 20px;', 'padding: 5px; margin: 5px;')
+          .replaceAll('font-size: 10.5pt;', 'font-size: 13px;'),
     );
 
     /*HtmlWidget(
@@ -103,8 +106,8 @@ class _RulesOfUseViewState extends State<RulesOfUseView> {
       webView: true,
     );*/
   }
-  _getRule(){
+
+  _getRule() {
     bloc.getInfoRules(context, slug: "terms-of-use-customer");
   }
-
 }

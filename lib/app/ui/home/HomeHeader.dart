@@ -13,8 +13,10 @@ import 'package:easy_localization/easy_localization.dart';
 class HomeHeader extends StatefulWidget {
   final HomeObjectCombine snapshot;
   final Function(CategoryGroupData) onTap;
+  final bool disable;
 
-  const HomeHeader({Key key, this.snapshot, this.onTap}) : super(key: key);
+  const HomeHeader({Key key, this.snapshot, this.onTap, this.disable = false})
+      : super(key: key);
 
   @override
   _HomeHeaderState createState() => _HomeHeaderState();
@@ -152,15 +154,19 @@ class _HomeHeaderState extends State<HomeHeader> {
                           ],
                         )),
                   ),
-                  onTap: () {
-                    AppRoute.searchHome(context);
-                  },
+                  onTap: widget.disable
+                      ? () {}
+                      : () {
+                          AppRoute.searchHome(context);
+                        },
                 )),
                 Container(
                     padding: EdgeInsets.only(
                         right: SizeUtil.paddingCart().w,
                         left: SizeUtil.paddingItem().w),
-                    child: BuildIconShop())
+                    child: BuildIconShop(
+                      disable: widget.disable,
+                    ))
               ],
             ),
             SizedBox(

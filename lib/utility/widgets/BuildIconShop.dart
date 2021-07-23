@@ -11,8 +11,10 @@ import 'package:sizer/sizer.dart';
 class BuildIconShop extends StatelessWidget {
   final bool btnBack;
   final Color iconColor;
+  final bool disable;
 
-  const BuildIconShop({Key key, this.btnBack = true, this.iconColor})
+  const BuildIconShop(
+      {Key key, this.btnBack = true, this.iconColor, this.disable = false})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,7 @@ class BuildIconShop extends StatelessWidget {
           padding: EdgeInsets.all(
               notification < 10 ? SizeUtil.shopBadgePadding().w : 0),
           child: Container(
-             margin: EdgeInsets.only(bottom: 0.5.w),
+            margin: EdgeInsets.only(bottom: 0.5.w),
             child: Text(
               "$notification",
               style: FunctionHelper.fontTheme(
@@ -68,16 +70,18 @@ class BuildIconShop extends StatelessWidget {
           icon: Icon(Icons.shopping_cart_outlined,
               color: iconColor != null ? iconColor : Colors.white,
               size: SizeUtil.shopIconSize().w),
-          onPressed: () {
-            Usermanager().isLogin().then((value) async {
-              if (!value) {
-                AppRoute.login(context,
-                    isCallBack: false, isHeader: true, isSetting: false);
-              } else {
-                AppRoute.myCart(context, btnBack);
-              }
-            });
-          },
+          onPressed: this.disable
+              ? () {}
+              : () {
+                  Usermanager().isLogin().then((value) async {
+                    if (!value) {
+                      AppRoute.login(context,
+                          isCallBack: false, isHeader: true, isSetting: false);
+                    } else {
+                      AppRoute.myCart(context, btnBack);
+                    }
+                  });
+                },
         ));
   }
 }

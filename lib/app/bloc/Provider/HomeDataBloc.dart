@@ -15,7 +15,7 @@ class HomeDataBloc extends Cubit<HomeDataState> {
     BuildContext context,
   ) async {
     NaiFarmLocalStorage.getHomeDataCache().then((value) {
-      emit(HomeDataLoaded(value));
+      emit(HomeDataLoading(value));
     });
 
     Rx.combineLatest7(

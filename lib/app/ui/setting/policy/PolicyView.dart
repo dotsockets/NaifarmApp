@@ -39,7 +39,7 @@ class _PolicyViewState extends State<PolicyView> {
         FunctionHelper.alertDialogRetry(context,
             cancalMessage: LocaleKeys.btn_exit.tr(),
             callCancle: () {
-              AppRoute.poppageCount(context: context, countpage:2);
+              AppRoute.poppageCount(context: context, countpage: 2);
             },
             title: LocaleKeys.btn_error.tr(),
             message: event.message,
@@ -94,7 +94,10 @@ class _PolicyViewState extends State<PolicyView> {
 
   Widget _buildTxt({String txt}) {
     return Html(
-      data: txt,
+      data: txt
+          .replaceAll(
+              'padding: 20px; margin: 20px;', 'padding: 5px; margin: 5px;')
+          .replaceAll('font-size: 10.5pt;', 'font-size: 13px;'),
     );
 /*
 HtmlWidget(
@@ -105,7 +108,8 @@ HtmlWidget(
     );
  */
   }
-  _getRule(){
+
+  _getRule() {
     bloc.getInfoRules(context, slug: "privacy-policy");
   }
 }
