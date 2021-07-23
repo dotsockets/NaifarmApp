@@ -318,67 +318,68 @@ class AppToobar extends PreferredSize {
                           right: SizeUtil.paddingCart().w,
                           left: SizeUtil.paddingItem().w),
                       child: BuildIconShop())
-                  : PopupMenuButton(
-                      child: Container(
-                        padding: EdgeInsets.only(
-                            right: SizeUtil.paddingCart().w,
-                            left: SizeUtil.paddingItem().w),
-                        child: Icon(
-                          FontAwesome.ellipsis_v,
-                          size: SizeUtil.mediumIconSize().w,
-                          color: Colors.white,
-                        ),
-                      ),
-                      itemBuilder: (context) {
-                        return [
-                          PopupMenuItem(
-                            value: 0,
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(right: 5.0),
-                                  child: Icon(
-                                    FontAwesome.tag,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                Text(
-                                  LocaleKeys.attributes_set.tr(),
-                                  style: FunctionHelper.fontTheme(
-                                      fontSize: SizeUtil.titleFontSize().sp,
-                                      fontWeight: FontWeight.w500),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          ),
-                          PopupMenuItem(
-                            value: 1,
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(right: 5.0),
-                                  child: Icon(
-                                    FontAwesome.ticket,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                Text(
-                                  LocaleKeys.coupon_coupon_title.tr(),
-                                  style: FunctionHelper.fontTheme(
-                                      fontSize: SizeUtil.titleFontSize().sp,
-                                      fontWeight: FontWeight.w500),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ];
-                      },
-                      onSelected: (int selectedValue) {
-                        this.onTab(selectedValue);
-                      },
-                    ),
+                  :SizedBox(width: 4.0.w,)
+                  // : PopupMenuButton(
+                  //     child: Container(
+                  //       padding: EdgeInsets.only(
+                  //           right: SizeUtil.paddingCart().w,
+                  //           left: SizeUtil.paddingItem().w),
+                  //       child: Icon(
+                  //         FontAwesome.ellipsis_v,
+                  //         size: SizeUtil.mediumIconSize().w,
+                  //         color: Colors.white,
+                  //       ),
+                  //     ),
+                  //     itemBuilder: (context) {
+                  //       return [
+                  //         PopupMenuItem(
+                  //           value: 0,
+                  //           child: Row(
+                  //             children: [
+                  //               Padding(
+                  //                 padding: EdgeInsets.only(right: 5.0),
+                  //                 child: Icon(
+                  //                   FontAwesome.tag,
+                  //                   color: Colors.black,
+                  //                 ),
+                  //               ),
+                  //               Text(
+                  //                 LocaleKeys.attributes_set.tr(),
+                  //                 style: FunctionHelper.fontTheme(
+                  //                     fontSize: SizeUtil.titleFontSize().sp,
+                  //                     fontWeight: FontWeight.w500),
+                  //                 textAlign: TextAlign.center,
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //         PopupMenuItem(
+                  //           value: 1,
+                  //           child: Row(
+                  //             children: [
+                  //               Padding(
+                  //                 padding: EdgeInsets.only(right: 5.0),
+                  //                 child: Icon(
+                  //                   FontAwesome.ticket,
+                  //                   color: Colors.black,
+                  //                 ),
+                  //               ),
+                  //               Text(
+                  //                 LocaleKeys.coupon_coupon_title.tr(),
+                  //                 style: FunctionHelper.fontTheme(
+                  //                     fontSize: SizeUtil.titleFontSize().sp,
+                  //                     fontWeight: FontWeight.w500),
+                  //                 textAlign: TextAlign.center,
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ];
+                  //     },
+                  //     onSelected: (int selectedValue) {
+                  //       this.onTab(selectedValue);
+                  //     },
+                  //   ),
             ],
           ),
         )

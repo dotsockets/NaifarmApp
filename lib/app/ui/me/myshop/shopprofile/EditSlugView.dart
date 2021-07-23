@@ -68,7 +68,7 @@ class _EditSlugViewState extends State<EditSlugView> {
                           Size(50.0.w, 5.0.h),
                         ),
                         backgroundColor: MaterialStateProperty.all(
-                          _input1.text != ""
+                          _input1.text.trim() != ""
                               ? ThemeColor.secondaryColor()
                               : Colors.grey.shade400,
                         ),

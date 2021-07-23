@@ -139,6 +139,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
           if (event.status == 406) {
             FunctionHelper.alertDialogShop(context,
                 title: LocaleKeys.btn_error.tr(),
+                barrierDismissible: false,
                 message: event.message, callCancle: () {
               AppRoute.poppageCount(
                   context: context, countpage: Platform.isAndroid ? 2 : 2);
@@ -427,8 +428,8 @@ class _ProductDetailViewState extends State<ProductDetailView>
                 if (snapshot.hasData && item != null) {
                   return FullScreenWidget(
                     backgroundIsTransparent: true,
-                   child: Hero(
-                     tag: "customTag${item.id}",
+                    child: Hero(
+                      tag: "customTag${item.id}",
                       child: Center(
                         child: ProductSlide(
                           imgList: item != null && item.image != null
@@ -573,7 +574,7 @@ class _ProductDetailViewState extends State<ProductDetailView>
             }),
         widget.productItem.image != null ? divider() : SizedBox(),
         //BuildChoosesize(),
-       // divider(),
+        // divider(),
         _buildAttr(item.image),
         divider(),
         InkWell(
@@ -604,104 +605,108 @@ class _ProductDetailViewState extends State<ProductDetailView>
         showMaterialModalBottomSheet(
             context: context,
             builder: (context) => AttrBottomSheet(
-                  images:images,
+                  images: images,
                 ));
       },
-      child: images!=null && images.length>0?Container(
-        padding: EdgeInsets.only(
-            left: 3.0.w, top: 2.0.h, bottom: 2.0.h, right: 3.0.w),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      LocaleKeys.my_product_variation.tr(),
-                      style: FunctionHelper.fontTheme(
-                          fontSize: SizeUtil.titleFontSize().sp,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      " (${images.length} ${LocaleKeys.my_product_size.tr()})",
-                      style: FunctionHelper.fontTheme(
-                          fontSize: SizeUtil.titleFontSize().sp,
-                          color: Colors.black),
-                    ),
-                  ],
-                ),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.grey.withOpacity(0.8),
-                  size: SizeUtil.ratingSize().w,
-                )
-              ],
-            ),
-            SizedBox(
-              height: 1.5.h,
-            ),
-            Row(
-              children: List.generate(
-                images.length < 5 ? images.length : 5,
-                (index) => Stack(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(right: 2.0.w),
-                      decoration: BoxDecoration(
-                          border:
-                              Border.all(color: Colors.black.withOpacity(0.2)),
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(3.0.w))),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(3.0.w)),
-                        child: CachedNetworkImage(
-                          width: 15.0.w,
-                          height: 15.0.w,
-                          placeholder: (context, url) => Container(
-                            color: Colors.white,
-                            child: Lottie.asset(
-                              'assets/json/loading.json',
-                              width: 15.0.w,
-                              height: 15.0.w,
+      child: images != null && images.length > 0
+          ? Container(
+              padding: EdgeInsets.only(
+                  left: 3.0.w, top: 2.0.h, bottom: 2.0.h, right: 3.0.w),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            LocaleKeys.my_product_variation.tr(),
+                            style: FunctionHelper.fontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            " (${images.length} ${LocaleKeys.my_product_size.tr()})",
+                            style: FunctionHelper.fontTheme(
+                                fontSize: SizeUtil.titleFontSize().sp,
+                                color: Colors.black),
+                          ),
+                        ],
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.grey.withOpacity(0.8),
+                        size: SizeUtil.ratingSize().w,
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 1.5.h,
+                  ),
+                  Row(
+                    children: List.generate(
+                      images.length < 5 ? images.length : 5,
+                      (index) => Stack(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(right: 2.0.w),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.black.withOpacity(0.2)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(3.0.w))),
+                            child: ClipRRect(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(3.0.w)),
+                              child: CachedNetworkImage(
+                                width: 15.0.w,
+                                height: 15.0.w,
+                                placeholder: (context, url) => Container(
+                                  color: Colors.white,
+                                  child: Lottie.asset(
+                                    'assets/json/loading.json',
+                                    width: 15.0.w,
+                                    height: 15.0.w,
+                                  ),
+                                ),
+                                fit: BoxFit.cover,
+                                imageUrl: images.length > 0
+                                    ? "${images[index].path.imgUrl()}"
+                                    : '',
+                                errorWidget: (context, url, error) => Container(
+                                    width: 15.0.w,
+                                    height: 15.0.w,
+                                    child: NaifarmErrorWidget()),
+                              ),
                             ),
                           ),
-                          fit: BoxFit.cover,
-                          imageUrl: images.length > 0
-                              ? "${images[index].path.imgUrl()}"
-                              : '',
-                          errorWidget: (context, url, error) => Container(
-                              width: 15.0.w,
-                              height: 15.0.w,
-                              child: NaifarmErrorWidget()),
-                        ),
+                          images.length > 5 && index == 4
+                              ? Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(3.0.w)),
+                                      color: Colors.black.withOpacity(0.4)),
+                                  width: 15.5.w,
+                                  height: 15.0.w,
+                                  child: Center(
+                                    child: Text("+${images.length - 5}",
+                                        style: FunctionHelper.fontTheme(
+                                            fontSize:
+                                                SizeUtil.titleSmallFontSize()
+                                                    .sp,
+                                            color: Colors.white)),
+                                  ),
+                                )
+                              : SizedBox()
+                        ],
                       ),
                     ),
-                    images.length > 5 && index == 4
-                        ? Container(
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(3.0.w)),
-                                color: Colors.black.withOpacity(0.4)),
-                            width: 15.5.w,
-                            height: 15.0.w,
-                            child: Center(
-                              child: Text("+${images.length - 5}",
-                                  style: FunctionHelper.fontTheme(
-                                      fontSize:
-                                          SizeUtil.titleSmallFontSize().sp,
-                                      color: Colors.white)),
-                            ),
-                          )
-                        : SizedBox()
-                  ],
-                ),
+                  )
+                ],
               ),
             )
-          ],
-        ),
-      ):SizedBox(),
+          : SizedBox(),
     );
   }
 

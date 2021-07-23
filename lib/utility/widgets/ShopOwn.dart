@@ -114,7 +114,7 @@ class ShopOwn extends StatelessWidget {
                             color: Colors.black.withOpacity(0.8))),
                     SizedBox(height: 2),
                     Text(
-                        "${shopItem.state != null ? "จังหวัด${shopItem.state.name}" : ' -'}",
+                        "${shopItem.state != null ? "จังหวัด${shopItem.state.name}" : '-'}",
                         style: FunctionHelper.fontTheme(
                             fontSize: SizeUtil.titleSmallFontSize().sp,
                             color: Colors.black.withOpacity(0.8),

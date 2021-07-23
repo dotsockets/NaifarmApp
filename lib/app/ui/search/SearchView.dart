@@ -73,7 +73,8 @@ class _SearchViewState extends State<SearchView> {
                       if (snapshot.hasData) {
                         return Container(
                             color: Colors.white,
-                            child: Column(
+                            child: (snapshot.data as SearchRespone)
+                                .hits.length!=0?Column(
                               children: (snapshot.data as SearchRespone)
                                   .hits
                                   .asMap()
@@ -195,6 +196,13 @@ class _SearchViewState extends State<SearchView> {
                                       )))
                                   .values
                                   .toList(),
+                            ):Container(height: 6.0.h,
+                              child: Center(
+                                child: Text("${LocaleKeys.search_product_not_found.tr()}" ,style: FunctionHelper.fontTheme(
+                                color: Colors.grey,
+                                    fontSize:
+                                    SizeUtil.titleSmallFontSize().sp)),
+                              ),
                             ));
                       } else {
                         return SizedBox();
@@ -202,18 +210,18 @@ class _SearchViewState extends State<SearchView> {
                     },
                   ),
                   InkWell(
-                    child: Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.all(20),
-                      width: MediaQuery.of(context).size.width,
-                      child: Center(
-                        child: StreamBuilder(
-                          stream: bloc.searchProduct.stream,
-                          builder:
-                              (BuildContext context, AsyncSnapshot snapshot) {
-                            if (snapshot.hasData) {
-                              var item = (snapshot.data as SearchRespone);
-                              return Visibility(
+                    child: StreamBuilder(
+                      stream: bloc.searchProduct.stream,
+                      builder:
+                          (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.hasData) {
+                          var item = (snapshot.data as SearchRespone);
+                          return Visibility(
+                            child: Container(
+                              color: Colors.white,
+                              padding: EdgeInsets.all(20),
+                              width: MediaQuery.of(context).size.width,
+                              child: Center(
                                 child: Text(
                                     item.hits.length == 0
                                         ? LocaleKeys.search_product_not_found
@@ -227,16 +235,16 @@ class _SearchViewState extends State<SearchView> {
                                         color: Colors.grey,
                                         fontSize:
                                             SizeUtil.titleSmallFontSize().sp)),
-                                visible: item.limit == 0 || item.nbHits <= 4
-                                    ? false
-                                    : true,
-                              );
-                            } else {
-                              return SizedBox();
-                            }
-                          },
-                        ),
-                      ),
+                              ),
+                            ),
+                            visible: item.limit == 0 || item.nbHits <= 4
+                                ? false
+                                : true,
+                          );
+                        } else {
+                          return SizedBox();
+                        }
+                      },
                     ),
                     onTap: () {
                       // setState(() {
@@ -251,18 +259,24 @@ class _SearchViewState extends State<SearchView> {
                       }
                     },
                   ),
-                  Container(
-                    color: Colors.grey.shade200,
-                    height: 6,
-                  ),
+                  Container(),
                   StreamBuilder(
                     stream: bloc.moreProduct.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.hasData) {
                         if ((snapshot.data as ProductRespone).data.isNotEmpty) {
-                          return SearchHot(
-                              productRespone: snapshot.data,
-                              onSelectChang: () {});
+                          return Column(
+                            children: [
+                              Container(
+                                color: Colors.grey.shade200,
+                                height: 6,
+                              ),
+                              SearchHot(
+                                  productRespone: snapshot.data,
+                                  onSelectChang: () {}),
+
+                            ],
+                          );
                         } else {
                           return SizedBox();
                         }

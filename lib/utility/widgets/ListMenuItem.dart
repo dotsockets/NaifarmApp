@@ -86,7 +86,7 @@ class ListMenuItem extends StatelessWidget {
                                     height: iconSize,
                                     child: Icon(
                                       Icons.person,
-                                      size: (SizeUtil.iconSize() - 1).w,
+                                      size: (SizeUtil.iconSize() - 4.5).w,
                                       color: Colors.grey,
                                     )),
                               ),
