@@ -254,11 +254,11 @@ class Skeleton {
             color: Colors.grey.shade300,
           ),
         ),
-        SizedBox(height: 0.5.h),
+        SizedBox(height: 1.0.h),
         ClipRRect(
           child: Container(
             width: SizeUtil.tabIconSize().w,
-            height: 1.5.h,
+            height: 1.0.h,
             color: Colors.grey.shade300,
           ),
         ),

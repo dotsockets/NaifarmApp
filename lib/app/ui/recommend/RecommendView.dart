@@ -179,61 +179,89 @@ class _RecommendViewState extends State<RecommendView> {
                 BlocBuilder<HomeDataBloc, HomeDataState>(
                   builder: (_, item) {
                     if (item is HomeDataLoaded) {
-                      return SingleChildScrollView(
-                        child: Container(
-                          child: StickyHeader(
-                            header: Column(
-                              children: [
-                                HomeHeader(
-                                    snapshot: item.homeObjectCombine,
-                                    onTap: (CategoryGroupData val) {
-                                      AppRoute.categoryDetail(context, val.id,
-                                          title: val.name);
-                                    }),
-                              ],
-                            ),
-                            content: Column(
-                                mainAxisSize: MainAxisSize.min,
+                      return Scaffold(
+                        body: SingleChildScrollView(
+                          child: Container(
+                            child: StickyHeader(
+                              header: Column(
                                 children: [
-                                  content(item: item.homeObjectCombine),
-                                ]),
+                                  HomeHeader(
+                                      snapshot: item.homeObjectCombine,
+                                      onTap: (CategoryGroupData val) {
+                                        AppRoute.categoryDetail(context, val.id,
+                                            title: val.name);
+                                      }),
+                                ],
+                              ),
+                              content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    content(item: item.homeObjectCombine),
+                                  ]),
+                            ),
                           ),
                         ),
                       );
                     } else if (item is HomeDataLoading) {
-                      return SingleChildScrollView(
-                        child: Container(
-                          child: Column(
-                            children: [
-                              HomeHeader(
-                                disable: true,
+                      return item.homeObjectCombine==null?Scaffold(
+                        backgroundColor: ThemeColor.primaryColor(),
+                        appBar: AppBar(toolbarHeight: 0,backgroundColor: ThemeColor.primaryColor(),elevation: 0,),
+                        body: SingleChildScrollView(
+                          child: Container(
+                            child: Column(
+                              children: [
+                                HomeHeader(disable: true,),
+                                Skeleton.loaderSlider(context),
+                                Skeleton.loaderRecommentMenu(context),
+                                Skeleton.loaderListTite(context),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ):Scaffold(
+                        body: SingleChildScrollView(
+                          child: Container(
+                            child: StickyHeader(
+                              header: Column(
+                                children: [
+                                  HomeHeader(
+                                      snapshot: item.homeObjectCombine,
+                                      onTap: (CategoryGroupData val) {
+                                        AppRoute.categoryDetail(context, val.id,
+                                            title: val.name);
+                                      }),
+                                ],
                               ),
-                              Skeleton.loaderSlider(context),
-                              Skeleton.loaderRecommentMenu(context),
-                              Skeleton.loaderListTite(context),
-                            ],
+                              content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    content(item: item.homeObjectCombine),
+                                  ]),
+                            ),
                           ),
                         ),
                       );
                     } else if (item is HomeDataError) {
-                      return SingleChildScrollView(
-                        child: Container(
-                          child: StickyHeader(
-                            header: Column(
-                              children: [
-                                HomeHeader(
-                                    snapshot: HomeObjectCombine(),
-                                    onTap: (CategoryGroupData val) {
-                                      AppRoute.categoryDetail(context, val.id,
-                                          title: val.name);
-                                    }),
-                              ],
-                            ),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                content(item: item.homeObjectCombine),
-                              ],
+                      return Scaffold(
+                        body: SingleChildScrollView(
+                          child: Container(
+                            child: StickyHeader(
+                              header: Column(
+                                children: [
+                                  HomeHeader(
+                                      snapshot: HomeObjectCombine(),
+                                      onTap: (CategoryGroupData val) {
+                                        AppRoute.categoryDetail(context, val.id,
+                                            title: val.name);
+                                      }),
+                                ],
+                              ),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  content(item: item.homeObjectCombine),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -247,65 +275,68 @@ class _RecommendViewState extends State<RecommendView> {
                       //           item.homeObjectCombine.httpCallBack.message));
                       // }
 
-                      return SingleChildScrollView(
-                        child: Container(
-                          child: Column(
-                            children: [
-                              HomeHeader(
-                                disable: true,
-                              ),
-                              Container(
-                                child: Lottie.asset(
-                                  'assets/json/nodata.json',
-                                  height: 70.0.w,
-                                  width: 70.0.w,
-                                  repeat: true,
+                      return Scaffold(
+                        body: SingleChildScrollView(
+                          child: Container(
+                            child: Column(
+                              children: [
+                                HomeHeader(
+                                  disable: true,
                                 ),
-                              ),
-                              Text(
-                                LocaleKeys.btn_something_wrong.tr(),
-                                style: FunctionHelper.fontTheme(
-                                  color: Colors.black,
-                                  fontSize: SizeUtil.priceFontSize().sp,
+                                Container(
+                                  margin: EdgeInsets.only(top: 5.0.h),
+                                  child: Lottie.asset(
+                                    'assets/json/nodata.json',
+                                    height: 70.0.w,
+                                    width: 70.0.w,
+                                    repeat: true,
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 5.0.h),
-                                child: SizedBox(
-                                  width: 40.0.w,
-                                  height: 5.0.h,
-                                  child: TextButton(
-                                    style: ButtonStyle(
-                                      shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(40.0),
+                                Text(
+                                  LocaleKeys.btn_something_wrong.tr(),
+                                  style: FunctionHelper.fontTheme(
+                                    color: Colors.black,
+                                    fontSize: SizeUtil.priceFontSize().sp,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(top: 5.0.h),
+                                  child: SizedBox(
+                                    width: 40.0.w,
+                                    height: 5.0.h,
+                                    child: TextButton(
+                                      style: ButtonStyle(
+                                        shape: MaterialStateProperty.all(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(40.0),
+                                          ),
+                                        ),
+                                        backgroundColor:
+                                        MaterialStateProperty.all(
+                                          ThemeColor.primaryColor(),
+                                        ),
+                                        overlayColor: MaterialStateProperty.all(
+                                          Colors.white.withOpacity(0.3),
+                                        ),
+                                        padding: MaterialStateProperty.all(
+                                          EdgeInsets.symmetric(horizontal: 5.0.w),
                                         ),
                                       ),
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                        ThemeColor.primaryColor(),
+                                      onPressed: () => _refreshProducts(),
+                                      child: Text(
+                                        LocaleKeys.btn_again.tr(),
+                                        style: FunctionHelper.fontTheme(
+                                            color: Colors.white,
+                                            fontSize:
+                                            SizeUtil.titleMeduimFontSize().sp,
+                                            fontWeight: FontWeight.w500),
                                       ),
-                                      overlayColor: MaterialStateProperty.all(
-                                        Colors.white.withOpacity(0.3),
-                                      ),
-                                      padding: MaterialStateProperty.all(
-                                        EdgeInsets.symmetric(horizontal: 5.0.w),
-                                      ),
-                                    ),
-                                    onPressed: () => _refreshProducts(),
-                                    child: Text(
-                                      LocaleKeys.btn_again.tr(),
-                                      style: FunctionHelper.fontTheme(
-                                          color: Colors.white,
-                                          fontSize:
-                                              SizeUtil.titleMeduimFontSize().sp,
-                                          fontWeight: FontWeight.w500),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       );
