@@ -25,6 +25,8 @@ class _ConnectErrorViewState extends State<ConnectErrorView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top: false,
+      bottom: false,
       child: Scaffold(
         body: Container(
           child: Stack(
@@ -35,7 +37,7 @@ class _ConnectErrorViewState extends State<ConnectErrorView> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   SizedBox(
-                    height: 30,
+                    height: 7.0.h,
                   ),
                   widget.showFull
                       ? Column(
@@ -61,7 +63,7 @@ class _ConnectErrorViewState extends State<ConnectErrorView> {
                 children: <Widget>[
                   widget.showFull
                       ? Container(
-                          margin: EdgeInsets.only(bottom: 1.0.h),
+                          margin: EdgeInsets.only(bottom: 4.0.h),
                           child: Column(
                             children: [
                               Text(
