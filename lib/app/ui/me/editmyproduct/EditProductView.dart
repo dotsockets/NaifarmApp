@@ -177,14 +177,14 @@ class _EditProductViewState extends State<EditProductView> {
                                         controller: nameProductController,
                                         inputType: TextInputType.text,
                                         onChanged: (String char) {
-                                          bloc.uploadProductStorage.value
-                                                  .productMyShopRequest.name =
-                                              nameProductController.text;
+                                          // bloc.uploadProductStorage.value
+                                          //         .productMyShopRequest.name =
+                                          //     nameProductController.text;
                                           //  if(char.length>120){
                                           //    bloc.uploadProductStorage.value.productMyShopRequest.name= nameProductController.text.replaceRange(120, char.length, "");
                                           //  }
-                                          bloc.uploadProductStorage.add(
-                                              bloc.uploadProductStorage.value);
+                                          // bloc.uploadProductStorage.add(
+                                          //     bloc.uploadProductStorage.value);
                                         },
                                       ),
                                       SizedBox(
@@ -215,17 +215,17 @@ class _EditProductViewState extends State<EditProductView> {
                                         controller: detailController,
                                         inputType: TextInputType.text,
                                         onChanged: (String char) {
-                                          bloc
-                                                  .uploadProductStorage
-                                                  .value
-                                                  .productMyShopRequest
-                                                  .description =
-                                              detailController.text;
+                                          // bloc
+                                          //         .uploadProductStorage
+                                          //         .value
+                                          //         .productMyShopRequest
+                                          //         .description =
+                                          //     detailController.text;
                                           // if(char.length>5000){
                                           //   bloc.uploadProductStorage.value.productMyShopRequest.description= detailController.text.replaceRange(5000, char.length, "");
                                           //  }
-                                          bloc.uploadProductStorage.add(
-                                              bloc.uploadProductStorage.value);
+                                          // bloc.uploadProductStorage.add(
+                                          //     bloc.uploadProductStorage.value);
                                         },
                                       ),
                                       SizedBox(
@@ -252,19 +252,21 @@ class _EditProductViewState extends State<EditProductView> {
                                         inputType: TextInputType.number,
                                         controller: priceController,
                                         onChanged: (String char) {
-                                          bloc
-                                                  .uploadProductStorage
-                                                  .value
-                                                  .productMyShopRequest
-                                                  .salePrice =
-                                              char.length > 0
-                                                  ? int.parse(char)
-                                                  : 0;
+                                          // bloc
+                                          //         .uploadProductStorage
+                                          //         .value
+                                          //         .productMyShopRequest
+                                          //         .salePrice =
+                                          //     char.length > 0
+                                          //         ? int.parse(char)
+                                          //         : 0;
                                           // if(char.length>5000){
                                           //   bloc.uploadProductStorage.value.productMyShopRequest.description= detailController.text.replaceRange(5000, char.length, "");
                                           //  }
-                                          bloc.uploadProductStorage.add(
-                                              bloc.uploadProductStorage.value);
+                                          // bloc.uploadProductStorage.add(
+                                          //     bloc.uploadProductStorage.value);
+                                          //
+
                                         },
                                       ),
                                       SizedBox(
@@ -279,19 +281,19 @@ class _EditProductViewState extends State<EditProductView> {
                                         inputType: TextInputType.number,
                                         controller: offerPriceController,
                                         onChanged: (String char) {
-                                          bloc
-                                                  .uploadProductStorage
-                                                  .value
-                                                  .productMyShopRequest
-                                                  .offerPrice =
-                                              char.length > 0
-                                                  ? int.parse(char)
-                                                  : 0;
+                                          // bloc
+                                          //         .uploadProductStorage
+                                          //         .value
+                                          //         .productMyShopRequest
+                                          //         .offerPrice =
+                                          //     char.length > 0
+                                          //         ? int.parse(char)
+                                          //         : 0;
                                           // if(char.length>5000){
                                           //   bloc.uploadProductStorage.value.productMyShopRequest.description= detailController.text.replaceRange(5000, char.length, "");
                                           //  }
-                                          bloc.uploadProductStorage.add(
-                                              bloc.uploadProductStorage.value);
+                                          // bloc.uploadProductStorage.add(
+                                          //     bloc.uploadProductStorage.value);
                                         },
                                       ),
                                     ],
@@ -310,10 +312,10 @@ class _EditProductViewState extends State<EditProductView> {
                                   height: 0.5.h,
                                 ),
                                 _buildImageTab(),
-                                Divider(
-                                  height: 0.5.h,
-                                ),
-                                _buildAttributeTab(),
+                                // Divider(
+                                //   height: 0.5.h,
+                                // ),
+                                // _buildAttributeTab(),
                                 Divider(
                                   height: 0.5.h,
                                 ),
@@ -607,8 +609,8 @@ class _EditProductViewState extends State<EditProductView> {
       onPressed: () {
         // index==0?AppRoute.ProductAddType(context):AppRoute.ImageProduct(context);
 
-        //bloc.uploadProductStorage.value.productMyShopRequest.name = nameProductController.text;
-        // bloc.uploadProductStorage.value.productMyShopRequest.description = detailtController.text;
+        bloc.uploadProductStorage.value.productMyShopRequest.name = nameProductController.text;
+        bloc.uploadProductStorage.value.productMyShopRequest.description = detailController.text;
         bloc.uploadProductStorage.value.productMyShopRequest.stockQuantity =
             int.parse(
                 amountController.text.length > 0 ? amountController.text : "0");

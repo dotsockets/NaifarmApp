@@ -244,7 +244,7 @@ class SizeUtil {
   }
 
   static double boxHeight() {
-    return SizerUtil.deviceType == DeviceType.mobile ? 14.0 : 17.0;
+    return SizerUtil.deviceType == DeviceType.mobile ? 12.0 : 15.0;
   }
 
   static double indicatorSize() {

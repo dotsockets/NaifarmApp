@@ -534,12 +534,12 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                                           slug: item.shop.slug)));
                             },
                             child: CachedNetworkImage(
-                              width: 20.0.w,
-                              height: 20.0.w,
+                              width: 25.0.w,
+                              height: 25.0.w,
                               fit: BoxFit.fitWidth,
                               placeholder: (context, url) => Container(
-                                width: 20.0.w,
-                                height: 20.0.w,
+                                width: 25.0.w,
+                                height: 25.0.w,
                                 color: Colors.white,
                                 child: Lottie.asset('assets/json/loading.json',
                                     height: 30),
@@ -556,14 +556,14 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                               //       size: 30,
                               //     )),
                               errorWidget: (context, url, error) => Container(
-                                  width: 20.0.w,
-                                  height: 20.0.w,
+                                  width: 25.0.w,
+                                  height: 25.0.w,
                                   child: NaifarmErrorWidget()),
                             ),
                           ),
                         ),
                         SizedBox(width: 3.0.w),
-                        InkWell(
+                        Expanded(child: InkWell(
                           onTap: () {
                             AppRoute.productDetail(context,
                                 productImage:
@@ -581,7 +581,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                width: MediaQuery.of(context).size.width / 1.6,
+                                margin: EdgeInsets.only(right: 1.0.h),
                                 child: Text(
                                     item.items[indexShopItem].inventory.product
                                         .name,
@@ -643,7 +643,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                               )
                             ],
                           ),
-                        )
+                        ),)
                       ],
                     ),
                     SizedBox(height: 1.0.h),
@@ -682,7 +682,8 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                               }
                             }),
                         Container(
-                          width: 7.0.w,
+                          width: 6.0.h,
+                          padding: EdgeInsets.all(0.5.h),
                           height: 3.0.h,
                           decoration: BoxDecoration(
                               border: Border.all(
@@ -690,6 +691,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                           child: Center(
                               child: Text(
                                   "${item.items[indexShopItem].quantity}",
+                                  overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       fontSize: SizeUtil.titleFontSize().sp))),
                         ),
