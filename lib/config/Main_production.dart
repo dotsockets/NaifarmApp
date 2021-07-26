@@ -13,7 +13,7 @@ class Production extends Env {
   final String noItemUrl =
       "https://via.placeholder.com/94x94/ffffff/cccccc?text=naifarm.com";
   final String appUpdateUrl =
-      'https://raw.githubusercontent.com/dotsockets/NaifarmApp/dev_phase2/assets/json/appupdate.json';
+      'https://raw.githubusercontent.com/dotsockets/NaifarmApp/dev_phase1/assets/json/appupdate.json';
   final String androidAppUrl =
       'https://play.google.com/store/apps/details?id=com.naifarm.app';
   final String appleAppUrl =

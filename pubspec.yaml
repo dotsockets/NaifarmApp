@@ -101,6 +101,7 @@ dependencies:
   url_launcher: ^6.0.9
   flutter_app_badger: ^1.2.0
   shimmer: ^2.0.0
+  version: ^2.0.0
 
 dev_dependencies:
   flutter_test:

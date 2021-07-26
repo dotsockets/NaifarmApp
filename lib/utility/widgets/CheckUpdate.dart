@@ -13,6 +13,7 @@ import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vibration/vibration.dart';
 import '../SizeUtil.dart';
+import 'package:version/version.dart';
 
 class CheckUpdate {
   static Future<bool> checkAppUpdate(
@@ -23,14 +24,14 @@ class CheckUpdate {
       Map<String, dynamic> note = json.decode(response.body);
       if (Platform.isAndroid) {
         final android = note['os']['android'];
-        if (android != null && android['version'] != currentVersion) {
+        if (android != null && getCurrentVersion(android['version']) > getCurrentVersion(currentVersion)) {
           Vibration.vibrate();
           showAndroidUpdate(context, android, currentVersion);
           return false;
         }
       } else if (Platform.isIOS) {
         final ios = note['os']['ios'];
-        if (ios != null && ios['version'] != currentVersion) {
+        if (ios != null && getCurrentVersion(ios['version']) > getCurrentVersion(currentVersion)) {
           Vibration.vibrate();
           showIOSUpdate(context, ios, currentVersion);
           return false;
@@ -39,6 +40,20 @@ class CheckUpdate {
     }
     return true;
   }
+
+
+  static Version getCurrentVersion(String currentVersion){
+    Version current = new Version(0, 0, 0);
+    if(currentVersion.split(".").length==3){
+      current = new Version(int.parse(currentVersion.split(".")[0]), int.parse(currentVersion.split(".")[1]), int.parse(currentVersion.split(".")[2]));
+    }else if(currentVersion.split(".").length==2){
+      current = new Version(int.parse(currentVersion.split(".")[0]), int.parse(currentVersion.split(".")[1]), 0);
+    }else{
+      current = new Version(int.parse(currentVersion.split(".")[0]),0, 0);
+    }
+    return current;
+  }
+
 
   static showAndroidUpdate(
       BuildContext context, dynamic content, String currentVersion) {
