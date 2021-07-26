@@ -1,14 +1,14 @@
 {
     "os": {
         "android": {
-            "version": "2.1.2",
+            "version": "2.1.1",
             "releaseNote": {
                 "en": "Change app logo\nChange the app's color scheme\nAdd product review function\nImprove Login with Facebook confirm by native app",
                 "th": "ปรับเปลี่ยนโลโก้แอปพลิเคชัน\nปรับเปลี่ยนตรีมสี\nเพิ่มรีวิวสินค้า\nอัพเดตการเข้าสู่ระบบด้วย facebook"
             }
         },
         "ios": {
-            "version": "2.1.2",
+            "version": "2.1.1",
             "releaseNote": {
                 "en": "Change app logo\nChange the app's color scheme\nAdd product review function\nImprove Login with Facebook confirm by native app",
                 "th": "ปรับเปลี่ยนโลโก้แอปพลิเคชัน\nปรับเปลี่ยนตรีมสี\nเพิ่มรีวิวสินค้า\nอัพเดตการเข้าสู่ระบบด้วย facebook"
