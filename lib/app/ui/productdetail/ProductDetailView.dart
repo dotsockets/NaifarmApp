@@ -479,7 +479,6 @@ class _ProductDetailViewState extends State<ProductDetailView>
                   return Column(
                     children: [
                       ProductDetail(productItem: item),
-                      divider(),
                       StreamBuilder(
                         stream: bloc.searchProduct.stream,
                         builder:
@@ -488,33 +487,38 @@ class _ProductDetailViewState extends State<ProductDetailView>
                               (snapshot.data as SearchRespone) != null) {
                             if ((snapshot.data as SearchRespone).hits.length >
                                 0) {
-                              return ProductLandscape(
-                                subFixId: subFixId,
-                                productRespone: bloc.convertSearchData(
-                                    item: snapshot.data as SearchRespone),
-                                titleInto: LocaleKeys.recommend_you_like.tr(),
-                                producViewModel:
+                              return Column(
+                                children:[
+                                  divider(),
+                                  ProductLandscape(
+                                    subFixId: subFixId,
+                                    productRespone: bloc.convertSearchData(
+                                        item: snapshot.data as SearchRespone),
+                                    titleInto: LocaleKeys.recommend_you_like.tr(),
+                                    producViewModel:
                                     ProductViewModel().getBestSaller(),
-                                imageIcon: 'assets/images/png/like.png',
-                                iconSize: 5.0.w,
-                                onSelectMore: () {
-                                  AppRoute.productMore(
-                                      context: context,
-                                      apiLink:
+                                    imageIcon: 'assets/images/png/like.png',
+                                    iconSize: 5.0.w,
+                                    onSelectMore: () {
+                                      AppRoute.productMore(
+                                          context: context,
+                                          apiLink:
                                           "products/types/popular?categoryGroupId=${item.categories[0].category.categorySubGroup.categoryGroup.id}",
-                                      barTxt:
+                                          barTxt:
                                           LocaleKeys.recommend_you_like.tr());
-                                },
-                                onTapItem: (ProductData item, int index) {
-                                  item.stockQuantity = 1;
-                                  AppRoute.productDetail(context,
-                                      productImage:
+                                    },
+                                    onTapItem: (ProductData item, int index) {
+                                      item.stockQuantity = 1;
+                                      AppRoute.productDetail(context,
+                                          productImage:
                                           "product_detail_${item.id}$subFixId",
-                                      productItem:
+                                          productItem:
                                           ProductBloc.convertDataToProduct(
                                               data: item));
-                                },
-                                tagHero: "product_detail",
+                                    },
+                                    tagHero: "product_detail",
+                                  )
+                                ]
                               );
                             } else {
                               return SizedBox();
