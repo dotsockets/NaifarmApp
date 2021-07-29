@@ -697,7 +697,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                         ),
                         InkWell(
                             child: Container(
-                              width: 7.0.w,
+                              width: 6.0.w,
                               height: 3.0.h,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.only(
