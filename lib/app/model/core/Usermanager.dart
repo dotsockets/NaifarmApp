@@ -1,3 +1,4 @@
+import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
@@ -43,6 +44,7 @@ class Usermanager {
 
   Future<void> savelogin({LoginRespone user}) async {
     if (user.token != "") {
+      FlutterAppBadger.updateBadgeCount(0);
       _prefs = await SharedPreferences.getInstance();
       _prefs.setString(token, user.token);
       _prefs.setString(name, user.name);
@@ -85,6 +87,8 @@ class Usermanager {
     flutterLocalNotificationsPlugin.cancelAll();
 
     OneSignal.shared.clearOneSignalNotifications();
+
+    FlutterAppBadger.updateBadgeCount(0);
 
     NaiFarmLocalStorage.getCustomerInfo().then((value) async {
       await OneSignal.shared.deleteTag("shopID");

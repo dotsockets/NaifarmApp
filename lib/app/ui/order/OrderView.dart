@@ -745,14 +745,11 @@ class _OrderViewState extends State<OrderView> {
               // ignore: unused_local_variable
               ProductData product = ProductData();
               product = orderItems.inventory.product;
+              product.stockQuantity = orderItems.inventory.stockQuantity;
+              product.shop = ProductShop(id: productShop.id);
               AppRoute.productDetail(context,
                   productImage: "orderview_${orderItems.inventoryId}1",
-                  productItem: ProducItemRespone(
-                      shop: new ShopItem(
-                        id: productShop.id,
-                      ),
-                      id: orderItems.inventory.product.id,
-                      image: orderItems.inventory.image));
+                  productItem:  ProductBloc.convertDataToProduct(data: product));
             }
           },
         ),
