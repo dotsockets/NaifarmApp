@@ -3,15 +3,15 @@
         "android": {
             "version": "2.1.2",
             "releaseNote": {
-                "en": "Change app logo\nChange the app's color scheme\nAdd product review function\nImprove Login with Facebook confirm by native app",
-                "th": "ปรับเปลี่ยนโลโก้แอปพลิเคชัน\nปรับเปลี่ยนตรีมสี\nเพิ่มรีวิวสินค้า\nอัพเดตการเข้าสู่ระบบด้วย facebook"
+                "en": "Improve Login with Facebook  Confirm By Native App\nImprove Notification Badges\nVersion Update Notification",
+                "th": "อัพเดตการเข้าสู่ระบบด้วย facebook\nปรับปรุงการแจ้งเตือน\nการแจ้งเตือนการอัปเดตเวอร์ชัน"
             }
         },
         "ios": {
             "version": "2.1.2",
             "releaseNote": {
-                "en": "Change app logo\nChange the app's color scheme\nAdd product review function\nImprove Login with Facebook confirm by native app",
-                "th": "ปรับเปลี่ยนโลโก้แอปพลิเคชัน\nปรับเปลี่ยนตรีมสี\nเพิ่มรีวิวสินค้า\nอัพเดตการเข้าสู่ระบบด้วย facebook"
+                "en": "Improve Login with Facebook  Confirm By Native App\nImprove Notification Badges\nVersion Update Notification",
+                "th": "อัพเดตการเข้าสู่ระบบด้วย facebook\nปรับปรุงการแจ้งเตือน\nการแจ้งเตือนการอัปเดตเวอร์ชัน"
             }
         }
     }
