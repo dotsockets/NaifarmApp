@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dialogs/flutter_dialogs.dart';
 import 'package:http/http.dart' as http;
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
@@ -139,21 +140,13 @@ class CheckUpdate {
     EasyLocalization.of(context).currentLocale == Locale('th', 'TH')
         ? 'th'
         : 'en';
-    showDialog(
-      barrierDismissible: false,
+    showPlatformDialog(
       context: context,
-      builder: (BuildContext context) => CupertinoAlertDialog(
-        title: Container(
-          padding: EdgeInsets.only(bottom: 15.0),
-          child: Text(
-            LocaleKeys.appUpdate_title.tr(),
-            textAlign: TextAlign.left,
-            style: FunctionHelper.fontTheme(
-                fontWeight: FontWeight.bold,
-                fontSize: SizeUtil.priceFontSize().sp),
-          ),
-        ),
-        content: RichText(
+      builder: (_) => BasicDialogAlert(
+        title: Text(LocaleKeys.appUpdate_title.tr()+'\n',style: FunctionHelper.fontTheme(
+                    fontWeight: FontWeight.bold,
+                    fontSize: SizeUtil.priceFontSize().sp)),
+        content:RichText(
           text: TextSpan(
             children: [
               TextSpan(
@@ -189,20 +182,83 @@ class CheckUpdate {
             ],
           ),
         ),
-        actions: [
-          CupertinoDialogAction(
-            isDefaultAction: true,
-            child: new Text(LocaleKeys.appUpdate_updateButton.tr(),
-                style: FunctionHelper.fontTheme(
-                    fontWeight: FontWeight.w400,
-                    fontSize: SizeUtil.titleSmallFontSize().sp)),
+        actions: <Widget>[
+          BasicDialogAction(
+            title: Text(LocaleKeys.appUpdate_updateButton.tr(),style: FunctionHelper.fontTheme(
+                      fontWeight: FontWeight.w400,
+                      fontSize: SizeUtil.titleSmallFontSize().sp)),
             onPressed: () {
-              // go app store
               launch(Env.value.appleAppUrl);
+              //Navigator.pop(context);
             },
           ),
         ],
       ),
     );
+    // showDialog(
+    //   barrierDismissible: false,
+    //   context: context,
+    //   builder: (BuildContext context) => CupertinoAlertDialog(
+    //     title: Container(
+    //       padding: EdgeInsets.only(bottom: 15.0),
+    //       child: Text(
+    //         LocaleKeys.appUpdate_title.tr(),
+    //         textAlign: TextAlign.left,
+    //         style: FunctionHelper.fontTheme(
+    //             fontWeight: FontWeight.bold,
+    //             fontSize: SizeUtil.priceFontSize().sp),
+    //       ),
+    //     ),
+    //     content: RichText(
+    //       text: TextSpan(
+    //         children: [
+    //           TextSpan(
+    //             text: LocaleKeys.appUpdate_detail1.tr() +
+    //                 ' ' +
+    //                 content['version'] +
+    //                 ' ' +
+    //                 LocaleKeys.appUpdate_detail2.tr() +
+    //                 ' ' +
+    //                 currentVersion +
+    //                 '.\n\n' +
+    //                 LocaleKeys.appUpdate_requestUpdate.tr() +
+    //                 '\n\n',
+    //             style: FunctionHelper.fontTheme(
+    //                 fontWeight: FontWeight.w200,
+    //                 fontSize: SizeUtil.titleSmallFontSize().sp,
+    //                 color: Colors.black),
+    //           ),
+    //           TextSpan(
+    //             text: LocaleKeys.appUpdate_releaseNote.tr() + ':\n\n',
+    //             style: FunctionHelper.fontTheme(
+    //                 fontWeight: FontWeight.bold,
+    //                 fontSize: SizeUtil.titleMeduimFontSize().sp,
+    //                 color: Colors.black),
+    //           ),
+    //           TextSpan(
+    //             text: content["releaseNote"][local] ?? '',
+    //             style: FunctionHelper.fontTheme(
+    //                 fontWeight: FontWeight.w200,
+    //                 fontSize: SizeUtil.titleSmallFontSize().sp,
+    //                 color: Colors.black),
+    //           ),
+    //         ],
+    //       ),
+    //     ),
+    //     actions: [
+    //       CupertinoDialogAction(
+    //         isDefaultAction: true,
+    //         child: new Text(LocaleKeys.appUpdate_updateButton.tr(),
+    //             style: FunctionHelper.fontTheme(
+    //                 fontWeight: FontWeight.w400,
+    //                 fontSize: SizeUtil.titleSmallFontSize().sp)),
+    //         onPressed: () {
+    //           // go app store
+    //           launch(Env.value.appleAppUrl);
+    //         },
+    //       ),
+    //     ],
+    //   ),
+    // );
   }
 }
