@@ -16,6 +16,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:translator/translator.dart';
 import 'package:sizer/sizer.dart';
 import "ExtensionCore.dart";
+import 'package:flutter_dialogs/flutter_dialogs.dart';
 
 class FunctionHelper {
   static String reportDateTwo({String date}) {
@@ -523,73 +524,89 @@ class FunctionHelper {
       bool showbtn = true,
       bool barrierDismissible = true,
       Function() callCancle}) {
-    showDialog(
-        barrierDismissible: barrierDismissible,
-        context: context,
-        builder: (BuildContext context) => Platform.isIOS
-            ? CupertinoAlertDialog(
-                title: Container(
-                  padding: EdgeInsets.only(bottom: 0.5.h),
-                  child: Text(
-                    title,
-                    style: FunctionHelper.fontTheme(
-                        fontWeight: FontWeight.bold,
-                        fontSize: SizeUtil.titleFontSize().sp),
-                  ),
-                ),
-                content: Text(
-                  message,
-                  style: FunctionHelper.fontTheme(
-                      fontWeight: FontWeight.w400,
-                      fontSize: SizeUtil.titleSmallFontSize().sp),
-                ),
-                actions: [
-                    showbtn
-                        ? CupertinoDialogAction(
-                            isDefaultAction: true,
-                            child: new Text(LocaleKeys.btn_close.tr(),
-                                style: FunctionHelper.fontTheme(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize:
-                                        SizeUtil.titleSmallFontSize().sp)),
-                            onPressed: () {
-                              callCancle != null
-                                  ? callCancle()
-                                  : Navigator.of(context).pop();
-                            },
-                          )
-                        : SizedBox(),
-                  ])
-            : AlertDialog(
-                title: Text(
-                  title,
-                  style: FunctionHelper.fontTheme(
-                      fontWeight: FontWeight.bold,
-                      fontSize: SizeUtil.titleFontSize().sp),
-                ),
-                content: Text(
-                  message,
-                  style: FunctionHelper.fontTheme(
-                      fontWeight: FontWeight.w400,
-                      fontSize: SizeUtil.titleSmallFontSize().sp),
-                ),
-                actions: [
-                  // okButton,
-                  showbtn
-                      ? TextButton(
-                          child: Text(LocaleKeys.btn_close.tr(),
-                              style: FunctionHelper.fontTheme(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: SizeUtil.titleSmallFontSize().sp)),
-                          onPressed: () {
-                            callCancle != null
-                                ? callCancle()
-                                : Navigator.of(context).pop();
-                          },
-                        )
-                      : SizedBox()
-                ],
-              ));
+    showPlatformDialog(
+      context: context,
+      builder: (_) => BasicDialogAlert(
+        title: Text(title),
+        content:
+        Text(message),
+        actions: <Widget>[
+          BasicDialogAction(
+            title: Text(LocaleKeys.btn_close.tr()),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      ),
+    );
+    // showDialog(
+    //     barrierDismissible: barrierDismissible,
+    //     context: context,
+    //     builder: (BuildContext context) => Platform.isIOS
+    //         ? CupertinoAlertDialog(
+    //             title: Container(
+    //               padding: EdgeInsets.only(bottom: 0.5.h),
+    //               child: Text(
+    //                 title,
+    //                 style: FunctionHelper.fontTheme(
+    //                     fontWeight: FontWeight.bold,
+    //                     fontSize: SizeUtil.titleFontSize().sp),
+    //               ),
+    //             ),
+    //             content: Text(
+    //               message,
+    //               style: FunctionHelper.fontTheme(
+    //                   fontWeight: FontWeight.w400,
+    //                   fontSize: SizeUtil.titleSmallFontSize().sp),
+    //             ),
+    //             actions: [
+    //                 showbtn
+    //                     ? CupertinoDialogAction(
+    //                         isDefaultAction: true,
+    //                         child: new Text(LocaleKeys.btn_close.tr(),
+    //                             style: FunctionHelper.fontTheme(
+    //                                 fontWeight: FontWeight.w400,
+    //                                 fontSize:
+    //                                     SizeUtil.titleSmallFontSize().sp)),
+    //                         onPressed: () {
+    //                           callCancle != null
+    //                               ? callCancle()
+    //                               : Navigator.of(context).pop();
+    //                         },
+    //                       )
+    //                     : SizedBox(),
+    //               ])
+    //         : AlertDialog(
+    //             title: Text(
+    //               title,
+    //               style: FunctionHelper.fontTheme(
+    //                   fontWeight: FontWeight.bold,
+    //                   fontSize: SizeUtil.titleFontSize().sp),
+    //             ),
+    //             content: Text(
+    //               message,
+    //               style: FunctionHelper.fontTheme(
+    //                   fontWeight: FontWeight.w400,
+    //                   fontSize: SizeUtil.titleSmallFontSize().sp),
+    //             ),
+    //             actions: [
+    //               // okButton,
+    //               showbtn
+    //                   ? TextButton(
+    //                       child: Text(LocaleKeys.btn_close.tr(),
+    //                           style: FunctionHelper.fontTheme(
+    //                               fontWeight: FontWeight.w400,
+    //                               fontSize: SizeUtil.titleSmallFontSize().sp)),
+    //                       onPressed: () {
+    //                         callCancle != null
+    //                             ? callCancle()
+    //                             : Navigator.of(context).pop();
+    //                       },
+    //                     )
+    //                   : SizedBox()
+    //             ],
+    //           ));
   }
 
   static alertDialogRetry(BuildContext context,
