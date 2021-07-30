@@ -56,7 +56,7 @@ class _FlashSaleViewState extends LifecycleWatcherState<FlashSaleView> {
       child: SafeArea(
         child: Scaffold(
           appBar: PreferredSize(
-              preferredSize: Size.fromHeight(7.0.h),
+              preferredSize: Size.fromHeight(7.5.h),
               child: AppToobar(
                   headerType: Header_Type.barcartShop,
                   icon: 'assets/images/png/cart_top.png',

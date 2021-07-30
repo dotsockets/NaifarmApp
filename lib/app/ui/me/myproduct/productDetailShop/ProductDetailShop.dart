@@ -68,7 +68,7 @@ class _ProductDetailShopViewState extends State<ProductDetailShopView> {
         child: Scaffold(
           key: _scaffoldKey,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(7.0.h),
+            preferredSize: Size.fromHeight(7.5.h),
             child: AppToobar(
               title: LocaleKeys.my_product_see.tr(),
               icon: "",

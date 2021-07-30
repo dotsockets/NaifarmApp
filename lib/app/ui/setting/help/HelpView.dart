@@ -25,7 +25,7 @@ class _HelpViewState extends State<HelpView> {
       child: SafeArea(
         child: Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(7.0.h),
+            preferredSize: Size.fromHeight(7.5.h),
             child: AppToobar(
               title: LocaleKeys.setting_account_title_help.tr(),
               icon: "",

@@ -123,7 +123,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
             backgroundColor: Colors.white,
             //_data_aar.length != 0 ? Colors.grey.shade300 : Colors.white,
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(7.0.h),
+              preferredSize: Size.fromHeight(7.5.h),
               // child: AppToobar(
               //   title: LocaleKeys.cart_toobar.tr(),
               //   icon: "",
@@ -151,31 +151,35 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                   StreamBuilder(
                     stream: bloc.cartList.stream,
                     builder: (context, snapshot) {
-                      var item = (snapshot.data as CartResponse).data;
-                      return snapshot.hasData&&checkSelect()?IconButton(
-                          padding: EdgeInsets.only(
-                              right: SizerUtil.deviceType == DeviceType.mobile
-                                  ? 0
-                                  : 3.0.w),
-                          icon:   Lottie.asset('assets/json/delete.json',
-                              height: 2.0.h,
-                              width: 2.0.h,
-                              repeat: true),
-                          onPressed: () {
-                            for (var i = 0; i < item.length; i++) {
-                              for (var j = 0; j < item[i].items.length; j++) {
-                                if (item[i].items[j].select) {
-                                  Usermanager().getUser().then((value) =>
-                                      bloc.deleteCart(
-                                          context: context,
-                                          cartid: item[i].id,
-                                          inventoryId: item[i].items[j].inventory.id,
-                                          token: value.token));
+                      if(snapshot.data!=null && snapshot.hasData && checkSelect()){
+                        var item = (snapshot.data as CartResponse).data;
+                        return IconButton(
+                            padding: EdgeInsets.only(
+                                right: SizerUtil.deviceType == DeviceType.mobile
+                                    ? 0
+                                    : 3.0.w),
+                            icon:   Lottie.asset('assets/json/delete.json',
+                                height: 5.0.w,
+                                width: 5.0.w,
+                                repeat: true),
+                            onPressed: () {
+                              for (var i = 0; i < item.length; i++) {
+                                for (var j = 0; j < item[i].items.length; j++) {
+                                  if (item[i].items[j].select) {
+                                    Usermanager().getUser().then((value) =>
+                                        bloc.deleteCart(
+                                            context: context,
+                                            cartid: item[i].id,
+                                            inventoryId: item[i].items[j].inventory.id,
+                                            token: value.token));
+                                  }
                                 }
                               }
-                            }
-                           // bloc.cartList.add(bloc.cartList.value);
-                          }):SizedBox();
+                              // bloc.cartList.add(bloc.cartList.value);
+                            });
+                      }else{
+                        return SizedBox();
+                      }
                     }
                   ),
 
@@ -652,7 +656,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                         InkWell(
                             child: Container(
                               width: 7.0.w,
-                              height: 3.0.h,
+                              height: 3.5.h,
                               decoration: BoxDecoration(
                                   border: Border.all(
                                       color: Colors.black.withOpacity(0.2)),
@@ -682,9 +686,9 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                               }
                             }),
                         Container(
-                          width: 6.0.h,
+                          width: 12.0.w,
                           padding: EdgeInsets.all(0.5.h),
-                          height: 3.0.h,
+                          height: 3.5.h,
                           decoration: BoxDecoration(
                               border: Border.all(
                                   color: Colors.black.withOpacity(0.2))),
@@ -697,8 +701,8 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                         ),
                         InkWell(
                             child: Container(
-                              width: 6.0.w,
-                              height: 3.0.h,
+                              width: 7.0.w,
+                              height: 3.5.h,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.only(
                                       topRight: Radius.circular(3),
@@ -729,7 +733,8 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                               }
                             })
                       ],
-                    )
+                    ),
+                    SizedBox(height: 0.2.h),
                   ],
                 ),
               ),

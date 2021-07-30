@@ -116,7 +116,7 @@ class _CartSummaryViewState extends State<CartSummaryView> {
             backgroundColor:
             dataArr.length != 0 ? Colors.grey.shade300 : Colors.white,
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(7.0.h),
+              preferredSize: Size.fromHeight(7.5.h),
               child: AppToobar(
                 title: LocaleKeys.cart_place_order.tr(),
                 headerType: Header_Type.barNormal,

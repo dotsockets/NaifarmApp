@@ -66,7 +66,7 @@ class _CartAaddressViewState extends State<CartAaddressView> {
                 backgroundColor: Colors.grey.shade300,
                 key: _scaffoldKey,
                 appBar: PreferredSize(
-                  preferredSize: Size.fromHeight(7.0.h),
+                  preferredSize: Size.fromHeight(7.5.h),
                   child: AppToobar(
                     title: LocaleKeys.setting_account_title_address.tr(),
                     headerType: Header_Type.barNormal,

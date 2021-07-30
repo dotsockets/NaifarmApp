@@ -78,7 +78,7 @@ class _AddressAddViewState extends State<AddressAddView> {
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade300,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(7.0.h),
+            preferredSize: Size.fromHeight(7.5.h),
             child: AppToobar(
               title: LocaleKeys.address_add_toobar.tr(),
               icon: "",

@@ -127,7 +127,7 @@ class _RegisterOTPViewState extends State<RegisterOTPView> {
           key: _scaffoldKey,
           backgroundColor: Colors.white,
           appBar: PreferredSize(
-              preferredSize: Size.fromHeight(7.0.h),
+              preferredSize: Size.fromHeight(7.5.h),
               child: AppToobar(
                 title: LocaleKeys.regis_otp_title.tr(),
                 headerType: Header_Type.barNormal,

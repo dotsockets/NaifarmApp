@@ -72,7 +72,7 @@ class _AttributeProductViewState extends State<AttributeProductView>
                 key: _scaffoldKey,
                 backgroundColor: Colors.grey.shade300,
                 appBar: PreferredSize(
-                  preferredSize: Size.fromHeight(7.0.h),
+                  preferredSize: Size.fromHeight(7.5.h),
                   child: AppBar(
                     elevation: 0,
                     toolbarHeight: 6.5.h,

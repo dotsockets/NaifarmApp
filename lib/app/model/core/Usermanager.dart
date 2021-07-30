@@ -29,7 +29,7 @@ class Usermanager {
   Future<String> isToken() async {
     _prefs = await SharedPreferences.getInstance();
 
-    return _prefs.getString(token) ?? false;
+    return _prefs.getString(token) ?? null;
   }
 
   Future<User> getUser() async {

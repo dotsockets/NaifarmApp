@@ -35,7 +35,7 @@ class MyOrderHistoryView extends StatelessWidget {
           child: Scaffold(
             backgroundColor: Colors.grey.shade300,
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(7.0.h),
+              preferredSize: Size.fromHeight(7.5.h),
               child: AppToobar(
                 title: LocaleKeys.me_title_history.tr(),
                 headerType: Header_Type.barcartShop,

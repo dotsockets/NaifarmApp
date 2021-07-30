@@ -66,7 +66,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
         child: Scaffold(
           key: _scaffoldKey,
           appBar: PreferredSize(
-        preferredSize: Size.fromHeight(7.0.h),
+        preferredSize: Size.fromHeight(7.5.h),
             child: AppToobar(
               title: LocaleKeys.shipping_edit.tr(),
               icon: "",

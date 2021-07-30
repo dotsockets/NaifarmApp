@@ -534,7 +534,7 @@ class FunctionHelper {
           BasicDialogAction(
             title: Text(LocaleKeys.btn_close.tr()),
             onPressed: () {
-              Navigator.pop(context);
+              callCancle != null? callCancle() : Navigator.of(context).pop();
             },
           ),
         ],

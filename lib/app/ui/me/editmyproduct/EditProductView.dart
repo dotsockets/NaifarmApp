@@ -139,7 +139,7 @@ class _EditProductViewState extends State<EditProductView> {
               children: [
                 Container(
                     child: PreferredSize(
-                  preferredSize: Size.fromHeight(7.0.h),
+                  preferredSize: Size.fromHeight(7.5.h),
                   child: AppToobar(
                     title: LocaleKeys.my_product_data_manage.tr(),
                     icon: "",

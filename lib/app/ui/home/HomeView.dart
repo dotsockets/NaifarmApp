@@ -27,6 +27,7 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/CustomTabBar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:naifarm/utility/widgets/LifecycleWatcherState.dart';
@@ -48,11 +49,14 @@ class _HomeViewState extends LifecycleWatcherState<HomeView>
   Object err;
   bool initialUriIsHandled = true;
 
-  init() {
+  init() async {
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     OneSignalCall.cancelNotification("", 0);
     _handleIncomingLinks();
     _handleInitialUri();
+
+
+
     if (bloc == null) {
       //Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
       bloc = ProductBloc(AppProvider.getApplication(context));

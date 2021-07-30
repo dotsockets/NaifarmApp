@@ -84,7 +84,7 @@ class _MyProductViewState extends State<MyProductView> {
           backgroundColor: Colors.white,
           key: _scaffoldKey,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(7.0.h),
+            preferredSize: Size.fromHeight(7.5.h),
             child: Container(
               child: AppBar(
                 elevation: 0,

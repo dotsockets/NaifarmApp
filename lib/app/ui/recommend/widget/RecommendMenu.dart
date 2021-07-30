@@ -182,31 +182,35 @@ class RecommendMenu extends StatelessWidget {
               //onClick(2);
               //         });
 
-              Usermanager().isLogin().then((value) async {
-                if (!value) {
+
+
+              Usermanager().isToken().then((value) async {
+                if (value!=null) {
                   // ignore: unused_local_variable
-                  final result = await AppRoute.login(context,
-                      isCallBack: true, isHeader: true, isSetting: false);
-                } else {
+
                   NaiFarmLocalStorage.saveNowPage(2).then((value) {
                     OneSignalCall.cancelNotification("", 0);
                     AppRoute.myNoti(context, true);
                   });
+                } else {
+                  final result = await AppRoute.login(context,
+                      isCallBack: true, isHeader: true, isSetting: false);
                 }
               });
             }
             break;
           case "MyLikeView":
             {
-              Usermanager().isLogin().then((value) async {
-                if (!value) {
+              Usermanager().isToken().then((value) async {
+                if (value!=null) {
+                  AppRoute.wishlists(context: context);
+
+                } else {
                   final result = await AppRoute.login(context,
                       isCallBack: true, isHeader: true, isSetting: false);
                   if (result) {
                     AppRoute.poppageCount(context: context, countpage:2);
                   }
-                } else {
-                  AppRoute.wishlists(context: context);
                 }
               });
             }

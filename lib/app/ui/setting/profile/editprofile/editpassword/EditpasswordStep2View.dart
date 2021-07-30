@@ -104,7 +104,7 @@ class _EditpasswordStep2ViewState extends State<EditpasswordStep2View> {
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade300,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(7.0.h),
+            preferredSize: Size.fromHeight(7.5.h),
             child: AppToobar(
               title: LocaleKeys.my_profile_change_password.tr(),
               headerType: Header_Type.barNormal,

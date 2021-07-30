@@ -40,7 +40,7 @@ class _MeViewState extends State<MeView> with RouteAware {
   ScrollController _scrollController = ScrollController();
   final expandedBar = BehaviorSubject<bool>();
   final titleBar = BehaviorSubject<bool>();
-  bool isLogin = true;
+  bool isLogin = false;
 
   void _init() {
     if (null == bloc) {
@@ -102,7 +102,7 @@ class _MeViewState extends State<MeView> with RouteAware {
     routeObserver.subscribe(this, ModalRoute.of(context));
   }
 
-  void iSLogin() async => isLogin = await Usermanager().isLogin();
+  void iSLogin() async => isLogin = await Usermanager().isToken()!=null?true:false;
 
   @override
   Widget build(BuildContext context) {

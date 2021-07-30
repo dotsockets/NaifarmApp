@@ -91,7 +91,7 @@ class EditPhoneStep1ViewState extends State<EditPhoneStep1View> {
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade300,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(7.0.h),
+            preferredSize: Size.fromHeight(7.5.h),
             child: AppToobar(
               title: LocaleKeys.my_profile_phone.tr(),
               headerType: Header_Type.barNormal,

@@ -57,7 +57,7 @@ class _CartBankViewState extends State<CartBankView> {
             key: _scaffoldKey,
             backgroundColor: Colors.grey.shade200,
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(7.0.h),
+              preferredSize: Size.fromHeight(7.5.h),
               child: AppToobar(
                   title: LocaleKeys.select.tr() + LocaleKeys.me_title_pay.tr(),
                   headerType: Header_Type.barNormal,

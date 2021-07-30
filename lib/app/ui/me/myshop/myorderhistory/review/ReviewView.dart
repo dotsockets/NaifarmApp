@@ -116,7 +116,8 @@ class _ReviewViewState extends State<ReviewView> {
                                 },
                                 children: [
                                   new ExpansionPanel(
-                                    canTapOnHeader: true,
+                                    backgroundColor: Colors.white,
+                                    canTapOnHeader: false,
                                     isExpanded: selectIndex == index,
                                     headerBuilder: (BuildContext context,
                                             bool isExpanded) =>
@@ -328,7 +329,7 @@ class _ReviewViewState extends State<ReviewView> {
   Widget header({int index, BuildContext context, OrderData item}) {
     return Container(
       //padding: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 15),
-      color: Colors.white,
+
       child: Column(
         children: [
           // Row(
@@ -385,37 +386,34 @@ class _ReviewViewState extends State<ReviewView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Hero(
-                    tag: "history_$index",
-                    child: Container(
-                      decoration: BoxDecoration(
-                          border:
-                              Border.all(color: Colors.black.withOpacity(0.1)),
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
-                        child: CachedNetworkImage(
-                          width: 23.0.w,
-                          height: 23.0.w,
-                          placeholder: (context, url) => Container(
-                            color: Colors.white,
-                            child: Lottie.asset(
-                              'assets/json/loading.json',
-                              width: 23.0.w,
-                              height: 23.0.w,
-                            ),
+                  Container(
+                    decoration: BoxDecoration(
+                        border:
+                            Border.all(color: Colors.black.withOpacity(0.1)),
+                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(5),
+                      child: CachedNetworkImage(
+                        width: 23.0.w,
+                        height: 23.0.w,
+                        placeholder: (context, url) => Container(
+                          color: Colors.white,
+                          child: Lottie.asset(
+                            'assets/json/loading.json',
+                            width: 23.0.w,
+                            height: 23.0.w,
                           ),
-                          fit: BoxFit.contain,
-                          imageUrl: item.items[index].itemImagePath != null
-                              ? "${item.items[index].itemImagePath.imgUrl()}"
-                              : Env.value.noItemUrl,
-                          errorWidget: (context, url, error) => Container(
-                              height: 30,
-                              child: Icon(
-                                Icons.error,
-                                size: 30,
-                              )),
                         ),
+                        fit: BoxFit.contain,
+                        imageUrl: item.items[index].itemImagePath != null
+                            ? "${item.items[index].itemImagePath.imgUrl()}"
+                            : Env.value.noItemUrl,
+                        errorWidget: (context, url, error) => Container(
+                            height: 30,
+                            child: Icon(
+                              Icons.error,
+                              size: 30,
+                            )),
                       ),
                     ),
                   ),

@@ -38,7 +38,7 @@ class _NotiViewState extends State<NotiView>
   NotiBloc bloc;
   final _reload = BehaviorSubject<bool>();
   bool fixload = true;
-  bool isLogin = true;
+  String isLogin = "";
 
   init() {
     if (bloc == null) {
@@ -67,7 +67,7 @@ class _NotiViewState extends State<NotiView>
     });
   }
 
-  void iSLogin() async => isLogin = await Usermanager().isLogin();
+  void iSLogin() async => isLogin = await Usermanager().isToken();
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +78,7 @@ class _NotiViewState extends State<NotiView>
         child: BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
           builder: (_, count) {
             iSLogin();
-            if (isLogin) {
+            if (isLogin!=null) {
               if (count is InfoCustomerLoaded) {
                 //  CustomReCount();
                 if (count.profileObjectCombine.myShopRespone != null) {
@@ -123,7 +123,7 @@ class _NotiViewState extends State<NotiView>
       child: Scaffold(
         key: _scaffoldKey,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(7.0.h),
+          preferredSize: Size.fromHeight(7.5.h),
           child: AppToobar(
             showBackBtn: widget.btnBack,
             headerType: Header_Type.barcartShop,

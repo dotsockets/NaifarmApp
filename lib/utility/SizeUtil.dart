@@ -180,7 +180,7 @@ class SizeUtil {
   }
 
   static double headerHeight() {
-    return SizerUtil.deviceType == DeviceType.mobile ? 30.0 : 23.0;
+    return SizerUtil.deviceType == DeviceType.mobile ? 34.0 : 25.0;
   }
 
   static double tabMenuSize() {

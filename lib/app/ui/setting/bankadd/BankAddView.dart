@@ -32,7 +32,7 @@ class _BankAddViewState extends State<BankAddView> {
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(7.0.h),
+            preferredSize: Size.fromHeight(7.5.h),
             child: AppToobar(
               title: LocaleKeys.bank_add_toobar.tr(),
               icon: "",

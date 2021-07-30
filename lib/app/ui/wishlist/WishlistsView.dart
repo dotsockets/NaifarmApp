@@ -226,7 +226,7 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
         child: Scaffold(
           key: _scaffoldKey,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(7.0.h),
+            preferredSize: Size.fromHeight(7.5.h),
             child: AppToobar(
               title: LocaleKeys.me_title_likes.tr(),
               headerType: Header_Type.barNormal,

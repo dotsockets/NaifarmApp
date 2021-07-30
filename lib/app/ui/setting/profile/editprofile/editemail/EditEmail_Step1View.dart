@@ -74,7 +74,7 @@ class EditEmailStep1ViewState extends State<EditEmailStep1View> {
           key: _scaffoldKey,
           backgroundColor: Colors.grey.shade300,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(7.0.h),
+            preferredSize: Size.fromHeight(7.5.h),
             child: AppToobar(
               title: LocaleKeys.my_profile_email.tr(),
               headerType: Header_Type.barNormal,
