@@ -97,18 +97,27 @@ class ProductItemCard extends StatelessWidget {
       bottomOffsetHeight: 100,
       openWithTap: false,
       menuItems: <FocusedMenuItem>[
-        FocusedMenuItem(title: Text("Open"),trailingIcon: Icon(Icons.open_in_new) ,onPressed: (){
+        FocusedMenuItem(title: Text(LocaleKeys.btn_open.tr(),style: FunctionHelper.fontTheme(
+
+            fontSize: SizeUtil.titleFontSize().sp,
+            fontWeight: FontWeight.bold)),trailingIcon: Icon(Icons.open_in_new) ,onPressed: (){
          // Navigator.push(context, MaterialPageRoute(builder: (context)=>ScreenTwo()));
           AppRoute.productDetail(context,
               productImage: "product_hot_${item.id}1",
               productItem: ProductBloc.convertDataToProduct(data: item));
 
         }),
-        FocusedMenuItem(title: Text("Share"),trailingIcon: Icon(Icons.share) ,onPressed: (){
+        FocusedMenuItem(title: Text(LocaleKeys.btn_share.tr(),style: FunctionHelper.fontTheme(
+
+            fontSize: SizeUtil.titleFontSize().sp,
+            fontWeight: FontWeight.bold)),trailingIcon: Icon(Icons.share) ,onPressed: (){
           Share.share(
               '${Env.value.baseUrlWeb}/${item.name}-i.${item.id}');
         }),
-        FocusedMenuItem(title: Text("Buy Now"),trailingIcon: Icon(Icons.shopping_bag) ,onPressed: (){
+        FocusedMenuItem(title: Text(LocaleKeys.btn_buy_now.tr(),style: FunctionHelper.fontTheme(
+
+            fontSize: SizeUtil.titleFontSize().sp,
+            fontWeight: FontWeight.bold)),trailingIcon: Icon(Icons.shopping_bag) ,onPressed: (){
           Usermanager().isLogin().then((value) async {
             if (!value) {
               // ignore: unused_local_variable

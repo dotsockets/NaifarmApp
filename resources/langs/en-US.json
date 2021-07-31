@@ -177,6 +177,8 @@
     "confirm": "Confirm",
     "sell": "SELL",
     "set_price": "Set Price",
+    "open": "Open",
+    "share": "Share",
     "buy_now": "Buy Now",
     "buy_product": "Buy Now",
     "del_product": "Delete Product",
@@ -218,7 +220,7 @@
     "success_track":"Successfully confirmed tracking number",
     "success_pay":"Successfully confirmed payment",
     "success_slip":"Upload Pay-in Slip Successfully",
-      "contact": "The transaction cannot be performed, please contact the seller. ",
+    "contact": "The transaction cannot be performed, please contact the seller. ",
     "shop_close": "No information found for this restaurant or the shop has closed",
     "confirm_mail": "Please confirm Email in your mailbox",
     "copied": "copied"
@@ -277,7 +279,7 @@
     "promotion": "Promotion Price",
     "order": "Order Total",
     "message":"Leave a message",
-   "ship": "Choose a shipping method",
+    "ship": "Choose a shipping method",
     "ship_at": "Receive at",
     "ship_empty": "This shop doesn't setting a shipping"
   },
@@ -447,7 +449,7 @@
     "downformaintainace":"Shop Maintainace",
     "downformaintainace_sub":"Shop Maintainace",
     "playment_success": "Successfully",
-  
+
     "order": "Order ",
     "cus_order_created": "Your Order has been placed successfully",
     "cus_order_created_detail1": "Your order ",

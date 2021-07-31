@@ -367,7 +367,10 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
       bottomOffsetHeight: 100,
       openWithTap: false,
       menuItems: <FocusedMenuItem>[
-        FocusedMenuItem(title: Text("Open"),trailingIcon: Icon(Icons.open_in_new) ,onPressed: (){
+        FocusedMenuItem(title: Text(LocaleKeys.btn_open.tr(),style: FunctionHelper.fontTheme(
+            
+            fontSize: SizeUtil.titleFontSize().sp,
+            fontWeight: FontWeight.bold)),trailingIcon: Icon(Icons.open_in_new) ,onPressed: (){
           // Navigator.push(context, MaterialPageRoute(builder: (context)=>ScreenTwo()));
           if (item.product != null) {
             var data = ProducItemRespone(
@@ -396,14 +399,20 @@ class _WishlistsViewState extends State<WishlistsView> with RouteAware {
           }
 
         }),
-        FocusedMenuItem(title: Text("Share"),trailingIcon: Icon(Icons.share) ,onPressed: (){
+        FocusedMenuItem(title: Text(LocaleKeys.btn_share.tr(),style: FunctionHelper.fontTheme(
+
+            fontSize: SizeUtil.titleFontSize().sp,
+            fontWeight: FontWeight.bold)),trailingIcon: Icon(Icons.share) ,onPressed: (){
           Share.share(
               '${Env.value.baseUrlWeb}/${item.product.name}-i.${item.product.id}');
         }),
         // FocusedMenuItem(title: Text("Unlike"),trailingIcon: Icon(Icons.favorite,color: Colors.red,) ,onPressed: (){
         //   onLikeButtonTapped(false, item.id, index);
         // }),
-        FocusedMenuItem(title: Text("Buy Now"),trailingIcon: Icon(Icons.shopping_bag) ,onPressed: (){
+        FocusedMenuItem(title: Text(LocaleKeys.btn_buy_now.tr(),style: FunctionHelper.fontTheme(
+
+            fontSize: SizeUtil.titleFontSize().sp,
+            fontWeight: FontWeight.bold)),trailingIcon: Icon(Icons.shopping_bag) ,onPressed: (){
           Usermanager().isLogin().then((value) async {
             if (!value) {
               // ignore: unused_local_variable
