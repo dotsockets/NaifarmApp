@@ -143,11 +143,13 @@ class OrdersBloc {
   }
 
   getOrderById(BuildContext context, {int id, String orderType, String token}) {
+    onLoad.add(true);
     StreamSubscription subscription = Stream.fromFuture(_application
             .appStoreAPIRepository
             .getOrderById(context, id: id, orderType: orderType, token: token))
         .listen((respone) {
       if (respone.httpCallBack.status == 200) {
+        onLoad.add(false);
         NaiFarmLocalStorage.getOrderCache().then((value) {
           if (value != null) {
             for (var data in value.orderCahe) {
@@ -179,6 +181,7 @@ class OrdersBloc {
           }
         });
       } else {
+        onLoad.add(false);
         onError.add(respone.httpCallBack.message);
       }
     });

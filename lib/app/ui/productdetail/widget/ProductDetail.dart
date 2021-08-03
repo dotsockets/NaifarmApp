@@ -6,20 +6,16 @@ import 'package:naifarm/app/model/pojo/response/ProducItemRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 
-class ProductDetail extends StatefulWidget {
+class ProductDetail extends StatelessWidget {
   final ProducItemRespone productItem;
 
-  const ProductDetail({Key key, this.productItem}) : super(key: key);
-
-  @override
-  _ProductDetailState createState() => _ProductDetailState();
-}
-
-class _ProductDetailState extends State<ProductDetail> {
+   ProductDetail({Key key, this.productItem}) : super(key: key);
   GlobalKey _keyRed = GlobalKey();
   int lineInto = 7;
+  BehaviorSubject<Object> onChang = BehaviorSubject<Object>();
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +77,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${widget.productItem != null && widget.productItem.inventories != null ? widget.productItem.inventories[0].stockQuantity : 0} ${LocaleKeys.cart_piece.tr()}",
+                      "${productItem != null && productItem.inventories != null ? productItem.inventories[0].stockQuantity : 0} ${LocaleKeys.cart_piece.tr()}",
                       style: FunctionHelper.fontTheme(
                           fontWeight: FontWeight.w500,
                           color: Colors.black,
@@ -102,8 +98,8 @@ class _ProductDetailState extends State<ProductDetail> {
                     // ),
                     SizedBox(height: 2),
                     Text(
-                      widget.productItem.shop.state != null
-                          ? "${widget.productItem.shop.state.name}"
+                      productItem.shop.state != null
+                          ? "${productItem.shop.state.name}"
                           : "-",
                       style: FunctionHelper.fontTheme(
                           fontWeight: FontWeight.w500,
@@ -118,15 +114,16 @@ class _ProductDetailState extends State<ProductDetail> {
           Divider(
             color: Colors.black.withOpacity(0.5),
           ),
-          widget.productItem.description != null
-              ? Stack(
+          productItem.description != null
+              ? StreamBuilder(stream: onChang.stream,builder: (context,snapshot){
+                return Stack(
                   children: [
                     Container(
                       padding: EdgeInsets.only(left: 15, right: 15, top: 8),
                       child: Text(
-                        widget.productItem != null &&
-                                widget.productItem.description != null
-                            ? widget.productItem.description
+                        productItem != null &&
+                            productItem.description != null
+                            ? productItem.description
                             : "-",
                         style: FunctionHelper.fontTheme(
                             height: 1.6,
@@ -135,49 +132,51 @@ class _ProductDetailState extends State<ProductDetail> {
                         key: _keyRed,
                       ),
                     ),
-                    widget.productItem.description.length > 300 &&
-                            lineInto < 100
+                    productItem.description.length > 300 &&
+                        lineInto < 100
                         ? Positioned(
-                            bottom: 0,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                      begin: FractionalOffset.bottomCenter,
-                                      end: FractionalOffset.topCenter,
-                                      colors: [
-                                    Colors.white,
-                                    Colors.white.withOpacity(0.5)
-                                  ])),
-                              width: MediaQuery.of(context).size.width,
-                              height: 80,
-                            ),
-                          )
+                      bottom: 0,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                begin: FractionalOffset.bottomCenter,
+                                end: FractionalOffset.topCenter,
+                                colors: [
+                                  Colors.white,
+                                  Colors.white.withOpacity(0.5)
+                                ])),
+                        width: MediaQuery.of(context).size.width,
+                        height: 80,
+                      ),
+                    )
                         : SizedBox(),
-                    widget.productItem.description.length > 300 &&
-                            lineInto < 100
+                    productItem.description.length > 300 &&
+                        lineInto < 100
                         ? Positioned(
-                            bottom: 0,
-                            child: GestureDetector(
-                              child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Center(
-                                      child: Text(
+                        bottom: 0,
+                        child: GestureDetector(
+                          child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              child: Center(
+                                  child: Text(
                                     LocaleKeys.my_product_read_more.tr(),
                                     style: FunctionHelper.fontTheme(
                                         color: ThemeColor.primaryColor(),
                                         fontWeight: FontWeight.w500,
                                         fontSize:
-                                            SizeUtil.titleSmallFontSize().sp),
+                                        SizeUtil.titleSmallFontSize().sp),
                                   ))),
-                              onTap: () {
-                                setState(() {
-                                  lineInto = 100;
-                                });
-                              },
-                            ))
+                          onTap: () {
+
+                            lineInto = 100;
+
+                            onChang.add(lineInto);
+                          },
+                        ))
                         : SizedBox(),
                   ],
-                )
+                );
+          })
               : SizedBox()
         ],
       ),

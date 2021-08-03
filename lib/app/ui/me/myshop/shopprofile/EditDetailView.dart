@@ -7,19 +7,18 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
+import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 
-class EditDetailView extends StatefulWidget {
+class EditDetailView extends StatelessWidget {
+
   final MyShopRespone itemInfo;
 
-  const EditDetailView({Key key, this.itemInfo}) : super(key: key);
-  @override
-  _EditDetailViewState createState() => _EditDetailViewState();
-}
+   EditDetailView({Key key, this.itemInfo}) : super(key: key);
 
-class _EditDetailViewState extends State<EditDetailView> {
   TextEditingController _input1 = new TextEditingController();
   String onError1 = "";
+  BehaviorSubject<Object> onChang = BehaviorSubject<Object>();
 
   bool formCheck() {
     if (_input1.text.trim().isEmpty) {
@@ -29,14 +28,14 @@ class _EditDetailViewState extends State<EditDetailView> {
     }
   }
 
-  @override
-  void initState() {
-    _input1.text = widget.itemInfo.description;
-    super.initState();
+
+  init(){
+    _input1.text = itemInfo.description;
   }
 
   @override
   Widget build(BuildContext context) {
+    init();
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -50,46 +49,51 @@ class _EditDetailViewState extends State<EditDetailView> {
           body: Container(
             padding: SizeUtil.detailProfilePadding(),
             child: SingleChildScrollView(
-              child: Container(
-                child: Column(
-                  children: [
-                    form(),
-                    SizedBox(
-                      height: 3.0.h,
-                    ),
-                    TextButton(
-                      style: ButtonStyle(
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40.0),
+              child: StreamBuilder(stream: onChang.stream,builder: (context,snapshot){
+                return Container(
+                  child: Column(
+                    children: [
+                      form(),
+                      SizedBox(
+                        height: 3.0.h,
+                      ),
+                      TextButton(
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40.0),
+                            ),
+                          ),
+                          minimumSize: MaterialStateProperty.all(
+                            Size(50.0.w, 5.0.h),
+                          ),
+                          backgroundColor: MaterialStateProperty.all(
+                            _input1.text.trim() != ""
+                                ? ThemeColor.secondaryColor()
+                                : Colors.grey.shade400,
+                          ),
+                          overlayColor: MaterialStateProperty.all(
+                            Colors.white.withOpacity(0.3),
                           ),
                         ),
-                        minimumSize: MaterialStateProperty.all(
-                          Size(50.0.w, 5.0.h),
+                        onPressed: () {
+                          if(formCheck()){
+                            itemInfo.description = _input1.text;
+                            Navigator.pop(context, itemInfo);
+                          }
+                        },
+                        child: Text(
+                          LocaleKeys.btn_save.tr(),
+                          style: FunctionHelper.fontTheme(
+                              color: Colors.white,
+                              fontSize: SizeUtil.titleFontSize().sp,
+                              fontWeight: FontWeight.w500),
                         ),
-                        backgroundColor: MaterialStateProperty.all(
-                          _input1.text.trim() != ""
-                              ? ThemeColor.secondaryColor()
-                              : Colors.grey.shade400,
-                        ),
-                        overlayColor: MaterialStateProperty.all(
-                          Colors.white.withOpacity(0.3),
-                        ),
-                      ),
-                      onPressed: () => formCheck()
-                          ? Navigator.pop(context, widget.itemInfo)
-                          : SizedBox(),
-                      child: Text(
-                        LocaleKeys.btn_save.tr(),
-                        style: FunctionHelper.fontTheme(
-                            color: Colors.white,
-                            fontSize: SizeUtil.titleFontSize().sp,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    )
-                  ],
-                ),
-              ),
+                      )
+                    ],
+                  ),
+                );
+              }),
             ),
           ),
         ),
@@ -115,9 +119,7 @@ class _EditDetailViewState extends State<EditDetailView> {
             onError: onError1,
             controller: _input1,
             onChanged: (String char) {
-              setState(() {
-                widget.itemInfo.description = char;
-              });
+              onChang.add(itemInfo);
             },
           ),
         ],

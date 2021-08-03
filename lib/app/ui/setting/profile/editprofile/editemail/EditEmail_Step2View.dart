@@ -11,24 +11,20 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 
-class EditEmailStep2View extends StatefulWidget {
+class EditEmailStep2View extends StatelessWidget {
   final CustomerInfoRespone customerInfoRespone;
 
-  const EditEmailStep2View({Key key, this.customerInfoRespone})
+   EditEmailStep2View({Key key, this.customerInfoRespone})
       : super(key: key);
-
-  @override
-  EditEmailStep2ViewState createState() => EditEmailStep2ViewState();
-}
-
-class EditEmailStep2ViewState extends State<EditEmailStep2View> {
   TextEditingController emailController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String onError = "";
   MemberBloc bloc;
   bool onDialog = false;
+  final onChang = BehaviorSubject<Object>();
 
   bool formCheck() {
     if (emailController.text.trim().isEmpty) {
@@ -38,14 +34,11 @@ class EditEmailStep2ViewState extends State<EditEmailStep2View> {
     }
   }
 
-  @override
-  void initState() {
-    emailController.text = "";
-    super.initState();
-  }
 
-  void _init() {
+
+  void _init(BuildContext context) {
     if (null == bloc) {
+      emailController.text = "";
       bloc = MemberBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -72,7 +65,7 @@ class EditEmailStep2ViewState extends State<EditEmailStep2View> {
 
   @override
   Widget build(BuildContext context) {
-    _init();
+    _init(context);
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -110,7 +103,7 @@ class EditEmailStep2ViewState extends State<EditEmailStep2View> {
                       children: [
                         Text(
                           LocaleKeys.edit_email_old.tr() +
-                              " ${widget.customerInfoRespone.email}",
+                              " ${customerInfoRespone.email}",
                           style: FunctionHelper.fontTheme(
                               fontSize: SizeUtil.titleFontSize().sp,
                               fontWeight: FontWeight.w500),
@@ -118,18 +111,21 @@ class EditEmailStep2ViewState extends State<EditEmailStep2View> {
                         SizedBox(
                           height: 15,
                         ),
-                        BuildEditText(
-                            head: LocaleKeys.edit_email_new.tr(),
-                            hint: LocaleKeys.set_default.tr() +
-                                LocaleKeys.edit_email_new.tr(),
-                            maxLength: 40,
-                            controller: emailController,
-                            onError: onError,
-                            inputType: TextInputType.emailAddress,
-                            borderOpacity: 0.2,
-                            onChanged: (String char) {
-                              setState(() {});
-                            }),
+                       StreamBuilder(stream: onChang.stream,builder: (context,snapshot){
+                         return  BuildEditText(
+                             head: LocaleKeys.edit_email_new.tr(),
+                             hint: LocaleKeys.set_default.tr() +
+                                 LocaleKeys.edit_email_new.tr(),
+                             maxLength: 40,
+                             controller: emailController,
+                             onError: onError,
+                             inputType: TextInputType.emailAddress,
+                             borderOpacity: 0.2,
+                             onChanged: (String char) {
+
+                               onChang.add(char);
+                             });
+                       }),
                         SizedBox(
                           height: 20,
                         ),
@@ -140,34 +136,36 @@ class EditEmailStep2ViewState extends State<EditEmailStep2View> {
                 SizedBox(
                   height: 20,
                 ),
-                TextButton(
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40.0),
+                StreamBuilder(stream: onChang.stream,builder: (context,snapshot){
+                  return TextButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40.0),
+                        ),
+                      ),
+                      minimumSize: MaterialStateProperty.all(
+                        Size(50.0.w, 5.0.h),
+                      ),
+                      backgroundColor: MaterialStateProperty.all(
+                        formCheck()
+                            ? ThemeColor.colorSale()
+                            : Colors.grey.shade400,
+                      ),
+                      overlayColor: MaterialStateProperty.all(
+                        Colors.white.withOpacity(0.3),
                       ),
                     ),
-                    minimumSize: MaterialStateProperty.all(
-                      Size(50.0.w, 5.0.h),
+                    onPressed: () => formCheck() ? verify(context) : SizedBox(),
+                    child: Text(
+                      LocaleKeys.btn_continue.tr(),
+                      style: FunctionHelper.fontTheme(
+                          color: Colors.white,
+                          fontSize: SizeUtil.titleFontSize().sp,
+                          fontWeight: FontWeight.w500),
                     ),
-                    backgroundColor: MaterialStateProperty.all(
-                      formCheck()
-                          ? ThemeColor.colorSale()
-                          : Colors.grey.shade400,
-                    ),
-                    overlayColor: MaterialStateProperty.all(
-                      Colors.white.withOpacity(0.3),
-                    ),
-                  ),
-                  onPressed: () => formCheck() ? verify() : SizedBox(),
-                  child: Text(
-                    LocaleKeys.btn_continue.tr(),
-                    style: FunctionHelper.fontTheme(
-                        color: Colors.white,
-                        fontSize: SizeUtil.titleFontSize().sp,
-                        fontWeight: FontWeight.w500),
-                  ),
-                )
+                  );
+                })
               ],
             ),
           ),
@@ -176,7 +174,7 @@ class EditEmailStep2ViewState extends State<EditEmailStep2View> {
     );
   }
 
-  void verify() {
+  void verify(BuildContext context) {
     // FunctionHelper.showDialogProcess(context);
     // Usermanager().Savelogin(user: User(id: "1",fullname: "John Mayer",username: "ApisitKaewsasan@gmail.com",email: "ApisitKaewsasan@gmail.com",phone: "0932971160",
     //     imageurl:  "https://freshairboutique.files.wordpress.com/2015/05/28438-long-red-head-girl.jpg")).then((value){
@@ -187,13 +185,14 @@ class EditEmailStep2ViewState extends State<EditEmailStep2View> {
     //});
 
     if (validator.email(emailController.text)) {
-      // AppRoute.EditEmail_Step3(context,EmailController.text,widget.customerInfoRespone);
+      // AppRoute.EditEmail_Step3(context,EmailController.text,customerInfoRespone);
       Usermanager().getUser().then((value) => bloc.requestChangEmail(context,
           email: emailController.text, token: value.token));
     } else {
-      setState(() {
+
         onError = "Email ไม่ถูกต้อง";
-      });
+
+      onChang.add(onChang.value);
     }
   }
 }

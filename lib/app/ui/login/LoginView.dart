@@ -16,28 +16,23 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:regexed_validator/regexed_validator.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:sizer/sizer.dart';
 
-class LoginView extends StatefulWidget {
+
+class LoginView extends StatelessWidget {
   final bool isCallBack;
   final bool isHeader;
   final Function(bool) homeCallBack;
   final bool isSetting;
 
-  const LoginView(
-      {Key key,
-      this.isCallBack = false,
-      this.isHeader = true,
-      this.homeCallBack,
-      this.isSetting = false})
-      : super(key: key);
+   LoginView({
+        this.isCallBack = false,
+        this.isHeader = true,
+        this.homeCallBack,
+        this.isSetting = false});
 
-  @override
-  _LoginViewState createState() => _LoginViewState();
-}
-
-class _LoginViewState extends State<LoginView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController _username = new TextEditingController();
   TextEditingController _password = new TextEditingController();
@@ -45,6 +40,7 @@ class _LoginViewState extends State<LoginView> {
   bool checkError = false;
   String errorMail = "";
   String errorPass = "";
+  final onChang = BehaviorSubject<bool>();
 
   // @override
   // void initState() {
@@ -74,15 +70,15 @@ class _LoginViewState extends State<LoginView> {
         // }else{
         //   AppRoute.Home(context,item: widget.item);
         // }
-        if (widget.isHeader) {
-          if (widget.homeCallBack != null) {
-            widget.homeCallBack(true);
+        if (isHeader) {
+          if (homeCallBack != null) {
+            homeCallBack(true);
             AppRoute.poppageCount(context: context, countpage: 2);
           } else {
             AppRoute.home(context);
           }
         } else {
-          widget.homeCallBack(true);
+          homeCallBack(true);
         }
       });
     }
@@ -112,7 +108,7 @@ class _LoginViewState extends State<LoginView> {
   Widget buildContent(BuildContext context) {
     return Container(
         padding: EdgeInsets.fromLTRB(
-            20.0, 20.0, 20.0, widget.isCallBack ? 20.0 : (20.0 + 10.0.h)),
+            20.0, 20.0, 20.0, isCallBack ? 20.0 : (20.0 + 10.0.h)),
         child: Column(
           children: [
             SizedBox(
@@ -127,43 +123,47 @@ class _LoginViewState extends State<LoginView> {
             SizedBox(
               height: 3.0.h,
             ),
-            Container(
-              padding: EdgeInsets.only(
-                  left: SizeUtil.paddingEdittext().w,
-                  right: SizeUtil.paddingEdittext().w),
-              child: BuildEditText(
-                head: LocaleKeys.my_profile_phone.tr() +
-                    "/" +
-                    LocaleKeys.my_profile_email.tr(),
-                hint: LocaleKeys.my_profile_phone.tr() +
-                    "/" +
-                    LocaleKeys.my_profile_email.tr(),
-                inputType: TextInputType.text,
-                controller: _username,
-                borderOpacity: 0.3,
-                maxLength: 100,
-                borderRadius: 7,
-                onChanged: (String x) => _checkError(),
-              ),
-            ),
+            StreamBuilder(stream: onChang.stream,builder: (context,snapshot){
+              return Container(
+                padding: EdgeInsets.only(
+                    left: SizeUtil.paddingEdittext().w,
+                    right: SizeUtil.paddingEdittext().w),
+                child: BuildEditText(
+                  head: LocaleKeys.my_profile_phone.tr() +
+                      "/" +
+                      LocaleKeys.my_profile_email.tr(),
+                  hint: LocaleKeys.my_profile_phone.tr() +
+                      "/" +
+                      LocaleKeys.my_profile_email.tr(),
+                  inputType: TextInputType.text,
+                  controller: _username,
+                  borderOpacity: 0.3,
+                  maxLength: 100,
+                  borderRadius: 7,
+                  onChanged: (String x) => _checkError(),
+                ),
+              );
+            }),
             SizedBox(
               height: 2.0.h,
             ),
-            Container(
-              padding: EdgeInsets.only(
-                  left: SizeUtil.paddingEdittext().w,
-                  right: SizeUtil.paddingEdittext().w),
-              child: BuildEditText(
-                  head: LocaleKeys.my_profile_password.tr(),
-                  hint: LocaleKeys.my_profile_password.tr(),
-                  inputType: TextInputType.text,
-                  controller: _password,
-                  borderOpacity: 0.3,
-                  isPassword: true,
-                  maxLength: 100,
-                  borderRadius: 7,
-                  onChanged: (String x) => _checkError()),
-            ),
+            StreamBuilder(stream: onChang.stream,builder: (context,snapshot){
+               return Container(
+                 padding: EdgeInsets.only(
+                     left: SizeUtil.paddingEdittext().w,
+                     right: SizeUtil.paddingEdittext().w),
+                 child: BuildEditText(
+                     head: LocaleKeys.my_profile_password.tr(),
+                     hint: LocaleKeys.my_profile_password.tr(),
+                     inputType: TextInputType.text,
+                     controller: _password,
+                     borderOpacity: 0.3,
+                     isPassword: true,
+                     maxLength: 100,
+                     borderRadius: 7,
+                     onChanged: (String x) => _checkError()),
+               );
+            }),
             SizedBox(
               height: 1.0.h,
             ),
@@ -190,35 +190,37 @@ class _LoginViewState extends State<LoginView> {
             SizedBox(
               height: 3.0.h,
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 15, left: 15),
-              child: TextButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40.0),
+            StreamBuilder(stream: onChang.stream,builder: (context,snapshot){
+              return Padding(
+                padding: const EdgeInsets.only(right: 15, left: 15),
+                child: TextButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40.0),
+                      ),
+                    ),
+                    minimumSize: MaterialStateProperty.all(
+                      Size(SizeUtil.buttonWidth().w, 6.5.h),
+                    ),
+                    backgroundColor: MaterialStateProperty.all(
+                      checkError ? ThemeColor.colorSale() : Colors.grey.shade300,
+                    ),
+                    overlayColor: MaterialStateProperty.all(
+                      Colors.white.withOpacity(0.3),
                     ),
                   ),
-                  minimumSize: MaterialStateProperty.all(
-                    Size(SizeUtil.buttonWidth().w, 6.5.h),
-                  ),
-                  backgroundColor: MaterialStateProperty.all(
-                    checkError ? ThemeColor.colorSale() : Colors.grey.shade300,
-                  ),
-                  overlayColor: MaterialStateProperty.all(
-                    Colors.white.withOpacity(0.3),
+                  onPressed: () => _validate(context),
+                  child: Text(
+                    LocaleKeys.btn_login.tr(),
+                    style: FunctionHelper.fontTheme(
+                        color: Colors.white,
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.w500),
                   ),
                 ),
-                onPressed: () => _validate(),
-                child: Text(
-                  LocaleKeys.btn_login.tr(),
-                  style: FunctionHelper.fontTheme(
-                      color: Colors.white,
-                      fontSize: SizeUtil.titleFontSize().sp,
-                      fontWeight: FontWeight.w500),
-                ),
-              ),
-            ),
+              );
+            }),
             SizedBox(
               height: 2.5.h,
             ),
@@ -313,7 +315,7 @@ class _LoginViewState extends State<LoginView> {
                   await FacebookLogin().logOut().then((value) {
                     bloc.loginFacebook(
                         context: context,
-                        isLoad: widget.homeCallBack != null ? false : true);
+                        isLoad: homeCallBack != null ? false : true);
                   });
 
                   // FunctionHelper.AlertDialogShop(context,title: "Error",message: "The system is not supported yet.");
@@ -493,7 +495,7 @@ class _LoginViewState extends State<LoginView> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              widget.isHeader
+              isHeader
                   ? Container(
                       margin: EdgeInsets.only(left: 2.0.w, top: 2.0.w),
                       child: IconButton(
@@ -519,9 +521,9 @@ class _LoginViewState extends State<LoginView> {
                     color: Colors.white,
                     fontWeight: FontWeight.bold),
               ),
-              widget.isSetting
+             isSetting
                   ? IconButton(
-                      padding: EdgeInsets.only(right: 2.0.w, top: 2.0.w),
+                      padding: EdgeInsets.only(right: 5.0.w, top: 2.0.w),
                       icon: Icon(Icons.settings,
                           color: Colors.white,
                           size: SizeUtil.iconLargeSize().w),
@@ -576,10 +578,11 @@ class _LoginViewState extends State<LoginView> {
     } else {
       checkError = true;
     }
-    setState(() {});
+
+    onChang.add(true);
   }
 
-  Future<void> _validate() async {
+  Future<void> _validate(BuildContext context) async {
     FocusScope.of(context).unfocus();
     RegExp nameRegExp = RegExp('[a-zA-Z]');
     // var stats_form = _form.currentState.validate();

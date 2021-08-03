@@ -44,7 +44,6 @@ import 'package:naifarm/app/ui/me/myproduct/attribute/AttributeEditView.dart';
 import 'package:naifarm/app/ui/me/myproduct/attribute/AttributeAddView.dart';
 import 'package:naifarm/app/ui/me/myproduct/attribute/AttributeView.dart';
 import 'package:naifarm/app/ui/me/myproduct/productDetailShop/ProductDetailShop.dart';
-import 'package:naifarm/app/ui/me/myproductaddtype/ProductAddTypeView.dart';
 import 'package:naifarm/app/ui/me/myproductsetprice/ProductSetPriceView.dart';
 import 'package:naifarm/app/ui/me/myshop/coupon/CouponAddView.dart';
 import 'package:naifarm/app/ui/me/myshop/coupon/CouponView.dart';
@@ -84,7 +83,6 @@ import 'package:naifarm/app/ui/register/ForgotPasswordView.dart';
 import 'package:naifarm/app/ui/register/Forgot_set_NewPasswordView.dart';
 import 'package:naifarm/app/ui/register/RegisterOTPView.dart';
 import 'package:naifarm/app/ui/register/RegisterView.dart';
-import 'package:naifarm/app/ui/register/Register_FBView.dart';
 import 'package:naifarm/app/ui/register/Register_Name_OtpView.dart';
 import 'package:naifarm/app/ui/register/Register_set_PasswordView.dart';
 import 'package:naifarm/app/ui/search/SearchView.dart';
@@ -567,15 +565,7 @@ class AppRoute {
                 RegisterNameOtpView(phone: phone, password: password)));
   }
 
-  static registerFB(BuildContext context, String email) {
-    Navigator.of(context).push(SwipeablePageRoute(
-        canOnlySwipeFromEdge: true,
-        builder: (context) {
-          return RegisterFBView(
-            email: email,
-          );
-        }));
-  }
+
 
   static settingLanguage(BuildContext context) {
     Navigator.of(context).push(SwipeablePageRoute(
@@ -751,13 +741,7 @@ class AppRoute {
         }));
   }
 
-  static productAddType(BuildContext context) {
-    Navigator.of(context).push(SwipeablePageRoute(
-        canOnlySwipeFromEdge: true,
-        builder: (context) {
-          return ProductAddTypeView();
-        }));
-  }
+
 
   static productSetPrice(BuildContext context) {
     Navigator.of(context).push(SwipeablePageRoute(

@@ -615,96 +615,127 @@ class FunctionHelper {
       String message,
       Function() callBack,
       Function() callCancle}) {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) => Platform.isIOS
-            ? CupertinoAlertDialog(
-                title: Container(
-                  padding: EdgeInsets.only(bottom: 0.5.h),
-                  child: Text(
-                    title,
-                    style: FunctionHelper.fontTheme(
-                        fontWeight: FontWeight.bold,
-                        fontSize: SizeUtil.titleFontSize().sp),
-                  ),
-                ),
-                content: Text(
-                  message,
-                  style: FunctionHelper.fontTheme(
-                      fontWeight: FontWeight.w400,
-                      fontSize: SizeUtil.titleSmallFontSize().sp),
-                ),
-                actions: [
-                    CupertinoDialogAction(
-                      isDefaultAction: true,
-                      child: new Text(
-                          cancalMessage != null
-                              ? cancalMessage
-                              : LocaleKeys.btn_back.tr(),
-                          style: FunctionHelper.fontTheme(
-                              fontWeight: FontWeight.w400,
-                              fontSize: SizeUtil.titleSmallFontSize().sp)),
-                      onPressed: () {
-                        if (callCancle != null) {
-                          callCancle();
-                        } else {
-                          AppRoute.poppageCount(context: context, countpage: 2);
-                        }
-                      },
-                    ),
-                    CupertinoDialogAction(
-                      isDefaultAction: true,
-                      child: new Text(LocaleKeys.btn_again.tr(),
-                          style: FunctionHelper.fontTheme(
-                              fontWeight: FontWeight.w400,
-                              fontSize: SizeUtil.titleSmallFontSize().sp)),
-                      onPressed: () {
-                        callBack();
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ])
-            : AlertDialog(
-                title: Text(
-                  title,
-                  style: FunctionHelper.fontTheme(
-                      fontWeight: FontWeight.bold,
-                      fontSize: SizeUtil.titleFontSize().sp),
-                ),
-                content: Text(
-                  message,
-                  style: FunctionHelper.fontTheme(
-                      fontWeight: FontWeight.w400,
-                      fontSize: SizeUtil.titleSmallFontSize().sp),
-                ),
-                actions: [
-                  // okButton,
-                  TextButton(
-                    child: Text(LocaleKeys.btn_back.tr(),
-                        style: FunctionHelper.fontTheme(
-                            fontWeight: FontWeight.w400,
-                            fontSize: SizeUtil.titleSmallFontSize().sp)),
-                    onPressed: () {
-                      if (callCancle != null) {
-                        callCancle();
-                      } else {
-                        AppRoute.poppageCount(context: context, countpage: 2);
-                      }
-                    },
-                  ),
-                  TextButton(
-                    child: Text(LocaleKeys.btn_again.tr(),
-                        style: FunctionHelper.fontTheme(
-                            fontWeight: FontWeight.w400,
-                            fontSize: SizeUtil.titleSmallFontSize().sp)),
-                    onPressed: () {
-                      callBack();
-                      Navigator.of(context).pop();
-                    },
-                  )
-                ],
-              ));
+
+    showPlatformDialog(
+      context: context,
+      builder: (_) => BasicDialogAlert(
+        title: Text(title),
+        content:
+        Text(message),
+        actions: <Widget>[
+          BasicDialogAction(
+            title: Text(cancalMessage != null
+                ? cancalMessage
+                : LocaleKeys.btn_back.tr()),
+            onPressed: () {
+              if (callCancle != null) {
+                callCancle();
+              } else {
+                AppRoute.poppageCount(context: context, countpage: 2);
+              }
+            },
+          ),
+          BasicDialogAction(
+            title: Text(LocaleKeys.btn_again.tr()),
+            onPressed: () {
+              callBack();
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      ),
+    );
+
+    // showDialog(
+    //     barrierDismissible: false,
+    //     context: context,
+    //     builder: (BuildContext context) => Platform.isIOS
+    //         ? CupertinoAlertDialog(
+    //             title: Container(
+    //               padding: EdgeInsets.only(bottom: 0.5.h),
+    //               child: Text(
+    //                 title,
+    //                 style: FunctionHelper.fontTheme(
+    //                     fontWeight: FontWeight.bold,
+    //                     fontSize: SizeUtil.titleFontSize().sp),
+    //               ),
+    //             ),
+    //             content: Text(
+    //               message,
+    //               style: FunctionHelper.fontTheme(
+    //                   fontWeight: FontWeight.w400,
+    //                   fontSize: SizeUtil.titleSmallFontSize().sp),
+    //             ),
+    //             actions: [
+    //                 CupertinoDialogAction(
+    //                   isDefaultAction: true,
+    //                   child: new Text(
+    //                       cancalMessage != null
+    //                           ? cancalMessage
+    //                           : LocaleKeys.btn_back.tr(),
+    //                       style: FunctionHelper.fontTheme(
+    //                           fontWeight: FontWeight.w400,
+    //                           fontSize: SizeUtil.titleSmallFontSize().sp)),
+    //                   onPressed: () {
+    //                     if (callCancle != null) {
+    //                       callCancle();
+    //                     } else {
+    //                       AppRoute.poppageCount(context: context, countpage: 2);
+    //                     }
+    //                   },
+    //                 ),
+    //                 CupertinoDialogAction(
+    //                   isDefaultAction: true,
+    //                   child: new Text(LocaleKeys.btn_again.tr(),
+    //                       style: FunctionHelper.fontTheme(
+    //                           fontWeight: FontWeight.w400,
+    //                           fontSize: SizeUtil.titleSmallFontSize().sp)),
+    //                   onPressed: () {
+    //                     callBack();
+    //                     Navigator.of(context).pop();
+    //                   },
+    //                 ),
+    //               ])
+    //         : AlertDialog(
+    //             title: Text(
+    //               title,
+    //               style: FunctionHelper.fontTheme(
+    //                   fontWeight: FontWeight.bold,
+    //                   fontSize: SizeUtil.titleFontSize().sp),
+    //             ),
+    //             content: Text(
+    //               message,
+    //               style: FunctionHelper.fontTheme(
+    //                   fontWeight: FontWeight.w400,
+    //                   fontSize: SizeUtil.titleSmallFontSize().sp),
+    //             ),
+    //             actions: [
+    //               // okButton,
+    //               TextButton(
+    //                 child: Text(LocaleKeys.btn_back.tr(),
+    //                     style: FunctionHelper.fontTheme(
+    //                         fontWeight: FontWeight.w400,
+    //                         fontSize: SizeUtil.titleSmallFontSize().sp)),
+    //                 onPressed: () {
+    //                   if (callCancle != null) {
+    //                     callCancle();
+    //                   } else {
+    //                     AppRoute.poppageCount(context: context, countpage: 2);
+    //                   }
+    //                 },
+    //               ),
+    //               TextButton(
+    //                 child: Text(LocaleKeys.btn_again.tr(),
+    //                     style: FunctionHelper.fontTheme(
+    //                         fontWeight: FontWeight.w400,
+    //                         fontSize: SizeUtil.titleSmallFontSize().sp)),
+    //                 onPressed: () {
+    //                   callBack();
+    //                   Navigator.of(context).pop();
+    //                 },
+    //               )
+    //             ],
+    //           ));
   }
 
   static int flashSaleTime({String flashTime}) {

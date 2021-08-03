@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naifarm/app/model/core/AppRoute.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
@@ -7,6 +8,8 @@ import 'package:naifarm/app/model/pojo/response/ThrowIfNoSuccess.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:package_info/package_info.dart';
+import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 
 class ConnectErrorView extends StatefulWidget {
@@ -22,8 +25,26 @@ class ConnectErrorView extends StatefulWidget {
 }
 
 class _ConnectErrorViewState extends State<ConnectErrorView> {
+
+  final platformVersion = BehaviorSubject<String>();
+  init(){
+    versionName();
+  }
+
+  void versionName() async {
+    platformVersion.add('0.0.1');
+    try {
+      //platformVersion = await GetVersion.projectVersion;
+      final PackageInfo info = await PackageInfo.fromPlatform();
+      //  platformVersion = info.version;
+      platformVersion.add(info.version);
+    } on Exception {
+      platformVersion.add('0.0.1');
+    }
+  }
   @override
   Widget build(BuildContext context) {
+    init();
     return SafeArea(
       top: false,
       bottom: false,
@@ -72,12 +93,14 @@ class _ConnectErrorViewState extends State<ConnectErrorView> {
                                     fontSize: SizeUtil.detailFontSize().sp,
                                     fontWeight: FontWeight.bold),
                               ),
-                              Text(
-                                "Version 0.0.1",
-                                style: FunctionHelper.fontTheme(
-                                    fontSize: SizeUtil.detailFontSize().sp,
-                                    fontWeight: FontWeight.bold),
-                              )
+                              StreamBuilder(stream: platformVersion.stream,builder: (context,snapshot){
+                                return Text(
+                                  "Version ${snapshot.data}",
+                                  style: FunctionHelper.fontTheme(
+                                      fontSize: SizeUtil.detailFontSize().sp,
+                                      fontWeight: FontWeight.w500),
+                                );
+                              })
                             ],
                           ),
                         )

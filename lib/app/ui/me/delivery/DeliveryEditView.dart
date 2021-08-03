@@ -12,29 +12,27 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 
-class DeliveryEditView extends StatefulWidget {
+class DeliveryEditView extends StatelessWidget {
+
   final ShppingMyShopRespone shppingMyShopRespone;
   final CarriersData carriersData;
 
-  const DeliveryEditView(
+   DeliveryEditView(
       {Key key, this.shppingMyShopRespone, this.carriersData})
       : super(key: key);
 
-  @override
-  _DeliveryEditViewState createState() => _DeliveryEditViewState();
-}
-
-class _DeliveryEditViewState extends State<DeliveryEditView> {
   TextEditingController rateController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String onError = "";
   bool isHave = false;
   Rates rates;
   ShippingBloc bloc;
+  final onChang = BehaviorSubject<Object>();
 
-  init() {
+  init(BuildContext context) {
     if (bloc == null) {
       _initialValue();
       bloc = ShippingBloc(AppProvider.getApplication(context));
@@ -59,7 +57,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
 
   @override
   Widget build(BuildContext context) {
-    init();
+    init(context);
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -86,32 +84,35 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(2.0.w),
-                  child: Text("${widget.carriersData.name}",
+                  child: Text("${carriersData.name}",
                       style: FunctionHelper.fontTheme(
                           fontSize: SizeUtil.titleFontSize().sp,
                           fontWeight: FontWeight.w600)),
                 ),
-                Container(
-                  padding: EdgeInsets.all(15),
-                  color: Colors.white,
-                  child: BuildEditText(
-                      head: LocaleKeys.my_product_delivery_price.tr(),
-                      hint: LocaleKeys.set_default.tr() +
-                          LocaleKeys.my_product_delivery_price.tr(),
-                      maxLength: 10,
-                      controller: rateController,
-                      onError: onError,
-                      inputType: TextInputType.number,
-                      isPassword: false,
-                      borderOpacity: 0.2,
-                      onChanged: (String char) {
-                        RegExp _numeric = RegExp(r'^-?[0-9]+$');
-                        if (!_numeric.hasMatch(rateController.text))
-                          rateController.text = "";
+                StreamBuilder(stream: onChang.stream,builder: (context,snapshot){
+                  return Container(
+                    padding: EdgeInsets.all(15),
+                    color: Colors.white,
+                    child: BuildEditText(
+                        head: LocaleKeys.my_product_delivery_price.tr(),
+                        hint: LocaleKeys.set_default.tr() +
+                            LocaleKeys.my_product_delivery_price.tr(),
+                        maxLength: 10,
+                        controller: rateController,
+                        onError: onError,
+                        inputType: TextInputType.number,
+                        isPassword: false,
+                        borderOpacity: 0.2,
+                        onChanged: (String char) {
 
-                        setState(() {});
-                      }),
-                ),
+                          RegExp _numeric = RegExp(r'^-?[0-9]+$');
+                          if (!_numeric.hasMatch(rateController.text))
+                            rateController.text = "";
+
+                          onChang.add(true);
+                        }),
+                  );
+                }),
                 SizedBox(
                   height: 1.0.w,
                 ),
@@ -128,7 +129,10 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                                       left: 3.0.w,
                                       top: 4.0.w,
                                       bottom: 4.0.w),
-                                  child: buildItem(),
+                                  child: StreamBuilder(stream: onChang.stream,builder: (context,snapshot){
+                                    return buildItem(context);
+
+                                  }),
                                 ),
                               ),
                               Expanded(
@@ -138,44 +142,46 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                                       left: 3.0.w,
                                       top: 4.0.w,
                                       bottom: 4.0.w),
-                                  child: TextButton(
-                                    style: ButtonStyle(
+                                  child: StreamBuilder(builder: (context,snapshot){
+                                    return TextButton(
+                                      style: ButtonStyle(
 
-                                      shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(40.0),
+                                        shape: MaterialStateProperty.all(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(40.0),
+                                          ),
+                                        ),
+                                        minimumSize: MaterialStateProperty.all(
+                                          Size(50.0.w, 5.0.h),
+                                        ),
+                                        backgroundColor:
+                                        MaterialStateProperty.all(
+                                          formCheck()
+                                              ? ThemeColor.colorSale()
+                                              : Colors.grey.shade400,
+                                        ),
+                                        overlayColor: MaterialStateProperty.all(
+                                          Colors.white.withOpacity(0.3),
                                         ),
                                       ),
-                                      minimumSize: MaterialStateProperty.all(
-                                        Size(50.0.w, 5.0.h),
+                                      onPressed: () {
+                                        if (formCheck()) {
+                                          Usermanager().getUser().then((value) =>
+                                              bloc.deleteShoppingMyShop(context,
+                                                  ratesId: rates.id,
+                                                  token: value.token));
+                                        }
+                                      },
+                                      child: Text(
+                                        LocaleKeys.shipping_cancel.tr(),
+                                        style: FunctionHelper.fontTheme(
+                                            color: Colors.white,
+                                            fontSize: SizeUtil.titleFontSize().sp,
+                                            fontWeight: FontWeight.w500),
                                       ),
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                        formCheck()
-                                            ? ThemeColor.colorSale()
-                                            : Colors.grey.shade400,
-                                      ),
-                                      overlayColor: MaterialStateProperty.all(
-                                        Colors.white.withOpacity(0.3),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      if (formCheck()) {
-                                        Usermanager().getUser().then((value) =>
-                                            bloc.deleteShoppingMyShop(context,
-                                                ratesId: rates.id,
-                                                token: value.token));
-                                      }
-                                    },
-                                    child: Text(
-                                      LocaleKeys.shipping_cancel.tr(),
-                                      style: FunctionHelper.fontTheme(
-                                          color: Colors.white,
-                                          fontSize: SizeUtil.titleFontSize().sp,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ),
+                                    );
+                                  }),
                                 ),
                               ),
                             ],
@@ -186,7 +192,11 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                 SizedBox(
                   height: 3.0.w,
                 ),
-                isHave == false ? Center(child: buildItem()) : SizedBox()
+                isHave == false ? Center(child: StreamBuilder(stream: onChang.stream,builder: (context,snapshot){
+
+                  return buildItem(context);
+
+                })) : SizedBox()
               ],
             ),
           ),
@@ -195,7 +205,7 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
     );
   }
 
-  Widget buildItem() => TextButton(
+  Widget buildItem(BuildContext context) => TextButton(
         style: ButtonStyle(
 
           shape: MaterialStateProperty.all(
@@ -221,26 +231,26 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
                   rateID: rates.id,
                   shopRequest: ShppingMyShopRequest(
                       shippingZoneId:
-                          widget.shppingMyShopRespone.data[0].shopId,
+                          shppingMyShopRespone.data[0].shopId,
                       rate: int.parse(rateController.text),
-                      carrierId: widget.carriersData.id,
+                      carrierId: carriersData.id,
                       basedOn: "price",
                       minimum: 0,
                       maximum: 0,
-                      name: widget.carriersData.name),
+                      name: carriersData.name),
                   token: value.token));
             } else {
               Usermanager().getUser().then((value) => bloc.addShoppingMyShop(
                   context,
                   shopRequest: ShppingMyShopRequest(
                       shippingZoneId:
-                          widget.shppingMyShopRespone.data[0].shopId,
+                          shppingMyShopRespone.data[0].shopId,
                       rate: int.parse(rateController.text),
-                      carrierId: widget.carriersData.id,
+                      carrierId: carriersData.id,
                       basedOn: "price",
                       minimum: 0,
                       maximum: 0,
-                      name: widget.carriersData.name),
+                      name: carriersData.name),
                   token: value.token));
             }
           }
@@ -262,8 +272,8 @@ class _DeliveryEditViewState extends State<DeliveryEditView> {
     }
   }
   _initialValue(){
-    for (var item in widget.shppingMyShopRespone.data[0].rates) {
-      if (widget.carriersData.id == item.carrierId) {
+    for (var item in shppingMyShopRespone.data[0].rates) {
+      if (carriersData.id == item.carrierId) {
         rateController.text = item.rate.toString()!="null"?item.rate.toString():"0";
         isHave = true;
         rates = item;

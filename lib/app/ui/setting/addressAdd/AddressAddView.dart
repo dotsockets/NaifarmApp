@@ -7,6 +7,7 @@ import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
 import 'package:naifarm/app/model/pojo/request/AddressCreaterequest.dart';
 import 'package:naifarm/app/model/pojo/response/StatesRespone.dart';
+import 'package:naifarm/app/ui/setting/addressEdit/AddressEditView.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
@@ -15,29 +16,27 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 
-class AddressAddView extends StatefulWidget {
-  @override
-  _AddressAddViewState createState() => _AddressAddViewState();
-}
-
-class _AddressAddViewState extends State<AddressAddView> {
+class AddressAddView extends StatelessWidget {
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController postController = TextEditingController();
   TextEditingController detailAddrController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final isSelect = BehaviorSubject<bool>();
+  final onChang = BehaviorSubject<bool>();
   String errorPhoneTxt = "";
   bool checkKeyBoard = false;
-  bool isSelect = false;
   int proviceSelect = 0;
   int citySelect = 0;
   bool check = true;
   AddressBloc bloc;
 
-  void _init() {
+  void _init(BuildContext context) {
     if (null == bloc) {
+      isSelect.add(false);
       bloc = AddressBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -47,7 +46,8 @@ class _AddressAddViewState extends State<AddressAddView> {
         }
       });
       bloc.onError.stream.listen((event) {
-        FunctionHelper.alertDialogShop(context, title: LocaleKeys.btn_error.tr(), message: event);
+        FunctionHelper.alertDialogShop(context,
+            title: LocaleKeys.btn_error.tr(), message: event);
       });
       bloc.onSuccess.stream.listen((event) {
         Navigator.pop(context, true);
@@ -70,7 +70,7 @@ class _AddressAddViewState extends State<AddressAddView> {
 
   @override
   Widget build(BuildContext context) {
-    _init();
+    _init(context);
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -102,7 +102,7 @@ class _AddressAddViewState extends State<AddressAddView> {
                 ),
                 Visibility(
                   visible: checkKeyBoard ? false : true,
-                  child: _buildButton(),
+                  child: _buildButton(context),
                 )
               ],
             ),
@@ -119,27 +119,32 @@ class _AddressAddViewState extends State<AddressAddView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BuildEditText(
-              maxLength: 100,
-              head: LocaleKeys.my_profile_fullname.tr(),
-              enableMaxLength: false,
-              hint: LocaleKeys.set_default.tr() +
-                  LocaleKeys.my_profile_fullname.tr(),
-              controller: nameController,
-              onChanged: (String x) => _checkError(),
-              inputType: TextInputType.text),
+          StreamBuilder(stream: onChang.stream,builder: (context,snopshot){
+            return BuildEditText(
+                maxLength: 100,
+                head: LocaleKeys.my_profile_fullname.tr(),
+                enableMaxLength: false,
+                hint: LocaleKeys.set_default.tr() +
+                    LocaleKeys.my_profile_fullname.tr(),
+                controller: nameController,
+                onChanged: (String x) => _checkError(),
+                inputType: TextInputType.text);
+          }),
           SizedBox(
             height: 15,
           ),
-          BuildEditText(
-              maxLength: 10,
-              head: LocaleKeys.my_profile_phoneNum.tr(),
-              enableMaxLength: false,
-              hint: LocaleKeys.set_default.tr() +
-                  LocaleKeys.my_profile_phoneNum.tr(),
-              controller: phoneController,
-              onChanged: (String x) => _checkError(),
-              inputType: TextInputType.number),
+          StreamBuilder(stream: onChang.stream,builder: (context,snopshot){
+            return BuildEditText(
+                maxLength: 10,
+                head: LocaleKeys.my_profile_phoneNum.tr(),
+                enableMaxLength: false,
+                hint: LocaleKeys.set_default.tr() +
+                    LocaleKeys.my_profile_phoneNum.tr(),
+                controller: phoneController,
+                onChanged: (String x) => _checkError(),
+                inputType: TextInputType.number);
+          }),
+
           SizedBox(
             height: 0.9.h,
           ),
@@ -152,6 +157,7 @@ class _AddressAddViewState extends State<AddressAddView> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 return buildDropdown(
+                    initialItem: AddressEditView.loopIndex((snapshot.data as StatesRespone).data, proviceSelect),
                     head: LocaleKeys.select.tr() +
                         LocaleKeys.address_province.tr() +
                         " * ",
@@ -160,14 +166,16 @@ class _AddressAddViewState extends State<AddressAddView> {
                     item: (snapshot.data as StatesRespone).data,
                     onSelect: (int index) {
                       postController.text = "";
-                      setState(() => proviceSelect =
-                          (snapshot.data as StatesRespone).data[index].id);
+                      proviceSelect =
+                          (snapshot.data as StatesRespone).data[index].id;
                       bloc.statesCity(context,
                           countriesid: "1",
                           statesId: (snapshot.data as StatesRespone)
                               .data[index]
                               .id
                               .toString());
+
+                      bloc.province.add(bloc.province.value);
                     });
               } else {
                 return SizedBox();
@@ -182,6 +190,7 @@ class _AddressAddViewState extends State<AddressAddView> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 return buildDropdown(
+                    initialItem: AddressEditView.loopIndex((snapshot.data as StatesRespone).data, citySelect),
                     head: LocaleKeys.select.tr() +
                         LocaleKeys.address_city.tr() +
                         " * ",
@@ -189,8 +198,8 @@ class _AddressAddViewState extends State<AddressAddView> {
                         (snapshot.data as StatesRespone).data, citySelect),
                     item: (snapshot.data as StatesRespone).data,
                     onSelect: (int index) {
-                      setState(() => citySelect =
-                          (snapshot.data as StatesRespone).data[index].id);
+                      citySelect =
+                          (snapshot.data as StatesRespone).data[index].id;
                       bloc.statesZipCode(context,
                           countries: "1",
                           statesId: proviceSelect.toString(),
@@ -198,6 +207,7 @@ class _AddressAddViewState extends State<AddressAddView> {
                               .data[index]
                               .id
                               .toString());
+                      bloc.city.add(bloc.city.value);
                     });
               } else {
                 return SizedBox();
@@ -207,25 +217,29 @@ class _AddressAddViewState extends State<AddressAddView> {
           SizedBox(
             height: 10,
           ),
-          BuildEditText(
-              head: LocaleKeys.address_postal.tr(),
-              enableMaxLength: false,
-              hint: LocaleKeys.select.tr() + LocaleKeys.address_postal.tr(),
-              onChanged: (String x) => _checkError(),
-              controller: postController,
-              inputType: TextInputType.number),
+          StreamBuilder(stream: onChang.stream,builder: (context,snopshot){
+            return BuildEditText(
+                head: LocaleKeys.address_postal.tr(),
+                enableMaxLength: false,
+                hint: LocaleKeys.select.tr() + LocaleKeys.address_postal.tr(),
+                onChanged: (String x) => _checkError(),
+                controller: postController,
+                inputType: TextInputType.number);
+          }),
           SizedBox(
             height: 15,
           ),
-          BuildEditText(
-              maxLength: 300,
-              head: LocaleKeys.address_detail.tr(),
-              enableMaxLength: false,
-              hint:
-                  LocaleKeys.set_default.tr() + LocaleKeys.address_detail.tr(),
-              onChanged: (String x) => _checkError(),
-              controller: detailAddrController,
-              inputType: TextInputType.text),
+          StreamBuilder(stream: onChang.stream,builder: (context,snopshot){
+            return BuildEditText(
+                maxLength: 300,
+                head: LocaleKeys.address_detail.tr(),
+                enableMaxLength: false,
+                hint:
+                LocaleKeys.set_default.tr() + LocaleKeys.address_detail.tr(),
+                onChanged: (String x) => _checkError(),
+                controller: detailAddrController,
+                inputType: TextInputType.text);
+          })
         ],
       ),
     );
@@ -270,27 +284,38 @@ class _AddressAddViewState extends State<AddressAddView> {
             style:
                 FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp),
           ),
-          FlutterSwitch(
-            height: SizeUtil.switchHeight(),
-            width: SizeUtil.switchWidth(),
-            toggleSize: SizeUtil.switchToggleSize(),
-            activeColor: Colors.grey.shade200,
-            inactiveColor: Colors.grey.shade200,
-            toggleColor:
-                isSelect ? ThemeColor.primaryColor() : Colors.grey.shade400,
-            value: isSelect ? true : false,
-            onToggle: (val) {
-              setState(() {
-                isSelect = val;
-              });
-            },
-          ),
+          StreamBuilder(
+              stream: isSelect.stream,
+              builder: (context, snopshot) {
+                if (snopshot.hasData) {
+                  return FlutterSwitch(
+                    height: SizeUtil.switchHeight(),
+                    width: SizeUtil.switchWidth(),
+                    toggleSize: SizeUtil.switchToggleSize(),
+                    activeColor: Colors.grey.shade200,
+                    inactiveColor: Colors.grey.shade200,
+                    toggleColor: snopshot.data
+                        ? ThemeColor.primaryColor()
+                        : Colors.grey.shade400,
+                    value: snopshot.data ? true : false,
+                    onToggle: (val) {
+                      // setState(() {
+                      //   isSelect = val;
+                      // });
+                      isSelect.add(val);
+                      // isSelect = val;
+                    },
+                  );
+                } else {
+                  return SizedBox();
+                }
+              }),
         ],
       ),
     );
   }
 
-  Widget _buildButton() {
+  Widget _buildButton(BuildContext context) {
     return Container(
         margin: EdgeInsets.only(top: 3.0.h, bottom: 3.0.h),
         width: 50.0.w,
@@ -298,10 +323,11 @@ class _AddressAddViewState extends State<AddressAddView> {
         color: Colors.grey.shade300,
         child: Container(
             width: MediaQuery.of(context).size.width,
-            child: _buildButtonItem(btnTxt: LocaleKeys.btn_continue.tr())));
+            child: _buildButtonItem(context,
+                btnTxt: LocaleKeys.btn_continue.tr())));
   }
 
-  Widget _buildButtonItem({String btnTxt}) {
+  Widget _buildButtonItem(BuildContext context, {String btnTxt}) {
     return TextButton(
       style: ButtonStyle(
         shape: MaterialStateProperty.all(
@@ -331,7 +357,7 @@ class _AddressAddViewState extends State<AddressAddView> {
                   countryId: 1,
                   stateId: proviceSelect,
                   zipCode: postController.text,
-                  addressType: isSelect ? "Primary" : "Shipping"),
+                  addressType: isSelect.value ? "Primary" : "Shipping"),
               token: value.token));
         }
       },
@@ -366,16 +392,15 @@ class _AddressAddViewState extends State<AddressAddView> {
         postController.text.trim().length != 5) {
       check = false;
     }
-
-    setState(() {});
+    onChang.add(true);
+    //setState(() {});
   }
 
   Widget buildDropdown(
       {String head,
       String hint,
       List<DataStates> item,
-      Function(int) onSelect}) {
-
+      Function(int) onSelect,int initialItem}) {
     var datalist = <String>[];
     if (item.isNotEmpty) {
       for (int i = 0; i < item.length; i++) {
@@ -384,7 +409,6 @@ class _AddressAddViewState extends State<AddressAddView> {
     }
 
     return Container(
-
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -402,6 +426,7 @@ class _AddressAddViewState extends State<AddressAddView> {
               txtSelect: hint,
               title: head,
               dataList: datalist,
+              initialItem: initialItem,
               onSelect: (int index) => onSelect(index),
             ),
           ),

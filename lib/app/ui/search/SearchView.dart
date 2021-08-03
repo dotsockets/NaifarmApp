@@ -17,35 +17,34 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 import "package:naifarm/app/model/core/ExtensionCore.dart";
 
-class SearchView extends StatefulWidget {
-  @override
-  _SearchViewState createState() => _SearchViewState();
-}
+class SearchView extends StatelessWidget {
 
-class _SearchViewState extends State<SearchView> {
   List<String> listClone = <String>[];
   bool checkSeemore = false;
   TextEditingController txtController = TextEditingController();
-  String searchText = "";
+
   ProductBloc bloc;
   bool showMore = false;
+  final searchText = BehaviorSubject<String>();
 
-  void _init() {
+  void _init(BuildContext context) {
     if (null == bloc) {
+      searchText.add("");
       bloc = ProductBloc(AppProvider.getApplication(context));
       bloc.loadMoreData(context,
           page: "1", limit: 6, link: "products/types/random");
       bloc.loadProductSearch(context,
-          page: "1", query: searchText, limit: showMore ? 6 : 4);
+          page: "1", query: searchText.value, limit: showMore ? 6 : 4);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    _init();
+    _init(context);
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -56,9 +55,7 @@ class _SearchViewState extends State<SearchView> {
             headerType: Header_Type.barHome,
             hint: LocaleKeys.search_product_title.tr(),
             onSearch: (String text) {
-              setState(() {
-                searchLike(text);
-              });
+              searchLike(context,text);
             },
           ),
           body: SingleChildScrollView(
@@ -254,7 +251,7 @@ class _SearchViewState extends State<SearchView> {
                         showMore = !showMore;
                         bloc.loadProductSearch(context,
                             page: "1",
-                            query: searchText,
+                            query: searchText.value,
                             limit: showMore ? 6 : 4);
                       }
                     },
@@ -313,15 +310,16 @@ class _SearchViewState extends State<SearchView> {
     );
   }
 
-  void searchLike(String text) {
+  void searchLike(BuildContext context,String text) {
     // listClone.clear();
     // for(int i=0;i<searchList.length;i++){
     //   if(searchList[i].contains(text)){
     //     listClone.add(searchList[i]);
     //   }
     // }
-    searchText = text;
+   // searchText = text;
+    searchText.add(text);
     bloc.loadProductSearch(context,
-        page: "1", query: searchText, limit: showMore ? 6 : 4);
+        page: "1", query: searchText.value, limit: showMore ? 6 : 4);
   }
 }

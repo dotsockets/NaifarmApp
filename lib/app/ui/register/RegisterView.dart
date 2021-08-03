@@ -13,29 +13,26 @@ import 'package:naifarm/app/model/pojo/response/OTPRespone.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
+import 'package:rxdart/subjects.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:sizer/sizer.dart';
 
-class RegisterView extends StatefulWidget {
-  @override
-  _RegisterViewState createState() => _RegisterViewState();
-}
 
-class _RegisterViewState extends State<RegisterView> {
+class RegisterView extends StatelessWidget {
+
   TextEditingController phoneController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   MemberBloc bloc;
   bool checkError = false;
   String errorTxt = "";
 
-  @override
-  void initState() {
-    super.initState();
-    phoneController.text = "";
-  }
+  BehaviorSubject<Object> onChang = BehaviorSubject<Object>();
 
-  void _init() {
+
+
+  void _init(BuildContext context) {
     if (null == bloc) {
+      phoneController.text = "";
       bloc = MemberBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -68,7 +65,7 @@ class _RegisterViewState extends State<RegisterView> {
 
   @override
   Widget build(BuildContext context) {
-    _init();
+    _init(context);
 
     return Container(
       color: ThemeColor.primaryColor(),
@@ -104,19 +101,21 @@ class _RegisterViewState extends State<RegisterView> {
             SizedBox(
               height: 4.0.h,
             ),
-            Container(
-              padding: EdgeInsets.only(
-                  left: SizeUtil.paddingEdittext().w,
-                  right: SizeUtil.paddingEdittext().w),
-              child: BuildEditText(
-                head: LocaleKeys.my_profile_phone.tr() + " *",
-                hint: LocaleKeys.my_profile_phone.tr(),
-                inputType: TextInputType.number,
-                controller: phoneController,
-                borderOpacity: 0.3,
-                onChanged: (String x) => _checkError(),
-              ),
-            ),
+            StreamBuilder(stream: onChang.stream,builder: (context,snapshot){
+              return Container(
+                padding: EdgeInsets.only(
+                    left: SizeUtil.paddingEdittext().w,
+                    right: SizeUtil.paddingEdittext().w),
+                child: BuildEditText(
+                  head: LocaleKeys.my_profile_phone.tr() + " *",
+                  hint: LocaleKeys.my_profile_phone.tr(),
+                  inputType: TextInputType.number,
+                  controller: phoneController,
+                  borderOpacity: 0.3,
+                  onChanged: (String x) => _checkError(),
+                ),
+              );
+            }),
             SizedBox(
               height: 1.0.h,
             ),
@@ -133,37 +132,39 @@ class _RegisterViewState extends State<RegisterView> {
             SizedBox(
               height: 3.0.h,
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 28, left: 28),
-              child: TextButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40.0),
+            StreamBuilder(stream: onChang.stream,builder: (context,snapshot){
+              return Padding(
+                padding: const EdgeInsets.only(right: 28, left: 28),
+                child: TextButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40.0),
+                      ),
+                    ),
+                    minimumSize: MaterialStateProperty.all(
+                      Size(SizeUtil.buttonWidth().w, 6.5.h),
+                    ),
+                    backgroundColor: MaterialStateProperty.all(
+                      checkError
+                          ? ThemeColor.secondaryColor()
+                          : Colors.grey.shade300,
+                    ),
+                    overlayColor: MaterialStateProperty.all(
+                      Colors.white.withOpacity(0.3),
                     ),
                   ),
-                  minimumSize: MaterialStateProperty.all(
-                    Size(SizeUtil.buttonWidth().w, 6.5.h),
-                  ),
-                  backgroundColor: MaterialStateProperty.all(
-                    checkError
-                        ? ThemeColor.secondaryColor()
-                        : Colors.grey.shade300,
-                  ),
-                  overlayColor: MaterialStateProperty.all(
-                    Colors.white.withOpacity(0.3),
+                  onPressed: () => _validate(context),
+                  child: Text(
+                    LocaleKeys.btn_continue.tr(),
+                    style: FunctionHelper.fontTheme(
+                        color: Colors.white,
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.w500),
                   ),
                 ),
-                onPressed: () => _validate(),
-                child: Text(
-                  LocaleKeys.btn_continue.tr(),
-                  style: FunctionHelper.fontTheme(
-                      color: Colors.white,
-                      fontSize: SizeUtil.titleFontSize().sp,
-                      fontWeight: FontWeight.w500),
-                ),
-              ),
-            ),
+              );
+            }),
             SizedBox(
               height: 2.0.h,
             ),
@@ -463,10 +464,10 @@ class _RegisterViewState extends State<RegisterView> {
       checkError = true;
       errorTxt = "";
     }
-    setState(() {});
+    onChang.add(phoneController.text);
   }
 
-  void _validate() {
+  void _validate(BuildContext context) {
     if (phoneController.text.isNotEmpty && phoneController.text.length == 10) {
       bloc.checkPhoneNumber(context, phone: phoneController.text);
     }

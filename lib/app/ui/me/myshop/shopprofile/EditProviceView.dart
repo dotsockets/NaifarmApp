@@ -13,29 +13,20 @@ import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
-class EditProviceView extends StatefulWidget {
+
+class EditProviceView extends StatelessWidget {
   final MyShopRespone itemInfo;
 
-  const EditProviceView({Key key, this.itemInfo}) : super(key: key);
+   EditProviceView({Key key, this.itemInfo}) : super(key: key);
 
-  @override
-  _EditProviceViewState createState() => _EditProviceViewState();
-}
-
-class _EditProviceViewState extends State<EditProviceView> {
   TextEditingController _input1 = new TextEditingController();
   String onError1 = "";
   AddressBloc bloc;
   int proviceSelect = 0;
 
-  @override
-  void initState() {
-    _initialValue();
-    super.initState();
-  }
-
-  void _init() {
+  void _init(BuildContext context) {
     if (null == bloc) {
+      _initialValue();
       bloc = AddressBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -58,7 +49,7 @@ class _EditProviceViewState extends State<EditProviceView> {
 
   @override
   Widget build(BuildContext context) {
-    _init();
+    _init(context);
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -99,10 +90,10 @@ class _EditProviceViewState extends State<EditProviceView> {
                   ),
                   onPressed: () {
                     if (bloc.province.value != null) {
-                      widget.itemInfo.state = bloc.province.value.data[
+                     itemInfo.state = bloc.province.value.data[
                           loopIndex(bloc.province.value.data, proviceSelect)];
                     }
-                    Navigator.pop(context, widget.itemInfo);
+                    Navigator.pop(context, itemInfo);
                   },
                   child: Text(
                     LocaleKeys.btn_save.tr(),
@@ -138,8 +129,9 @@ class _EditProviceViewState extends State<EditProviceView> {
                     (snapshot.data as StatesRespone).data, proviceSelect),
                 item: (snapshot.data as StatesRespone).data,
                 onSelect: (int index) {
-                  setState(() => proviceSelect =
-                      (snapshot.data as StatesRespone).data[index].id);
+                  proviceSelect =
+                      (snapshot.data as StatesRespone).data[index].id;
+                  bloc.province.add(bloc.province.value);
                 }),
           );
         } else {
@@ -223,12 +215,12 @@ class _EditProviceViewState extends State<EditProviceView> {
   }
 
   _initialValue(){
-    if (widget.itemInfo.state != null) {
-      proviceSelect = widget.itemInfo.state.id;
+    if (itemInfo.state != null) {
+      proviceSelect = itemInfo.state.id;
     } else {
       proviceSelect = 0;
     }
-    _input1.text = widget.itemInfo.description;
+    _input1.text = itemInfo.description;
   }
   _getProvince(){
     NaiFarmLocalStorage.getAllCategoriesCache().then((value) {

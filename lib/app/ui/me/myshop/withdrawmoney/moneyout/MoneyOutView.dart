@@ -146,9 +146,9 @@ class _MoneyOutViewState extends State<MoneyOutView> {
                   height: 20,
                 ),
                 onTap: () {
-                  setState(() {
-                    checkBox = checkBox ? false : true;
-                  });
+                  // setState(() {
+                  //   checkBox = checkBox ? false : true;
+                  // });
                 },
               ),
               SizedBox(

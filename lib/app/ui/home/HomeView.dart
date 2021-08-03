@@ -162,7 +162,7 @@ class _HomeViewState extends LifecycleWatcherState<HomeView>
       } on FormatException catch (ex) {
         if (!mounted) return;
         print('malformed initial uri');
-        setState(() => err = ex);
+       // setState(() => err = ex);
       }
     }
   }

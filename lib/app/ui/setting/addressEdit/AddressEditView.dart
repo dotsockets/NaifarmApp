@@ -16,18 +16,13 @@ import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/utility/widgets/CustomDropdownList.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 
-class AddressEditView extends StatefulWidget {
+class AddressEditView extends StatelessWidget {
   final AddressesData item;
 
-  const AddressEditView({Key key, this.item}) : super(key: key);
-
-  @override
-  _AddressEditViewState createState() => _AddressEditViewState();
-}
-
-class _AddressEditViewState extends State<AddressEditView> {
+   AddressEditView({Key key, this.item}) : super(key: key);
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController postController = TextEditingController();
@@ -35,20 +30,18 @@ class _AddressEditViewState extends State<AddressEditView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String errorPhoneTxt = "";
   bool checkKeyBoard = false;
-  bool isSelect = false;
+  final isSelect = BehaviorSubject<bool>();
+  final onChang = BehaviorSubject<bool>();
   int proviceSelect = 0;
   int citySelect = 0;
   bool check = true;
   AddressBloc bloc;
 
-  @override
-  void initState() {
-    super.initState();
-   _initialValue();
-  }
 
-  void _init() {
+
+  void _init(BuildContext context) {
     if (null == bloc) {
+      _initialValue();
       bloc = AddressBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -69,19 +62,19 @@ class _AddressEditViewState extends State<AddressEditView> {
       });
       bloc.zipCcde.stream.listen((event) {
         _checkError();
-        setState(() => postController.text =
-            event.zipCode != null ? event.zipCode.toString() : "");
+        postController.text =
+        event.zipCode != null ? event.zipCode.toString() : "";
       });
       bloc.city.stream.listen((event) {
         _checkError();
       });
-     _getState();
+     _getState(context);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    _init();
+    _init(context);
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -113,7 +106,11 @@ class _AddressEditViewState extends State<AddressEditView> {
                 ),
                 Visibility(
                   visible: checkKeyBoard ? false : true,
-                  child: _buildButton(),
+                  child: StreamBuilder(
+                    stream: onChang.stream,builder: (context,snapshot){
+                      return _buildButton(context);
+                  },
+                  ),
                 )
               ],
             ),
@@ -130,25 +127,35 @@ class _AddressEditViewState extends State<AddressEditView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BuildEditText(
-              head: LocaleKeys.my_profile_fullname.tr(),
-              enableMaxLength: false,
-              hint: LocaleKeys.set_default.tr() +
-                  LocaleKeys.my_profile_fullname.tr(),
-              controller: nameController,
-              onChanged: (String x) => _checkError(),
-              inputType: TextInputType.text),
+          StreamBuilder(stream: onChang.stream,builder: (context,snopshot){
+            return BuildEditText(
+                maxLength: 100,
+                head: LocaleKeys.my_profile_fullname.tr(),
+                enableMaxLength: false,
+                hint: LocaleKeys.set_default.tr() +
+                    LocaleKeys.my_profile_fullname.tr(),
+                controller: nameController,
+                onChanged: (String x) => _checkError(),
+                inputType: TextInputType.text);
+          }),
           SizedBox(
             height: 15,
           ),
-          BuildEditText(
-              head: LocaleKeys.my_profile_phoneNum.tr(),
-              enableMaxLength: false,
-              hint: LocaleKeys.set_default.tr() +
-                  LocaleKeys.my_profile_phoneNum.tr(),
-              controller: phoneController,
-              onChanged: (String x) => _checkError(),
-              inputType: TextInputType.number),
+          StreamBuilder(stream: onChang.stream,builder: (context,snopshot){
+            return BuildEditText(
+                maxLength: 10,
+                head: LocaleKeys.my_profile_phoneNum.tr(),
+                enableMaxLength: false,
+                hint: LocaleKeys.set_default.tr() +
+                    LocaleKeys.my_profile_phoneNum.tr(),
+                controller: phoneController,
+                onChanged: (String x) => _checkError(),
+                inputType: TextInputType.number);
+          }),
+
+          SizedBox(
+            height: 0.9.h,
+          ),
           _buildError(errorTxt: errorPhoneTxt),
           SizedBox(
             height: 15,
@@ -158,8 +165,7 @@ class _AddressEditViewState extends State<AddressEditView> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 return buildDropdown(
-                    initialItem: loopIndex(
-                        (snapshot.data as StatesRespone).data, proviceSelect),
+                  initialItem: loopIndex((snapshot.data as StatesRespone).data, proviceSelect),
                     head: LocaleKeys.select.tr() +
                         LocaleKeys.address_province.tr() +
                         " * ",
@@ -168,14 +174,16 @@ class _AddressEditViewState extends State<AddressEditView> {
                     item: (snapshot.data as StatesRespone).data,
                     onSelect: (int index) {
                       postController.text = "";
-                      setState(() => proviceSelect =
-                          (snapshot.data as StatesRespone).data[index].id);
+                      proviceSelect =
+                          (snapshot.data as StatesRespone).data[index].id;
                       bloc.statesCity(context,
                           countriesid: "1",
                           statesId: (snapshot.data as StatesRespone)
                               .data[index]
                               .id
                               .toString());
+
+                      bloc.province.add(bloc.province.value);
                     });
               } else {
                 return SizedBox();
@@ -190,8 +198,7 @@ class _AddressEditViewState extends State<AddressEditView> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 return buildDropdown(
-                    initialItem: loopIndex(
-                        (snapshot.data as StatesRespone).data, citySelect),
+                  initialItem: loopIndex((snapshot.data as StatesRespone).data, citySelect),
                     head: LocaleKeys.select.tr() +
                         LocaleKeys.address_city.tr() +
                         " * ",
@@ -199,8 +206,8 @@ class _AddressEditViewState extends State<AddressEditView> {
                         (snapshot.data as StatesRespone).data, citySelect),
                     item: (snapshot.data as StatesRespone).data,
                     onSelect: (int index) {
-                      setState(() => citySelect =
-                          (snapshot.data as StatesRespone).data[index].id);
+                      citySelect =
+                          (snapshot.data as StatesRespone).data[index].id;
                       bloc.statesZipCode(context,
                           countries: "1",
                           statesId: proviceSelect.toString(),
@@ -208,6 +215,7 @@ class _AddressEditViewState extends State<AddressEditView> {
                               .data[index]
                               .id
                               .toString());
+                      bloc.city.add(bloc.city.value);
                     });
               } else {
                 return SizedBox();
@@ -215,27 +223,31 @@ class _AddressEditViewState extends State<AddressEditView> {
             },
           ),
           SizedBox(
-            height: 15,
+            height: 10,
           ),
-          BuildEditText(
-              head: LocaleKeys.address_postal.tr(),
-              enableMaxLength: false,
-              hint: LocaleKeys.select.tr() + LocaleKeys.address_postal.tr(),
-              onChanged: (String x) => _checkError(),
-              controller: postController,
-              inputType: TextInputType.number),
+          StreamBuilder(stream: onChang.stream,builder: (context,snopshot){
+            return BuildEditText(
+                head: LocaleKeys.address_postal.tr(),
+                enableMaxLength: false,
+                hint: LocaleKeys.select.tr() + LocaleKeys.address_postal.tr(),
+                onChanged: (String x) => _checkError(),
+                controller: postController,
+                inputType: TextInputType.number);
+          }),
           SizedBox(
             height: 15,
           ),
-          BuildEditText(
-              maxLength: 100,
-              head: LocaleKeys.address_detail.tr(),
-              enableMaxLength: false,
-              hint:
-                  LocaleKeys.set_default.tr() + LocaleKeys.address_detail.tr(),
-              onChanged: (String x) => _checkError(),
-              controller: detailAddrController,
-              inputType: TextInputType.text),
+          StreamBuilder(stream: onChang.stream,builder: (context,snopshot){
+            return BuildEditText(
+                maxLength: 300,
+                head: LocaleKeys.address_detail.tr(),
+                enableMaxLength: false,
+                hint:
+                LocaleKeys.set_default.tr() + LocaleKeys.address_detail.tr(),
+                onChanged: (String x) => _checkError(),
+                controller: detailAddrController,
+                inputType: TextInputType.text);
+          })
         ],
       ),
     );
@@ -254,7 +266,7 @@ class _AddressEditViewState extends State<AddressEditView> {
     return item;
   }
 
-  int loopIndex(List<DataStates> data, int id) {
+static  int loopIndex(List<DataStates> data, int id) {
     int item = 0;
     var i = 0;
     for (var index in data) {
@@ -293,40 +305,40 @@ class _AddressEditViewState extends State<AddressEditView> {
             style:
                 FunctionHelper.fontTheme(fontSize: SizeUtil.titleFontSize().sp),
           ),
-          FlutterSwitch(
-            height: SizeUtil.switchHeight(),
-            width: SizeUtil.switchWidth(),
-            toggleSize: SizeUtil.switchToggleSize(),
-            activeColor: Colors.grey.shade200,
-            inactiveColor: Colors.grey.shade200,
-            toggleColor:
-                isSelect ? ThemeColor.primaryColor() : Colors.grey.shade400,
-            value: isSelect ? true : false,
-            onToggle: (val) {
-              setState(() {
-                isSelect = val;
-              });
-            },
-          ),
+          StreamBuilder(stream: isSelect.stream,builder: (context,snapshot){
+            return FlutterSwitch(
+              height: SizeUtil.switchHeight(),
+              width: SizeUtil.switchWidth(),
+              toggleSize: SizeUtil.switchToggleSize(),
+              activeColor: Colors.grey.shade200,
+              inactiveColor: Colors.grey.shade200,
+              toggleColor:
+              isSelect.value ? ThemeColor.primaryColor() : Colors.grey.shade400,
+              value: isSelect.value ? true : false,
+              onToggle: (val) {
+                isSelect.add(val);
+              },
+            );
+          }),
         ],
       ),
     );
   }
 
-  Widget _buildButton() {
+  Widget _buildButton(BuildContext context) {
     return Container(
-        width: 50.0.w,
-        margin: EdgeInsets.only(top: 3.0.h, bottom: 3.0.h),
+        width: 60.0.w,
+        margin: EdgeInsets.only(top: 2.0.h, bottom: 2.0.h),
         color: Colors.grey.shade300,
         child: Container(
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.only(bottom:2.0.w),
-            child: _buildButtonItem(btnTxt: LocaleKeys.btn_continue.tr())));
+            child: _buildButtonItem(context,btnTxt: LocaleKeys.btn_continue.tr())));
   }
 
-  Widget _buildButtonItem({String btnTxt}) {
+  Widget _buildButtonItem(BuildContext context,{String btnTxt}) {
     return Container(
-      height: 5.0.h,
+      height: 6.0.h,
       child: TextButton(
         style: ButtonStyle(
           shape: MaterialStateProperty.all(
@@ -346,7 +358,7 @@ class _AddressEditViewState extends State<AddressEditView> {
             Usermanager().getUser().then((value) => bloc.updateAddress(context,
                 data: AddressCreaterequest(
                     countryId: 1,
-                    id: widget.item.id,
+                    id: item.id,
                     cityId: citySelect,
                     phone: phoneController.text,
                     addressLine1: detailAddrController.text,
@@ -354,7 +366,7 @@ class _AddressEditViewState extends State<AddressEditView> {
                     addressTitle: nameController.text,
                     stateId: proviceSelect,
                     zipCode: postController.text,
-                    addressType: isSelect ? "Primary" : "Shipping"),
+                    addressType: isSelect.value ? "Primary" : "Shipping"),
                 token: value.token));
         },
         child: Text(
@@ -390,7 +402,7 @@ class _AddressEditViewState extends State<AddressEditView> {
       check = false;
     }
 
-    setState(() {});
+    onChang.add(true);
   }
 
   Widget buildDropdown(
@@ -433,17 +445,17 @@ class _AddressEditViewState extends State<AddressEditView> {
     );
   }
   _initialValue(){
-    nameController.text = widget.item.addressTitle;
-    phoneController.text = widget.item.phone;
-    detailAddrController.text = widget.item.addressLine1;
-    proviceSelect = widget.item.stateId;
-    citySelect = widget.item.cityId;
-    isSelect = widget.item.addressType == "Primary" ? true : false;
+    nameController.text = item.addressTitle;
+    phoneController.text = item.phone;
+    detailAddrController.text = item.addressLine1;
+    proviceSelect = item.stateId;
+    citySelect = item.cityId;
+    isSelect.add(item.addressType == "Primary" ? true : false);
   }
 
-  _getState(){
+  _getState(BuildContext context){
     bloc.statesCity(context,
-        countriesid: "1", statesId: widget.item.stateId.toString());
-    postController.text = widget.item.zipCode;
+        countriesid: "1", statesId: item.stateId.toString());
+    postController.text = item.zipCode;
   }
 }

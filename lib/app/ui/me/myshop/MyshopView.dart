@@ -19,6 +19,7 @@ import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:naifarm/utility/widgets/ExpandedSection.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 import "package:naifarm/app/model/core/ExtensionCore.dart";
 
@@ -34,7 +35,7 @@ class MyshopView extends StatefulWidget {
 
 class _MyshopViewState extends State<MyshopView> {
   MemberBloc bloc;
-
+  final onChang = BehaviorSubject<Object>();
   TextEditingController nameShopController = TextEditingController();
   TextEditingController slugShopController = TextEditingController();
   bool check = false;
@@ -119,36 +120,41 @@ class _MyshopViewState extends State<MyshopView> {
               SizedBox(
                 height: 0.5.h,
               ),
-              Container(
-                padding: EdgeInsets.all(5.0.w),
-                child: Column(
-                  children: [
-                    BuildEditText(
-                        head: LocaleKeys.shop_name.tr(),
-                        enableMaxLength: false,
-                        hint: LocaleKeys.set_default.tr() +
-                            LocaleKeys.shop_name.tr(),
-                        controller: nameShopController,
-                        onChanged: (String x) => _checkError(),
-                        inputType: TextInputType.text),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    BuildEditText(
-                        head: LocaleKeys.shop_detail.tr(),
-                        enableMaxLength: false,
-                        hint: LocaleKeys.set_default.tr() +
-                            LocaleKeys.shop_detail.tr(),
-                        controller: slugShopController,
-                        onChanged: (String x) => _checkError(),
-                        inputType: TextInputType.text),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    _buildButton()
-                  ],
-                ),
-              )
+              StreamBuilder(stream: onChang.stream,builder: (context,snapshot){
+                return Container(
+                  padding: EdgeInsets.all(5.0.w),
+                  child: Column(
+                    children: [
+                      BuildEditText(
+                          head: LocaleKeys.shop_name.tr(),
+                          enableMaxLength: false,
+                          hint: LocaleKeys.set_default.tr() +
+                              LocaleKeys.shop_name.tr(),
+                          controller: nameShopController,
+                          onChanged: (String x) => _checkError(),
+                          inputType: TextInputType.text),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      BuildEditText(
+                          head: LocaleKeys.shop_detail.tr(),
+                          enableMaxLength: false,
+                          hint: LocaleKeys.set_default.tr() +
+                              LocaleKeys.shop_detail.tr(),
+                          controller: slugShopController,
+                          onChanged: (String x) => _checkError(),
+                          inputType: TextInputType.text),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      StreamBuilder(stream: onChang.stream,builder: (context,snapshot){
+                        return _buildButton();
+                      })
+                    ],
+                  ),
+                );
+              }),
+
             ],
           ),
         ),
@@ -461,7 +467,7 @@ class _MyshopViewState extends State<MyshopView> {
     if (nameShopController.text.trim() != "" && slugShopController.text.trim() != "") {
       check = true;
     }
-    setState(() {});
+    onChang.add(true);
   }
 
   _getCustomerInfo(){

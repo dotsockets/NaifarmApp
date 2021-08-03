@@ -8,26 +8,23 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:regexed_validator/regexed_validator.dart';
+import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 
-class RegisterNameOtpView extends StatefulWidget {
+class RegisterNameOtpView extends StatelessWidget {
   final String phone;
   final String password;
 
-  const RegisterNameOtpView({Key key, this.phone, this.password})
+   RegisterNameOtpView({Key key, this.phone, this.password})
       : super(key: key);
-  @override
-  RegisterNameOtpViewState createState() => RegisterNameOtpViewState();
-}
-
-class RegisterNameOtpViewState extends State<RegisterNameOtpView> {
   TextEditingController _input1 = new TextEditingController();
   TextEditingController _input2 = new TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String onError1 = "";
   String onError2 = "";
 //  MemberBloc bloc;
-
+  final onChang = BehaviorSubject<Object>();
+  
   bool formCheck() {
     if (_input1.text.trim().isEmpty && _input2.text.trim().isEmpty) {
       return false;
@@ -83,34 +80,37 @@ class RegisterNameOtpViewState extends State<RegisterNameOtpView> {
                   SizedBox(
                     height: 4.0.h,
                   ),
-                  TextButton(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40.0),
+                  StreamBuilder(stream: onChang.stream,builder: (context,snapshot){
+                    return TextButton(
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40.0),
+                          ),
+                        ),
+                        minimumSize: MaterialStateProperty.all(
+                          Size(250.0, 7.0.h),
+                        ),
+                        backgroundColor: MaterialStateProperty.all(
+                          formCheck()
+                              ? ThemeColor.secondaryColor()
+                              : Colors.grey.shade400,
+                        ),
+                        overlayColor: MaterialStateProperty.all(
+                          Colors.white.withOpacity(0.3),
                         ),
                       ),
-                      minimumSize: MaterialStateProperty.all(
-                        Size(250.0, 7.0.h),
+                      onPressed: () => verify(context),
+                      child: Text(
+                        LocaleKeys.btn_next.tr(),
+                        style: FunctionHelper.fontTheme(
+                            color: Colors.white,
+                            fontSize: SizeUtil.titleFontSize().sp,
+                            fontWeight: FontWeight.w500),
                       ),
-                      backgroundColor: MaterialStateProperty.all(
-                        formCheck()
-                            ? ThemeColor.secondaryColor()
-                            : Colors.grey.shade400,
-                      ),
-                      overlayColor: MaterialStateProperty.all(
-                        Colors.white.withOpacity(0.3),
-                      ),
-                    ),
-                    onPressed: () => verify(context),
-                    child: Text(
-                      LocaleKeys.btn_next.tr(),
-                      style: FunctionHelper.fontTheme(
-                          color: Colors.white,
-                          fontSize: SizeUtil.titleFontSize().sp,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  )
+                    );
+                  }),
+
                 ],
               ),
             ),
@@ -127,35 +127,40 @@ class RegisterNameOtpViewState extends State<RegisterNameOtpView> {
           EdgeInsets.only(top: 3.0.h, bottom: 4.0.h, left: 5.0.w, right: 5.0.w),
       child: Column(
         children: [
-          BuildEditText(
-            head: LocaleKeys.my_profile_username.tr(),
-            hint: LocaleKeys.set_default.tr() +
-                LocaleKeys.my_profile_username.tr(),
-            inputType: TextInputType.text,
-            maxLength: 50,
-            borderRadius: 5,
-            onError: onError1,
-            controller: _input1,
-            onChanged: (String char) {
-              setState(() {});
-            },
-          ),
+          StreamBuilder(stream: onChang.stream,builder: (context,snapshot){
+            return BuildEditText(
+              head: LocaleKeys.my_profile_username.tr(),
+              hint: LocaleKeys.set_default.tr() +
+                  LocaleKeys.my_profile_username.tr(),
+              inputType: TextInputType.text,
+              maxLength: 50,
+              borderRadius: 5,
+              onError: onError1,
+              controller: _input1,
+              onChanged: (String char) {
+                onChang.add(char);
+              },
+            );
+          }),
           SizedBox(
             height: 3.0.h,
           ),
-          BuildEditText(
-            head: LocaleKeys.my_profile_email.tr(),
-            hint:
-                LocaleKeys.set_default.tr() + LocaleKeys.my_profile_email.tr(),
-            inputType: TextInputType.emailAddress,
-            maxLength: 50,
-            borderRadius: 5,
-            onError: onError2,
-            controller: _input2,
-            onChanged: (String char) {
-              setState(() {});
-            },
-          )
+          StreamBuilder(stream: onChang.stream,builder: (context,snapshot){
+            return BuildEditText(
+              head: LocaleKeys.my_profile_email.tr(),
+              hint:
+              LocaleKeys.set_default.tr() + LocaleKeys.my_profile_email.tr(),
+              inputType: TextInputType.emailAddress,
+              maxLength: 50,
+              borderRadius: 5,
+              onError: onError2,
+              controller: _input2,
+              onChanged: (String char) {
+                onChang.add(char);
+              },
+            );
+          }),
+          
         ],
       ),
     );
@@ -165,26 +170,26 @@ class RegisterNameOtpViewState extends State<RegisterNameOtpView> {
     //  FunctionHelper.showDialogProcess(context);
 
     if (_input1.text.isEmpty || _input1.text.length < 6) {
-      setState(() => onError1 = LocaleKeys.message_error_username_length.tr());
+       onError1 = LocaleKeys.message_error_username_length.tr();
     } else {
-      setState(() => onError1 = "");
+      onError1 = "";
     }
     if (!validator.email(_input2.text)) {
-      setState(() => onError2 = LocaleKeys.message_error_mail_invalid.tr());
+      onError2 = LocaleKeys.message_error_mail_invalid.tr();
     } else {
-      setState(() => onError2 = "");
+       onError2 = "";
     }
 
     if (onError1 == "" && onError2 == "") {
       AppRoute.registerSetPassword(
-          context, widget.phone, _input1.text, _input2.text);
+          context, phone, _input1.text, _input2.text);
       // bloc.customersRegister(
       //     context: context,
       //     registerRequest: RegisterRequest(
       //         name: _input1.text,
       //         email: _input2.text,
-      //         password: widget.password,
-      //         phone: widget.phone,
+      //         password: password,
+      //         phone: phone,
       //         agree: 0));
     }
 
@@ -195,5 +200,6 @@ class RegisterNameOtpViewState extends State<RegisterNameOtpView> {
     //   AppRoute.Home(context);
     //
     // });
+    onChang.add(onChang.value);
   }
 }

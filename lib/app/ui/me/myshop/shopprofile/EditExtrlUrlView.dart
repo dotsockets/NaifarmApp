@@ -7,20 +7,16 @@ import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
+import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 
-class EditExtrlUrlView extends StatefulWidget {
+class EditExtrlUrlView extends StatelessWidget {
   final MyShopRespone itemInfo;
 
-  const EditExtrlUrlView({Key key, this.itemInfo}) : super(key: key);
-  @override
-  _EditExtrlUrlViewState createState() => _EditExtrlUrlViewState();
-}
-
-class _EditExtrlUrlViewState extends State<EditExtrlUrlView> {
+   EditExtrlUrlView({Key key, this.itemInfo}) : super(key: key);
   TextEditingController _input1 = new TextEditingController();
   String onError1 = "";
-
+  BehaviorSubject<Object> onChang = BehaviorSubject<Object>();
   bool formCheck() {
     if (_input1.text.trim().isEmpty) {
       return false;
@@ -29,14 +25,14 @@ class _EditExtrlUrlViewState extends State<EditExtrlUrlView> {
     }
   }
 
-  @override
-  void initState() {
-    _input1.text = widget.itemInfo.externalUrl;
-    super.initState();
+
+  init(){
+    _input1.text = itemInfo.externalUrl;
   }
 
   @override
   Widget build(BuildContext context) {
+    init();
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -50,46 +46,51 @@ class _EditExtrlUrlViewState extends State<EditExtrlUrlView> {
           body: Container(
             padding: SizeUtil.detailProfilePadding(),
             child: SingleChildScrollView(
-              child: Container(
-                child: Column(
-                  children: [
-                    form(),
-                    SizedBox(
-                      height: 3.0.h,
-                    ),
-                    TextButton(
-                      style: ButtonStyle(
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40.0),
+              child: StreamBuilder(stream: onChang.stream,builder: (context,snapshot){
+                return Container(
+                  child: Column(
+                    children: [
+                      form(),
+                      SizedBox(
+                        height: 3.0.h,
+                      ),
+                      TextButton(
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40.0),
+                            ),
+                          ),
+                          minimumSize: MaterialStateProperty.all(
+                            Size(50.0.w, 5.0.h),
+                          ),
+                          backgroundColor: MaterialStateProperty.all(
+                            _input1.text.trim() != ""
+                                ? ThemeColor.secondaryColor()
+                                : Colors.grey.shade400,
+                          ),
+                          overlayColor: MaterialStateProperty.all(
+                            Colors.white.withOpacity(0.3),
                           ),
                         ),
-                        minimumSize: MaterialStateProperty.all(
-                          Size(50.0.w, 5.0.h),
+                        onPressed: () {
+                          if(formCheck()){
+                            itemInfo.externalUrl = _input1.text;
+                            Navigator.pop(context, itemInfo);
+                          }
+                        },
+                        child: Text(
+                          LocaleKeys.btn_save.tr(),
+                          style: FunctionHelper.fontTheme(
+                              color: Colors.white,
+                              fontSize: SizeUtil.titleFontSize().sp,
+                              fontWeight: FontWeight.w500),
                         ),
-                        backgroundColor: MaterialStateProperty.all(
-                          _input1.text.trim() != ""
-                              ? ThemeColor.secondaryColor()
-                              : Colors.grey.shade400,
-                        ),
-                        overlayColor: MaterialStateProperty.all(
-                          Colors.white.withOpacity(0.3),
-                        ),
-                      ),
-                      onPressed: () => formCheck()
-                          ? Navigator.pop(context, widget.itemInfo)
-                          : SizedBox(),
-                      child: Text(
-                        LocaleKeys.btn_save.tr(),
-                        style: FunctionHelper.fontTheme(
-                            color: Colors.white,
-                            fontSize: SizeUtil.titleFontSize().sp,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    )
-                  ],
-                ),
-              ),
+                      )
+                    ],
+                  ),
+                );
+              }),
             ),
           ),
         ),
@@ -114,9 +115,7 @@ class _EditExtrlUrlViewState extends State<EditExtrlUrlView> {
             onError: onError1,
             controller: _input1,
             onChanged: (String char) {
-              setState(() {
-                widget.itemInfo.externalUrl = char;
-              });
+              onChang.add(itemInfo);
             },
           ),
         ],

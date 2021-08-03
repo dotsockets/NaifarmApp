@@ -67,11 +67,11 @@ class _ProductGridState extends State<ProductGrid> {
   void _init() {
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-      bloc.moreProduct.stream.listen((event) {
-        setState(() {
-          productData.addAll(event.data);
-        });
-      });
+      // bloc.moreProduct.stream.listen((event) {
+      //   setState(() {
+      //     productData.addAll(event.data);
+      //   });
+      // });
       // if(page==1){
       //  bloc.MoreProduct.add(widget.productRespone);
       //  page = 2;
@@ -109,7 +109,7 @@ class _ProductGridState extends State<ProductGrid> {
 
   @override
   Widget build(BuildContext context) {
-    _init();
+     _init();
     return productData.length > 0
         ? ClipRRect(
             borderRadius: BorderRadius.only(

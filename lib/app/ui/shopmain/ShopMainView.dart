@@ -18,29 +18,29 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/ShopOwn.dart';
+import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 import '../../../utility/widgets/MD2Indicator.dart';
 import 'category/CaregoryShopView.dart';
 
-class ShopMainView extends StatefulWidget {
+
+class ShopMainView extends StatelessWidget  {
   final MyShopRespone myShopRespone;
 
-  const ShopMainView({Key key, this.myShopRespone}) : super(key: key);
+   ShopMainView({Key key, this.myShopRespone}) : super(key: key);
 
-  @override
-  _ShopMainViewState createState() => _ShopMainViewState();
-}
-
-class _ShopMainViewState extends State<ShopMainView>
-    with SingleTickerProviderStateMixin {
   TabController tabController;
-  int selectedIndex = 0;
   ProductBloc bloc;
+  BehaviorSubject<int> selectedIndex = BehaviorSubject<int>();
 
-  void _init() {
+  void _init(BuildContext context) {
+
+
+    tabController.addListener(_handleTabSelection);
+
     if (null == bloc) {
       bloc = ProductBloc(AppProvider.getApplication(context));
-    _zipShop();
+    _zipShop(context);
       bloc.onError.stream.listen((event) {
         if (event.status == 0 || event.status >= 500) {
           Future.delayed(const Duration(milliseconds: 300), () {
@@ -52,7 +52,7 @@ class _ShopMainViewState extends State<ShopMainView>
                 title: LocaleKeys.btn_error.tr(),
                 message: event.message,
                 callBack: () {
-                  _getShopCache();
+                  _getShopCache(context);
                 });
           });
         }
@@ -64,36 +64,26 @@ class _ShopMainViewState extends State<ShopMainView>
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
 
-    tabController = TabController(
-      initialIndex: selectedIndex,
-      length: 3,
-      vsync: this,
-    );
-
-    tabController.addListener(_handleTabSelection);
-  }
 
   _handleTabSelection() {
     if (tabController.indexIsChanging) {
-      setState(() {
-        selectedIndex = tabController.index;
-      });
+      // setState(() {
+      //   selectedIndex = tabController.index;
+      // });
+      selectedIndex.add(tabController.index);
     }
   }
 
-  @override
-  void dispose() {
-    tabController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   tabController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    _init();
+    _init(context);
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -125,78 +115,81 @@ class _ShopMainViewState extends State<ShopMainView>
           return SafeArea(
             child: Container(
               color: Colors.grey.shade300,
-              child: DefaultTabController(
-                length: 3,
-                child: NestedScrollView(
-                  headerSliverBuilder:
-                      (BuildContext context, bool innerBoxIsScrolled) {
-                    return [
-                      SliverList(
-                        delegate: SliverChildListDelegate(<Widget>[
-                          ShopOwn(
-                            rateStyle: false,
-                            showBtn: false,
-                            shopItem: ShopItem(
-                                countProduct: item.productmyshop.total,
-                                name: item.shopRespone.name,
-                                id: item.shopRespone.id,
-                                image: item.shopRespone.image,
-                                updatedAt: item.shopRespone.updatedAt,
-                                state: item.shopRespone.state),
-                            shopRespone: item.shopRespone,
-                          )
-                        ]),
-                      ),
-                    ];
-                  },
-                  body: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: SizeUtil.tabBarHeight().h,
-                        child: Container(
-                          color: Colors.white,
-                          child: TabBar(
-                            indicator: MD2Indicator(
-                              indicatorSize: MD2IndicatorSize.tiny,
-                              indicatorHeight: 5.0,
-                              indicatorColor: ThemeColor.primaryColor(),
+              child: StreamBuilder(stream: selectedIndex.stream,builder: (context,snapshot){
+                return DefaultTabController(
+                  initialIndex: selectedIndex.value,
+                  length: 3,
+                  child: NestedScrollView(
+                    headerSliverBuilder:
+                        (BuildContext context, bool innerBoxIsScrolled) {
+                      return [
+                        SliverList(
+                          delegate: SliverChildListDelegate(<Widget>[
+                            ShopOwn(
+                              rateStyle: false,
+                              showBtn: false,
+                              shopItem: ShopItem(
+                                  countProduct: item.productmyshop.total,
+                                  name: item.shopRespone.name,
+                                  id: item.shopRespone.id,
+                                  image: item.shopRespone.image,
+                                  updatedAt: item.shopRespone.updatedAt,
+                                  state: item.shopRespone.state),
+                              shopRespone: item.shopRespone,
+                            )
+                          ]),
+                        ),
+                      ];
+                    },
+                    body: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: SizeUtil.tabBarHeight().h,
+                          child: Container(
+                            color: Colors.white,
+                            child: TabBar(
+                              indicator: MD2Indicator(
+                                indicatorSize: MD2IndicatorSize.tiny,
+                                indicatorHeight: 5.0,
+                                indicatorColor: ThemeColor.primaryColor(),
+                              ),
+                              controller: tabController,
+                              tabs: [
+                                _tabbar(
+                                    title: LocaleKeys.shop_title.tr(), index: 0),
+                                _tabbar(
+                                    title: LocaleKeys.shop_category.tr(),
+                                    index: 1),
+                                _tabbar(
+                                    title: LocaleKeys.shop_detail.tr(), index: 2),
+                              ],
                             ),
-                            controller: tabController,
-                            tabs: [
-                              _tabbar(
-                                  title: LocaleKeys.shop_title.tr(), index: 0),
-                              _tabbar(
-                                  title: LocaleKeys.shop_category.tr(),
-                                  index: 1),
-                              _tabbar(
-                                  title: LocaleKeys.shop_detail.tr(), index: 2),
-                            ],
                           ),
                         ),
-                      ),
-                      Expanded(
-                        child: TabBarView(
-                          controller: tabController,
-                          children: [
-                            Shop(
-                                productRespone:
-                                    (snapshot.data as ZipShopObjectCombin)),
-                            CaregoryShopView(
-                                shopId: widget.myShopRespone.id,
-                                categoryGroupRespone:
-                                    (snapshot.data as ZipShopObjectCombin)
-                                        .categoryGroupRespone),
-                            ShopDetailsView(
-                              zipShopObjectCombin:
-                                  (snapshot.data as ZipShopObjectCombin),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
+                        Expanded(
+                          child: TabBarView(
+                            controller: tabController,
+                            children: [
+                              Shop(
+                                  productRespone:
+                                  (snapshot.data as ZipShopObjectCombin)),
+                              CaregoryShopView(
+                                  shopId: myShopRespone.id,
+                                  categoryGroupRespone:
+                                  (snapshot.data as ZipShopObjectCombin)
+                                      .categoryGroupRespone),
+                              ShopDetailsView(
+                                zipShopObjectCombin:
+                                (snapshot.data as ZipShopObjectCombin),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              ),
+                );
+              }),
             ),
           );
         } else {
@@ -226,32 +219,32 @@ class _ShopMainViewState extends State<ShopMainView>
       ),
     );
   }
-  _zipShop(){
-    bloc.zipShopObject.add(ZipShopObjectCombin(shopRespone: widget.myShopRespone));
+  _zipShop(BuildContext context){
+    bloc.zipShopObject.add(ZipShopObjectCombin(shopRespone: myShopRespone));
     NaiFarmLocalStorage.getNaiFarmShopCache().then((value) {
       if (value != null) {
         for (var data in value.item) {
           if (data.shopRespone != null &&
-              data.shopRespone.id == widget.myShopRespone.id) {
+              data.shopRespone.id == myShopRespone.id) {
             bloc.zipShopObject.add(data);
             break;
           }
         }
       }
-    _loadShop();
+    _loadShop(context);
     });
   }
-  _loadShop(){
+  _loadShop(BuildContext context){
     Usermanager().getUser().then((value) => bloc.loadShop(context,
-        shopid: widget.myShopRespone.id, token: value.token));
+        shopid: myShopRespone.id, token: value.token));
   }
 
-  _getShopCache(){
+  _getShopCache(BuildContext context){
     NaiFarmLocalStorage.getNaiFarmShopCache().then((value) {
       if (value != null) {
         Usermanager().getUser().then((value) => bloc.loadShop(
             context,
-            shopid: widget.myShopRespone.id,
+            shopid:myShopRespone.id,
             token: value.token));
       }
     });

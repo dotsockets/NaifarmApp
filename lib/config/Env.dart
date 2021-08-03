@@ -74,6 +74,7 @@ class Env {
               ),
             ],
             child: BlocBuilder<SettingReloadCubit, bool>(builder: (_, status) {
+
               return AppComponent(application);
             }),
           )),

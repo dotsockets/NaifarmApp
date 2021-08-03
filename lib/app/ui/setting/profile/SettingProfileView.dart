@@ -15,32 +15,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SettingProfileView extends StatefulWidget {
-  @override
-  _SettingProfileViewState createState() => _SettingProfileViewState();
-}
-
-class _SettingProfileViewState extends State<SettingProfileView>
-    with RouteAware {
+class SettingProfileView extends StatelessWidget {
   bool onImageUpdate = false;
-
-  @override
-  void initState() {
-
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    routeObserver.subscribe(this, ModalRoute.of(context));
-  }
-
-  @override
-  void didPopNext() {
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -162,7 +138,7 @@ class _SettingProfileViewState extends State<SettingProfileView>
                             });
                           },
                         ),*/
-                        buildButton()
+                        buildButton(context)
                       ],
                     ),
                   ),
@@ -193,18 +169,18 @@ class _SettingProfileViewState extends State<SettingProfileView>
     );
   }
 
-  Widget buildButton() {
+  Widget buildButton(BuildContext context) {
     return Center(
       child: Container(
           margin: EdgeInsets.only(top: 3.0.h, bottom: 3.0.h),
           width: 50.0.w,
           height: 5.0.h,
           color: Colors.grey.shade300,
-          child: buildButtonItem(btnTxt: LocaleKeys.btn_logout.tr())),
+          child: buildButtonItem(context,btnTxt: LocaleKeys.btn_logout.tr())),
     );
   }
 
-  Widget buildButtonItem({String btnTxt}) {
+  Widget buildButtonItem(BuildContext context,{String btnTxt}) {
     return TextButton(
       style: ButtonStyle(
         shape: MaterialStateProperty.all(

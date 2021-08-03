@@ -658,7 +658,10 @@ class _ReviewViewState extends State<ReviewView> {
                     controller: reviewController[index],
                     inputType: TextInputType.text,
                     onChanged: (String char) {
-                      setState(() {});
+                      if(onRate.hasValue){
+                        onRate.add(onRate.value);
+                      }
+
                     },
                   );
                 }),

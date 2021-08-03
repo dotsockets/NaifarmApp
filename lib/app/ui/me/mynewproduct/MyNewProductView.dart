@@ -39,19 +39,6 @@ class _MyNewProductViewState extends State<MyNewProductView> {
   UploadProductBloc bloc;
   bool slugInstall = true;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   KeyboardVisibilityNotification().addNewListener(
-  //     onChange: (bool visible) {
-  //       setState(() {
-  //         checkKeyBoard= visible;
-  //       });
-  //     },
-  //   );
-  //
-  //
-  // }
 
   init() {
     if (bloc == null) {

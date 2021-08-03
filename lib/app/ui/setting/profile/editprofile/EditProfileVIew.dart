@@ -18,15 +18,12 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/ListMenuItem.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 import "package:naifarm/app/model/core/ExtensionCore.dart";
 
-class EditProfileVIew extends StatefulWidget {
-  @override
-  _EditProfileVIewState createState() => _EditProfileVIewState();
-}
+class EditProfileVIew extends StatelessWidget {
 
-class _EditProfileVIewState extends State<EditProfileVIew> {
   MemberBloc bloc;
   List<String> datalist = ["ชาย", "หญิง"];
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -34,11 +31,12 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
   bool onUpdate = false;
   bool onImageUpdate = false;
   File fileImage;
+  final onChang = BehaviorSubject<Object>();
 
-  void _init() {
+  void _init(BuildContext context) {
     if (null == bloc) {
       bloc = MemberBloc(AppProvider.getApplication(context));
-      _loadCustomerInfo();
+      _loadCustomerInfo(context);
       _getCustomerInfo();
       bloc.onError.stream.listen((event) {
         FunctionHelper.alertDialogShop(context,
@@ -51,10 +49,10 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                 .read<InfoCustomerBloc>()
                 .loadCustomInfo(context, token: value.token, oneSignal: false));
           });
-          setState(() {
+
             onImageUpdate = true;
             itemInfo.image[0].path = event.path;
-          });
+          onChang.add(itemInfo);
         }
       });
     }
@@ -62,7 +60,7 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
 
   @override
   Widget build(BuildContext context) {
-    _init();
+    _init(context);
     return WillPopScope(
       onWillPop: () async {
         if (onUpdate) {
@@ -84,13 +82,13 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
               builder: (_, item) {
                 if (item is InfoCustomerLoaded) {
                   itemInfo = item.profileObjectCombine.customerInfoRespone;
-                  return contentMe(itemInfo: itemInfo);
+                  return contentMe(itemInfo: itemInfo,context: context);
                 } else if (item is InfoCustomerLoading) {
                   itemInfo = item.profileObjectCombine.customerInfoRespone;
-                  return contentMe(itemInfo: itemInfo);
+                  return contentMe(itemInfo: itemInfo,context: context);
                 } else if (item is InfoCustomerError) {
                   itemInfo = item.profileObjectCombine.customerInfoRespone;
-                  return contentMe(itemInfo: itemInfo);
+                  return contentMe(itemInfo: itemInfo,context: context);
                 } else {
                   return SizedBox();
                 }
@@ -100,7 +98,7 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
     );
   }
 
-  Widget contentMe({CustomerInfoRespone itemInfo}) {
+  Widget contentMe({CustomerInfoRespone itemInfo,BuildContext context}) {
     return CustomScrollView(
       slivers: [
         SliverAppBar(
@@ -155,63 +153,65 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                   SizedBox(
                     height: 30,
                   ),
-                  GestureDetector(
-                      child:
-                          /*Hero(
+                  StreamBuilder(stream: onChang.stream,builder: (context,snapshot){
+                    return GestureDetector(
+                        child:
+                        /*Hero(
                         tag: "image_profile_me",
                         child:*/
-                          ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(60)),
-                        child: fileImage == null
-                            ? CachedNetworkImage(
+                        ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(60)),
+                          child: fileImage == null
+                              ? CachedNetworkImage(
+                              width: SizeUtil.imgProfileSize().w,
+                              height: SizeUtil.imgProfileSize().w,
+                              placeholder: (context, url) => Container(
                                 width: SizeUtil.imgProfileSize().w,
                                 height: SizeUtil.imgProfileSize().w,
-                                placeholder: (context, url) => Container(
-                                      width: SizeUtil.imgProfileSize().w,
-                                      height: SizeUtil.imgProfileSize().w,
-                                      color: Colors.white,
-                                      child: Lottie.asset(
-                                          'assets/json/loading.json',
-                                          height: SizeUtil.imgProfileSize().w,
-                                          width: SizeUtil.imgProfileSize().w),
-                                    ),
-                                fit: BoxFit.cover,
-                                imageUrl: itemInfo != null &&
-                                        itemInfo.image.length != 0
-                                    ? "${itemInfo.image[0].path.imgUrl()}"
-                                    : "",
-                                errorWidget: (context, url, error) => Container(
-                                    color: Colors.grey.shade300,
-                                    width: SizeUtil.imgProfileSize().w,
+                                color: Colors.white,
+                                child: Lottie.asset(
+                                    'assets/json/loading.json',
                                     height: SizeUtil.imgProfileSize().w,
-                                    child: Icon(
-                                      Icons.person,
-                                      size: SizeUtil.iconSize().w,
-                                      color: Colors.white,
-                                    )))
-                            : Stack(
-                                children: [
-                                  Container(
-                                    width: 80,
-                                    height: 80,
-                                    color: Colors.white,
-                                    child: Lottie.asset(
-                                        'assets/json/loading.json',
-                                        height: 30),
-                                  ),
-                                  Image.file(
-                                    fileImage,
-                                    width: 80,
-                                    height: 80,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ],
+                                    width: SizeUtil.imgProfileSize().w),
                               ),
-                      ),
-                      //),
-                      onTap: () {
-                        captureImage(ImageSource.gallery);
-                      }),
+                              fit: BoxFit.cover,
+                              imageUrl: itemInfo != null &&
+                                  itemInfo.image.length != 0
+                                  ? "${itemInfo.image[0].path.imgUrl()}"
+                                  : "",
+                              errorWidget: (context, url, error) => Container(
+                                  color: Colors.grey.shade300,
+                                  width: SizeUtil.imgProfileSize().w,
+                                  height: SizeUtil.imgProfileSize().w,
+                                  child: Icon(
+                                    Icons.person,
+                                    size: SizeUtil.iconSize().w,
+                                    color: Colors.white,
+                                  )))
+                              : Stack(
+                            children: [
+                              Container(
+                                width: 80,
+                                height: 80,
+                                color: Colors.white,
+                                child: Lottie.asset(
+                                    'assets/json/loading.json',
+                                    height: 30),
+                              ),
+                              Image.file(
+                                fileImage,
+                                width: 80,
+                                height: 80,
+                                fit: BoxFit.cover,
+                              ),
+                            ],
+                          ),
+                        ),
+                        //),
+                        onTap: () {
+                          captureImage(ImageSource.gallery,context);
+                        });
+                  }),
                   SizedBox(height: 1.0.h),
                   Text(itemInfo.name != null ? itemInfo.name : '',
                       style: FunctionHelper.fontTheme(
@@ -233,7 +233,7 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
                               fontWeight: FontWeight.w500)),
                     ),
                     onTap: () {
-                      captureImage(ImageSource.gallery);
+                      captureImage(ImageSource.gallery,context);
                     },
                   ),
                 ],
@@ -243,149 +243,158 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
         ),
         SliverList(
           delegate: SliverChildListDelegate(<Widget>[
-            Container(
-              child: Column(
-                children: [
-                  ListMenuItem(
-                    opacityMessage: 0.5,
-                    icon: '',
-                    message: itemInfo.name != null ? itemInfo.name : '',
-                    title: LocaleKeys.my_profile_name.tr(),
-                    onClick: () async {
-                      final result = await AppRoute.settingEditProfileName(
-                          context, itemInfo);
-                      if (result != null) {
-                        onUpdate = true;
-                        setState(() => itemInfo = result);
-                      }
-                    },
-                  ),
-                  _buildLine(),
-                  ListMenuItem(
-                    opacityMessage: 0.5,
-                    icon: '',
-                    message: itemInfo.description != null
-                        ? itemInfo.description.length > 25
-                            ? '${itemInfo.description.substring(0, 25)}...'
-                            : itemInfo.description
-                        : '',
-                    title: LocaleKeys.my_profile_about_me.tr(),
-                    onClick: () async {
-                      final result = await AppRoute.settingEditProdileBio(
-                          context, itemInfo);
-                      if (result != null) {
-                        onUpdate = true;
-                        setState(() => itemInfo = result);
-                      }
-                    },
-                  ),
-                  _buildLine(),
-                  ListMenuItem(
-                    opacityMessage: 0.5,
-                    icon: '',
-                    message: itemInfo.sex != null ? itemInfo.sex : '',
-                    title: LocaleKeys.my_profile_gender.tr(),
-                    onClick: () {
-                      Platform.isAndroid
-                          ? FunctionHelper.dropDownAndroid(context, datalist,
-                              onTap: (int index) {
+            StreamBuilder(stream: onChang.stream,builder: (context,sapshot){
+              return Container(
+                child: Column(
+                  children: [
+                    ListMenuItem(
+                      opacityMessage: 0.5,
+                      icon: '',
+                      message: itemInfo.name != null ? itemInfo.name : '',
+                      title: LocaleKeys.my_profile_name.tr(),
+                      onClick: () async {
+                        final result = await AppRoute.settingEditProfileName(
+                            context, itemInfo);
+                        if (result != null) {
+                          onUpdate = true;
+                          itemInfo.name = result.name;
+                          onChang.add(result);
+                        }
+                      },
+                    ),
+                    _buildLine(),
+                    ListMenuItem(
+                      opacityMessage: 0.5,
+                      icon: '',
+                      message: itemInfo.description != null
+                          ? itemInfo.description.length > 25
+                          ? '${itemInfo.description.substring(0, 25)}...'
+                          : itemInfo.description
+                          : '',
+                      title: LocaleKeys.my_profile_about_me.tr(),
+                      onClick: () async {
+                        final result = await AppRoute.settingEditProdileBio(
+                            context, itemInfo);
+                        if (result != null) {
+                          onUpdate = true;
+                          itemInfo.dob = result.dob;
+                          onChang.add(itemInfo);
+                        }
+                      },
+                    ),
+                    _buildLine(),
+                    ListMenuItem(
+                      opacityMessage: 0.5,
+                      icon: '',
+                      message: itemInfo.sex != null ? itemInfo.sex : '',
+                      title: LocaleKeys.my_profile_gender.tr(),
+                      onClick: () {
+                        Platform.isAndroid
+                            ? FunctionHelper.dropDownAndroid(context, datalist,
+                            onTap: (int index) {
                               onUpdate = true;
-                              setState(() => itemInfo.sex = datalist[index]);
+                              itemInfo.sex = datalist[index];
+                              onChang.add(itemInfo);
                             })
-                          : FunctionHelper.dropDownIOS(context, datalist,
-                              onTap: (int index) {
+                            : FunctionHelper.dropDownIOS(context, datalist,
+                            onTap: (int index) {
                               onUpdate = true;
-                              setState(() => itemInfo.sex = datalist[index]);
+                              itemInfo.sex = datalist[index];
+                              onChang.add(itemInfo);
                             });
-                    },
-                  ),
-                  _buildLine(),
-                  ListMenuItem(
-                    opacityMessage: 0.5,
-                    icon: '',
-                    message: itemInfo.dob != null ? itemInfo.dob : '',
-                    title: LocaleKeys.my_profile_birthday.tr(),
-                    onClick: () {
-                      Platform.isAndroid
-                          ? FunctionHelper.selectDateAndroid(
-                              context,
-                              DateTime.parse(itemInfo.dob != null
-                                  ? itemInfo.dob
-                                  : DateTime.now()
-                                      .toString()
-                                      .dateFormat(isReverse: true)),
-                              onDateTime: (DateTime date) {
+                      },
+                    ),
+                    _buildLine(),
+                    ListMenuItem(
+                      opacityMessage: 0.5,
+                      icon: '',
+                      message: itemInfo.dob != null ? itemInfo.dob : '',
+                      title: LocaleKeys.my_profile_birthday.tr(),
+                      onClick: () {
+                        Platform.isAndroid
+                            ? FunctionHelper.selectDateAndroid(
+                            context,
+                            DateTime.parse(itemInfo.dob != null
+                                ? itemInfo.dob
+                                : DateTime.now()
+                                .toString()
+                                .dateFormat(isReverse: true)),
+                            onDateTime: (DateTime date) {
                               onUpdate = true;
                               if (date != null)
-                                setState(() => itemInfo.dob = date
+                               itemInfo.dob = date
                                     .toString()
-                                    .dateFormat(isReverse: true));
+                                    .dateFormat(isReverse: true);
+                              onChang.add(itemInfo);
                             })
-                          : FunctionHelper.showPickerDateIOS(
-                              context,
-                              DateTime.parse(itemInfo.dob != null
-                                  ? itemInfo.dob
-                                  : DateTime.now()
-                                      .toString()
-                                      .dateFormat(isReverse: true)),
-                              onTap: (DateTime date) {
+                            : FunctionHelper.showPickerDateIOS(
+                            context,
+                            DateTime.parse(itemInfo.dob != null
+                                ? itemInfo.dob
+                                : DateTime.now()
+                                .toString()
+                                .dateFormat(isReverse: true)),
+                            onTap: (DateTime date) {
                               onUpdate = true;
                               if (date != null)
-                                setState(() => itemInfo.dob = date
+                               itemInfo.dob = date
                                     .toString()
-                                    .dateFormat(isReverse: true));
+                                    .dateFormat(isReverse: true);
+
+                              onChang.add(itemInfo);
                             });
-                    },
-                  ),
-                  _buildLine(),
-                  ListMenuItem(
-                    opacityMessage: 0.5,
-                    icon: '',
-                    message: itemInfo.phone != null ? itemInfo.phone : '',
-                    title: LocaleKeys.my_profile_phone.tr(),
-                    onClick: () async {
-                      final result =
-                          await AppRoute.editPhoneStep1(context, itemInfo);
-                      if (result != null) {
-                        Usermanager().getUser().then((value) =>
-                            bloc.modifyProfile(
-                                context: context,
-                                data: itemInfo,
-                                token: value.token,
-                                onload: false));
-                      }
-                    },
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  ListMenuItem(
-                    opacityMessage: 0.5,
-                    icon: '',
-                    message: itemInfo.email != null ? itemInfo.email : '',
-                    title: LocaleKeys.my_profile_email.tr(),
-                    onClick: () {
-                      AppRoute.editEmailStep1(context, itemInfo);
-                    },
-                  ),
-                  _buildLine(),
-                  ListMenuItem(
-                    opacityMessage: 0.5,
-                    icon: '',
-                    message: "********",
-                    title: LocaleKeys.my_profile_change_password.tr(),
-                    onClick: () {
-                      if (itemInfo.socialSignup != null &&
-                          itemInfo.socialSignup == 1) {
-                        AppRoute.editpasswordStep2(context, "");
-                      } else {
-                        AppRoute.editpasswordStep1(context);
-                      }
-                    },
-                  ),
-                ],
-              ),
-            )
+                      },
+                    ),
+                    _buildLine(),
+                    ListMenuItem(
+                      opacityMessage: 0.5,
+                      icon: '',
+                      message: itemInfo.phone != null ? itemInfo.phone : '',
+                      title: LocaleKeys.my_profile_phone.tr(),
+                      onClick: () async {
+                        final result =
+                        await AppRoute.editPhoneStep1(context, itemInfo);
+                        if (result != null) {
+                          Usermanager().getUser().then((value) =>
+                              bloc.modifyProfile(
+                                  context: context,
+                                  data: itemInfo,
+                                  token: value.token,
+                                  onload: false));
+                        }
+                      },
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    ListMenuItem(
+                      opacityMessage: 0.5,
+                      icon: '',
+                      message: itemInfo.email != null ? itemInfo.email : '',
+                      title: LocaleKeys.my_profile_email.tr(),
+                      onClick: () {
+                        AppRoute.editEmailStep1(context, itemInfo);
+                      },
+                    ),
+                    _buildLine(),
+                    ListMenuItem(
+                      opacityMessage: 0.5,
+                      icon: '',
+                      message: "********",
+                      title: LocaleKeys.my_profile_change_password.tr(),
+                      onClick: () {
+                        if (itemInfo.socialSignup != null &&
+                            itemInfo.socialSignup == 1) {
+                          AppRoute.editpasswordStep2(context, "");
+                        } else {
+                          AppRoute.editpasswordStep1(context);
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              );
+            })
           ]),
         )
       ],
@@ -399,11 +408,11 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
     );
   }
 
-  Future captureImage(ImageSource imageSource) async {
+  Future captureImage(ImageSource imageSource,BuildContext context) async {
     final picker = ImagePicker();
     final pickedFile = await picker.getImage(source: imageSource);
 
-    setState(() {
+
       if (pickedFile != null) {
         fileImage = File(pickedFile.path);
         Usermanager().getUser().then((value) => bloc.uploadImage(
@@ -415,10 +424,10 @@ class _EditProfileVIewState extends State<EditProfileVIew> {
       } else {
         print('No image selected.');
       }
-    });
+
   }
 
-  _loadCustomerInfo() {
+  _loadCustomerInfo(BuildContext context) {
     Usermanager().getUser().then((value) => context
         .read<InfoCustomerBloc>()
         .loadCustomInfo(context, token: value.token));

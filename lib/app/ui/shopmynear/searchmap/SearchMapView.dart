@@ -7,33 +7,30 @@ import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 
-class SearchMapView extends StatefulWidget {
+class SearchMapView extends StatelessWidget {
+
   final String locationTxt;
 
-  const SearchMapView({Key key, this.locationTxt}) : super(key: key);
+   SearchMapView({Key key, this.locationTxt}) : super(key: key);
 
-  @override
-  _SearchMapViewState createState() => _SearchMapViewState();
-}
-
-class _SearchMapViewState extends State<SearchMapView> {
   List<String> searchList = [
     "Toyota Tsusho (Thailand) Co.,Ltd",
     "A Space Asoke-Ratchada",
     "เซนทัล พระราม9"
   ];
   List<String> listClone = <String>[];
+  BehaviorSubject<String> onChang = BehaviorSubject<String>();
 
-  @override
-  void initState() {
-    super.initState();
+  init(){
     listClone.addAll(searchList);
   }
 
   @override
   Widget build(BuildContext context) {
+    init();
     return SafeArea(
       top: false,
       child: Scaffold(
@@ -41,12 +38,12 @@ class _SearchMapViewState extends State<SearchMapView> {
         appBar: AppToobar(
           icon: "",
           isEnableSearch: true,
-          locationTxt: widget.locationTxt,
+          locationTxt: locationTxt,
           headerType: Header_Type.barMap,
           onSearch: (String text) {
-            setState(() {
+
               searchText(text);
-            });
+
           },
         ),
         body: SingleChildScrollView(

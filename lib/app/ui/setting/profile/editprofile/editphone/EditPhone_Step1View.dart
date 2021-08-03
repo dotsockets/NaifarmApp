@@ -12,23 +12,19 @@ import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:naifarm/utility/widgets/BuildEditText.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 
-class EditPhoneStep1View extends StatefulWidget {
+
+class EditPhoneStep1View extends StatelessWidget {
   final CustomerInfoRespone customerInfoRespone;
 
-  const EditPhoneStep1View({Key key, this.customerInfoRespone})
+   EditPhoneStep1View({Key key, this.customerInfoRespone})
       : super(key: key);
-
-  @override
-  EditPhoneStep1ViewState createState() => EditPhoneStep1ViewState();
-}
-
-class EditPhoneStep1ViewState extends State<EditPhoneStep1View> {
   TextEditingController phoneController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String onError = "";
-
+  final onChang = BehaviorSubject<Object>();
   MemberBloc bloc;
   bool formCheck() {
     if (phoneController.text.trim().isEmpty || phoneController.text.trim().length != 10) {
@@ -38,14 +34,10 @@ class EditPhoneStep1ViewState extends State<EditPhoneStep1View> {
     }
   }
 
-  @override
-  void initState() {
-    phoneController.text = "";
-    super.initState();
-  }
-
-  void _init() {
+ 
+  void _init(BuildContext context) {
     if (null == bloc) {
+      phoneController.text = "";
       bloc = MemberBloc(AppProvider.getApplication(context));
       bloc.onLoad.stream.listen((event) {
         if (event) {
@@ -75,7 +67,7 @@ class EditPhoneStep1ViewState extends State<EditPhoneStep1View> {
 
       bloc.checkPhone.stream.listen((event) {
         if (event) {
-          _requestOtp();
+          _requestOtp(context);
         }
       });
     }
@@ -83,7 +75,7 @@ class EditPhoneStep1ViewState extends State<EditPhoneStep1View> {
 
   @override
   Widget build(BuildContext context) {
-    _init();
+    _init(context);
     return Container(
       color: ThemeColor.primaryColor(),
       child: SafeArea(
@@ -119,25 +111,27 @@ class EditPhoneStep1ViewState extends State<EditPhoneStep1View> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        widget.customerInfoRespone.phone!=null?Text(
+                        customerInfoRespone.phone!=null?Text(
                             LocaleKeys.edit_phone_old_phone.tr() +
-                                " xxxxxx${widget.customerInfoRespone.phone.substring(6, widget.customerInfoRespone.phone.length)}",
+                                " xxxxxx${customerInfoRespone.phone.substring(6, customerInfoRespone.phone.length)}",
                             style: FunctionHelper.fontTheme(
                                 fontSize: SizeUtil.titleFontSize().sp)):SizedBox(),
                         SizedBox(
                           height: 15,
                         ),
-                        BuildEditText(
-                            head: LocaleKeys.edit_phone_title.tr(),
-                            hint: LocaleKeys.edit_phone_hint.tr(),
-                            maxLength: 10,
-                            controller: phoneController,
-                            onError: onError,
-                            inputType: TextInputType.number,
-                            borderOpacity: 0.2,
-                            onChanged: (String char) {
-                              setState(() {});
-                            }),
+                        StreamBuilder(stream: onChang.stream,builder: (context,snapshot){
+                          return BuildEditText(
+                              head: LocaleKeys.edit_phone_title.tr(),
+                              hint: LocaleKeys.edit_phone_hint.tr(),
+                              maxLength: 10,
+                              controller: phoneController,
+                              onError: onError,
+                              inputType: TextInputType.number,
+                              borderOpacity: 0.2,
+                              onChanged: (String char) {
+                                onChang.add(char);
+                              });
+                        }),
                         SizedBox(
                           height: 20,
                         ),
@@ -148,36 +142,38 @@ class EditPhoneStep1ViewState extends State<EditPhoneStep1View> {
                 SizedBox(
                   height: 20,
                 ),
-                Center(
-                  child: TextButton(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40.0),
+                StreamBuilder(stream: onChang.stream,builder: (context,snapshot){
+                  return Center(
+                    child: TextButton(
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40.0),
+                          ),
+                        ),
+                        minimumSize: MaterialStateProperty.all(
+                          Size(50.0.w, 5.0.h),
+                        ),
+                        backgroundColor: MaterialStateProperty.all(
+                          formCheck()
+                              ? ThemeColor.colorSale()
+                              : Colors.grey.shade400,
+                        ),
+                        overlayColor: MaterialStateProperty.all(
+                          Colors.white.withOpacity(0.3),
                         ),
                       ),
-                      minimumSize: MaterialStateProperty.all(
-                        Size(50.0.w, 5.0.h),
-                      ),
-                      backgroundColor: MaterialStateProperty.all(
-                        formCheck()
-                            ? ThemeColor.colorSale()
-                            : Colors.grey.shade400,
-                      ),
-                      overlayColor: MaterialStateProperty.all(
-                        Colors.white.withOpacity(0.3),
+                      onPressed: () => formCheck() ? verify(context) : SizedBox(),
+                      child: Text(
+                        LocaleKeys.btn_continue.tr(),
+                        style: FunctionHelper.fontTheme(
+                            color: Colors.white,
+                            fontSize: SizeUtil.titleFontSize().sp,
+                            fontWeight: FontWeight.w500),
                       ),
                     ),
-                    onPressed: () => formCheck() ? verify() : SizedBox(),
-                    child: Text(
-                      LocaleKeys.btn_continue.tr(),
-                      style: FunctionHelper.fontTheme(
-                          color: Colors.white,
-                          fontSize: SizeUtil.titleFontSize().sp,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                )
+                  );
+                })
               ],
             ),
           ),
@@ -186,7 +182,7 @@ class EditPhoneStep1ViewState extends State<EditPhoneStep1View> {
     );
   }
 
-  Future<void> verify() async {
+  Future<void> verify(BuildContext context) async {
     // FunctionHelper.showDialogProcess(context);
     // Usermanager().Savelogin(user: User(id: "1",fullname: "John Mayer",username: "ApisitKaewsasan@gmail.com",email: "ApisitKaewsasan@gmail.com",phone: "0932971160",
     //     imageurl:  "https://freshairboutique.files.wordpress.com/2015/05/28438-long-red-head-girl.jpg")).then((value){
@@ -201,14 +197,14 @@ class EditPhoneStep1ViewState extends State<EditPhoneStep1View> {
         phoneController.text.length == 10) {
       bloc.checkPhoneNumber(context, phone: phoneController.text);
       //bloc.OTPRequest(numberphone: PhoneController.text);
-      // final result = await AppRoute.EditPhoneStep2(context,widget.customerInfoRespone,PhoneController.text);
+      // final result = await AppRoute.EditPhoneStep2(context,customerInfoRespone,PhoneController.text);
       // if(result!=null){
-      //   Navigator.pop(context, widget.customerInfoRespone);
+      //   Navigator.pop(context, customerInfoRespone);
       // }
     } else {}
   }
 
-  _requestOtp(){
+  _requestOtp(BuildContext context){
     bloc.otpRequest(context, numberphone: phoneController.text);
   }
 }
