@@ -315,10 +315,10 @@ class _EditProductViewState extends State<EditProductView> {
                                 Divider(
                                   height: 0.5.h,
                                 ),
-                                _buildAttributeTab(),
-                                Divider(
-                                  height: 0.5.h,
-                                ),
+                                // _buildAttributeTab(),
+                                // Divider(
+                                //   height: 0.5.h,
+                                // ),
                                 _buildActiveTab(),
                               ],
                             ),
