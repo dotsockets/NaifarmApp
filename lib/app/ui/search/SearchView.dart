@@ -137,7 +137,7 @@ class SearchView extends StatelessWidget {
                                                     imageUrl: "${(snapshot.data as SearchRespone).hits[key].image.length != 0 ? (snapshot.data as SearchRespone).hits[key].image[0].path.imgUrl() : ""}",
                                                     imageBuilder: (context, imageProvider) => Container(
                                                       decoration: BoxDecoration(
-                                                        image: DecorationImage(
+                                                        image: DecorationImage(scale:1.0,
                                                             image: imageProvider),
                                                       ),
                                                     ),

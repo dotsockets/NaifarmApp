@@ -168,186 +168,176 @@ class _RecommendViewState extends State<RecommendView> {
         child: contentMain);
   }
 
-  Widget get contentMain => Scaffold(
-        backgroundColor: Colors.white,
-        body: StreamBuilder(
-          stream: _selectedIndex.stream,
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            return IndexedStack(
-              index: snapshot.data,
-              children: [
-                BlocBuilder<HomeDataBloc, HomeDataState>(
-                  builder: (_, item) {
-                    if (item is HomeDataLoaded) {
-                      return Scaffold(
-                        body: SingleChildScrollView(
-                          child: Container(
-                            child: StickyHeader(
-                              header: Column(
-                                children: [
-                                  HomeHeader(
-                                      snapshot: item.homeObjectCombine,
-                                      onTap: (CategoryGroupData val) {
-                                        AppRoute.categoryDetail(context, val.id,
-                                            title: val.name);
-                                      }),
-                                ],
-                              ),
-                              content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    content(item: item.homeObjectCombine),
-                                  ]),
-                            ),
-                          ),
-                        ),
-                      );
-                    } else if (item is HomeDataLoading) {
-                      return item.homeObjectCombine==null?Scaffold(
-                        backgroundColor: ThemeColor.primaryColor(),
-                        appBar: AppBar(toolbarHeight: 0,backgroundColor: ThemeColor.primaryColor(),elevation: 0,),
-                        body: SingleChildScrollView(
-                          child: Container(
-                            child: Column(
-                              children: [
-                                HomeHeader(disable: true,),
-                                Skeleton.loaderSlider(context),
-                                Skeleton.loaderRecommentMenu(context),
-                                Skeleton.loaderListTite(context),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ):Scaffold(
-                        body: SingleChildScrollView(
-                          child: Container(
-                            child: StickyHeader(
-                              header: Column(
-                                children: [
-                                  HomeHeader(
-                                      snapshot: item.homeObjectCombine,
-                                      onTap: (CategoryGroupData val) {
-                                        AppRoute.categoryDetail(context, val.id,
-                                            title: val.name);
-                                      }),
-                                ],
-                              ),
-                              content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    content(item: item.homeObjectCombine),
-                                  ]),
-                            ),
-                          ),
-                        ),
-                      );
-                    } else if (item is HomeDataError) {
-                      return Scaffold(
-                        body: SingleChildScrollView(
-                          child: Container(
-                            child: StickyHeader(
-                              header: Column(
-                                children: [
-                                  HomeHeader(
-                                      snapshot: HomeObjectCombine(),
-                                      onTap: (CategoryGroupData val) {
-                                        AppRoute.categoryDetail(context, val.id,
-                                            title: val.name);
-                                      }),
-                                ],
-                              ),
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  content(item: item.homeObjectCombine),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    } else {
-                      // if (onDialog) {
-                      //   onDialog = false;
-                      //   bloc.onError.add(ThrowIfNoSuccess(
-                      //       status: 500,
-                      //       message:
-                      //           item.homeObjectCombine.httpCallBack.message));
-                      // }
+  Widget get contentMain => Container(
+    color: Colors.white,
+    child: BlocBuilder<HomeDataBloc, HomeDataState>(
+      builder: (_, item) {
+        if (item is HomeDataLoaded) {
+          return Scaffold(
+            body: SingleChildScrollView(
+              child: Container(
+                child: StickyHeader(
+                  header: Column(
+                    children: [
+                      HomeHeader(
+                          snapshot: item.homeObjectCombine,
+                          onTap: (CategoryGroupData val) {
+                            AppRoute.categoryDetail(context, val.id,
+                                title: val.name);
+                          }),
+                    ],
+                  ),
+                  content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        content(item: item.homeObjectCombine),
+                      ]),
+                ),
+              ),
+            ),
+          );
+        } else if (item is HomeDataLoading) {
+          return item.homeObjectCombine==null?Scaffold(
+            backgroundColor: ThemeColor.primaryColor(),
+            appBar: AppBar(toolbarHeight: 0,backgroundColor: ThemeColor.primaryColor(),elevation: 0,),
+            body: SingleChildScrollView(
+              child: Container(
+                child: Column(
+                  children: [
+                    HomeHeader(disable: true,),
+                    Skeleton.loaderSlider(context),
+                    Skeleton.loaderRecommentMenu(context),
+                    Skeleton.loaderListTite(context),
+                  ],
+                ),
+              ),
+            ),
+          ):Scaffold(
+            body: SingleChildScrollView(
+              child: Container(
+                child: StickyHeader(
+                  header: Column(
+                    children: [
+                      HomeHeader(
+                          snapshot: item.homeObjectCombine,
+                          onTap: (CategoryGroupData val) {
+                            AppRoute.categoryDetail(context, val.id,
+                                title: val.name);
+                          }),
+                    ],
+                  ),
+                  content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        content(item: item.homeObjectCombine),
+                      ]),
+                ),
+              ),
+            ),
+          );
+        } else if (item is HomeDataError) {
+          return Scaffold(
+            body: SingleChildScrollView(
+              child: Container(
+                child: StickyHeader(
+                  header: Column(
+                    children: [
+                      HomeHeader(
+                          snapshot: HomeObjectCombine(),
+                          onTap: (CategoryGroupData val) {
+                            AppRoute.categoryDetail(context, val.id,
+                                title: val.name);
+                          }),
+                    ],
+                  ),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      content(item: item.homeObjectCombine),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        } else {
+          // if (onDialog) {
+          //   onDialog = false;
+          //   bloc.onError.add(ThrowIfNoSuccess(
+          //       status: 500,
+          //       message:
+          //           item.homeObjectCombine.httpCallBack.message));
+          // }
 
-                      return Scaffold(
-                        body: SingleChildScrollView(
-                          child: Container(
-                            child: Column(
-                              children: [
-                                HomeHeader(
-                                  disable: true,
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(top: 5.0.h),
-                                  child: Lottie.asset(
-                                    'assets/json/nodata.json',
-                                    height: 70.0.w,
-                                    width: 70.0.w,
-                                    repeat: true,
-                                  ),
-                                ),
-                                Text(
-                                  LocaleKeys.btn_something_wrong.tr(),
-                                  style: FunctionHelper.fontTheme(
-                                    color: Colors.black,
-                                    fontSize: SizeUtil.priceFontSize().sp,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 5.0.h),
-                                  child: SizedBox(
-                                    width: 40.0.w,
-                                    height: 5.0.h,
-                                    child: TextButton(
-                                      style: ButtonStyle(
-                                        shape: MaterialStateProperty.all(
-                                          RoundedRectangleBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(40.0),
-                                          ),
-                                        ),
-                                        backgroundColor:
-                                        MaterialStateProperty.all(
-                                          ThemeColor.primaryColor(),
-                                        ),
-                                        overlayColor: MaterialStateProperty.all(
-                                          Colors.white.withOpacity(0.3),
-                                        ),
-                                        padding: MaterialStateProperty.all(
-                                          EdgeInsets.symmetric(horizontal: 5.0.w),
-                                        ),
-                                      ),
-                                      onPressed: () => _refreshProducts(),
-                                      child: Text(
-                                        LocaleKeys.btn_again.tr(),
-                                        style: FunctionHelper.fontTheme(
-                                            color: Colors.white,
-                                            fontSize:
-                                            SizeUtil.titleMeduimFontSize().sp,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
+          return Scaffold(
+            body: SingleChildScrollView(
+              child: Container(
+                child: Column(
+                  children: [
+                    HomeHeader(
+                      disable: true,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 5.0.h),
+                      child: Lottie.asset(
+                        'assets/json/nodata.json',
+                        height: 70.0.w,
+                        width: 70.0.w,
+                        repeat: true,
+                      ),
+                    ),
+                    Text(
+                      LocaleKeys.btn_something_wrong.tr(),
+                      style: FunctionHelper.fontTheme(
+                        color: Colors.black,
+                        fontSize: SizeUtil.priceFontSize().sp,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 5.0.h),
+                      child: SizedBox(
+                        width: 40.0.w,
+                        height: 5.0.h,
+                        child: TextButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.circular(40.0),
+                              ),
+                            ),
+                            backgroundColor:
+                            MaterialStateProperty.all(
+                              ThemeColor.primaryColor(),
+                            ),
+                            overlayColor: MaterialStateProperty.all(
+                              Colors.white.withOpacity(0.3),
+                            ),
+                            padding: MaterialStateProperty.all(
+                              EdgeInsets.symmetric(horizontal: 5.0.w),
                             ),
                           ),
+                          onPressed: () => _refreshProducts(),
+                          child: Text(
+                            LocaleKeys.btn_again.tr(),
+                            style: FunctionHelper.fontTheme(
+                                color: Colors.white,
+                                fontSize:
+                                SizeUtil.titleMeduimFontSize().sp,
+                                fontWeight: FontWeight.w500),
+                          ),
                         ),
-                      );
-                    }
-                  },
-                )
-              ],
-            );
-          },
-        ),
-      );
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+      },
+    ),
+  );
 
   Widget content({HomeObjectCombine item}) {
     return Column(

@@ -234,11 +234,12 @@ class _TransferPayMentState extends State<TransferPayMent> {
                       ),
                       InkWell(
                         child: Container(
+                          margin: EdgeInsets.only(right: 10),
                           child: Text(
                             "${LocaleKeys.btn_copy.tr()}",
                             style: FunctionHelper.fontTheme(
                                 color: ThemeColor.secondaryColor(),
-                                fontSize: SizeUtil.titleSmallFontSize().sp,
+                                fontSize: SizeUtil.titleFontSize().sp,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -404,7 +405,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
         children: [
           Container(
             width: 80.0.w,
-            height: 5.0.h,
+            height: 5.5.h,
             child: TextButton(
               style: ButtonStyle(
                 shape: MaterialStateProperty.all(
@@ -462,7 +463,7 @@ class _TransferPayMentState extends State<TransferPayMent> {
           widget.orderData.image.length == 0
               ? Container(
                   width: 80.0.w,
-                  height: 5.0.h,
+                  height: 5.5.h,
                   child: TextButton(
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(

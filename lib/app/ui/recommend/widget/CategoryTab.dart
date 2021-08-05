@@ -103,7 +103,7 @@ class CategoryTab extends StatelessWidget {
               imageUrl: "${Env.value.baseUrlWeb}/category-icon/${item.icon}.png",
               imageBuilder: (context, imageProvider) => Container(
                 decoration: BoxDecoration(
-                  image: DecorationImage(
+                  image: DecorationImage(scale:1.0,
                       image: imageProvider,
                       fit: BoxFit.cover),
                 ),

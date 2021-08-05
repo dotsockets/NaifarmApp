@@ -1,3 +1,4 @@
+import 'package:get_storage/get_storage.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:naifarm/app/model/pojo/request/UploadProductStorage.dart';
 import 'package:naifarm/app/model/pojo/response/CartResponse.dart';
@@ -32,6 +33,8 @@ class NaiFarmLocalStorage {
   static String naiFarmOneSiganl = "NaiFarm_onesignal";
   static String naiFarmProductMyShop = "ProductMyShop";
   static String naiFarmSystem = "System";
+  static String naiFarmVerifyState = "verifyState";
+  static String naiFarmVerifyLanguage = "verifylanguage";
 
   static Future<void> saveOneSiganlCache(
       OneSignalNoificationId oneSignalNoificationId) async {
@@ -306,4 +309,40 @@ class NaiFarmLocalStorage {
     SystemRespone value = SystemRespone.fromJson(data);
     return value;
   }
+
+  static void saveVerifyLanguage(bool x){
+    GetStorage().write(naiFarmVerifyLanguage, x);
+    GetStorage().save();
+  }
+
+  static bool get  getVerifyLanguage{
+    if(GetStorage().read(naiFarmVerifyLanguage)!=null && GetStorage().read(naiFarmVerifyLanguage)){
+      print("wefcewf 1 ${GetStorage().read(NaiFarmLocalStorage.naiFarmVerifyLanguage)}");
+      saveVerifyLanguage(false);
+       return true;
+    }else{
+      print("wefcewf 2 ${GetStorage().read(NaiFarmLocalStorage.naiFarmVerifyLanguage)}");
+      saveVerifyLanguage(false);
+      return false;
+    }
+  }
+
+  static bool verifyState()  {
+    if(GetStorage().read(naiFarmVerifyState)!=null && GetStorage().read(naiFarmVerifyState) == 3){
+      GetStorage().write(naiFarmVerifyState, 1);
+      return true;
+    }else{
+      if(GetStorage().read(naiFarmVerifyState)!=null){
+        int temp = GetStorage().read(naiFarmVerifyState);
+        temp = temp +1;
+        GetStorage().write(naiFarmVerifyState, temp);
+        return false;
+      }else{
+        GetStorage().write(naiFarmVerifyState, 1);
+        return true;
+      }
+
+    }
+  }
+
 }

@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:naifarm/app/bloc/NaiFarmBlocObserver.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
 import 'package:naifarm/app/bloc/Provider/HomeMenuIndex.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
-import 'package:naifarm/app/bloc/Provider/SettingReloadCubit.dart';
 import 'package:naifarm/app/model/core/AppNaiFarmApplication.dart';
 import 'package:naifarm/app/model/core/AppComponent.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -45,6 +45,9 @@ class Env {
     await application.onCreate();
     Bloc.observer = NaiFarmBlocObserver();
     timeago.setLocaleMessages('th', timeago.ThMessages());
+    await GetStorage.init();
+
+
 
     runApp(
       EasyLocalization(
@@ -66,17 +69,14 @@ class Env {
               BlocProvider(
                 create: (_) => HomeDataBloc(application),
               ),
-              BlocProvider(
-                create: (_) => SettingReloadCubit(),
-              ),
+
               BlocProvider(
                 create: (_) => HomeMenuIndex(),
               ),
-            ],
-            child: BlocBuilder<SettingReloadCubit, bool>(builder: (_, status) {
 
-              return AppComponent(application);
-            }),
+
+            ],
+            child: AppComponent(application),
           )),
     );
   }

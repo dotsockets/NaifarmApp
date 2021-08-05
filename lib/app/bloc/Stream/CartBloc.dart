@@ -92,16 +92,23 @@ class CartBloc {
   }
 
   deleteCart(
-      {BuildContext context, int cartid, int inventoryId, String token}) async {
-    onLoad.add(true);
+      {BuildContext context, int cartid, int inventoryId, String token,count_index=0}) async {
+
+    if(!onLoad.value){
+      onLoad.add(true);
+    }
+
     StreamSubscription subscription = Stream.fromFuture(
             _application.appStoreAPIRepository.deleteCart(context,
                 inventoryid: inventoryId, cartid: cartid, token: token))
         .listen((respone) {
       if (respone.httpCallBack.status == 200) {
-        getCartlists(
-            context: context, token: token, cartActive: CartActive.CartDelete);
-        onSuccess.add(true);
+        checkLoop++;
+        if(checkLoop==count_index){
+          onSuccess.add(true);
+          getCartlists(context: context, token: token, cartActive: CartActive.CartDelete);
+        }
+
         // CartList.add(CartResponse(data: CartList.value.data));
       } else {
         onLoad.add(false);

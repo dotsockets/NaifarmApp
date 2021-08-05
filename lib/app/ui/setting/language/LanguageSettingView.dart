@@ -1,28 +1,19 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
-import 'package:naifarm/app/bloc/Provider/SettingReloadCubit.dart';
 import 'package:naifarm/app/model/core/FunctionHelper.dart';
 import 'package:naifarm/app/model/core/ThemeColor.dart';
 import 'package:naifarm/app/model/core/Usermanager.dart';
+import 'package:naifarm/app/model/db/NaiFarmLocalStorage.dart';
 import 'package:naifarm/generated/locale_keys.g.dart';
 import 'package:naifarm/utility/SizeUtil.dart';
 import 'package:naifarm/utility/widgets/AppToobar.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LanguageSettingView extends StatefulWidget {
-  @override
-  _LanguageSettingViewState createState() => _LanguageSettingViewState();
-}
 
-class _LanguageSettingViewState extends State<LanguageSettingView> {
+class LanguageSettingView extends StatelessWidget {
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +33,13 @@ class _LanguageSettingViewState extends State<LanguageSettingView> {
           ),
           body: Column(
             children: [
-              buildCheckBox(
+              buildCheckBox(context,
                   languageTxt: "ภาษาไทย",
                   locale: EasyLocalization.of(context).supportedLocales[1]),
               Container(
                 height: 0.5.h,
               ),
-              buildCheckBox(
+              buildCheckBox(context,
                   languageTxt: "English",
                   locale: EasyLocalization.of(context).supportedLocales[0]),
             ],
@@ -58,7 +49,7 @@ class _LanguageSettingViewState extends State<LanguageSettingView> {
     );
   }
 
-  Widget buildCheckBox({String languageTxt, Locale locale}) {
+  Widget buildCheckBox(BuildContext context,{String languageTxt, Locale locale}) {
     return InkWell(
       child: Container(
         padding: EdgeInsets.all(2.0.h),
@@ -89,12 +80,17 @@ class _LanguageSettingViewState extends State<LanguageSettingView> {
           ),
         ),
       ),
-      onTap: () {
-        context.setLocale(locale).then((value) =>  context.read<SettingReloadCubit>().reload(true));
+      onTap: () async {
+         context.setLocale(locale);
+
+        // Usermanager().getUser().then((value) => context
+        //     .read<InfoCustomerBloc>()
+        //     .loadCustomInfo(context, token: value.token));
+      //  FunctionHelper.showDialogProcess(context);
         // Usermanager().getUser().then((value) => context
         //     .read<CustomerCountBloc>()
         //     .loadCustomerCount(context, token: value.token));
-        //Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
+       // Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount());
       //  print(EasyLocalization.of(context).locale.toString());
       },
     );

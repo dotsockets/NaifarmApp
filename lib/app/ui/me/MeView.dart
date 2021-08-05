@@ -40,6 +40,7 @@ class _MeViewState extends State<MeView> with RouteAware {
   ScrollController _scrollController = ScrollController();
   final expandedBar = BehaviorSubject<bool>();
   final titleBar = BehaviorSubject<bool>();
+  final onPopLanguage = BehaviorSubject<bool>();
   bool isLogin = false;
 
   void _init() {
@@ -59,28 +60,11 @@ class _MeViewState extends State<MeView> with RouteAware {
         // FunctionHelper.SnackBarShow(scaffoldKey: _scaffoldKey,message: event);
       });
 
-      //_reload.stream.listen((event) {
-      // Usermanager().getUser().then((value) => context
-      //     .read<CustomerCountBloc>()
-      //     .loadCustomerCount(token: value.token));
-      //Usermanager().getUser().then((value) => bloc.loadMyProfile(token: value.token));
-      // });
 
-      // Usermanager().getUser().then((value) {
-      //   if (value.token != null) {
-      //     _reload.add(true);
-      //   } else {
-      //     _reload.add(false);
-      //   }
-      // });
 
     }
 
-    // NaiFarmLocalStorage.getNowPage().then((data) {
-    //         if (data == 4) {
-    //           // OneSignalCall.cancelNotification("meView", 0);
-    //         }
-    //       });
+
 
     _controlScroll();
   }
@@ -94,6 +78,12 @@ class _MeViewState extends State<MeView> with RouteAware {
   void dispose() {
     controller.close();
     super.dispose();
+  }
+
+
+  @override
+  void didPopNext() {
+    onPopLanguage.add(true);
   }
 
   @override
@@ -112,10 +102,12 @@ class _MeViewState extends State<MeView> with RouteAware {
         iSLogin();
         if (isLogin) {
           if (count is InfoCustomerLoaded || count is InfoCustomerLoading) {
+
             return Scaffold(
                 key: _scaffoldKey,
                 backgroundColor: Colors.grey.shade300,
                 body: _contentMe());
+
           } else if (count is InfoCustomerError) {
             return Scaffold(
                 key: _scaffoldKey,
@@ -129,162 +121,161 @@ class _MeViewState extends State<MeView> with RouteAware {
             );
           }
         } else {
-          // return LoginView(
-          //   isHeader: false,
-          //   homeCallBack: (bool fix) {
-          //     isLogin = fix;
-          //     Navigator.of(context).pop();
-          //   },
-          // );
+
+
+
           return SettingGuestView(
               isHeader: false,
               logincall: (index) {
                 isLogin = index;
               });
         }
+
       },
     );
   }
 
   Widget _contentMe() {
-    return CustomScrollView(
-      controller: _scrollController,
-      slivers: [
-        SliverAppBar(
-          toolbarHeight: 5.5.h,
+    return StreamBuilder(stream: onPopLanguage.stream,builder: (context,snapshot){
+      return CustomScrollView(
+        controller: _scrollController,
+        slivers: [
+          SliverAppBar(
+            toolbarHeight: 5.5.h,
 
-          leading: Container(
-            margin: EdgeInsets.only(left: 1.0.w, top: SizeUtil.paddingItem().w),
-            child: IconButton(
-              icon: Icon(Icons.settings,
-                  color: Colors.white, size: SizeUtil.iconLargeSize().w),
-              onPressed: () async {
-                // ignore: unused_local_variable
-                final result = await AppRoute.settingProfile(context);
-                isLogin = false;
-              },
-            ),
-          ),
-          title: StreamBuilder(
-            stream: titleBar.stream,
-            builder: (_, snapshot) {
-              if (snapshot.hasData) {
-                return !snapshot.data
-                    ? Container(
-                        margin: EdgeInsets.only(top: SizeUtil.paddingItem().w),
-                        child: Center(
-                          child: Text("${LocaleKeys.me_account.tr()}",
-                              style: FunctionHelper.fontTheme(
-                                  fontSize: SizeUtil.titleFontSize().sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black)),
-                        ),
-                      )
-                    : SizedBox();
-              } else {
-                return SizedBox();
-              }
-            },
-          ),
-          centerTitle: true,
-          actions: [
-            Container(
-                margin: EdgeInsets.only(
-                    right: 2.0.w, left: 1.0.w, top: SizeUtil.paddingItem().w),
-                child: StreamBuilder(
-                  stream: expandedBar.stream,
-                  builder: (_, snapshot) {
-                    if (snapshot.hasData) {
-                      return !snapshot.data ? BuildIconShop() : SizedBox();
-                    } else {
-                      return SizedBox();
-                    }
-                  },
-                )),
-          ],
-          expandedHeight: SizeUtil.headerHeight().h,
-          flexibleSpace: FlexibleSpaceBar(
-            background: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  tileMode: TileMode.repeated,
-                  stops: [0.2, 1.0],
-                  colors: [
-                    ThemeColor.primaryColor(),
-                    ThemeColor.gradientColor()
-                  ],
-                ),
-              ),
-              child: BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
-                builder: (_, item) {
-                  if (item is InfoCustomerLoaded) {
-                    return _imageHeader(
-                        info: item.profileObjectCombine.customerInfoRespone);
-                  } else if (item is InfoCustomerLoading) {
-                    return _imageHeader(
-                        info: item.profileObjectCombine != null
-                            ? item.profileObjectCombine.customerInfoRespone
-                            : []);
-                  } else if (item is InfoCustomerError) {
-                    return _imageHeader(
-                        info: item.profileObjectCombine.customerInfoRespone);
-                  } else {
-                    return SizedBox();
-                  }
+            leading: Container(
+              margin: EdgeInsets.only(left: 1.0.w, top: SizeUtil.paddingItem().w),
+              child: IconButton(
+                icon: Icon(Icons.settings,
+                    color: Colors.white, size: SizeUtil.iconLargeSize().w),
+                onPressed: () async {
+                  // ignore: unused_local_variable
+                  final result = await AppRoute.settingProfile(context);
+                  isLogin = false;
                 },
               ),
             ),
-          ),
-        ),
-        SliverList(
-          delegate: SliverChildListDelegate(<Widget>[
-            BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
-              builder: (_, item) {
-                if (item is InfoCustomerLoaded) {
-                  if (item.profileObjectCombine.shppingMyShopRespone.data
-                      .isNotEmpty) {
-                    return bodyContent(
-                        wigitHight: item
-                                    .profileObjectCombine
-                                    .shppingMyShopRespone
-                                    .data[0]
-                                    .rates
-                                    .length ==
-                                0
-                            ? 100.0.h
-                            : 90.0.h);
-                  } else {
-                    return bodyContent(wigitHight: 80.0.h);
-                  }
-                } else if (item is InfoCustomerLoading) {
-                  return bodyContent(wigitHight: 80.0.h);
-                } else if (item is InfoCustomerError) {
-                  if (item.profileObjectCombine.shppingMyShopRespone.data
-                      .isNotEmpty) {
-                    return bodyContent(
-                        wigitHight: item
-                                    .profileObjectCombine
-                                    .shppingMyShopRespone
-                                    .data[0]
-                                    .rates
-                                    .length ==
-                                0
-                            ? 100.0.h
-                            : 90.0.h);
-                  } else {
-                    return bodyContent(wigitHight: 80.0.h);
-                  }
+            title: StreamBuilder(
+              stream: titleBar.stream,
+              builder: (_, snapshot) {
+                if (snapshot.hasData) {
+                  return !snapshot.data
+                      ? Container(
+                    margin: EdgeInsets.only(top: SizeUtil.paddingItem().w),
+                    child: Center(
+                      child: Text("${LocaleKeys.me_account.tr()}",
+                          style: FunctionHelper.fontTheme(
+                              fontSize: SizeUtil.titleFontSize().sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black)),
+                    ),
+                  )
+                      : SizedBox();
                 } else {
                   return SizedBox();
                 }
               },
-            )
-          ]),
-        )
-      ],
-    );
+            ),
+            centerTitle: true,
+            actions: [
+              Container(
+                  margin: EdgeInsets.only(
+                      right: 2.0.w, left: 1.0.w, top: SizeUtil.paddingItem().w),
+                  child: StreamBuilder(
+                    stream: expandedBar.stream,
+                    builder: (_, snapshot) {
+                      if (snapshot.hasData) {
+                        return !snapshot.data ? BuildIconShop() : SizedBox();
+                      } else {
+                        return SizedBox();
+                      }
+                    },
+                  )),
+            ],
+            expandedHeight: SizeUtil.headerHeight().h,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    tileMode: TileMode.repeated,
+                    stops: [0.2, 1.0],
+                    colors: [
+                      ThemeColor.primaryColor(),
+                      ThemeColor.gradientColor()
+                    ],
+                  ),
+                ),
+                child: BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
+                  builder: (_, item) {
+                    if (item is InfoCustomerLoaded) {
+                      return _imageHeader(
+                          info: item.profileObjectCombine.customerInfoRespone);
+                    } else if (item is InfoCustomerLoading) {
+                      return _imageHeader(
+                          info: item.profileObjectCombine != null
+                              ? item.profileObjectCombine.customerInfoRespone
+                              : []);
+                    } else if (item is InfoCustomerError) {
+                      return _imageHeader(
+                          info: item.profileObjectCombine.customerInfoRespone);
+                    } else {
+                      return SizedBox();
+                    }
+                  },
+                ),
+              ),
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(<Widget>[
+              BlocBuilder<InfoCustomerBloc, InfoCustomerState>(
+                builder: (_, item) {
+                  if (item is InfoCustomerLoaded) {
+                    if (item.profileObjectCombine.shppingMyShopRespone.data
+                        .isNotEmpty) {
+                      return bodyContent(
+                          wigitHight: item
+                              .profileObjectCombine
+                              .shppingMyShopRespone
+                              .data[0]
+                              .rates
+                              .length ==
+                              0
+                              ? 100.0.h
+                              : 90.0.h);
+                    } else {
+                      return bodyContent(wigitHight: 80.0.h);
+                    }
+                  } else if (item is InfoCustomerLoading) {
+                    return bodyContent(wigitHight: 80.0.h);
+                  } else if (item is InfoCustomerError) {
+                    if (item.profileObjectCombine.shppingMyShopRespone.data
+                        .isNotEmpty) {
+                      return bodyContent(
+                          wigitHight: item
+                              .profileObjectCombine
+                              .shppingMyShopRespone
+                              .data[0]
+                              .rates
+                              .length ==
+                              0
+                              ? 100.0.h
+                              : 90.0.h);
+                    } else {
+                      return bodyContent(wigitHight: 80.0.h);
+                    }
+                  } else {
+                    return SizedBox();
+                  }
+                },
+              )
+            ]),
+          )
+        ],
+      );
+    });
   }
 
   Widget bodyContent({double wigitHight}) {
@@ -397,8 +388,8 @@ class _MeViewState extends State<MeView> with RouteAware {
                             : '',
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: imageProvider, fit: BoxFit.cover),
+                            image: DecorationImage(scale:1.0,
+                                image: imageProvider,fit: BoxFit.cover),
                           ),
                         ),
                         placeholder: (context, url) => Container(

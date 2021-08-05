@@ -37,6 +37,7 @@ class AppComponentState extends State<AppComponent> {
 
   @override
   Widget build(BuildContext context) {
+
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: ThemeColor.primaryColor()));
     SystemChrome.setPreferredOrientations([
@@ -61,9 +62,7 @@ class AppComponentState extends State<AppComponent> {
           ),
           home: SplashView(),
           navigatorObservers: [routeObserver],
-          routes: <String, WidgetBuilder>{
-            '/home': (BuildContext context) => HomeView()
-          },
+
         );
       },
     );

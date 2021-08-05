@@ -55,8 +55,6 @@ class _HomeViewState extends LifecycleWatcherState<HomeView>
     _handleIncomingLinks();
     _handleInitialUri();
 
-
-
     if (bloc == null) {
       //Usermanager().getUser().then((value) => context.read<CustomerCountBloc>().loadCustomerCount(token: value.token));
       bloc = ProductBloc(AppProvider.getApplication(context));
@@ -77,7 +75,7 @@ class _HomeViewState extends LifecycleWatcherState<HomeView>
           context.read<HomeMenuIndex>().onSelect(0);
           AppRoute.myCart(context, true);
         } else {
-          context.read<HomeMenuIndex>().onSelect(value);
+          // context.read<HomeMenuIndex>().onSelect(value);
         }
       });
     }
@@ -162,7 +160,7 @@ class _HomeViewState extends LifecycleWatcherState<HomeView>
       } on FormatException catch (ex) {
         if (!mounted) return;
         print('malformed initial uri');
-       // setState(() => err = ex);
+        // setState(() => err = ex);
       }
     }
   }
@@ -244,7 +242,7 @@ class _HomeViewState extends LifecycleWatcherState<HomeView>
                         btnBack: false,
                       ),
                       SizedBox(),
-                      MeView()
+                      MeView(),
                     ],
                   );
                 },

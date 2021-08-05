@@ -1175,43 +1175,46 @@ class _OrderViewState extends State<OrderView> {
           children: [
             Padding(
               padding: EdgeInsets.all(1.0.h),
-              child: TextButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40.0),
+              child: Container(
+                width: 50.0.w,
+                child: TextButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40.0),
+                      ),
+                    ),
+                    minimumSize: MaterialStateProperty.all(
+                      Size(sizerdevice.SizerUtil.deviceType == DeviceType.PHONE ? 60.0.w : 40.0.w, 6.0.h),
+                    ),
+                    backgroundColor: MaterialStateProperty.all(
+                      ThemeColor.secondaryColor(),
+                    ),
+                    overlayColor: MaterialStateProperty.all(
+                      Colors.white.withOpacity(0.3),
                     ),
                   ),
-                  minimumSize: MaterialStateProperty.all(
-                    Size(sizerdevice.SizerUtil.deviceType == DeviceType.PHONE ? 60.0.w : 40.0.w, 6.0.h),
-                  ),
-                  backgroundColor: MaterialStateProperty.all(
-                    ThemeColor.secondaryColor(),
-                  ),
-                  overlayColor: MaterialStateProperty.all(
-                    Colors.white.withOpacity(0.3),
-                  ),
-                ),
-                onPressed: () {
-                  FunctionHelper.confirmDialog(context,
-                      message: LocaleKeys.dialog_message_confirm_order.tr(),
-                      onCancel: () {
-                    Navigator.of(context).pop();
-                  }, onClick: () {
-                    Navigator.pop(context, true);
-                    Usermanager().getUser().then((value) {
-                      bloc.goodsReceived(context,
-                          orderId: orderData.id, token: value.token);
+                  onPressed: () {
+                    FunctionHelper.confirmDialog(context,
+                        message: LocaleKeys.dialog_message_confirm_order.tr(),
+                        onCancel: () {
+                      Navigator.of(context).pop();
+                    }, onClick: () {
+                      Navigator.pop(context, true);
+                      Usermanager().getUser().then((value) {
+                        bloc.goodsReceived(context,
+                            orderId: orderData.id, token: value.token);
+                      });
+                      //  AppRoute.SellerCanceled(context: context,orderData: widget.orderData,typeView: orderViewType);
                     });
-                    //  AppRoute.SellerCanceled(context: context,orderData: widget.orderData,typeView: orderViewType);
-                  });
-                },
-                child: Text(
-                  LocaleKeys.order_detail_accept.tr(),
-                  style: FunctionHelper.fontTheme(
-                      color: Colors.white,
-                      fontSize: SizeUtil.titleFontSize().sp,
-                      fontWeight: FontWeight.w500),
+                  },
+                  child: Text(
+                    LocaleKeys.order_detail_accept.tr(),
+                    style: FunctionHelper.fontTheme(
+                        color: Colors.white,
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.w500),
+                  ),
                 ),
               ),
             ),
@@ -1365,10 +1368,7 @@ class _OrderViewState extends State<OrderView> {
         orderType:
         widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
         id: widget.orderData.id,
-        token: value.token)); Usermanager().getUser().then((value) => bloc.getOrderById(context,
-        orderType:
-        widget.typeView == OrderViewType.Shop ? "myshop/orders" : "order",
-        id: widget.orderData.id,
         token: value.token));
+
   }
 }

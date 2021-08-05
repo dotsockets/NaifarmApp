@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:naifarm/app/bloc/Provider/CustomerCountBloc.dart';
 import 'package:naifarm/app/bloc/Provider/HomeDataBloc.dart';
 import 'package:naifarm/app/bloc/Provider/InfoCustomerBloc.dart';
@@ -22,50 +23,51 @@ import 'package:rxdart/subjects.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SplashView extends StatelessWidget {
+class SplashView extends StatefulWidget {
+
+  @override
+  _SplashViewState createState() => _SplashViewState();
+}
+
+class _SplashViewState extends State<SplashView> {
+
   static const String PATH = '/';
 
-  AnimationController animationController;
-  Animation<double> animation;
+
   ProductBloc bloc;
   final platformVersion = BehaviorSubject<String>();
 
-  // @override
-  // void initState() {
-  //   SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-  //   animationController = new AnimationController(
-  //       vsync: this, duration: new Duration(seconds: 1));
-  //   animation =
-  //       new CurvedAnimation(parent: animationController, curve: Curves.easeOut);
-  //   animation.addListener(() => this.setState(() {}));
-  //   animationController.forward();
-  //   super.initState();
-  // }
+
 
   void _init(BuildContext context) async {
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-    versionName();
-    if (null == bloc) {
-      _delCache();
-      bloc = ProductBloc(AppProvider.getApplication(context));
-      _loadCusCount(context);
-      bloc.onError.stream.listen((event) {
-        Future.delayed(const Duration(milliseconds: 1000), () {
-          AppRoute.connectError(
-              context: context, result: event, showFull: true);
-        });
-      });
-      
-      bloc.onSuccess.stream.listen((event) {
-        if (event is CategoryCombin) {
-          Future.delayed(const Duration(milliseconds: 300), () {
-            startTimer(context);
+        versionName();
+      if(mounted){
+       // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+        if (null == bloc) {
+
+          _delCache();
+          bloc = ProductBloc(AppProvider.getApplication(context));
+          _loadCusCount(context);
+          bloc.onError.stream.listen((event) {
+            Future.delayed(const Duration(milliseconds: 1000), () {
+              AppRoute.connectError(
+                  context: context, result: event, showFull: true);
+            });
           });
-        } else {
-          _loadData(context);
+
+          bloc.onSuccess.stream.listen((event) {
+            if (event is CategoryCombin) {
+              Future.delayed(const Duration(milliseconds: 300), () {
+                startTimer(context);
+              });
+            } else if(event is bool) {
+              _loadData(context);
+            }
+          });
         }
-      });
+
     }
+
   }
 
   void versionName() async {
@@ -82,7 +84,8 @@ class SplashView extends StatelessWidget {
 
   @override
   build(BuildContext context) {
-    _init(context);
+
+   _init(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
@@ -207,28 +210,35 @@ class SplashView extends StatelessWidget {
         key: NaiFarmLocalStorage.naiFarmHiSTORY);
     NaiFarmLocalStorage.deleteCacheByItem(
         key: NaiFarmLocalStorage.naiFarmProductUpload);
+  //  NaiFarmLocalStorage.saveVerifyLanguage(false);
   }
 
   _loadCusCount(BuildContext context) {
+
     Usermanager()
         .getUser()
         .then((value) => bloc.loadCustomerCount(context, token: value.token));
   }
 
   _loadData(BuildContext context) {
-    bloc.getCategoriesAll(
-      context,
-    );
-    Usermanager().getUser().then((value) {
-      context.read<HomeDataBloc>().loadHomeData(
-            context,
-          );
-      Usermanager().getUser().then((value) => context
-          .read<CustomerCountBloc>()
-          .loadCustomerCount(context, token: value.token));
-      Usermanager().getUser().then((value) => context
-          .read<InfoCustomerBloc>()
-          .loadCustomInfo(context, token: value.token));
-    });
+
+
+
+      bloc.getCategoriesAll(
+        context,
+      );
+      Usermanager().getUser().then((value) {
+        context.read<HomeDataBloc>().loadHomeData(
+          context,
+        );
+        Usermanager().getUser().then((value) => context
+            .read<CustomerCountBloc>()
+            .loadCustomerCount(context, token: value.token));
+        Usermanager().getUser().then((value) => context
+            .read<InfoCustomerBloc>()
+            .loadCustomInfo(context, token: value.token));
+      });
+
+
   }
 }

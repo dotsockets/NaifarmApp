@@ -46,7 +46,7 @@ class BannerSlide extends StatelessWidget {
                       imageUrl: item,
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
-                          image: DecorationImage(
+                          image: DecorationImage(scale:1.0,
                               image: imageProvider,
                               fit: BoxFit.cover),
                         ),

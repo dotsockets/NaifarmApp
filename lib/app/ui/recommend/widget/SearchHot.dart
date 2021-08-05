@@ -138,7 +138,7 @@ class SearchHot extends StatelessWidget {
                   : Env.value.noItemUrl,
               imageBuilder: (context, imageProvider) => Container(
                 decoration: BoxDecoration(
-                  image: DecorationImage(
+                  image: DecorationImage(scale:1.0,
                       image: imageProvider),
                 ),
               ),

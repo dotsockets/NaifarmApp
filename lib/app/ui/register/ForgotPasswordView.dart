@@ -142,7 +142,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                     ),
                   ),
                   minimumSize: MaterialStateProperty.all(
-                    Size(SizeUtil.buttonWidth().w, 7.0.h),
+                    Size(SizeUtil.buttonWidth().w, 6.5.h),
                   ),
                   backgroundColor: MaterialStateProperty.all(
                     _phone.text.isNotEmpty && _phone.text.length == 10

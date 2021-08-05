@@ -155,37 +155,34 @@ class SplashLoginView extends StatelessWidget {
             SizedBox(
               height: 4.0.h,
             ),
-            Wrap(
-              children: [
-                Text(LocaleKeys.splashLogin_skip_message.tr() + " ",
-                    style: FunctionHelper.fontTheme(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                        fontSize: SizeUtil.titleFontSize().sp)),
-                SizedBox(
-                  width: 8,
-                ),
-                Column(
-                  children: [
-                    Container(
-                      child: InkWell(
+            GestureDetector(
+              child: Wrap(
+                children: [
+                  Text(LocaleKeys.splashLogin_skip_message.tr() + " ",
+                      style: FunctionHelper.fontTheme(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                          fontSize: SizeUtil.titleFontSize().sp)),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  Column(
+                    children: [
+                      Container(
                         child: Text(LocaleKeys.splashLogin_skip.tr(),
                             style: FunctionHelper.fontTheme(
                                 color: Colors.white,
                                 fontSize: SizeUtil.titleFontSize().sp)),
-                        onTap: () {
-                          // FunctionHelper.showDialogProcess(context);
-                          AppRoute.home(context);
-                        },
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(color: Colors.white, width: 2)),
-                      ),
-                    )
-                  ],
-                )
-              ],
+                        decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(color: Colors.white, width: 2)),
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
+              onTap: ()=>  AppRoute.home(context),
             ),
             SizedBox(height: 5.0.h),
           ],

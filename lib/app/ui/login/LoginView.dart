@@ -193,6 +193,44 @@ class LoginView extends StatelessWidget {
             StreamBuilder(stream: onChang.stream,builder: (context,snapshot){
               return Padding(
                 padding: const EdgeInsets.only(right: 15, left: 15),
+                child: Container(
+                  width: 75.0.w,
+                  child: TextButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40.0),
+                        ),
+                      ),
+                      minimumSize: MaterialStateProperty.all(
+                        Size(SizeUtil.buttonWidth().w, 6.5.h),
+                      ),
+                      backgroundColor: MaterialStateProperty.all(
+                        checkError ? ThemeColor.colorSale() : Colors.grey.shade300,
+                      ),
+                      overlayColor: MaterialStateProperty.all(
+                        Colors.white.withOpacity(0.3),
+                      ),
+                    ),
+                    onPressed: () => _validate(context),
+                    child: Text(
+                      LocaleKeys.btn_login.tr(),
+                      style: FunctionHelper.fontTheme(
+                          color: Colors.white,
+                          fontSize: SizeUtil.titleFontSize().sp,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+              );
+            }),
+            SizedBox(
+              height: 2.5.h,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 15, left: 15),
+              child: Container(
+                width: 75.0.w,
                 child: TextButton(
                   style: ButtonStyle(
                     shape: MaterialStateProperty.all(
@@ -204,54 +242,22 @@ class LoginView extends StatelessWidget {
                       Size(SizeUtil.buttonWidth().w, 6.5.h),
                     ),
                     backgroundColor: MaterialStateProperty.all(
-                      checkError ? ThemeColor.colorSale() : Colors.grey.shade300,
+                      ThemeColor.secondaryColor(),
                     ),
                     overlayColor: MaterialStateProperty.all(
                       Colors.white.withOpacity(0.3),
                     ),
                   ),
-                  onPressed: () => _validate(context),
+                  onPressed: () {
+                    AppRoute.register(context);
+                  },
                   child: Text(
-                    LocaleKeys.btn_login.tr(),
+                    LocaleKeys.btn_register.tr(),
                     style: FunctionHelper.fontTheme(
                         color: Colors.white,
                         fontSize: SizeUtil.titleFontSize().sp,
                         fontWeight: FontWeight.w500),
                   ),
-                ),
-              );
-            }),
-            SizedBox(
-              height: 2.5.h,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 15, left: 15),
-              child: TextButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40.0),
-                    ),
-                  ),
-                  minimumSize: MaterialStateProperty.all(
-                    Size(SizeUtil.buttonWidth().w, 6.5.h),
-                  ),
-                  backgroundColor: MaterialStateProperty.all(
-                    ThemeColor.secondaryColor(),
-                  ),
-                  overlayColor: MaterialStateProperty.all(
-                    Colors.white.withOpacity(0.3),
-                  ),
-                ),
-                onPressed: () {
-                  AppRoute.register(context);
-                },
-                child: Text(
-                  LocaleKeys.btn_register.tr(),
-                  style: FunctionHelper.fontTheme(
-                      color: Colors.white,
-                      fontSize: SizeUtil.titleFontSize().sp,
-                      fontWeight: FontWeight.w500),
                 ),
               ),
             ),

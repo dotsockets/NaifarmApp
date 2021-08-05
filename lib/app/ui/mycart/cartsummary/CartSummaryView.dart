@@ -494,94 +494,94 @@ class _CartSummaryViewState extends State<CartSummaryView> {
           height: 1.0.h,
         ),
 
-        // StreamBuilder(
-        //     stream: bloc.couponList.stream,
-        //     builder: (BuildContext context, AsyncSnapshot<dynamic> snap) {
-        //       if (snap.hasData && (snap.data as CouponResponse).data.isNotEmpty) {
-        //         return Column(
-        //           children: [
-        //             Divider(color: Colors.grey),
-        //             SizedBox(
-        //               height: 1.0.h,
-        //             ),
-        //             InkWell(
-        //               child: Row(
-        //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //                 children: [
-        //                   Row(
-        //                     children: [
-        //                       Image.asset(
-        //                         "assets/images/png/sale_cart.png",
-        //                         width: 5.0.w,
-        //                         height: 5.0.w,
-        //                       ),
-        //                       SizedBox(
-        //                         width: 1.0.h,
-        //                       ),
-        //                       Text(
-        //                         "Discount coupons from the store",
-        //                         style: FunctionHelper.fontTheme(
-        //                             fontSize: SizeUtil.titleFontSize().sp,
-        //                             color: Colors.black),
-        //                       ),
-        //                     ],
-        //                   ),
-        //                   Row(
-        //                     children: [
-        //                       Text(
-        //                         item.coupon != null ? item.coupon.code : "",
-        //                         style: FunctionHelper.fontTheme(
-        //                             fontSize: SizeUtil.titleFontSize().sp,
-        //                             color: Colors.black),
-        //                       ),
-        //                       Icon(
-        //                         Icons.arrow_forward_ios,
-        //                         color: Colors.grey.withOpacity(0.7),
-        //                         size: 4.0.w,
-        //                       )
-        //                     ],
-        //                   ),
-        //                 ],
-        //               ),
-        //               onTap: () {
-        //                 showMaterialModalBottomSheet(
-        //                     context: context,
-        //                     builder: (context) => ModalFitBottomSheet(
-        //                       couponResponse: snap.data,
-        //                       couponData: item.coupon != null
-        //                           ? CouponData(id: item.coupon.id)
-        //                           : null,
-        //                       title: LocaleKeys.coupon_coupon_discount.tr(),
-        //                       cartData: item,
-        //                       onSelectedCoupon: (CouponData selectedData) {
-        //                         Usermanager().getUser().then((value) {
-        //                           bloc.applyCoupon(
-        //                               context: context,
-        //                               token: value.token,
-        //                               cartId: item.id,
-        //                               coupon: selectedData);
-        //                         });
-        //                       },
-        //                       onDeleteCoupon: () {
-        //                         Usermanager().getUser().then((value) {
-        //                           bloc.deleteCartCoupon(
-        //                               context: context,
-        //                               token: value.token,
-        //                               cartId: item.id);
-        //                         });
-        //                       },
-        //                     ));
-        //               },
-        //             ),
-        //             SizedBox(
-        //               height: 2.0.h,
-        //             ),
-        //           ],
-        //         );
-        //       } else {
-        //         return Container();
-        //       }
-        //     }),
+        StreamBuilder(
+            stream: bloc.couponList.stream,
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snap) {
+              if (snap.hasData && (snap.data as CouponResponse).data.isNotEmpty) {
+                return Column(
+                  children: [
+                    Divider(color: Colors.grey),
+                    SizedBox(
+                      height: 1.0.h,
+                    ),
+                    InkWell(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Image.asset(
+                                "assets/images/png/sale_cart.png",
+                                width: 5.0.w,
+                                height: 5.0.w,
+                              ),
+                              SizedBox(
+                                width: 1.0.h,
+                              ),
+                              Text(
+                                "Discount coupons from the store",
+                                style: FunctionHelper.fontTheme(
+                                    fontSize: SizeUtil.titleFontSize().sp,
+                                    color: Colors.black),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                item.coupon != null ? item.coupon.code : "",
+                                style: FunctionHelper.fontTheme(
+                                    fontSize: SizeUtil.titleFontSize().sp,
+                                    color: Colors.black),
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                color: Colors.grey.withOpacity(0.7),
+                                size: 4.0.w,
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      onTap: () {
+                        showMaterialModalBottomSheet(
+                            context: context,
+                            builder: (context) => ModalFitBottomSheet(
+                              couponResponse: snap.data,
+                              couponData: item.coupon != null
+                                  ? CouponData(id: item.coupon.id)
+                                  : null,
+                              title: LocaleKeys.coupon_coupon_discount.tr(),
+                              cartData: item,
+                              onSelectedCoupon: (CouponData selectedData) {
+                                Usermanager().getUser().then((value) {
+                                  bloc.applyCoupon(
+                                      context: context,
+                                      token: value.token,
+                                      cartId: item.id,
+                                      coupon: selectedData);
+                                });
+                              },
+                              onDeleteCoupon: () {
+                                Usermanager().getUser().then((value) {
+                                  bloc.deleteCartCoupon(
+                                      context: context,
+                                      token: value.token,
+                                      cartId: item.id);
+                                });
+                              },
+                            ));
+                      },
+                    ),
+                    SizedBox(
+                      height: 2.0.h,
+                    ),
+                  ],
+                );
+              } else {
+                return Container();
+              }
+            }),
         StreamBuilder(
             stream: bloc.cartList.stream,
             builder: (context, snapshot) {

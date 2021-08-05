@@ -53,6 +53,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
   final _indicatorController = IndicatorController();
   static const _indicatorSize = 50.0;
 
+
   void _init() {
     if (null == bloc) {
       bloc = CartBloc(AppProvider.getApplication(context));
@@ -153,6 +154,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                     builder: (context, snapshot) {
                       if(snapshot.data!=null && snapshot.hasData && checkSelect()){
                         var item = (snapshot.data as CartResponse).data;
+                        // getItem_Check(snapshot.data);
                         return IconButton(
                             padding: EdgeInsets.only(
                                 right: SizerUtil.deviceType == DeviceType.mobile
@@ -163,19 +165,23 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                                 width: 5.0.w,
                                 repeat: true),
                             onPressed: () {
+                              bloc.checkLoop = 0;
+
                               for (var i = 0; i < item.length; i++) {
                                 for (var j = 0; j < item[i].items.length; j++) {
                                   if (item[i].items[j].select) {
                                     Usermanager().getUser().then((value) =>
                                         bloc.deleteCart(
+                                          count_index: sumQuantity(cartResponse: snapshot.data),
                                             context: context,
                                             cartid: item[i].id,
                                             inventoryId: item[i].items[j].inventory.id,
                                             token: value.token));
+
                                   }
                                 }
                               }
-                              // bloc.cartList.add(bloc.cartList.value);
+                             // bloc.cartList.add(bloc.cartList.value);
                             });
                       }else{
                         return SizedBox();
@@ -769,6 +775,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
       onTap: () {
         if (item.items[indexShopItem].inventory.stockQuantity > 0) {
           bloc.cartList.value.data[indexShop].items[indexShopItem].select =
+
           !item.items[indexShopItem].select;
           bloc.cartList.add(bloc.cartList.value);
           checkSelect();
@@ -1077,6 +1084,30 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
 
     ///check select checkbox -> pay btn
   }
+
+  // int getItem_Check(CartResponse data){
+  //   cart_count_temp = 0;
+  //    data.data.forEach((element) {
+  //       cart_count_temp += element.items.length;
+  //    });
+  // }
+
+  // bool checkSelectDel(){
+  //   int count = 0;
+  //   for (var value in bloc.cartList.value.data) {
+  //     for (var value1 in value.items) {
+  //       if (value1.select) {
+  //         count += 1;
+  //       }
+  //     }
+  //   }
+  //   if(count>3)
+  //     return true;
+  //   else
+  //     return false;
+  // }
+
+
 
   void setSelectAll({CartResponse cartResponse, bool selectall}) {
     for (var value in cartResponse.data) {

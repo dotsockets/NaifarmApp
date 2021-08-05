@@ -90,6 +90,7 @@ class SettingProfileView extends StatelessWidget {
                               locale: EasyLocalization.of(context).locale),
                           title: LocaleKeys.setting_account_title_language.tr(),
                           onClick: () {
+
                             AppRoute.settingLanguage(context);
                           },
                         ),
