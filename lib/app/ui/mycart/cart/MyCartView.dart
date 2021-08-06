@@ -426,6 +426,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                                     Usermanager().getUser().then((value) =>
                                         bloc.deleteCart(
                                             context: context,
+                                            count_index: 1,
                                             cartid: item.id,
                                             inventoryId: item
                                                 .items[indexItem].inventory.id,
@@ -1095,28 +1096,6 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
 
     ///check select checkbox -> pay btn
   }
-
-  // int getItem_Check(CartResponse data){
-  //   cart_count_temp = 0;
-  //    data.data.forEach((element) {
-  //       cart_count_temp += element.items.length;
-  //    });
-  // }
-
-  // bool checkSelectDel(){
-  //   int count = 0;
-  //   for (var value in bloc.cartList.value.data) {
-  //     for (var value1 in value.items) {
-  //       if (value1.select) {
-  //         count += 1;
-  //       }
-  //     }
-  //   }
-  //   if(count>3)
-  //     return true;
-  //   else
-  //     return false;
-  // }
 
 
 
