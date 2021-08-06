@@ -172,7 +172,7 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
                                   if (item[i].items[j].select) {
                                     Usermanager().getUser().then((value) =>
                                         bloc.deleteCart(
-                                          count_index: sumQuantity(cartResponse: snapshot.data),
+                                          count_index: sumCountItemDel(cartResponse: snapshot.data),
                                             context: context,
                                             cartid: item[i].id,
                                             inventoryId: item[i].items[j].inventory.id,
@@ -1057,6 +1057,17 @@ class _MyCartViewState extends State<MyCartView> with RouteAware {
       for (int j = 0; j < cartResponse.data[i].items.length; j++)
         if (cartResponse.data[i].items[j].select) {
           sum += cartResponse.data[i].items[j].quantity;
+        }
+    }
+    return sum;
+  }
+
+  int  sumCountItemDel({CartResponse cartResponse}){
+    int sum = 0;
+    for (int i = 0; i < cartResponse.data.length; i++) {
+      for (int j = 0; j < cartResponse.data[i].items.length; j++)
+        if (cartResponse.data[i].items[j].select) {
+          sum += 1;
         }
     }
     return sum;

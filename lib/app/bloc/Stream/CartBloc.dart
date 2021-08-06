@@ -76,6 +76,8 @@ class CartBloc {
               if (value.inventory.id == cart_select.id) {
                 value.select = true;
                 // break;
+              }else{
+                value.select = false;
               }
             }
           }
