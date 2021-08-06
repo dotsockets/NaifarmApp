@@ -1,14 +1,14 @@
 {
     "os": {
         "android": {
-            "version": "2.1.5",
+            "version": "2.1.6",
             "releaseNote": {
                 "en": "Improve Login with Facebook  Confirm By Native App\nImprove Notification Badges\nVersion Update Notification",
                 "th": "อัพเดตการเข้าสู่ระบบด้วย facebook\nปรับปรุงการแจ้งเตือน\nการแจ้งเตือนการอัปเดตเวอร์ชัน"
             }
         },
         "ios": {
-            "version": "2.1.5",
+            "version": "2.1.6",
             "releaseNote": {
                 "en": "Improve Login with Facebook  Confirm By Native App\nImprove Notification Badges\nVersion Update Notification",
                 "th": "อัพเดตการเข้าสู่ระบบด้วย facebook\nปรับปรุงการแจ้งเตือน\nการแจ้งเตือนการอัปเดตเวอร์ชัน"
