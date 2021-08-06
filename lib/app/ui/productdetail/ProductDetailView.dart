@@ -487,39 +487,37 @@ class _ProductDetailViewState extends State<ProductDetailView>
                               (snapshot.data as SearchRespone) != null) {
                             if ((snapshot.data as SearchRespone).hits.length >
                                 0) {
-                              return Column(
-                                children:[
-                                  divider(),
-                                  ProductLandscape(
-                                    subFixId: subFixId,
-                                    productRespone: bloc.convertSearchData(
-                                        item: snapshot.data as SearchRespone),
-                                    titleInto: LocaleKeys.recommend_you_like.tr(),
-                                    producViewModel:
-                                    ProductViewModel().getBestSaller(),
-                                    imageIcon: 'assets/images/png/like.png',
-                                    iconSize: 5.0.w,
-                                    onSelectMore: () {
-                                      AppRoute.productMore(
-                                          context: context,
-                                          apiLink:
-                                          "products/types/popular?categoryGroupId=${item.categories[0].category.categorySubGroup.categoryGroup.id}",
-                                          barTxt:
-                                          LocaleKeys.recommend_you_like.tr());
-                                    },
-                                    onTapItem: (ProductData item, int index) {
-                                      item.stockQuantity = 1;
-                                      AppRoute.productDetail(context,
-                                          productImage:
-                                          "product_detail_${item.id}$subFixId",
-                                          productItem:
-                                          ProductBloc.convertDataToProduct(
-                                              data: item));
-                                    },
-                                    tagHero: "product_detail",
-                                  )
-                                ]
-                              );
+                              return Column(children: [
+                                divider(),
+                                ProductLandscape(
+                                  subFixId: subFixId,
+                                  productRespone: bloc.convertSearchData(
+                                      item: snapshot.data as SearchRespone),
+                                  titleInto: LocaleKeys.recommend_you_like.tr(),
+                                  producViewModel:
+                                      ProductViewModel().getBestSaller(),
+                                  imageIcon: 'assets/images/png/like.png',
+                                  iconSize: 5.0.w,
+                                  onSelectMore: () {
+                                    AppRoute.productMore(
+                                        context: context,
+                                        apiLink:
+                                            "products/types/popular?categoryGroupId=${item.categories[0].category.categorySubGroup.categoryGroup.id}",
+                                        barTxt:
+                                            LocaleKeys.recommend_you_like.tr());
+                                  },
+                                  onTapItem: (ProductData item, int index) {
+                                    item.stockQuantity = 1;
+                                    AppRoute.productDetail(context,
+                                        productImage:
+                                            "product_detail_${item.id}$subFixId",
+                                        productItem:
+                                            ProductBloc.convertDataToProduct(
+                                                data: item));
+                                  },
+                                  tagHero: "product_detail",
+                                )
+                              ]);
                             } else {
                               return SizedBox();
                             }
@@ -578,9 +576,9 @@ class _ProductDetailViewState extends State<ProductDetailView>
             }),
         widget.productItem.image != null ? divider() : SizedBox(),
         //BuildChoosesize(),
-      //  divider(),
-        _buildAttr(item.image),
-       divider(),
+        //  divider(),
+        //   _buildAttr(item.image),
+        //   divider(),
         InkWell(
           child: ShopOwn(
               rateStyle: true,
@@ -768,113 +766,36 @@ class _ProductDetailViewState extends State<ProductDetailView>
                         ),
                         Expanded(
                             child: Center(
-                          child: InkWell(
-                            child: Stack(
-                              children: [
-                                // Transform.translate(
-                                //   offset: animation.value,
-                                //   child: Container(
-                                //     child: Image.network(
-                                //         "${Env.value.baseUrl}/storage/images/${widget.productItem.image.isNotEmpty ? widget.productItem.image[0].path : ''}"),
-                                //     width: 10.0.w,
-                                //     height: 10.0.w,
-                                //   ),
-                                // ),
-                                Container(
-                                  color: Colors.white,
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.shopping_cart_outlined,
-                                        color: ThemeColor.primaryColor(),
-                                        size: SizeUtil.iconFooterSize().w,
-                                      ),
-                                      SizedBox(height: 1.0),
-                                      Text(
-                                        LocaleKeys.cart_add_cart.tr(),
-                                        style: FunctionHelper.fontTheme(
-                                            fontSize:
-                                                SizeUtil.titleSmallFontSize()
-                                                    .sp,
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                            onTap: () {
-                              if (isLogin) {
-                                List<Items> items = <Items>[];
-                                items.add(Items(
-                                    inventoryId: bloc.zipProductDetail.value
-                                        .inventories[0].id,
-                                    quantity: 1));
-                                Usermanager()
-                                    .getUser()
-                                    .then((value) => bloc.addCartlists(context,
-                                        onload: true,
-                                        cartRequest: CartRequest(
-                                          shopId:
-                                              widget.productItem.shop != null
-                                                  ? widget.productItem.shop.id
-                                                  : 0,
-                                          items: items,
-                                        ),
-                                        token: value.token));
-                              } else {
-                                AppRoute.login(context,
-                                    isCallBack: true,
-                                    isHeader: true,
-                                    isSetting: false, homeCallBack: (bool fix) {
-                                  //print("wefcrewfcrefc $fix");
-                                });
-                              }
-                            },
-                          ),
+                          child: StreamBuilder(
+                              stream: bloc.zipProductDetail.stream,
+                              builder: (BuildContext context,
+                                  AsyncSnapshot snapshot) {
+                                var item = (snapshot.data as ProducItemRespone);
+                                if (snapshot.hasData &&
+                                    item != null &&
+                                    item.inventories[0].id != null) {
+                                  return addToCartIcon(true);
+                                } else {
+                                  return addToCartIcon(false);
+                                }
+                              }),
                         )),
                         Expanded(
                             flex: 2,
-                            child: InkWell(
-                                onTap: () {
-                                  if (isLogin) {
-                                    List<Items> items = <Items>[];
-                                    items.add(Items(
-                                        inventoryId: bloc.zipProductDetail.value
-                                            .inventories[0].id,
-                                        quantity: 1));
-                                    Usermanager().getUser().then(
-                                        (value) => bloc.addCartlists(context,
-                                            addNow: true,
-                                            onload: true,
-                                            cartRequest: CartRequest(
-                                              shopId: widget.productItem.shop !=
-                                                      null
-                                                  ? widget.productItem.shop.id
-                                                  : 0,
-                                              items: items,
-                                            ),
-                                            token: value.token));
+                            child: StreamBuilder(
+                                stream: bloc.zipProductDetail.stream,
+                                builder: (BuildContext context,
+                                    AsyncSnapshot snapshot) {
+                                  var item =
+                                      (snapshot.data as ProducItemRespone);
+                                  if (snapshot.hasData &&
+                                      item != null &&
+                                      item.inventories[0].id != null) {
+                                    return bayNowIcon(true);
                                   } else {
-                                    AppRoute.login(context,
-                                        isCallBack: true,
-                                        isHeader: true,
-                                        isSetting: false,
-                                        homeCallBack: (bool fix) {});
+                                    return bayNowIcon(false);
                                   }
-                                },
-                                child: Container(
-                                    alignment: Alignment.center,
-                                    height: 8.0.h,
-                                    color: ThemeColor.colorSale(),
-                                    child: Text(LocaleKeys.btn_buy_product.tr(),
-                                        style: FunctionHelper.fontTheme(
-                                            fontSize:
-                                                SizeUtil.titleFontSize().sp,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white)))))
+                                }))
                       ],
                     ),
                   ),
@@ -885,6 +806,104 @@ class _ProductDetailViewState extends State<ProductDetailView>
             })
         : SizedBox();
   }
+
+  Widget bayNowIcon(bool enable)=> InkWell(
+      onTap: () {
+        if (isLogin) {
+          if(enable){
+          List<Items> items = <Items>[];
+          items.add(Items(
+              inventoryId: bloc.zipProductDetail.value
+                  .inventories[0].id,
+              quantity: 1));
+          Usermanager().getUser().then(
+                  (value) => bloc.addCartlists(context,
+                  addNow: true,
+                  onload: true,
+                  cartRequest: CartRequest(
+                    shopId: widget.productItem.shop !=
+                        null
+                        ? widget.productItem.shop.id
+                        : 0,
+                    items: items,
+                  ),
+                  token: value.token));
+          }
+        } else {
+          AppRoute.login(context,
+              isCallBack: true,
+              isHeader: true,
+              isSetting: false,
+              homeCallBack: (bool fix) {});
+        }
+      },
+      child: Container(
+          alignment: Alignment.center,
+          height: 8.0.h,
+          color: enable?ThemeColor.colorSale():Colors.red.shade100,
+          child: Text(LocaleKeys.btn_buy_product.tr(),
+              style: FunctionHelper.fontTheme(
+                  fontSize:
+                  SizeUtil.titleFontSize().sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white))));
+
+  Widget addToCartIcon(bool enable) => InkWell(
+        child: Stack(
+          children: [
+            Container(
+              color: Colors.white,
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.shopping_cart_outlined,
+                    color: enable
+                        ? ThemeColor.primaryColor()
+                        : Colors.grey.shade300,
+                    size: SizeUtil.iconFooterSize().w,
+                  ),
+                  SizedBox(height: 1.0),
+                  Text(
+                    LocaleKeys.cart_add_cart.tr(),
+                    style: FunctionHelper.fontTheme(
+                        color: enable ? Colors.black : Colors.grey.shade300,
+                        fontSize: SizeUtil.titleSmallFontSize().sp,
+                        fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+        onTap: () {
+          if (isLogin) {
+            if (enable) {
+              List<Items> items = <Items>[];
+              items.add(Items(
+                  inventoryId: bloc.zipProductDetail.value.inventories[0].id,
+                  quantity: 1));
+              Usermanager().getUser().then((value) => bloc.addCartlists(context,
+                  onload: true,
+                  cartRequest: CartRequest(
+                    shopId: widget.productItem.shop != null
+                        ? widget.productItem.shop.id
+                        : 0,
+                    items: items,
+                  ),
+                  token: value.token));
+            }
+          } else {
+            AppRoute.login(context,
+                isCallBack: true,
+                isHeader: true,
+                isSetting: false, homeCallBack: (bool fix) {
+              //print("wefcrewfcrefc $fix");
+            });
+          }
+        },
+      );
 
   Widget divider() {
     return Container(
