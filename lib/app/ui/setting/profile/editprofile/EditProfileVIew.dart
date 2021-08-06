@@ -102,7 +102,7 @@ class EditProfileVIew extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         SliverAppBar(
-          toolbarHeight: 5.5.h,
+        //  toolbarHeight: 5.5.h,
           leading: Container(
               margin: EdgeInsets.only(left: 1.5.w),
               child: IconButton(
@@ -123,7 +123,7 @@ class EditProfileVIew extends StatelessWidget {
                   Navigator.pop(context, onImageUpdate);
                 },
               )),
-          expandedHeight: SizeUtil.headerHeight().h,
+          expandedHeight: SizeUtil.meBodyHeight(240),
           flexibleSpace: FlexibleSpaceBar(
             background: Container(
               decoration: BoxDecoration(
