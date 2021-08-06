@@ -134,32 +134,35 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             ),
             Padding(
               padding: const EdgeInsets.only(right: 15, left: 15),
-              child: TextButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40.0),
+              child: Container(
+                width: 70.0.w,
+                child: TextButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40.0),
+                      ),
+                    ),
+                    minimumSize: MaterialStateProperty.all(
+                      Size(SizeUtil.buttonWidth().w, 6.5.h),
+                    ),
+                    backgroundColor: MaterialStateProperty.all(
+                      _phone.text.isNotEmpty && _phone.text.length == 10
+                          ? ThemeColor.secondaryColor()
+                          : Colors.grey.shade300,
+                    ),
+                    overlayColor: MaterialStateProperty.all(
+                      Colors.white.withOpacity(0.3),
                     ),
                   ),
-                  minimumSize: MaterialStateProperty.all(
-                    Size(SizeUtil.buttonWidth().w, 6.5.h),
+                  onPressed: () => _validate(),
+                  child: Text(
+                    LocaleKeys.btn_continue.tr(),
+                    style: FunctionHelper.fontTheme(
+                        color: Colors.white,
+                        fontSize: SizeUtil.titleFontSize().sp,
+                        fontWeight: FontWeight.w500),
                   ),
-                  backgroundColor: MaterialStateProperty.all(
-                    _phone.text.isNotEmpty && _phone.text.length == 10
-                        ? ThemeColor.secondaryColor()
-                        : Colors.grey.shade300,
-                  ),
-                  overlayColor: MaterialStateProperty.all(
-                    Colors.white.withOpacity(0.3),
-                  ),
-                ),
-                onPressed: () => _validate(),
-                child: Text(
-                  LocaleKeys.btn_continue.tr(),
-                  style: FunctionHelper.fontTheme(
-                      color: Colors.white,
-                      fontSize: SizeUtil.titleFontSize().sp,
-                      fontWeight: FontWeight.w500),
                 ),
               ),
             ),
