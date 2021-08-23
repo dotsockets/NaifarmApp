@@ -996,6 +996,10 @@ class ProductBloc {
       if (respone.httpCallBack.status == 200 ||
           respone.httpCallBack.status == 401 ||
           respone.httpCallBack.status == 406) {
+        if(respone.httpCallBack.status == 406){
+          Usermanager().logout();
+        }
+
         onSuccess.add(true);
       } else {
         onError.add(respone.httpCallBack);
