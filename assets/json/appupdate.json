@@ -1,17 +1,18 @@
+
 {
     "os": {
         "android": {
-            "version": "2.1.5",
+            "version": "2.1.7",
             "releaseNote": {
-                "en": "Improve Login with Facebook  Confirm By Native App\nImprove Notification Badges\nVersion Update Notification",
-                "th": "อัพเดตการเข้าสู่ระบบด้วย facebook\nปรับปรุงการแจ้งเตือน\nการแจ้งเตือนการอัปเดตเวอร์ชัน"
+                "en": "Improve Login with Facebook  Confirm By Native App\nImprove Notification Badges\nVersion Update Notification\nimprove member token logout case -> http 406",
+                "th": "อัพเดตการเข้าสู่ระบบด้วย facebook\nปรับปรุงการแจ้งเตือน\nการแจ้งเตือนการอัปเดตเวอร์ชัน\nปรับปรุงกรณีออกจากระบบโทเค็นของสมาชิก -> http 406"
             }
         },
         "ios": {
-            "version": "2.1.5",
+            "version": "2.1.7",
             "releaseNote": {
-                "en": "Improve Login with Facebook  Confirm By Native App\nImprove Notification Badges\nVersion Update Notification",
-                "th": "อัพเดตการเข้าสู่ระบบด้วย facebook\nปรับปรุงการแจ้งเตือน\nการแจ้งเตือนการอัปเดตเวอร์ชัน"
+                "en": "Improve Login with Facebook  Confirm By Native App\nImprove Notification Badges\nVersion Update Notification\nimprove member token logout case -> http 406",
+                "th": "อัพเดตการเข้าสู่ระบบด้วย facebook\nปรับปรุงการแจ้งเตือน\nการแจ้งเตือนการอัปเดตเวอร์ชัน\nปรับปรุงกรณีออกจากระบบโทเค็นของสมาชิก -> http 406"
             }
         }
     }
